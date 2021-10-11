@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Hotelier.iml" filepath="$PROJECT_DIR$/.idea/modules/Hotelier.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Hotelier.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Hotelier.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/course-project-xep-cgamerzx.iml" filepath="$PROJECT_DIR$/.idea/course-project-xep-cgamerzx.iml" />
     </modules>
   </component>
 </project>
