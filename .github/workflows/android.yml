@@ -1,4 +1,4 @@
-    name: GitHub Classroom Workflow
+    name: GitHub Android Build and Test Workflow
 
 
     on: [push]
@@ -22,5 +22,4 @@
             
             - name: Build with Gradle
               run: ./gradlew build        
-          
-            - uses: education/autograding@v1
+      
