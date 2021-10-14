@@ -16,5 +16,10 @@
                 java-version: 1.11
                 
             - uses: actions/checkout@v2
-            - uses: android-actions/setup-android@v2.0.2
+            - uses: maxim-lobanov/setup-android-tools@v1
+              with:
+                packages: |
+                  platforms;android-29
+                  platforms;android-30
+                  system-images;android-30;google_apis;x86
             - uses: education/autograding@v1
