@@ -22,4 +22,8 @@
                   platforms;android-29
                   platforms;android-30
                   system-images;android-30;google_apis;x86
+            
+            - name: Build with Gradle
+              run: ./gradlew build        
+          
             - uses: education/autograding@v1
