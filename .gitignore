@@ -98,3 +98,4 @@ fabric.properties
 
 # Anythign local
 **/local**
+local.properties
