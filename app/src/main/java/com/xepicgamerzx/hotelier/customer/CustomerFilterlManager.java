@@ -7,7 +7,7 @@ import com.xepicgamerzx.hotelier.storage.HotelManager;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-public class CustomerHotelManager {
+public class CustomerFilterlManager {
 
     /** Returns a string describing the rooms that match the requirements of the customer request.
      *
