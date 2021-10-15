@@ -28,6 +28,10 @@ public class Hotel {
     }
 
 
+    public List<Room> getRooms() {
+        return this.rooms;
+    }
+
     /**
      * Checks every room in a hotel, finds the cheapest, and most expensive room and returns the price range.
      * @return an array in the format of {minPrice, maxPrice}
