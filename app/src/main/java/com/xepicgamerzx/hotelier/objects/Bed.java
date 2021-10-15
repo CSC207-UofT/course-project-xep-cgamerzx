@@ -2,8 +2,8 @@ package com.xepicgamerzx.hotelier.objects;
 
 public class Bed {
 
-    private String size;
-    private Room room;
+    private final String size;
+    private final Room room;
     /**
      * Creates a new Bed
      * @param size a string representing the size of the bed

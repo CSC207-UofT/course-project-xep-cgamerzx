@@ -2,13 +2,13 @@ package com.xepicgamerzx.hotelier.objects;
 
 public class Address {
 
-    private String streetName;
-    private String postalCode;
-    private String streetNumber;
-    private String city;
-    private String province;
-    private String longitude;
-    private String latitude;
+    private final String streetName;
+    private final String postalCode;
+    private final String streetNumber;
+    private final String city;
+    private final String province;
+    private final String longitude;
+    private final String latitude;
 
     /**
      * Creates a new Address

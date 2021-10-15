@@ -6,11 +6,11 @@ import java.util.ArrayList;
 
 public class Room {
 
-    private LocalDate[] schedule;
-    private int capacity;
-    private ArrayList<Bed> beds;
-    private Hotel hotel;
-    private roomAmenities roomAmenities;
+    private final LocalDate[] schedule;
+    private final int capacity;
+    private final ArrayList<Bed> beds;
+    private final Hotel hotel;
+    private final roomAmenities roomAmenities;
 
 
     // Theres no tuples in Java so I did an array with 2 spots corresponding to the first day of

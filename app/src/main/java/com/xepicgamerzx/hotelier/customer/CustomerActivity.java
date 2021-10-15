@@ -1,8 +1,8 @@
 package com.xepicgamerzx.hotelier.customer;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.xepicgamerzx.hotelier.R;
 

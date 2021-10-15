@@ -4,11 +4,11 @@ import java.util.ArrayList;
 
 public class Hotel {
 
-    private String name;
-    private Address address;
-    private ArrayList<Room> rooms;
-    private HotelAmenities amenities;
-    private int starClass;
+    private final String name;
+    private final Address address;
+    private final ArrayList<Room> rooms;
+    private final HotelAmenities amenities;
+    private final int starClass;
 
     /**
      * Create a new Hotel
