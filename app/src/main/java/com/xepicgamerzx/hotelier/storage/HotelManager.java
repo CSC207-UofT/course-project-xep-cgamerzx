@@ -14,4 +14,8 @@ public class HotelManager {
     public void getAllHotels() {
 
     }
+
+    public void getAllRooms(){
+
+    }
 }

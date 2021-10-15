@@ -18,6 +18,8 @@ class RoomsReturnFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+
+        String roomsText = getArguments().getString("edttext");
         return inflater.inflate(R.layout.fragment_rooms_return, container, false);
     }
 }
