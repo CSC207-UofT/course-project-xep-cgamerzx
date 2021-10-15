@@ -16,6 +16,7 @@ public class CustomerHotelManager {
      */
     public String returnStringRooms() throws NoSuchMethodException {
         throw new NoSuchMethodException();
+        //TODO just use the to string methods and concat them with added lines between them
     }
 
     /*** Returns an array list of rooms that match the requirements of the customer request.

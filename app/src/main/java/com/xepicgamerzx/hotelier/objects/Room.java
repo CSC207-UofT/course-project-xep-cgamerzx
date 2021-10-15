@@ -1,6 +1,5 @@
 package com.xepicgamerzx.hotelier.objects;
 
-import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -10,7 +9,7 @@ public class Room {
     private int capacity;
     private ArrayList<Bed> beds;
     private Hotel hotel;
-    private roomAmenities roomAmenities;
+    private RoomAmenities roomAmenities;
     private double price;
 
     // Theres no tuples in Java so I did an array with 2 spots corresponding to the first day of
