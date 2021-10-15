@@ -7,9 +7,11 @@
         <entry key="..\:/course/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/course/app/src/main/res/layout/activity_management.xml" value="0.9" />
         <entry key="..\:/course/app/src/main/res/layout/content_main.xml" value="0.55" />
+        <entry key="..\:/course/app/src/main/res/layout/fragment_hotel.xml" value="0.49270833333333336" />
         <entry key="..\:/course/app/src/main/res/layout/fragment_hotel_list.xml" value="0.45260416666666664" />
         <entry key="..\:/course/app/src/main/res/layout/fragment_hotel_list_list.xml" value="0.43854166666666666" />
         <entry key="..\:/course/app/src/main/res/layout/fragment_room.xml" value="0.3390625" />
+        <entry key="..\:/course/app/src/main/res/layout/fragment_rooms_return.xml" value="0.49270833333333336" />
         <entry key="..\:/course/app/src/main/res/layout/fragment_second.xml" value="0.43854166666666666" />
       </map>
     </option>
