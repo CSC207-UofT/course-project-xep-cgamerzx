@@ -136,8 +136,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="600dp"
                 android:text="Save"
-                android:textAlignment="center"
-                />
+                android:textAlignment="center" />
 
             <Button
                 android:id="@+id/cancelRoomBtn"
@@ -146,22 +145,34 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="660dp"
                 android:text="Cancel"
-                android:textAlignment="center"
-                />
+                android:textAlignment="center" />
 
-            <!--Empty text for scrolling purpose-->
+
             <TextView
-                android:id="@+id/empty"
+                android:id="@+id/dateSelector"
+                android:layout_width="248dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/availabilityBtn"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="80dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="80dp"
+                android:layout_centerHorizontal="true"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/emptyText2"
                 android:layout_width="wrap_content"
                 android:layout_height="60dp"
                 android:layout_centerHorizontal="true"
+                android:layout_marginTop="800dp"
                 android:ems="10"
-                android:text=""
-                android:inputType="textPersonName"
                 android:textAlignment="center"
 
                 />
-
         </RelativeLayout>
     </ScrollView>
 

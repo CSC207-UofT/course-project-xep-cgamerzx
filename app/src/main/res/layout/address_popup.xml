@@ -10,8 +10,8 @@
     >
 
     <ScrollView
-        android:layout_width="421dp"
-        android:layout_height="572dp"
+        android:layout_width="424dp"
+        android:layout_height="600dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -172,7 +172,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="510dp"
-                android:layout_marginEnd="168dp"
+                android:layout_marginEnd="172dp"
 
                 android:text="Cancel"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -182,6 +182,20 @@
                 app:layout_constraintTop_toBottomOf="@+id/longAndLat"
                 app:layout_constraintVertical_bias="0.105" />
 
+            <TextView
+                android:id="@+id/emptyText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginTop="800dp"
+                android:gravity="center_horizontal"
+                android:textAlignment="center"
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+
+                />
         </RelativeLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

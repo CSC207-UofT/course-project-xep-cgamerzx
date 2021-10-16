@@ -3,7 +3,7 @@ package com.xepicgamerzx.hotelier.objects;
 public class Bed {
 
     private String size;
-    private Room room;
+    public Room room;
 
     /**
      * Creates a new Bed
@@ -20,5 +20,13 @@ public class Bed {
      */
     public void setRoom(Room room) {
         this.room = room;
+    }
+
+    public Room getRoom() {
+        if (this.room != null) {
+            return this.room;
+        }
+
+        return null;
     }
 }

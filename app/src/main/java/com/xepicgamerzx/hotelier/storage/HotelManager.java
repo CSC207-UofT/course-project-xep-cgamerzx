@@ -7,13 +7,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HotelManager {
-    private List<Hotel> hotels;
+    private static ArrayList<Hotel> hotels = new ArrayList<Hotel>();
 
-    public HotelManager(List<Hotel> hotels) {
-        this.hotels = hotels;
+    public void addHotel(Hotel hotel) {
+        if (!(hotels.contains(hotel))) {
+            hotels.add(hotel);
+        }
     }
 
-    public List<Hotel> getAllHotels() {
+    public ArrayList<Hotel> getAllHotels() {
         return this.hotels;
     }
 
