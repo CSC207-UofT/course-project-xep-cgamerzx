@@ -10,6 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Hotelier" >
         <activity
+            android:name=".customer.activity_hotel_description_rooms"
+            android:exported="false" />
+        <activity
+            android:name=".customer.HotelListActivity"
+            android:exported="false" />
+        <activity
             android:name=".customer.CustomerActivity"
             android:exported="false" />
         <activity

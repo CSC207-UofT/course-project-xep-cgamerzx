@@ -23,6 +23,7 @@ gradle-app.setting
 .idea/**/usage.statistics.xml
 .idea/**/dictionaries
 .idea/**/shelf
+.idea/**/misc.xml
 
 # AWS User-specific
 .idea/**/aws.xml
