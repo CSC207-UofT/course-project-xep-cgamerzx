@@ -2,6 +2,7 @@ package com.xepicgamerzx.hotelier.objects;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class Room {
 
@@ -52,7 +53,7 @@ public class Room {
 
     /**
      * A room has a reference to a hotel. This method sets the hotel that the room is in.
-     * @param hotel
+     * @param hotel Hotel object the room belongs to.
      *
      */
     public void setHotel(Hotel hotel) {
@@ -61,7 +62,7 @@ public class Room {
 
     @Override
     public String toString() {
-        return String.format("Schedule: (%s, %s) \nCapacity: %d \nBeds: %s \nPrice: %d",
+        return String.format(Locale.CANADA,"Schedule: (%s, %s) \nCapacity: %d \nBeds: %s \nPrice: %d",
                 this.getSchedule()[0], this.getSchedule()[1], this.capacity, this.beds, this.price);
     }
 
