@@ -9,154 +9,179 @@
     android:orientation="vertical"
     >
 
-    <ImageView
-        android:id="@+id/newlisticon"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-
-        android:background="@drawable/ic_baseline_add_location_24"
+    <ScrollView
+        android:layout_width="421dp"
+        android:layout_height="572dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.027" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <EditText
-        android:id="@+id/streetNum"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:layout_marginBottom="1dp"
+            android:orientation="vertical">
 
-        android:hint="Street Number"
-        android:textAlignment="center"
-        android:gravity="center_horizontal"
-        android:layout_marginTop="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/newlisticon"
+            <ImageView
+                android:id="@+id/newlisticon"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/ic_baseline_add_location_24"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.027" />
 
-        android:textSize="24sp"
+            <EditText
+                android:id="@+id/streetNum"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
 
-        />
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="160dp"
+                android:gravity="center_horizontal"
+                android:hint="Street Number"
+                android:textAlignment="center"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/newlisticon"
 
-    <EditText
-        android:id="@+id/streetName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+                />
 
-        android:hint="Street Name"
-        android:textAlignment="center"
-        android:gravity="center_horizontal"
-        android:layout_marginTop="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/streetNum"
+            <EditText
+                android:id="@+id/streetName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
 
-        android:textSize="24sp"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="210dp"
+                android:gravity="center_horizontal"
+                android:hint="Street Name"
+                android:textAlignment="center"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/streetNum"
 
-        />
+                />
 
-    <EditText
-        android:id="@+id/city"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+            <EditText
+                android:id="@+id/city"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
 
-        android:hint="City"
-        android:textAlignment="center"
-        android:gravity="center_horizontal"
-        android:layout_marginTop="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/streetName"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="260dp"
+                android:gravity="center_horizontal"
+                android:hint="City"
+                android:textAlignment="center"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/streetName"
 
-        android:textSize="24sp"
+                />
 
-        />
+            <EditText
+                android:id="@+id/province"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
 
-    <EditText
-        android:id="@+id/province"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="310dp"
+                android:gravity="center_horizontal"
+                android:hint="Province"
+                android:textAlignment="center"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/city"
 
-        android:hint="Province"
-        android:textAlignment="center"
-        android:gravity="center_horizontal"
-        android:layout_marginTop="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/city"
+                />
 
-        android:textSize="24sp"
+            <EditText
+                android:id="@+id/postalCode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
 
-        />
+                android:layout_marginTop="360dp"
+                android:gravity="center_horizontal"
+                android:hint="Postal Code"
+                android:textAlignment="center"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
 
-    <EditText
-        android:id="@+id/postalCode"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/province"
 
-        android:hint="Postal Code"
-        android:textAlignment="center"
-        android:gravity="center_horizontal"
-        android:layout_marginTop="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/province"
+                />
 
-        android:textSize="24sp"
-
-        />
-
-    <EditText
-        android:id="@+id/longAndLat"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
-
-        android:layout_marginTop="20dp"
-        android:hint="Longitude, Latitude"
-        android:textAlignment="center"
-        android:gravity="center_horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/postalCode"
-
-        android:textSize="24sp"
-
-        />
-
-    <Button
-        android:id="@+id/saveButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Save"
-        app:layout_constraintBottom_toBottomOf="parent"
-
-
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.687"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/longAndLat"
-        app:layout_constraintVertical_bias="0.105" />
-
-    <Button
-        android:id="@+id/cancelButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Cancel"
-        app:layout_constraintBottom_toBottomOf="parent"
+            <EditText
+                android:id="@+id/longAndLat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
 
 
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.323"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/longAndLat"
-        app:layout_constraintVertical_bias="0.105" />
+                android:layout_marginTop="410dp"
+                android:gravity="center_horizontal"
+                android:hint="Longitude, Latitude"
+                android:textAlignment="center"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
 
+                app:layout_constraintTop_toBottomOf="@+id/postalCode"
+
+                />
+
+            <Button
+                android:id="@+id/saveButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="160dp"
+                android:layout_marginTop="460dp"
+
+                android:text="Save"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.687"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/longAndLat"
+                app:layout_constraintVertical_bias="0.105" />
+
+            <Button
+                android:id="@+id/cancelButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="510dp"
+                android:layout_marginEnd="168dp"
+
+                android:text="Cancel"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.323"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/longAndLat"
+                app:layout_constraintVertical_bias="0.105" />
+
+        </RelativeLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

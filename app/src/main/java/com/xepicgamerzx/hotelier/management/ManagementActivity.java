@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -25,6 +26,7 @@ public class ManagementActivity extends AppCompatActivity {
     private TextInputEditText nameInput;
     private Button submitButton;
     private Button addAddressButton;
+    private Button addRoomsBtn;
     private TextView successText;
 
     private AlertDialog.Builder dialogBuilder;
@@ -32,6 +34,8 @@ public class ManagementActivity extends AppCompatActivity {
     private EditText streetNum, streetName, city, province, postalCode, longLat;
     private Button saveButton, cancelButton;
 
+    private EditText capacityIn, bedSizeIn, totalBedsIn, priceIn;
+    private Button availabilityBtn, addBedsBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +46,8 @@ public class ManagementActivity extends AppCompatActivity {
         submitButton = (Button) findViewById(R.id.submit);
         addAddressButton = (Button) findViewById(R.id.addAddressBtn);
         successText = (TextView) findViewById(R.id.successTxt);
+        addRoomsBtn = (Button) findViewById(R.id.addRoomsBtn);
+
 
         // Getting the data.
         submitButton.setOnClickListener(new View.OnClickListener() {
@@ -58,6 +64,13 @@ public class ManagementActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 createNewAddressDialog();
+            }
+        });
+
+        addRoomsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createRoomsDialog();
             }
         });
     }
@@ -123,6 +136,22 @@ public class ManagementActivity extends AppCompatActivity {
           }
 
         );
+    }
+
+    public void createRoomsDialog() {
+        dialogBuilder = new AlertDialog.Builder(this);
+        final View roomsPopUpView = getLayoutInflater().inflate(R.layout.add_rooms_popup, null);
+
+        availabilityBtn = (Button) roomsPopUpView.findViewById(R.id.availabilityBtn);
+        capacityIn = (EditText) roomsPopUpView.findViewById(R.id.capacityIn);
+        bedSizeIn = (EditText) roomsPopUpView.findViewById(R.id.bedSizeIn);
+        totalBedsIn = (EditText) roomsPopUpView.findViewById(R.id.numberOfBedsIn);
+        addBedsBtn = (Button) roomsPopUpView.findViewById(R.id.addBedsBtn);
+        priceIn = (EditText) roomsPopUpView.findViewById(R.id.priceIn);
+
+        dialogBuilder.setView(roomsPopUpView);
+        dialog = dialogBuilder.create();
+        dialog.show();
     }
 
 }
