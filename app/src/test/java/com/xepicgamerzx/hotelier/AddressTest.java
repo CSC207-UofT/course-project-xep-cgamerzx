@@ -2,8 +2,11 @@ package com.xepicgamerzx.hotelier;
 
 import org.junit.Test;
 import com.xepicgamerzx.hotelier.objects.Address;
+import com.xepicgamerzx.hotelier.storage.FileReadWrite;
 
 import static org.junit.Assert.*;
+
+import java.io.IOException;
 
 public class AddressTest {
 
@@ -22,4 +25,10 @@ public class AddressTest {
         assertEquals(e.getFullStreet(), actual);
 
     }
+
+//    @Test
+//    public void test() throws IOException {
+//        FileReadWrite fw = new FileReadWrite();
+//        System.out.println((fw.readFile()));
+//    }
 }
