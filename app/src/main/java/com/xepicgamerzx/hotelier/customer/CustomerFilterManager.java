@@ -6,8 +6,46 @@ import com.xepicgamerzx.hotelier.storage.HotelManager;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class CustomerFilterManager {
+
+
+    public List<Hotel> sortHotelsByPrice(List<Hotel> hotels) {
+        HashMap<Hotel, Double> hotelsToMinPrice = new HashMap<Hotel, Double>();
+
+        ArrayList<Hotel> less = new ArrayList<Hotel>();
+        ArrayList<Hotel> equal = new ArrayList<Hotel>();
+        ArrayList<Hotel> more = new ArrayList<Hotel>();
+
+        if(hotels.size() > 1) {
+            Hotel pivot_obj = hotels.get(0);
+
+            // Might just add a maxPrice and lowestPrice attribute to a hotel instead of going getPriceRange.
+            for(Hotel hotel : hotels) {
+                if(hotel.getPrinceRange()[0] < pivot_obj.getPrinceRange()[0]) {
+                    less.add(hotel);
+                } else if (hotel.getPrinceRange()[0] == pivot_obj.getPrinceRange()[0]) {
+                    equal.add(hotel);
+                } else if (hotel.getPrinceRange()[0] > pivot_obj.getPrinceRange()[0]) {
+                    more.add(hotel);
+                }
+
+            }
+
+           List<Hotel> newList = Stream.of(sortHotelsByPrice(less), equal, sortHotelsByPrice(more))
+                    .flatMap(Collection::stream)
+                    .collect(Collectors.toList());
+
+            return newList;
+        } else {
+            return hotels;
+        }
+    }
 
     /** Returns a string describing the rooms that match the requirements of the customer request.
      *

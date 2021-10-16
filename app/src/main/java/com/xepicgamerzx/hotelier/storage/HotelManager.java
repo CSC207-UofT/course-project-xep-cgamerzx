@@ -4,10 +4,17 @@ import com.xepicgamerzx.hotelier.objects.Hotel;
 import com.xepicgamerzx.hotelier.objects.Room;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class HotelManager {
-    private static ArrayList<Hotel> hotels = new ArrayList<Hotel>();
+    private List<Hotel> hotels = new ArrayList<Hotel>();
+
+
+    public void loadHotels() {
+
+    }
+
 
     public void addHotel(Hotel hotel) {
         if (!(hotels.contains(hotel))) {
@@ -15,17 +22,26 @@ public class HotelManager {
         }
     }
 
-    public ArrayList<Hotel> getAllHotels() {
+    public List<Hotel> getAllHotels() {
         return this.hotels;
     }
 
+
+    public List<Room> getAllHotelsRooms() {
+        List<Room> allRooms = new ArrayList<Room>();
+        for (Hotel hotel : this.hotels) {
+            allRooms.addAll(getOneHotelsRooms(hotel));
+        }
+
+        return allRooms;
+    }
 
     /**
      *
      * @param hotel
      * @return return all of the rooms in a specified hotel.
      */
-    public List<Room> getAllRooms(Hotel hotel){
+    public List<Room> getOneHotelsRooms(Hotel hotel){
         List<Room> rooms = new ArrayList<Room>();
 
         try {

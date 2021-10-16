@@ -23,6 +23,7 @@ import com.xepicgamerzx.hotelier.objects.Room;
 import com.xepicgamerzx.hotelier.objects.Hotel;
 import com.xepicgamerzx.hotelier.storage.BedManager;
 import com.xepicgamerzx.hotelier.storage.HotelManager;
+import com.xepicgamerzx.hotelier.storage.RoomManager;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -84,6 +85,10 @@ public class ManagementActivity extends AppCompatActivity {
                 HotelManager hotelManager = new HotelManager();
                 Hotel hotel = new Hotel(hotelName, addressField.get("Address"), rooms);
                 hotelManager.addHotel(hotel);
+
+                // Give all these rooms a reference to their hotels
+                RoomManager roomManager = new RoomManager();
+                roomManager.setRooms(rooms, hotel);
 
                 // Save hotel object somewhere? Locally?
 
