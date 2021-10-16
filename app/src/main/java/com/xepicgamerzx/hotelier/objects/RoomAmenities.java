@@ -1,5 +1,8 @@
 package com.xepicgamerzx.hotelier.objects;
 
+/**
+ * Enum with all the types of room amenities. Each also stores a String label describing the use case.
+ */
 public enum RoomAmenities {
     WIFI("Wi-Fi"),
     ROOM_SERVICE("Room Service"),
@@ -20,7 +23,12 @@ public enum RoomAmenities {
 
     public final String label;
 
-    RoomAmenities(String label){
+    /**
+     * Set each enum constant to have a String label value.
+     *
+     * @param label String value to be associated with an enum constant.
+     */
+    RoomAmenities(String label) {
         this.label = label;
     }
 }

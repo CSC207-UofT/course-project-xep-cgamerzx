@@ -1,5 +1,8 @@
 package com.xepicgamerzx.hotelier.objects;
 
+/**
+ * Enum with all the types of hotel amenities. Each also stores a String label describing the use case.
+ */
 public enum HotelAmenities {
     INDOOR_POOL("Indoor Pool"),
     OUTDOOR_POOL("Outdoor Pool"),
@@ -22,7 +25,12 @@ public enum HotelAmenities {
 
     public final String label;
 
-    HotelAmenities(String label){
+    /**
+     * Set each enum constant to have a String label value.
+     *
+     * @param label String value to be associated with an enum constant.
+     */
+    HotelAmenities(String label) {
         this.label = label;
     }
 }
