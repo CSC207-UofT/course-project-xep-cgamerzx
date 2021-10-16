@@ -27,6 +27,17 @@ public class Hotel {
 //        this.starClass = starClass;
     }
 
+    public String getName() {
+        return this.name;
+    }
+
+    public Address getAddress() {
+        return this.address;
+    }
+
+    public List<Room> getRooms() {
+        return this.rooms;
+    }
 
     public List<Room> getRooms() {
         return this.rooms;
