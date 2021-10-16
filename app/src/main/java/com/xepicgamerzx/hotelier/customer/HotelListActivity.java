@@ -21,7 +21,6 @@ import com.xepicgamerzx.hotelier.R;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 public class HotelListActivity extends AppCompatActivity {
     private ListView hotelListView;
@@ -133,7 +132,7 @@ public class HotelListActivity extends AppCompatActivity {
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    startActivity(new Intent(HotelListActivity.this, activity_hotel_description_rooms.class).putExtra("Hotel", listHotelsFiltered.get(position)));
+                    startActivity(new Intent(HotelListActivity.this, CustomerHotelRoomsActivity.class).putExtra("Hotel", listHotelsFiltered.get(position)));
                 }
             });
 

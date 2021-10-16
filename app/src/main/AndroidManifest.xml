@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Hotelier" >
         <activity
-            android:name=".customer.activity_hotel_description_rooms"
+            android:name=".customer.CustomerHotelRoomsActivity"
             android:exported="false" />
         <activity
             android:name=".customer.HotelListActivity"

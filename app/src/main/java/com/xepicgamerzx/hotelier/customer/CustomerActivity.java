@@ -64,16 +64,4 @@ public class CustomerActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    /** Search for valid room listings given the customer's parameters. Display fragment list when
-     * completed
-     */
-    public void searchListings(){
-
-        // Send return fragment information
-        Bundle bundle = new Bundle();
-        bundle.putString("edttext", "From Activity");
-        // set Fragmentclass Arguments
-        RoomsReturnFragment roomsReturnF = new RoomsReturnFragment();
-        roomsReturnF.setArguments(bundle);
-    }
 }

@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import com.xepicgamerzx.hotelier.R;
 
-public class activity_hotel_description_rooms extends AppCompatActivity {
+public class CustomerHotelRoomsActivity extends AppCompatActivity {
 
     private TextView descNameText;
 
@@ -17,7 +17,7 @@ public class activity_hotel_description_rooms extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_hotel_description_rooms);
+        setContentView(R.layout.activity_customer_rooms);
 
         descNameText = findViewById(R.id.hotelNameDesc);
 
