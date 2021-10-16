@@ -26,33 +26,6 @@ public class Address {
         this.latitude = latitude;
     }
 
-    public String getStreetNumber() {
-        return this.streetNumber;
-    }
-
-    public String getStreetName() {
-        return this.streetName;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public String getProvince() {
-        return province;
-    }
-
-    public String getPostalCode() {
-        return this.postalCode;
-    }
-
-    public double getLongitude() {
-        return longitude;
-    }
-
-    public double getLatitude() {
-        return latitude;
-    }
 
     public String getFullStreet() {
         return String.format("%s %s", this.streetNumber, this.streetName);
