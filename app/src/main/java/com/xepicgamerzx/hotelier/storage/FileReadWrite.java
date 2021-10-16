@@ -1,5 +1,8 @@
 package com.xepicgamerzx.hotelier.storage;
 
+import android.content.Context;
+import android.util.Log;
+
 import com.xepicgamerzx.hotelier.objects.Address;
 import com.xepicgamerzx.hotelier.objects.Bed;
 import com.xepicgamerzx.hotelier.objects.Hotel;
@@ -13,7 +16,7 @@ import java.util.List;
 import java.util.Hashtable;
 
 
-public class FileReadWrite {
+public class FileReadWrite<T> {
 
     private final File database = new File("HotelData.csv"); //database file
 
@@ -27,6 +30,7 @@ public class FileReadWrite {
      * @return a list containing the data
      * @throws FileNotFoundException throw an exception if no file is found
      */
+    @Deprecated
     public List<Object> readFile() throws IOException {
         List<Object> data = new ArrayList<>(); //all hotel data
 
@@ -78,6 +82,7 @@ public class FileReadWrite {
         return data;
     }
 
+    @Deprecated
     public void writeFile(Hotel hotel) throws IOException {
         FileWriter file = new FileWriter(database);
         BufferedWriter bw = new BufferedWriter(file);
@@ -113,5 +118,50 @@ public class FileReadWrite {
         }
 
         bw.write(hotelData.toString());
+    }
+
+    /**
+     *
+     * @param save
+     * @param file_name
+     * @param context
+     */
+    public void writeData(T save, String file_name, Context context){
+        try {
+            FileOutputStream fileOutputStream = context.openFileOutput(file_name, Context.MODE_PRIVATE);
+            ObjectOutputStream writer = new ObjectOutputStream(fileOutputStream);
+            writer.writeObject(save);
+            writer.close();
+            fileOutputStream.close();
+        }
+        catch (  IOException e) {
+            Log.e("AARSS","Problem saving file.",e);
+            return;
+        }
+    }
+
+    /**
+     *
+     * @param file_name
+     * @param context
+     * @return
+     */
+    public T readData(String file_name, Context context){
+        try {
+            FileInputStream fileInputStream = context.openFileInput(file_name);
+            ObjectInputStream reader = new ObjectInputStream(fileInputStream);
+            T data = (T) reader.readObject();
+            reader.close();
+            fileInputStream.close();
+            return data;
+        }
+        catch (IOException e){
+            Log.e("AARSS", "Problem reading file.", e);
+            return null;
+        }
+        catch (ClassNotFoundException e){
+            Log.e("AARSS", "Incompatible file class.", e);
+            return null;
+        }
     }
 }
