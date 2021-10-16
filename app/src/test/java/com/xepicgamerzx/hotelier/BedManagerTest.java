@@ -38,10 +38,10 @@ public class BedManagerTest {
 
         // Changed schedule field to epoch so its a long now, change later
 
-//        Room room2 = new Room(
-//                LocalDate.now(),
-//                LocalDate.of(2021, 11, 15),
-//                4, room2_beds, 350);
+        Room room2 = new Room(
+                1634281932,
+                1636960332,
+                4, room2_beds, 350);
 
 
         // Test
@@ -49,7 +49,7 @@ public class BedManagerTest {
             assertNull(bed.getRoom());
         }
 
-//        bedManager.setRoomForAllBeds(room2, room2_beds);
+        bedManager.setRoomForAllBeds(room2, room2_beds);
 
         for(Bed bed : room2_beds) {
             assertNotNull(bed.getRoom());
