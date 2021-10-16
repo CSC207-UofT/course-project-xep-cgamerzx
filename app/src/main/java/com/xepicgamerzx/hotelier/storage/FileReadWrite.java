@@ -1,5 +1,10 @@
 package com.xepicgamerzx.hotelier.storage;
 
+import com.xepicgamerzx.hotelier.objects.Address;
+import com.xepicgamerzx.hotelier.objects.Bed;
+import com.xepicgamerzx.hotelier.objects.Hotel;
+import com.xepicgamerzx.hotelier.objects.Room;
+
 import java.util.Arrays;
 import java.io.*;
 
@@ -10,7 +15,7 @@ import java.util.Hashtable;
 
 public class FileReadWrite {
 
-    private File database = new File("HotelData.csv"); //database file name
+    private final File database = new File("HotelData.csv"); //database file
 
     /**
      * Read data from a csv file
@@ -25,10 +30,10 @@ public class FileReadWrite {
     public List<Object> readFile() throws IOException {
         List<Object> data = new ArrayList<>(); //all hotel data
 
-        FileReader file = new FileReader(this.database);
+        FileReader file = new FileReader(database);
         BufferedReader br = new BufferedReader(file);
 
-        br.readLine();
+        String headings = br.readLine();
         String line;
         while ((line = br.readLine()) != null) {
             Hashtable<String, Object> hotel = new Hashtable<>(); //mapping for data for each hotel
@@ -38,11 +43,11 @@ public class FileReadWrite {
             /*
             Read and parse data
              */
-            String[] hotel_data = line.split(";");
-            String hotel_name = hotel_data[0];
-            String[] hotel_address = hotel_data[1].split(",");
-            String[] hotel_rooms = hotel_data[2].split(",");
-            String[] room_beds = hotel_rooms[3].split("-");
+            String[] hotelData = line.split(";");
+            String hotelName = hotelData[0];
+            String[] hotelAddress = hotelData[1].split(",");
+            String[] hotelRooms = hotelData[2].split(",");
+            String[] room_beds = hotelRooms[3].split("-");
 
             /*
             Store data into Collections
@@ -50,20 +55,21 @@ public class FileReadWrite {
             //list of beds in each room of a hotel
             List<String> beds = new ArrayList<>(Arrays.asList(room_beds));
 
-            address.put("Street Number", hotel_address[0]);
-            address.put("Street Name", hotel_address[1]);
-            address.put("City", hotel_address[2]);
-            address.put("Province", hotel_address[3]);
-            address.put("Postal Code", hotel_address[4]);
-            address.put("Longitude", hotel_address[5]);
-            address.put("Latitude", hotel_address[6]);
+            address.put("Street Number", hotelAddress[0]);
+            address.put("Street Name", hotelAddress[1]);
+            address.put("City", hotelAddress[2]);
+            address.put("Province", hotelAddress[3]);
+            address.put("Postal Code", hotelAddress[4]);
+            address.put("Longitude", hotelAddress[5]);
+            address.put("Latitude", hotelAddress[6]);
 
-            rooms.put("Start Date", hotel_rooms[0]);
-            rooms.put("End Date", hotel_rooms[1]);
-            rooms.put("Capacity", hotel_rooms[2]);
+            rooms.put("Start Date", hotelRooms[0]);
+            rooms.put("End Date", hotelRooms[1]);
+            rooms.put("Capacity", hotelRooms[2]);
             rooms.put("Beds", beds);
+            rooms.put("Price", hotelRooms[4]);
 
-            hotel.put("Name", hotel_name);
+            hotel.put("Name", hotelName);
             hotel.put("Address", address);
             hotel.put("Rooms", rooms);
 
@@ -72,9 +78,40 @@ public class FileReadWrite {
         return data;
     }
 
-    public void writeFile() throws IOException {
-        FileWriter file = new FileWriter(this.database);
+    public void writeFile(Hotel hotel) throws IOException {
+        FileWriter file = new FileWriter(database);
         BufferedWriter bw = new BufferedWriter(file);
 
+        StringBuilder hotelData = new StringBuilder();
+
+        String name = hotel.getName();
+        hotelData.append(name).append(";");
+
+        Address hotelAddress = hotel.getAddress();
+        hotelData.append(hotelAddress.getStreetNumber()).append(",");
+        hotelData.append(hotelAddress.getStreetName()).append(",");
+        hotelData.append(hotelAddress.getCity()).append(",");
+        hotelData.append(hotelAddress.getProvince()).append(",");
+        hotelData.append(hotelAddress.getPostalCode()).append(",");
+        hotelData.append(hotelAddress.getLongitude()).append(",");
+        hotelData.append(hotelAddress.getLatitude()).append(",").append(";");
+
+        List<Room> hotelRooms = hotel.getRooms();
+        for (Room room:hotelRooms) {
+            hotelData.append(room.getSchedule()[0]).append(",");
+            hotelData.append(room.getSchedule()[1]).append(",");
+            hotelData.append(room.getCapacity()).append(",");
+
+            List<Bed> roomBeds = room.getBeds();
+            for (int i = 0; i < roomBeds.size() - 1; i++) {
+                hotelData.append(roomBeds.get(i).getSize()).append("-");
+            }
+
+            hotelData.append(roomBeds.get(roomBeds.size() - 1).getSize()).append(",");
+
+            hotelData.append(room.getPrice()).append(",");
+        }
+
+        bw.write(hotelData.toString());
     }
 }

@@ -42,6 +42,14 @@ public class Room {
         return this.schedule;
     }
 
+    public int getCapacity() {
+        return this.capacity;
+    }
+
+    public ArrayList<Bed> getBeds() {
+        return this.beds;
+    }
+
     /**
      * A room has a reference to a hotel. This method sets the hotel that the room is in.
      * @param hotel

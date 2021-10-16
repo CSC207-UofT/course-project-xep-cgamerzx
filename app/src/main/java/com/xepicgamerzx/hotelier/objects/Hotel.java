@@ -27,6 +27,17 @@ public class Hotel {
 //        this.starClass = starClass;
     }
 
+    public String getName() {
+        return this.name;
+    }
+
+    public Address getAddress() {
+        return this.address;
+    }
+
+    public List<Room> getRooms() {
+        return this.rooms;
+    }
 
     /**
      * Checks every room in a hotel, finds the cheapest, and most expensive room and returns the price range.
