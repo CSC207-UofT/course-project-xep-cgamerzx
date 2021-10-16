@@ -120,11 +120,11 @@ public class FileReadWrite<T> {
         bw.write(hotelData.toString());
     }
 
-    /**
+    /** Generic object write data into file.
      *
-     * @param save
-     * @param file_name
-     * @param context
+     * @param save <T> to be saved.
+     * @param file_name String describing the name of the file to create and save to.
+     * @param context Context of the app.
      */
     public void writeData(T save, String file_name, Context context){
         try {
@@ -140,11 +140,11 @@ public class FileReadWrite<T> {
         }
     }
 
-    /**
+    /** Generic object read data into file.
      *
-     * @param file_name
-     * @param context
-     * @return
+     * @param file_name String describing the name of the file to read from.
+     * @param context Context of the app.
+     * @return <T> object read from the file.
      */
     public T readData(String file_name, Context context){
         try {

@@ -28,6 +28,10 @@ public class FileReadWriteTest {
         assertEquals("com.xepicgamerzx.hotelier", appContext.getPackageName());
     }
 
+    /**
+     * Test for reading and writing array list objects as persistent data
+     * using the generic read write class.
+     */
     @Test
     public void readWriteTest() {
         ArrayList<String> testData = new ArrayList<>();
