@@ -28,7 +28,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:text="@string/select_date_range"
-                app:layout_constraintBottom_toTopOf="@+id/button"
+                app:layout_constraintBottom_toTopOf="@+id/searchListingsBtn"
                 app:layout_constraintStart_toStartOf="@+id/selected_date_range_txt"
                 tools:ignore="DuplicateSpeakableTextCheck" />
 
@@ -68,7 +68,7 @@
                 app:layout_constraintStart_toStartOf="@+id/selected_date_range_txt" />
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/searchListingsBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"

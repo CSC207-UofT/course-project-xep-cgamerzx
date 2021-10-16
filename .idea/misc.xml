@@ -3,6 +3,20 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/rafee/Desktop/UofT/Fall 2021/CSC207/csc207-project/app/src/main/res/layout/activity_customer.xml" value="0.264" />
+        <entry key="..\:/Users/rafee/Desktop/UofT/Fall 2021/CSC207/csc207-project/app/src/main/res/layout/activity_customer_list.xml" value="0.2328125" />
+        <entry key="..\:/Users/rafee/Desktop/UofT/Fall 2021/CSC207/csc207-project/app/src/main/res/layout/activity_hotel_description_rooms.xml" value="0.22192028985507245" />
+        <entry key="..\:/Users/rafee/Desktop/UofT/Fall 2021/CSC207/csc207-project/app/src/main/res/layout/activity_hotel_details.xml" value="0.22192028985507245" />
+        <entry key="..\:/Users/rafee/Desktop/UofT/Fall 2021/CSC207/csc207-project/app/src/main/res/layout/activity_hotel_list.xml" value="0.2" />
+        <entry key="..\:/Users/rafee/Desktop/UofT/Fall 2021/CSC207/csc207-project/app/src/main/res/layout/activity_management.xml" value="0.264" />
+        <entry key="..\:/Users/rafee/Desktop/UofT/Fall 2021/CSC207/csc207-project/app/src/main/res/layout/add_rooms_popup.xml" value="0.12952898550724637" />
+        <entry key="..\:/Users/rafee/Desktop/UofT/Fall 2021/CSC207/csc207-project/app/src/main/res/layout/address_popup.xml" value="0.12952898550724637" />
+        <entry key="..\:/Users/rafee/Desktop/UofT/Fall 2021/CSC207/csc207-project/app/src/main/res/layout/fragment_hotel.xml" value="0.19655521783181357" />
+        <entry key="..\:/Users/rafee/Desktop/UofT/Fall 2021/CSC207/csc207-project/app/src/main/res/layout/fragment_room.xml" value="0.19655521783181357" />
+        <entry key="..\:/Users/rafee/Desktop/UofT/Fall 2021/CSC207/csc207-project/app/src/main/res/layout/fragment_rooms_return.xml" value="0.4041666666666667" />
+        <entry key="..\:/Users/rafee/Desktop/UofT/Fall 2021/CSC207/csc207-project/app/src/main/res/layout/hotel_row_item.xml" value="0.264" />
+        <entry key="..\:/Users/rafee/Desktop/UofT/Fall 2021/CSC207/csc207-project/app/src/main/res/menu/hotel_menu.xml" value="0.4041666666666667" />
+        <entry key="..\:/Users/rafee/Desktop/UofT/Fall 2021/CSC207/csc207-project/app/src/main/res/menu/menu_main.xml" value="0.4041666666666667" />
         <entry key="..\:/course/app/src/main/res/layout/activity_customer.xml" value="0.25" />
         <entry key="..\:/course/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/course/app/src/main/res/layout/activity_management.xml" value="0.9" />
