@@ -17,7 +17,7 @@ public class CustomerActivity extends AppCompatActivity {
     private Button datePickerBtn;
 
     private TextView selectedDateRangeText;
-
+    // test
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
