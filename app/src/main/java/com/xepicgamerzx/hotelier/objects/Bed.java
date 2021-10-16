@@ -14,6 +14,10 @@ public class Bed {
         this.size = size;
     }
 
+    public String getSize() {
+        return size;
+    }
+
     /**
      * Gives a Bed a reference to the Room it is in.
      * @param room A room object

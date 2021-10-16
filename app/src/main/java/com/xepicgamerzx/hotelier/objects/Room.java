@@ -5,12 +5,12 @@ import java.util.ArrayList;
 
 public class Room {
 
-    private long[] schedule;
+    private LocalDate[] schedule;
     private int capacity;
     private ArrayList<Bed> beds;
     private Hotel hotel;
     private RoomAmenities roomAmenities;
-    private long price;
+    private double price;
 
     // Theres no tuples in Java so I did an array with 2 spots corresponding to the first day of
     // availability and last day of availability feel free to change this.
@@ -23,9 +23,9 @@ public class Room {
      //* @param hotel The hotel that this room is apart of
      //* @param amenities The amenities that this room has
      */
-    public Room(long startAvailability, long endAvailability, int capacity,
-                ArrayList<Bed> beds, long price) {
-        this.schedule = new long[2];
+    public Room(LocalDate startAvailability, LocalDate endAvailability, int capacity,
+                ArrayList<Bed> beds, double price) {
+        this.schedule = new LocalDate[2];
         this.schedule[0] = startAvailability;
         this.schedule[1] = endAvailability;
         this.capacity = capacity;
@@ -38,10 +38,17 @@ public class Room {
         return this.price;
     }
 
-    public long[] getSchedule() {
+    public LocalDate[] getSchedule() {
         return this.schedule;
     }
 
+    public int getCapacity() {
+        return this.capacity;
+    }
+
+    public ArrayList<Bed> getBeds() {
+        return this.beds;
+    }
 
     /**
      * A room has a reference to a hotel. This method sets the hotel that the room is in.
@@ -50,12 +57,6 @@ public class Room {
      */
     public void setHotel(Hotel hotel) {
         this.hotel = hotel;
-    }
-
-    @Override
-    public String toString() {
-        return String.format("Schedule: (%s, %s) \nCapacity: %d \nBeds: %s \nPrice: %d",
-                this.getSchedule()[0], this.getSchedule()[1], this.capacity, this.beds, this.price);
     }
 
 }
