@@ -18,21 +18,23 @@ import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.xepicgamerzx.hotelier.R;
+import com.xepicgamerzx.hotelier.objects.Hotel;
+import com.xepicgamerzx.hotelier.storage.HotelManager;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class HotelListActivity extends AppCompatActivity {
     private ListView hotelListView;
+    private HotelManager hotelManager;
 
     // Dummy data
-    String names[] = {"Hotel1", "Hotel2", "Hotel3"};
-    String address[] = {"123 Testing Lane", "124 Testing Lane", "125 Testing Lane"};
-    String priceRange[] = {"$300 - $500", "$250 - $350", "$500 - $600"};
-    String numberOfRooms[] = {"4", "3", "10"};
+    //    String names[] = {"Hotel1", "Hotel2", "Hotel3"};
+    //    String address[] = {"123 Testing Lane", "124 Testing Lane", "125 Testing Lane"};
+    //    String priceRange[] = {"$300 - $500", "$250 - $350", "$500 - $600"};
+    //    String numberOfRooms[] = {"4", "3", "10"};
 
     List<HotelViewModel> listHotels = new ArrayList<>();
-
     CustomAdapter customAdapter;
 
 
@@ -41,14 +43,27 @@ public class HotelListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hotel_list);
 
+        // Getting the HotelManager passed from ActivityMain.
+        Intent intent = getIntent();
+        if(intent.getExtras() != null) { System.out.println("HotelManager Received");
+            hotelManager = (HotelManager) intent.getSerializableExtra("HotelManager");
+        }
+
+
         hotelListView = findViewById(R.id.hotelListView);
+        List<Hotel> hotels = hotelManager.getAllHotels();
+        System.out.println(hotels);
 
-        // Probs change to for Hotel hotel in hotels;
-        for(int i = 0; i < names.length; i++) {
-            HotelViewModel hotelModel = new HotelViewModel(names[i], address[i], priceRange[i], numberOfRooms[i]);
 
+        for(Hotel hotel : hotels) {
+            HotelViewModel hotelModel = new HotelViewModel(
+                    hotel.getName(), hotel.getAddress().getFullStreet(),
+                    hotelManager.hotelPriceRangeString(hotel),
+                    Integer.toString(hotel.getNumberOfRooms())
+            );
+
+            System.out.println(hotelModel);
             listHotels.add(hotelModel);
-
         }
 
         customAdapter = new CustomAdapter(listHotels, this);
@@ -123,11 +138,13 @@ public class HotelListActivity extends AppCompatActivity {
 
             TextView hotelName = view.findViewById(R.id.listHotelName);
             TextView hotelAddress = view.findViewById(R.id.listHotelAddress);
+            TextView hotelNumRooms = view.findViewById(R.id.hotelNumRooms);
             TextView hotelPriceRange = view.findViewById(R.id.listHotelPriceRange);
 
             hotelName.setText(listHotelsFiltered.get(position).getName());
             hotelAddress.setText(listHotelsFiltered.get(position).getAddress());
             hotelPriceRange.setText(listHotelsFiltered.get(position).getPriceRange());
+            hotelNumRooms.setText("Rooms: " + listHotelsFiltered.get(position).getNumberOfRooms());
 
             view.setOnClickListener(new View.OnClickListener() {
                 @Override

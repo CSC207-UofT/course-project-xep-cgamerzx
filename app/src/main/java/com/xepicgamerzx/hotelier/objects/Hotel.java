@@ -1,9 +1,10 @@
 package com.xepicgamerzx.hotelier.objects;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Hotel {
+public class Hotel implements Serializable {
 
     private String name;
     private Address address;
@@ -23,8 +24,8 @@ public class Hotel {
         this.name = name;
         this.address = address;
         this.rooms = rooms;
-//        this.amenities = amenities;
-//        this.starClass = starClass;
+        //        this.amenities = amenities;
+        //        this.starClass = starClass;
     }
 
     public String getName() {
@@ -37,6 +38,10 @@ public class Hotel {
 
     public List<Room> getRooms() {
         return this.rooms;
+    }
+
+    public int getNumberOfRooms() {
+        return this.rooms.size();
     }
 
     /**
@@ -68,7 +73,7 @@ public class Hotel {
     }
 
     /**
-     *
+     * toString Method.
      * @return a string for a hotel.
      */
     @Override

@@ -1,10 +1,11 @@
 package com.xepicgamerzx.hotelier.objects;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class Room {
+public class Room implements Serializable {
 
     private long[] schedule;
     private int capacity;

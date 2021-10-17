@@ -1,6 +1,8 @@
 package com.xepicgamerzx.hotelier.objects;
 
-public class Bed {
+import java.io.Serializable;
+
+public class Bed implements Serializable {
 
     private String size;
     public Room room;

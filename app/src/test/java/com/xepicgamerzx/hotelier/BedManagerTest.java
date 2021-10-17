@@ -20,38 +20,30 @@ public class BedManagerTest {
 
         beds.addAll(bedManager.createBeds(3, "King"));
         assertEquals(beds.size(), 3);
-        System.out.println();
-//        System.out.println(beds);
     }
 
     @Test
     public void testReferenceAllBedsToARoom() {
-
-        ArrayList<Bed> room2_beds = new ArrayList<Bed>();
+        ArrayList<Bed> room1_beds = new ArrayList<Bed>();
         BedManager bedManager = new BedManager();
 
-        // Room 1: (could have used createBeds)...
-        Bed bed1 = new Bed("Queen");
-        Bed bed2 = new Bed("King");
-        room2_beds.add(bed2);
-        room2_beds.add(bed1);
+        // Room 1:
+        Bed bed1 = new Bed("King");
 
-        // Changed schedule field to epoch so its a long now, change later
-
+        // Room 2:
         Room room2 = new Room(
                 1634281932,
                 1636960332,
-                4, room2_beds, 350);
+                4, room1_beds, 350);
 
 
-        // Test
-        for (Bed bed : room2_beds) {
+        for (Bed bed : room1_beds) {
             assertNull(bed.getRoom());
         }
 
-        bedManager.setRoomForAllBeds(room2, room2_beds);
-
-        for(Bed bed : room2_beds) {
+        bedManager.setRoomForAllBeds(room2, room1_beds);
+        // Testing to see if all beds have a reference to a hotel.
+        for(Bed bed : room1_beds) {
             assertNotNull(bed.getRoom());
         }
 

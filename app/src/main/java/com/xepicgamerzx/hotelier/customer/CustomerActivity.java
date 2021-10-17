@@ -12,8 +12,10 @@ import androidx.core.util.Pair;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.xepicgamerzx.hotelier.R;
+import com.xepicgamerzx.hotelier.storage.HotelManager;
 
 public class CustomerActivity extends AppCompatActivity {
+    private HotelManager hotelManager;
 
     private Button datePickerBtn;
 
@@ -31,6 +33,15 @@ public class CustomerActivity extends AppCompatActivity {
         datePickerBtn = findViewById(R.id.select_dates_btn);
         selectedDateRangeText = findViewById(R.id.selected_date_range_txt);
         searchListing = findViewById(R.id.searchListingsBtn);
+
+        // Getting the HotelManager passed from ActivityMain.
+        // Will use to take into account schedules, location in Phase 1.
+        Intent intent = getIntent();
+        if(intent.getExtras() != null) {
+            System.out.println("HotelManager Received");
+            hotelManager = (HotelManager) intent.getSerializableExtra("HotelManager");
+        }
+
 
         MaterialDatePicker.Builder<Pair<Long, Long>> builder = MaterialDatePicker.Builder.dateRangePicker();
         builder.setTitleText("SELECT A CHECK IN AND CHECKOUT DATE");
@@ -60,7 +71,7 @@ public class CustomerActivity extends AppCompatActivity {
     }
 
     public void openListings() {
-        Intent intent = new Intent(this, HotelListActivity.class);
+        Intent intent = new Intent(this, HotelListActivity.class).putExtra("HotelManager", hotelManager);
         startActivity(intent);
     }
 

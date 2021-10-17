@@ -12,10 +12,8 @@ public class AddressTest {
 
     @Test
     public void SystemOutTest() {
-        // not a real unit test, just testing things.
         Address e = new Address("Testing Lane", "M5T2Y7", "123", "Toronto", "ON", 43.6532, 79.3832);
         System.out.println(e.toString());
-
     }
 
     @Test
@@ -26,9 +24,4 @@ public class AddressTest {
 
     }
 
-//    @Test
-//    public void test() throws IOException {
-//        FileReadWrite fw = new FileReadWrite();
-//        System.out.println((fw.readFile()));
-//    }
 }

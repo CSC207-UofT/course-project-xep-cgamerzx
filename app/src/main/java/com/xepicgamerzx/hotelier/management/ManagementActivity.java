@@ -6,6 +6,7 @@ import androidx.core.util.Pair;
 
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -16,6 +17,7 @@ import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.google.android.material.textfield.TextInputEditText;
 import com.xepicgamerzx.hotelier.R;
+import com.xepicgamerzx.hotelier.customer.HotelViewModel;
 import com.xepicgamerzx.hotelier.objects.Address;
 import com.xepicgamerzx.hotelier.objects.Bed;
 import com.xepicgamerzx.hotelier.objects.EpochDateConverter;
@@ -23,8 +25,10 @@ import com.xepicgamerzx.hotelier.objects.Room;
 import com.xepicgamerzx.hotelier.objects.Hotel;
 import com.xepicgamerzx.hotelier.storage.BedManager;
 import com.xepicgamerzx.hotelier.storage.HotelManager;
+import com.xepicgamerzx.hotelier.storage.IHotelManager;
 import com.xepicgamerzx.hotelier.storage.RoomManager;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -34,6 +38,8 @@ public class ManagementActivity extends AppCompatActivity {
     private HashMap<String, Long> dateRange;
     private ArrayList<Room> rooms;
     private int countRooms = 0;
+    private HotelManager hotelManager;
+
 
     public ArrayList<Bed> bedsList;
     private BedManager bedManager;
@@ -67,6 +73,14 @@ public class ManagementActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_management);
 
+        // Getting the HotelManager passed from ActivityMain.
+        Intent intent = getIntent();
+        if(intent.getExtras() != null) {
+            System.out.println("HotelManager Received");
+            hotelManager = (HotelManager) intent.getSerializableExtra("HotelManager");
+        }
+
+
         nameInput = (TextInputEditText) findViewById(R.id.inputText);
         submitButton = (Button) findViewById(R.id.submit);
         addAddressButton = (Button) findViewById(R.id.addAddressBtn);
@@ -82,7 +96,7 @@ public class ManagementActivity extends AppCompatActivity {
                 String hotelName = nameInput.getText().toString();
                 // Address is added to the hashmap when the user adds an address.
 
-                HotelManager hotelManager = new HotelManager();
+
                 Hotel hotel = new Hotel(hotelName, addressField.get("Address"), rooms);
                 hotelManager.addHotel(hotel);
 
@@ -90,10 +104,13 @@ public class ManagementActivity extends AppCompatActivity {
                 RoomManager roomManager = new RoomManager();
                 roomManager.setRooms(rooms, hotel);
 
-                // Save hotel object somewhere? Locally?
+                // Save hotel object
+                hotelManager.saveData(v.getContext());
+                System.out.println("Successfully saved data");
+                // System.out.println(hotelManager.loadHotels(v.getContext()));
 
                 // For some reason when I sout the array, every objects toString methods thats inside of it..
-                System.out.println(hotelManager.getAllHotels());
+                // System.out.println(hotelManager.getAllHotels());
 
                 // Resetting fields.
                 nameInput.setText("");
@@ -164,8 +181,6 @@ public class ManagementActivity extends AppCompatActivity {
                   successText.setText("Added");
 
                   addressField.put("Address", address);
-
-                  System.out.println("Success");
 
               }
           }

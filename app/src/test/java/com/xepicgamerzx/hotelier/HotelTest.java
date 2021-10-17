@@ -19,9 +19,6 @@ public class HotelTest {
 
     @Test
     public void testNewHotelObject() {
-        // Not a real unit test, just playing around
-
-        // Maybe add these to some constants file?
         Address address = new Address("Testing Lane",
                 "M5T2Y7",
                 "123",
@@ -46,16 +43,14 @@ public class HotelTest {
         Hotel h = new Hotel("Hilton", address, rooms);
         room.setHotel(h);
 
-        System.out.println(h);
+        assertEquals(h.getName(), "Hilton");
+        assertEquals(h.getAddress(), address);
+        assertEquals(h.getRooms(), rooms);
     }
 
     @Test
     public void testGetHotelPriceRange() {
-
         // Creating a hotel is kind of a long process
-        // Note: Beds are created before Rooms, and Rooms are created before Hotels. Then, bed.setRoom, room.setHotel...
-
-
         // Room 1:
         Bed bed1 = new Bed("Queen");
         ArrayList<Bed> beds = new ArrayList<Bed>();
@@ -66,7 +61,6 @@ public class HotelTest {
                 4, beds, 250);
         bed1.setRoom(room1);
 
-
         // Room 2:
         ArrayList<Bed> beds2 = new ArrayList<Bed>();
         Bed bed2 = new Bed("King");
@@ -76,7 +70,6 @@ public class HotelTest {
                 1636960332,
                 4, beds, 350);
         bed2.setRoom(room2);
-
 
         // Creating the hotel
         List<Room> rooms = new ArrayList<Room>();
@@ -98,15 +91,13 @@ public class HotelTest {
         // Actual Test
         double[] actual = h.getPrinceRange();
         double[] expected = {250.0, 350};
-        System.out.println(Arrays.equals(actual, expected));
-
-        // Random schedule test, will clean all this later with real asserts.
-        // System.out.println(room1.getSchedule()[0] + " " + room1.getSchedule()[1]);
+        assertTrue(Arrays.equals(actual, expected));
 
     }
 
     @Test
-    public void Test() {
+    public void testSortHotelsByMinimumPrice() {
+        // Creating the hotel 1
         // Room 1:
         Bed bed1 = new Bed("Queen");
         ArrayList<Bed> beds = new ArrayList<Bed>();
@@ -116,8 +107,6 @@ public class HotelTest {
                 1636960332,
                 4, beds, 250);
         bed1.setRoom(room1);
-
-
         // Room 2:
         Bed bed2 = new Bed("King");
         beds.add(bed2);
@@ -128,13 +117,9 @@ public class HotelTest {
                 1636960332,
                 4, beds2, 350);
         bed2.setRoom(room2);
-
-
-        // Creating the hotel
         List<Room> rooms = new ArrayList<Room>();
         rooms.add(room1);
         rooms.add(room2);
-
         Address address = new Address("Testing Lane",
                 "M5T2Y7",
                 "123",
@@ -142,44 +127,45 @@ public class HotelTest {
                 "ON",
                 43.6532,
                 79.3832);
-
-        Hotel h = new Hotel("Hilton", address, rooms);
-        room1.setHotel(h);
+        Hotel h1 = new Hotel("Hilton", address, rooms);
+        room1.setHotel(h1);
 
         //Hotel 2
-        // Room 1:
         Bed bed4 = new Bed("Queen");
-        ArrayList<Bed> beds3 = new ArrayList<Bed>();
-        beds3.add(bed4);
         Room room4 = new Room(
                 1634281932,
                 1636960332,
-                2, beds3, 50);
-        bed4.setRoom(room4);
-
-        // Creating the hotel
+                2, beds, 50);
         List<Room> rooms2 = new ArrayList<Room>();
         rooms2.add(room4);
-
         Hotel h2 = new Hotel("Cool", address, rooms2);
 
+        // Hotel 3
         Room room5 = new Room(
                 1634281932,
                 1636960332,
-                2, beds3, 60);
+                2, beds, 60);
         List<Room> rooms3= new ArrayList<Room>();
         rooms3.add(room5);
         Hotel h3 = new Hotel("Bruh", address, rooms3);
 
+
+        // Test
         List<Hotel> hotels = new ArrayList<Hotel>();
-        hotels.add(h);
+        hotels.add(h1);
         hotels.add(h2);
         hotels.add(h3);
 
 
         CustomerFilterManager fm = new CustomerFilterManager();
 
-        System.out.println(fm.sortHotelsByPrice(hotels));
+        List<Hotel> actualSortedHotels = fm.sortHotelsByPrice(hotels);
+        List<Hotel> expectedSortedHotels = new ArrayList<>();
+        expectedSortedHotels.add(h2);
+        expectedSortedHotels.add(h3);
+        expectedSortedHotels.add(h1);
+
+        assertEquals(actualSortedHotels, expectedSortedHotels);
 
     }
 }
