@@ -1,3 +1,4 @@
+### Scenario Walkthrough
 Running the project opens an android app with two main tabs depending on if the user would like to interact with the app as a customer user or a management user. 
 
 A hotel manager wishes to upload some new listings. Thus, they enter the app as a management type user. First, they enter in the details of their hotel. The app checks if the details match to a hotel that it already knows about in a repository of other hotels. If it exists, the app links said hotel object to the management user. If not, it will create a new hotel object with the details the manager entered and link it to the management user. Next, the hotel manager creates a two new rooms for linked to that hotel, and list details such as availability period, room type, price, and size. The hotel manager saves the details that he has put in, and the app stores these new listings into a persistent repository.
