@@ -5,5 +5,5 @@ Xep!cgamerzX
 - Gradle 7.2
 
 ### Phase 0 Skeleton Demo Video 
-https://www.youtube.com/watch?v=KvV1JMDOB-4
-https://www.youtube.com/watch?v=TqlaXjDW7Ac
+- https://www.youtube.com/watch?v=KvV1JMDOB-4 
+- https://www.youtube.com/watch?v=TqlaXjDW7Ac
