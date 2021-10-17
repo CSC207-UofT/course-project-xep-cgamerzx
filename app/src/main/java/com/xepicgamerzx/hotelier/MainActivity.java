@@ -58,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+
     /**
      * Called when user taps the Management button to open the management page
      *
