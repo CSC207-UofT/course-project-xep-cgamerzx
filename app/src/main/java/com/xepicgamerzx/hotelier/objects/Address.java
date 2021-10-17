@@ -1,6 +1,8 @@
 package com.xepicgamerzx.hotelier.objects;
 
-public class Address {
+import java.io.Serializable;
+
+public class Address implements Serializable {
 
     private String streetName;
     public String postalCode;

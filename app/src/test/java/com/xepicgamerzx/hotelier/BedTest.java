@@ -9,8 +9,8 @@ import com.xepicgamerzx.hotelier.objects.Bed;
 public class BedTest {
 
     @Test
-    public void testNoRoomSet() {
+    public void testBedWithNoRoomReference() {
         Bed bed = new Bed("Queen");
-        System.out.println(bed.room);
+        assertNull(bed.room);
     }
 }

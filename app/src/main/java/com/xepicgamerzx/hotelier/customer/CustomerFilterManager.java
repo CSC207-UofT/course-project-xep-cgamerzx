@@ -15,6 +15,11 @@ import java.util.stream.Stream;
 public class CustomerFilterManager {
 
 
+    /**
+     * Returns the hotels sorted by minimum price.
+     * @param hotels
+     * @return
+     */
     public List<Hotel> sortHotelsByPrice(List<Hotel> hotels) {
         HashMap<Hotel, Double> hotelsToMinPrice = new HashMap<Hotel, Double>();
 

@@ -8,9 +8,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 
 
-public class FileReadWrite<T> {
+public class FileReadWrite<T> implements Serializable {
     /**
      * Generic object write data into file.
      *
