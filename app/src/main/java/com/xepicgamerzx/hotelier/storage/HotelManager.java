@@ -53,6 +53,10 @@ public class HotelManager implements Serializable {
         }
     }
 
+    public void resetHotelsList() {
+        this.hotels = new ArrayList<>();
+    }
+
     //    public void deleteHotel(Hotel hotel) {
     //        if(hotels.contains(hotel)) {
     //            this.hotels.remove(hotel);

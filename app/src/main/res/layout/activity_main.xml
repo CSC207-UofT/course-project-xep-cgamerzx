@@ -28,7 +28,7 @@
             android:id="@+id/managementBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="356dp"
+            android:layout_marginTop="308dp"
             android:onClick="openManagement"
             android:text="@string/management_page"
             app:layout_constraintEnd_toEndOf="parent"
@@ -47,6 +47,18 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/resetDataBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="160dp"
+            android:onClick="openCustomer"
+            android:text="Reset data"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/managementBtn" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

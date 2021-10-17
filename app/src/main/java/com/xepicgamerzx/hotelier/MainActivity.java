@@ -2,23 +2,17 @@ package com.xepicgamerzx.hotelier;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 
 import com.xepicgamerzx.hotelier.customer.CustomerActivity;
 import com.xepicgamerzx.hotelier.databinding.ActivityMainBinding;
 import com.xepicgamerzx.hotelier.management.ManagementActivity;
 import com.xepicgamerzx.hotelier.objects.Hotel;
 import com.xepicgamerzx.hotelier.storage.HotelManager;
-import com.xepicgamerzx.hotelier.storage.IHotelManager;
 
 import java.util.List;
 
@@ -30,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Button managementBtn;
     private Button customerBtn;
+    private Button resetBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
         managementBtn = (Button) findViewById(R.id.managementBtn);
         customerBtn = (Button) findViewById(R.id.customerBtn);
+        resetBtn = (Button) findViewById(R.id.resetDataBtn);
 
         managementBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,6 +52,15 @@ public class MainActivity extends AppCompatActivity {
                 openCustomer(v);
             }
         });
+
+        resetBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                resetData();
+                loadData();
+            }
+        });
+
     }
 
 
@@ -84,9 +89,10 @@ public class MainActivity extends AppCompatActivity {
 
         hotelManager.loadHotels(binding.getRoot().getContext());
 
-        // was resetting hotels.
-        //        hotelManager.getAllHotels().remove(0);
-        //        System.out.println(hotelManager.getAllHotels());
-        //        hotelManager.saveData(binding.getRoot().getContext());
+    }
+
+    public void resetData() {
+        hotelManager.resetHotelsList();
+        hotelManager.saveData(binding.getRoot().getContext());
     }
 }
