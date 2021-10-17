@@ -9,8 +9,9 @@ public class Bed implements Serializable {
 
     /**
      * Creates a new Bed
+     *
      * @param size a string representing the size of the bed
-     * TODO: Precondition on size where you can only have valid strings (King, Queen, ...)
+     *             TODO: Precondition on size where you can only have valid strings (King, Queen, ...)
      */
     public Bed(String size) {
         this.size = size;
@@ -22,6 +23,7 @@ public class Bed implements Serializable {
 
     /**
      * Gives a Bed a reference to the Room it is in.
+     *
      * @param room A room object
      */
     public void setRoom(Room room) {

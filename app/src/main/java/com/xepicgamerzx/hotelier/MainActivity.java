@@ -79,7 +79,8 @@ public class MainActivity extends AppCompatActivity {
      * @param view starting view
      */
     public void openCustomer(View view) {
-        Intent intent = new Intent(this, CustomerActivity.class).putExtra("HotelManager", hotelManager);;
+        Intent intent = new Intent(this, CustomerActivity.class).putExtra("HotelManager", hotelManager);
+        ;
         startActivity(intent);
     }
 

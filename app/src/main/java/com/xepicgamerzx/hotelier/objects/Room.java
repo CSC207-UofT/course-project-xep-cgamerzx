@@ -1,7 +1,6 @@
 package com.xepicgamerzx.hotelier.objects;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -16,14 +15,16 @@ public class Room implements Serializable {
 
     // Theres no tuples in Java so I did an array with 2 spots corresponding to the first day of
     // availability and last day of availability feel free to change this.
+
     /**
      * Crates a new Room with given schedule, capacity, beds
+     *
      * @param startAvailability the first day where a room is available
-     * @param endAvailability the last day of when a room is available
-     * @param capacity The maximum number of people that can sleep in this Room
-     * @param beds A list of beds in this room
-    //* @param hotel The hotel that this room is apart of
-    //* @param amenities The amenities that this room has
+     * @param endAvailability   the last day of when a room is available
+     * @param capacity          The maximum number of people that can sleep in this Room
+     * @param beds              A list of beds in this room
+     *                          //* @param hotel The hotel that this room is apart of
+     *                          //* @param amenities The amenities that this room has
      */
     public Room(long startAvailability, long endAvailability, int capacity,
                 ArrayList<Bed> beds, long price) {
@@ -54,8 +55,8 @@ public class Room implements Serializable {
 
     /**
      * A room has a reference to a hotel. This method sets the hotel that the room is in.
-     * @param hotel Hotel object the room belongs to.
      *
+     * @param hotel Hotel object the room belongs to.
      */
     public void setHotel(Hotel hotel) {
         this.hotel = hotel;
@@ -63,7 +64,7 @@ public class Room implements Serializable {
 
     @Override
     public String toString() {
-        return String.format(Locale.CANADA,"Schedule: (%s, %s) \nCapacity: %d \nBeds: %s \nPrice: %d",
+        return String.format(Locale.CANADA, "Schedule: (%s, %s) \nCapacity: %d \nBeds: %s \nPrice: %d",
                 this.getSchedule()[0], this.getSchedule()[1], this.capacity, this.beds, this.price);
     }
 

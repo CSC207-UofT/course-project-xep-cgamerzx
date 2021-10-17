@@ -7,7 +7,6 @@ import com.xepicgamerzx.hotelier.objects.Room;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -19,13 +18,14 @@ public class HotelManager implements Serializable {
 
     /**
      * A method to load hotels when opening the app and set the hotels instance variable to them
+     *
      * @param appContext Context of the app, use View.getContext()
      * @return return the loaded hotels.
      */
     public List<Hotel> loadHotels(Context appContext) {
         List<Hotel> list = frw.readData("file.dat", appContext);
 
-        if(list != null) {
+        if (list != null) {
             this.hotels = list;
             return this.hotels;
         }
@@ -44,8 +44,8 @@ public class HotelManager implements Serializable {
 
     /**
      * Append a hotel object to the hotels ArrayList.
-     * @param hotel
      *
+     * @param hotel
      */
     public void addHotel(Hotel hotel) {
         if (!(hotels.contains(hotel))) {
@@ -69,6 +69,7 @@ public class HotelManager implements Serializable {
 
     /**
      * Returns a string of a hotels priceRange.
+     *
      * @param hotel
      * @return
      */
@@ -85,6 +86,7 @@ public class HotelManager implements Serializable {
 
     /**
      * Returns every room in the database (every hotels rooms).
+     *
      * @return
      */
     public List<Room> getAllHotelsRooms() {
@@ -97,11 +99,10 @@ public class HotelManager implements Serializable {
     }
 
     /**
-     *
      * @param hotel
      * @return return all of the rooms in ONE specified hotel.
      */
-    public List<Room> getOneHotelsRooms(Hotel hotel){
+    public List<Room> getOneHotelsRooms(Hotel hotel) {
         List<Room> rooms = new ArrayList<Room>();
 
         try {
@@ -111,7 +112,7 @@ public class HotelManager implements Serializable {
                     return rooms;
                 }
             }
-        } catch(Exception e) {
+        } catch (Exception e) {
             System.out.println("Hotel was not found");
         }
 

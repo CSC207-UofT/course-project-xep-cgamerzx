@@ -1,16 +1,16 @@
 package com.xepicgamerzx.hotelier;
 
+import static org.junit.Assert.assertEquals;
+
 import android.content.Context;
 
-import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.platform.app.InstrumentationRegistry;
+
+import com.xepicgamerzx.hotelier.storage.FileReadWrite;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import static org.junit.Assert.*;
-
-import com.xepicgamerzx.hotelier.storage.FileReadWrite;
 
 import java.util.ArrayList;
 
@@ -35,7 +35,7 @@ public class FileReadWriteTest {
     @Test
     public void readWriteTest() {
         ArrayList<String> testData = new ArrayList<>();
-        for (int i = 0; i < 100; i++){
+        for (int i = 0; i < 100; i++) {
             testData.add("Elm_" + i);
         }
         FileReadWrite<ArrayList<String>> frw = new FileReadWrite<>();

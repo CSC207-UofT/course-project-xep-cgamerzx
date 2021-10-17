@@ -1,8 +1,5 @@
 package com.xepicgamerzx.hotelier.customer;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,6 +13,9 @@ import android.widget.Filterable;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.xepicgamerzx.hotelier.R;
 import com.xepicgamerzx.hotelier.objects.Hotel;
@@ -45,7 +45,8 @@ public class HotelListActivity extends AppCompatActivity {
 
         // Getting the HotelManager passed from ActivityMain.
         Intent intent = getIntent();
-        if(intent.getExtras() != null) { System.out.println("HotelManager Received");
+        if (intent.getExtras() != null) {
+            System.out.println("HotelManager Received");
             hotelManager = (HotelManager) intent.getSerializableExtra("HotelManager");
         }
 
@@ -55,7 +56,7 @@ public class HotelListActivity extends AppCompatActivity {
         System.out.println(hotels);
 
 
-        for(Hotel hotel : hotels) {
+        for (Hotel hotel : hotels) {
             HotelViewModel hotelModel = new HotelViewModel(
                     hotel.getName(), hotel.getAddress().getFullStreet(),
                     hotelManager.hotelPriceRangeString(hotel),
@@ -98,7 +99,7 @@ public class HotelListActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
 
-        if(id == R.id.searchView) {
+        if (id == R.id.searchView) {
             return true;
         }
 

@@ -5,12 +5,17 @@ import com.xepicgamerzx.hotelier.objects.Bed;
 import com.xepicgamerzx.hotelier.objects.Hotel;
 import com.xepicgamerzx.hotelier.objects.Room;
 
-import java.util.Arrays;
-import java.io.*;
-
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 import java.util.Hashtable;
+import java.util.List;
 
 // By Thomas
 
@@ -98,7 +103,7 @@ public class FileReadWriteRaw {
         hotelData.append(hotelAddress.getLatitude()).append(",").append(";");
 
         List<Room> hotelRooms = hotel.getRooms();
-        for (Room room:hotelRooms) {
+        for (Room room : hotelRooms) {
             hotelData.append(room.getSchedule()[0]).append(",");
             hotelData.append(room.getSchedule()[1]).append(",");
             hotelData.append(room.getCapacity()).append(",");

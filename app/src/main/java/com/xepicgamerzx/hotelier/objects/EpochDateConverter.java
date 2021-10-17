@@ -9,6 +9,7 @@ public class EpochDateConverter {
 
     /**
      * Converting an epoch date to a format called LocalDate (ex. "2021-07-08")
+     *
      * @param date A date in epoch format.
      * @return A String in LocalDate format.
      */
@@ -21,6 +22,7 @@ public class EpochDateConverter {
 
     /**
      * Overloading the method above to format two epoch dates instead of one.
+     *
      * @param date1 Epoch date
      * @param date2 Epoch date
      * @return String

@@ -19,7 +19,7 @@ public class BedManager {
     }
 
     public void setRoomForAllBeds(Room room, List<Bed> beds) {
-        for(Bed bed : beds) {
+        for (Bed bed : beds) {
             bed.setRoom(room);
         }
     }

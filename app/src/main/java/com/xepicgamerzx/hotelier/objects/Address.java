@@ -14,11 +14,12 @@ public class Address implements Serializable {
 
     /**
      * Creates a new Address
+     *
      * @param streetName The name of the street
      * @param postalCode The postal code
      */
     public Address(String streetName, String postalCode, String streetNumber, String city,
-    String province, double longitude, double latitude) {
+                   String province, double longitude, double latitude) {
         this.streetName = streetName;
         this.postalCode = postalCode;
         this.streetNumber = streetNumber;
@@ -63,12 +64,12 @@ public class Address implements Serializable {
     @Override
     public String toString() {
         String sf = ("Street Number: " + this.streetNumber +
-                        "\nStreet Name: " + this.streetName +
-                        "\nCity: " + this.city +
-                        "\nProvince: " + this.province +
-                        "\nPostal Code: " + this.postalCode +
-                        "\nLongitude: " + this.longitude +
-                        "\nLatitude: " + this.latitude);
+                "\nStreet Name: " + this.streetName +
+                "\nCity: " + this.city +
+                "\nProvince: " + this.province +
+                "\nPostal Code: " + this.postalCode +
+                "\nLongitude: " + this.longitude +
+                "\nLatitude: " + this.latitude);
         return sf;
     }
 }

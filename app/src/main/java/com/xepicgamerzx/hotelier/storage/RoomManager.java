@@ -8,7 +8,7 @@ import java.util.List;
 public class RoomManager {
 
     public void setRooms(List<Room> rooms, Hotel hotel) {
-        for(Room room : rooms) {
+        for (Room room : rooms) {
             room.setHotel(hotel);
         }
     }

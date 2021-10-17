@@ -1,16 +1,16 @@
 package com.xepicgamerzx.hotelier;
 
-import org.junit.Test;
-
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import com.xepicgamerzx.hotelier.customer.CustomerFilterManager;
 import com.xepicgamerzx.hotelier.objects.Address;
-import com.xepicgamerzx.hotelier.objects.Room;
 import com.xepicgamerzx.hotelier.objects.Bed;
 import com.xepicgamerzx.hotelier.objects.Hotel;
+import com.xepicgamerzx.hotelier.objects.Room;
 
-import java.time.LocalDate;
+import org.junit.Test;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -145,7 +145,7 @@ public class HotelTest {
                 1634281932,
                 1636960332,
                 2, beds, 60);
-        List<Room> rooms3= new ArrayList<Room>();
+        List<Room> rooms3 = new ArrayList<Room>();
         rooms3.add(room5);
         Hotel h3 = new Hotel("Bruh", address, rooms3);
 

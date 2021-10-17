@@ -1,7 +1,6 @@
 package com.xepicgamerzx.hotelier.objects;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Hotel implements Serializable {
@@ -14,11 +13,12 @@ public class Hotel implements Serializable {
 
     /**
      * Create a new Hotel
-     * @param name the name of this hotel
+     *
+     * @param name    the name of this hotel
      * @param address the address of this hotel
-     * @param rooms the rooms that are in this hotel
-     //* @param amenities the amenities included in this hotel
-     //* @param starClass amount of stars this hotel is
+     * @param rooms   the rooms that are in this hotel
+     *                //* @param amenities the amenities included in this hotel
+     *                //* @param starClass amount of stars this hotel is
      */
     public Hotel(String name, Address address, List<Room> rooms) {
         this.name = name;
@@ -46,6 +46,7 @@ public class Hotel implements Serializable {
 
     /**
      * Checks every room in a hotel, finds the cheapest, and most expensive room and returns the price range.
+     *
      * @return an array in the format of {minPrice, maxPrice}
      */
     public double[] getPrinceRange() {
@@ -74,6 +75,7 @@ public class Hotel implements Serializable {
 
     /**
      * toString Method.
+     *
      * @return a string for a hotel.
      */
     @Override

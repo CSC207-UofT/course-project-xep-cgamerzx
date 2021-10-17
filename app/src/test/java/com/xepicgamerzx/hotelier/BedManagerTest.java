@@ -1,14 +1,15 @@
 package com.xepicgamerzx.hotelier;
 
-import org.junit.Test;
-import com.xepicgamerzx.hotelier.objects.Address;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+
 import com.xepicgamerzx.hotelier.objects.Bed;
 import com.xepicgamerzx.hotelier.objects.Room;
 import com.xepicgamerzx.hotelier.storage.BedManager;
 
-import static org.junit.Assert.*;
+import org.junit.Test;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class BedManagerTest {

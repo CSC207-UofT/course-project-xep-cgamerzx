@@ -1,12 +1,10 @@
 package com.xepicgamerzx.hotelier;
 
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+
 import com.xepicgamerzx.hotelier.objects.Address;
-import com.xepicgamerzx.hotelier.storage.FileReadWrite;
 
-import static org.junit.Assert.*;
-
-import java.io.IOException;
+import org.junit.Test;
 
 public class AddressTest {
 

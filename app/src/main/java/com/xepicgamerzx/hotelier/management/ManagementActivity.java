@@ -1,10 +1,6 @@
 package com.xepicgamerzx.hotelier.management;
 
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.util.Pair;
-
-
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +9,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.util.Pair;
+
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.google.android.material.textfield.TextInputEditText;
@@ -20,8 +19,8 @@ import com.xepicgamerzx.hotelier.R;
 import com.xepicgamerzx.hotelier.objects.Address;
 import com.xepicgamerzx.hotelier.objects.Bed;
 import com.xepicgamerzx.hotelier.objects.EpochDateConverter;
-import com.xepicgamerzx.hotelier.objects.Room;
 import com.xepicgamerzx.hotelier.objects.Hotel;
+import com.xepicgamerzx.hotelier.objects.Room;
 import com.xepicgamerzx.hotelier.storage.BedManager;
 import com.xepicgamerzx.hotelier.storage.HotelManager;
 import com.xepicgamerzx.hotelier.storage.RoomManager;
@@ -72,7 +71,7 @@ public class ManagementActivity extends AppCompatActivity {
 
         // Getting the HotelManager passed from ActivityMain.
         Intent intent = getIntent();
-        if(intent.getExtras() != null) {
+        if (intent.getExtras() != null) {
             System.out.println("HotelManager Received");
             hotelManager = (HotelManager) intent.getSerializableExtra("HotelManager");
         }
@@ -153,43 +152,43 @@ public class ManagementActivity extends AppCompatActivity {
         dialog.show();
 
         saveAddressButton.setOnClickListener(new View.OnClickListener() {
-              @Override
-              public void onClick(View v) {
-                  String hotelStreetNum= streetNum.getText().toString();
-                  String hotelStreetName= streetName.getText().toString();
-                  String hotelCity= city.getText().toString();
-                  String hotelProvince = province.getText().toString();
-                  String hotelPostalCode = postalCode.getText().toString();
-                  String hotelLongAndLat= longLat.getText().toString();
+                                                 @Override
+                                                 public void onClick(View v) {
+                                                     String hotelStreetNum = streetNum.getText().toString();
+                                                     String hotelStreetName = streetName.getText().toString();
+                                                     String hotelCity = city.getText().toString();
+                                                     String hotelProvince = province.getText().toString();
+                                                     String hotelPostalCode = postalCode.getText().toString();
+                                                     String hotelLongAndLat = longLat.getText().toString();
 
-                  String[] res = hotelLongAndLat.split("[,]", 0);
-                  double longitude = Double.parseDouble(res[0]);
-                  double latitude = Double.parseDouble(res[1]);
+                                                     String[] res = hotelLongAndLat.split("[,]", 0);
+                                                     double longitude = Double.parseDouble(res[0]);
+                                                     double latitude = Double.parseDouble(res[1]);
 
-                  // Create address object
-                  Address address = new Address(hotelStreetName,
-                          hotelPostalCode, hotelStreetNum,
-                          hotelCity, hotelProvince, longitude,
-                          latitude);
+                                                     // Create address object
+                                                     Address address = new Address(hotelStreetName,
+                                                             hotelPostalCode, hotelStreetNum,
+                                                             hotelCity, hotelProvince, longitude,
+                                                             latitude);
 
 //                  System.out.println(address.toString());
 
-                  dialog.dismiss();
-                  successText.setText("Added");
+                                                     dialog.dismiss();
+                                                     successText.setText("Added");
 
-                  addressField.put("Address", address);
+                                                     addressField.put("Address", address);
 
-              }
-          }
+                                                 }
+                                             }
 
         );
 
         cancelAddressButton.setOnClickListener(new View.OnClickListener() {
-              @Override
-              public void onClick(View v) {
-                  dialog.dismiss();
-              }
-          }
+                                                   @Override
+                                                   public void onClick(View v) {
+                                                       dialog.dismiss();
+                                                   }
+                                               }
 
         );
     }
@@ -242,16 +241,16 @@ public class ManagementActivity extends AppCompatActivity {
         builder.setTitleText("SELECT A CHECK IN AND CHECKOUT DATE");
         final MaterialDatePicker materialDatePicker = builder.build();
 
-        availabilityBtn.setOnClickListener(new View.OnClickListener(){
+        availabilityBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
-                materialDatePicker.show(getSupportFragmentManager(),  "DATE_RANGE_PICKER");
+            public void onClick(View v) {
+                materialDatePicker.show(getSupportFragmentManager(), "DATE_RANGE_PICKER");
             }
         });
 
-        materialDatePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener<Pair<Long,Long>>() {
+        materialDatePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener<Pair<Long, Long>>() {
             @Override
-            public void onPositiveButtonClick(Pair<Long,Long> selection) {
+            public void onPositiveButtonClick(Pair<Long, Long> selection) {
                 // GIVES EPOCH FORMATTED DATES
                 // We probably want to use epoch dates in Rooms class too.
                 Long startDate = selection.first;
