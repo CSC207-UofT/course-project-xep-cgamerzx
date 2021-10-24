@@ -30,6 +30,12 @@ public class HotelManager implements Serializable {
         hotelAmenitiesCrossDao = db.hotelAmenitiesCrossDao();
     }
 
+    public HotelManager(HotelierDatabase dbInstance) {
+        db = dbInstance;
+        hotelDao = db.hotelDao();
+        hotelAmenitiesCrossDao = db.hotelAmenitiesCrossDao();
+    }
+
     @NonNull
     public Hotel createHotel(String name, Address address, int starClass) {
         Hotel hotel = new Hotel(name, address, starClass);

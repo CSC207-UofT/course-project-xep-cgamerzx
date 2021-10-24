@@ -6,7 +6,6 @@ import com.xepicgamerzx.hotelier.objects.Bed;
 import com.xepicgamerzx.hotelier.objects.BedSize;
 import com.xepicgamerzx.hotelier.objects.HotelRoom;
 import com.xepicgamerzx.hotelier.storage.dao.BedDao;
-import com.xepicgamerzx.hotelier.storage.dao.HotelDao;
 
 public class BedManager {
     private HotelierDatabase db;
@@ -14,6 +13,11 @@ public class BedManager {
 
     public BedManager(Application application){
         db = HotelierDatabase.getDatabase(application);
+        bedDao = db.bedDao();
+    }
+
+    public BedManager(HotelierDatabase dbInstance){
+        db = dbInstance;
         bedDao = db.bedDao();
     }
 

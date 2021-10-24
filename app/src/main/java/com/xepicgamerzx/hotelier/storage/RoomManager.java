@@ -30,6 +30,12 @@ public class RoomManager {
         roomAmenitiesCrossDao = db.roomAmenitiesCrossDao();
     }
 
+    public RoomManager(HotelierDatabase dbInstance){
+        db = dbInstance;
+        roomDao = db.roomDao();
+        roomAmenitiesCrossDao = db.roomAmenitiesCrossDao();
+    }
+
     @NonNull
     public HotelRoom createRoom(ZoneId zoneId, long startDate, long endDate, int capacity, BigDecimal price) {
         HotelRoom hotelRoom = new HotelRoom(

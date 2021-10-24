@@ -17,7 +17,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.xepicgamerzx.hotelier.R;
 import com.xepicgamerzx.hotelier.objects.Address;
 import com.xepicgamerzx.hotelier.objects.Bed;
-import com.xepicgamerzx.hotelier.objects.EpochDateConverter;
+import com.xepicgamerzx.hotelier.objects.UnixEpochDateConverter;
 import com.xepicgamerzx.hotelier.objects.HotelRoom;
 import com.xepicgamerzx.hotelier.storage.BedManager;
 import com.xepicgamerzx.hotelier.storage.HotelManager;
@@ -241,7 +241,7 @@ public class ManagementActivity extends AppCompatActivity {
 //                System.out.println(String.format("%d %d", startDate, endDate));
 
                 // Converts to normal date
-                EpochDateConverter epoch = new EpochDateConverter();
+                UnixEpochDateConverter epoch = new UnixEpochDateConverter();
                 String dates = epoch.epochToLocal(startDate, endDate);
                 dateSelector.setText(dates);
 

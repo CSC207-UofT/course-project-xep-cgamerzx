@@ -4,7 +4,7 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 
-public class EpochDateConverter {
+public class UnixEpochDateConverter {
     // Epoch to local date
 
     /**

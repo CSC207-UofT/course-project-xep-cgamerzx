@@ -13,11 +13,11 @@ public class Hotel implements Serializable {
     public long hotelID;
 
     private String name;
+    private int starClass;
 
     @Embedded
     private Address address;
 
-    private int starClass;
 
     /**
      * Create a new Hotel

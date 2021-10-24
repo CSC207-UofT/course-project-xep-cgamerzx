@@ -2,14 +2,16 @@ package com.xepicgamerzx.hotelier;
 
 import static org.junit.Assert.assertEquals;
 
-import android.app.Application;
+import android.content.Context;
 
+import androidx.room.Room;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import com.xepicgamerzx.hotelier.objects.Address;
 import com.xepicgamerzx.hotelier.objects.Hotel;
 import com.xepicgamerzx.hotelier.storage.HotelManager;
+import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
 
 import org.junit.After;
 import org.junit.Before;
@@ -21,16 +23,18 @@ import java.util.List;
 @RunWith(AndroidJUnit4.class)
 public class HotelMangerTest {
 
+    private HotelierDatabase db;
     private HotelManager hotelManager;
 
     @Before
     public void createDb() {
-        Application application = ApplicationProvider.getApplicationContext();
-        hotelManager = new HotelManager(application);
+        Context context = ApplicationProvider.getApplicationContext();
+        db = Room.inMemoryDatabaseBuilder(context, HotelierDatabase.class).build();
+        hotelManager = new HotelManager(db);
     }
 
     @After
-    public void closeDb(){
+    public void closeDb() {
         hotelManager.closeDB();
     }
 
@@ -56,6 +60,7 @@ public class HotelMangerTest {
         assertEquals(hotel.getName(), "Hilton");
         assertEquals(hotel.getStarClass(), starClass);
         assert (address.equals(hotel_address));
+        System.out.println(hotel.hotelID);
     }
 }
 
