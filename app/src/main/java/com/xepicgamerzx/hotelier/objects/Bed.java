@@ -23,4 +23,7 @@ public class Bed implements Serializable {
     public String getBedID() {
         return bedID;
     }
+
+    public void setRoom(HotelRoom hotelRoom) {
+    }
 }
