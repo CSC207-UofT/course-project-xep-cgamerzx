@@ -13,12 +13,12 @@ import java.util.stream.Stream;
 public class CustomerFilterManager {
 
 
-    /**
+/*    *//**
      * Returns the hotels sorted by minimum price.
      *
      * @param hotels List of Hotels to be sorted
      * @return List of Hotels to be returned.
-     */
+     *//*
     public List<Hotel> sortHotelsByPrice(List<Hotel> hotels) {
         HashMap<Hotel, Double> hotelsToMinPrice = new HashMap<>();
 
@@ -49,7 +49,7 @@ public class CustomerFilterManager {
         } else {
             return hotels;
         }
-    }
+    }*/
 
     /**
      * Returns a string describing the hotelRooms that match the requirements of the customer request.

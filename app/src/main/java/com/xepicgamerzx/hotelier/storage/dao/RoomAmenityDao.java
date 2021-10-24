@@ -1,5 +1,6 @@
 package com.xepicgamerzx.hotelier.storage.dao;
 
+import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
@@ -12,18 +13,19 @@ import com.xepicgamerzx.hotelier.objects.relations.AmenityWithRooms;
 
 import java.util.List;
 
+@Dao
 public interface RoomAmenityDao {
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertAll(RoomAmenity... roomAmenities);
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    void insertRoomAmenities(RoomAmenity... roomAmenities);
 
     @Update
-    void updateHotels(RoomAmenity... roomAmenities);
+    int updateRoomAmenities(RoomAmenity... roomAmenities);
 
     @Delete
-    void delete(RoomAmenity roomAmenities);
+    void deleteRoomAmenity(RoomAmenity roomAmenities);
 
     @Query("SELECT * FROM RoomAmenity")
-    List<RoomAmenity> getAll();
+    List<RoomAmenity> getAllRoomAmenities();
 
     @Transaction
     @Query("SELECT * FROM RoomAmenity")

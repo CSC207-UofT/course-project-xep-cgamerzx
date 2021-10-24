@@ -1,5 +1,6 @@
 package com.xepicgamerzx.hotelier.objects;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -7,6 +8,7 @@ import java.io.Serializable;
 
 @Entity()
 public class Bed implements Serializable {
+    @NonNull
     @PrimaryKey()
     private final String bedID;
 
@@ -16,5 +18,9 @@ public class Bed implements Serializable {
 
     public Bed (BedSize bedID){
         this.bedID = bedID.toString();
+    }
+
+    public String getBedID() {
+        return bedID;
     }
 }
