@@ -2,7 +2,6 @@ package com.xepicgamerzx.hotelier.management;
 
 
 import android.app.AlertDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -11,7 +10,6 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.util.Pair;
-import androidx.room.Room;
 
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
@@ -20,7 +18,6 @@ import com.xepicgamerzx.hotelier.R;
 import com.xepicgamerzx.hotelier.objects.Address;
 import com.xepicgamerzx.hotelier.objects.Bed;
 import com.xepicgamerzx.hotelier.objects.EpochDateConverter;
-import com.xepicgamerzx.hotelier.objects.Hotel;
 import com.xepicgamerzx.hotelier.objects.HotelRoom;
 import com.xepicgamerzx.hotelier.storage.BedManager;
 import com.xepicgamerzx.hotelier.storage.HotelManager;
@@ -92,7 +89,8 @@ public class ManagementActivity extends AppCompatActivity {
                 // Address is added to the hashmap when the user adds an address.
 
                 Address address = addressField.get("Address");
-                hotelManager.createHotel(hotelName, address, hotelRooms);
+                // TODO Implement star class
+                hotelManager.createHotel(hotelName, address, 5, hotelRooms);
 
                 // Resetting fields.
                 nameInput.setText("");
