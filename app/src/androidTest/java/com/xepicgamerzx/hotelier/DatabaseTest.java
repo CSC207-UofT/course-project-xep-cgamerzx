@@ -13,8 +13,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 
-import java.io.IOException;
-
 
 @RunWith(AndroidJUnit4.class)
 public class DatabaseTest {
@@ -29,7 +27,7 @@ public class DatabaseTest {
     }
 
     @After
-    public void closeDb() throws IOException {
+    public void closeDb(){
         db.close();
     }
 }
