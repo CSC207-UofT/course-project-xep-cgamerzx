@@ -1,28 +1,39 @@
 package com.xepicgamerzx.hotelier.storage;
 
-import com.xepicgamerzx.hotelier.objects.Bed;
-import com.xepicgamerzx.hotelier.objects.Room;
+import android.app.Application;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.xepicgamerzx.hotelier.objects.Bed;
+import com.xepicgamerzx.hotelier.objects.BedSize;
+import com.xepicgamerzx.hotelier.objects.HotelRoom;
+import com.xepicgamerzx.hotelier.storage.dao.BedDao;
+import com.xepicgamerzx.hotelier.storage.dao.HotelDao;
 
 public class BedManager {
+    private HotelierDatabase db;
+    private BedDao bedDao;
 
-    public ArrayList<Bed> createBeds(int numberOfBeds, String size) {
-        ArrayList<Bed> allBeds = new ArrayList<Bed>();
-        for (int i = 0; i < numberOfBeds; i++) {
-            Bed bed = new Bed(size);
-            allBeds.add(bed);
-        }
-
-        return allBeds;
+    public BedManager(Application application){
+        db = HotelierDatabase.getDatabase(application);
+        bedDao = db.bedDao();
     }
 
-    public void setRoomForAllBeds(Room room, List<Bed> beds) {
-        for (Bed bed : beds) {
-            bed.setRoom(room);
-        }
+    public Bed createBed(String bedSize){
+        Bed bed = new Bed(bedSize);
+        insertBed(bed);
+        return bed;
     }
 
+    public Bed createBed(BedSize bedSize){
+        Bed bed = new Bed(bedSize);
+        insertBed(bed);
+        return bed;
+    }
 
+    private void insertBed(Bed bed){
+        bedDao.insertAll(bed);
+    }
+
+    public void addRoomToBed(Bed bed, HotelRoom hotelRoom){
+
+    }
 }

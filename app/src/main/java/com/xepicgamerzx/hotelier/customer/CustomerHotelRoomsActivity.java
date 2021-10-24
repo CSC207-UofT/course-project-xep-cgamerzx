@@ -10,8 +10,6 @@ import com.xepicgamerzx.hotelier.R;
 
 public class CustomerHotelRoomsActivity extends AppCompatActivity {
 
-    private TextView descNameText;
-
     HotelViewModel hotelViewModel;
 
     @Override
@@ -19,7 +17,7 @@ public class CustomerHotelRoomsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer_rooms);
 
-        descNameText = findViewById(R.id.hotelNameDesc);
+        TextView descNameText = findViewById(R.id.hotelNameDesc);
 
         Intent intent = getIntent();
         if (intent.getExtras() != null) {

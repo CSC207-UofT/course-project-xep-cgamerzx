@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
-    private HotelManager hotelManager = new HotelManager();
+    private HotelManager hotelManager;
 
     private Button managementBtn;
     private Button customerBtn;
@@ -36,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
         managementBtn = (Button) findViewById(R.id.managementBtn);
         customerBtn = (Button) findViewById(R.id.customerBtn);
         resetBtn = (Button) findViewById(R.id.resetDataBtn);
+
+        hotelManager = new HotelManager(getApplication());
 
         managementBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,14 +87,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void loadData() {
-        List<Hotel> test = hotelManager.loadHotels(binding.getRoot().getContext());
-
-        hotelManager.loadHotels(binding.getRoot().getContext());
-
     }
 
     public void resetData() {
-        hotelManager.resetHotelsList();
-        hotelManager.saveData(binding.getRoot().getContext());
+
     }
 }

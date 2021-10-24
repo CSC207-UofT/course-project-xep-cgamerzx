@@ -147,12 +147,7 @@ public class HotelListActivity extends AppCompatActivity {
             hotelPriceRange.setText(listHotelsFiltered.get(position).getPriceRange());
             hotelNumRooms.setText("Rooms: " + listHotelsFiltered.get(position).getNumberOfRooms());
 
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    startActivity(new Intent(HotelListActivity.this, CustomerHotelRoomsActivity.class).putExtra("Hotel", listHotelsFiltered.get(position)));
-                }
-            });
+            view.setOnClickListener(v -> startActivity(new Intent(HotelListActivity.this, CustomerHotelRoomsActivity.class).putExtra("Hotel", listHotelsFiltered.get(position))));
 
             return view;
         }

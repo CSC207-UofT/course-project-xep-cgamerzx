@@ -1,14 +1,23 @@
 package com.xepicgamerzx.hotelier.objects;
 
+import androidx.room.Embedded;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import java.io.Serializable;
 import java.util.List;
 
+
+@Entity()
 public class Hotel implements Serializable {
+    @PrimaryKey(autoGenerate = true)
+    public long hotelID;
 
     private String name;
+
+    @Embedded
     private Address address;
-    private List<Room> rooms;
-    private HotelAmenities amenities;
+
     private int starClass;
 
     /**
@@ -16,48 +25,54 @@ public class Hotel implements Serializable {
      *
      * @param name    the name of this hotel
      * @param address the address of this hotel
-     * @param rooms   the rooms that are in this hotel
      *                //* @param amenities the amenities included in this hotel
      *                //* @param starClass amount of stars this hotel is
      */
-    public Hotel(String name, Address address, List<Room> rooms) {
+    public Hotel(String name, Address address) {
         this.name = name;
         this.address = address;
-        this.rooms = rooms;
         //        this.amenities = amenities;
         //        this.starClass = starClass;
     }
 
     public String getName() {
-        return this.name;
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Address getAddress() {
-        return this.address;
+        return address;
     }
 
-    public List<Room> getRooms() {
-        return this.rooms;
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
-    public int getNumberOfRooms() {
-        return this.rooms.size();
+    public int getStarClass() {
+        return starClass;
+    }
+
+    public void setStarClass(int starClass) {
+        this.starClass = starClass;
     }
 
     /**
-     * Checks every room in a hotel, finds the cheapest, and most expensive room and returns the price range.
+     * Checks every hotelRoom in a hotel, finds the cheapest, and most expensive hotelRoom and returns the price range.
      *
      * @return an array in the format of {minPrice, maxPrice}
      */
-    public double[] getPrinceRange() {
-        List<Room> rooms = this.rooms;
+/*    public double[] getPrinceRange() {
+        List<HotelRoom> hotelRooms = this.hotelRooms;
 
-        double lowestPrice = rooms.get(0).getPrice();
-        double largestPrice = rooms.get(0).getPrice();
+        double lowestPrice = hotelRooms.get(0).getPrice();
+        double largestPrice = hotelRooms.get(0).getPrice();
 
 
-        for (Room room : rooms) {
-            largestPrice = room.getPrice();
+        for (HotelRoom hotelRoom : hotelRooms) {
+            largestPrice = hotelRoom.getPrice();
 
             if (largestPrice < lowestPrice) {
                 lowestPrice = largestPrice;
@@ -71,7 +86,7 @@ public class Hotel implements Serializable {
         a[1] = largestPrice;
 
         return a;
-    }
+    }*/
 
     /**
      * toString Method.
@@ -82,9 +97,8 @@ public class Hotel implements Serializable {
     public String toString() {
         String name = String.format("Name: %s", this.name);
         String hotelAddress = String.format("\nAddress: %s", this.address.getFullStreet());
-        String rooms = String.format("\nRooms: %s", this.rooms);
 
-        return String.format(name + hotelAddress + rooms);
+        return String.format(name + hotelAddress);
     }
 
 

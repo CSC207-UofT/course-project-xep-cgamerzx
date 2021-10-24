@@ -7,7 +7,7 @@ import com.xepicgamerzx.hotelier.customer.CustomerFilterManager;
 import com.xepicgamerzx.hotelier.objects.Address;
 import com.xepicgamerzx.hotelier.objects.Bed;
 import com.xepicgamerzx.hotelier.objects.Hotel;
-import com.xepicgamerzx.hotelier.objects.Room;
+import com.xepicgamerzx.hotelier.objects.HotelRoom;
 
 import org.junit.Test;
 
@@ -31,50 +31,50 @@ public class HotelTest {
         ArrayList<Bed> beds = new ArrayList<Bed>();
         beds.add(bed1);
 
-        Room room = new Room(
+        HotelRoom hotelRoom = new HotelRoom(
                 1634281932,
                 1636960332,
                 4, beds, 250);
-        bed1.setRoom(room);
+        bed1.setRoom(hotelRoom);
 
-        List<Room> rooms = new ArrayList<Room>();
-        rooms.add(room);
+        List<HotelRoom> hotelRooms = new ArrayList<HotelRoom>();
+        hotelRooms.add(hotelRoom);
 
-        Hotel h = new Hotel("Hilton", address, rooms);
-        room.setHotel(h);
+        Hotel h = new Hotel("Hilton", address, hotelRooms);
+        hotelRoom.setHotel(h);
 
         assertEquals(h.getName(), "Hilton");
         assertEquals(h.getAddress(), address);
-        assertEquals(h.getRooms(), rooms);
+        assertEquals(h.getRooms(), hotelRooms);
     }
 
     @Test
     public void testGetHotelPriceRange() {
         // Creating a hotel is kind of a long process
-        // Room 1:
+        // HotelRoom 1:
         Bed bed1 = new Bed("Queen");
         ArrayList<Bed> beds = new ArrayList<Bed>();
         beds.add(bed1);
-        Room room1 = new Room(
+        HotelRoom hotelRoom1 = new HotelRoom(
                 1634281932,
                 1636960332,
                 4, beds, 250);
-        bed1.setRoom(room1);
+        bed1.setRoom(hotelRoom1);
 
-        // Room 2:
+        // HotelRoom 2:
         ArrayList<Bed> beds2 = new ArrayList<Bed>();
         Bed bed2 = new Bed("King");
         beds.add(bed2);
-        Room room2 = new Room(
+        HotelRoom hotelRoom2 = new HotelRoom(
                 1634281932,
                 1636960332,
                 4, beds, 350);
-        bed2.setRoom(room2);
+        bed2.setRoom(hotelRoom2);
 
         // Creating the hotel
-        List<Room> rooms = new ArrayList<Room>();
-        rooms.add(room1);
-        rooms.add(room2);
+        List<HotelRoom> hotelRooms = new ArrayList<HotelRoom>();
+        hotelRooms.add(hotelRoom1);
+        hotelRooms.add(hotelRoom2);
 
         Address address = new Address("Testing Lane",
                 "M5T2Y7",
@@ -84,8 +84,8 @@ public class HotelTest {
                 43.6532,
                 79.3832);
 
-        Hotel h = new Hotel("Hilton", address, rooms);
-        room1.setHotel(h);
+        Hotel h = new Hotel("Hilton", address, hotelRooms);
+        hotelRoom1.setHotel(h);
 
 
         // Actual Test
@@ -98,28 +98,28 @@ public class HotelTest {
     @Test
     public void testSortHotelsByMinimumPrice() {
         // Creating the hotel 1
-        // Room 1:
+        // HotelRoom 1:
         Bed bed1 = new Bed("Queen");
         ArrayList<Bed> beds = new ArrayList<Bed>();
         beds.add(bed1);
-        Room room1 = new Room(
+        HotelRoom hotelRoom1 = new HotelRoom(
                 1634281932,
                 1636960332,
                 4, beds, 250);
-        bed1.setRoom(room1);
-        // Room 2:
+        bed1.setRoom(hotelRoom1);
+        // HotelRoom 2:
         Bed bed2 = new Bed("King");
         beds.add(bed2);
         ArrayList<Bed> beds2 = new ArrayList<Bed>();
         beds.add(bed2);
-        Room room2 = new Room(
+        HotelRoom hotelRoom2 = new HotelRoom(
                 1634281932,
                 1636960332,
                 4, beds2, 350);
-        bed2.setRoom(room2);
-        List<Room> rooms = new ArrayList<Room>();
-        rooms.add(room1);
-        rooms.add(room2);
+        bed2.setRoom(hotelRoom2);
+        List<HotelRoom> hotelRooms = new ArrayList<HotelRoom>();
+        hotelRooms.add(hotelRoom1);
+        hotelRooms.add(hotelRoom2);
         Address address = new Address("Testing Lane",
                 "M5T2Y7",
                 "123",
@@ -127,26 +127,26 @@ public class HotelTest {
                 "ON",
                 43.6532,
                 79.3832);
-        Hotel h1 = new Hotel("Hilton", address, rooms);
-        room1.setHotel(h1);
+        Hotel h1 = new Hotel("Hilton", address, hotelRooms);
+        hotelRoom1.setHotel(h1);
 
         //Hotel 2
         Bed bed4 = new Bed("Queen");
-        Room room4 = new Room(
+        HotelRoom hotelRoom4 = new HotelRoom(
                 1634281932,
                 1636960332,
                 2, beds, 50);
-        List<Room> rooms2 = new ArrayList<Room>();
-        rooms2.add(room4);
+        List<HotelRoom> rooms2 = new ArrayList<HotelRoom>();
+        rooms2.add(hotelRoom4);
         Hotel h2 = new Hotel("Cool", address, rooms2);
 
         // Hotel 3
-        Room room5 = new Room(
+        HotelRoom hotelRoom5 = new HotelRoom(
                 1634281932,
                 1636960332,
                 2, beds, 60);
-        List<Room> rooms3 = new ArrayList<Room>();
-        rooms3.add(room5);
+        List<HotelRoom> rooms3 = new ArrayList<HotelRoom>();
+        rooms3.add(hotelRoom5);
         Hotel h3 = new Hotel("Bruh", address, rooms3);
 
 

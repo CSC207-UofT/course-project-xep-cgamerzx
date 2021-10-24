@@ -1,13 +1,15 @@
 package com.xepicgamerzx.hotelier.objects;
 
+import androidx.annotation.NonNull;
+
 /**
- * Enum with all the types of room amenities. Each also stores a String label describing the use case.
+ * Enum with all the types of hotelRoom amenities. Each also stores a String label describing the use case.
  */
 public enum RoomAmenities {
     WIFI("Wi-Fi"),
-    ROOM_SERVICE("Room Service"),
-    SMOKING("Smoking Room"),
-    NONSMOKING("Non-smoking Room"),
+    ROOM_SERVICE("HotelRoom Service"),
+    SMOKING("Smoking HotelRoom"),
+    NONSMOKING("Non-smoking HotelRoom"),
     AIR_CONDITIONING("Air conditioning"),
     HOUSEKEEPING("House Keeping"),
     MICROWAVE("Microwave"),
@@ -30,5 +32,11 @@ public enum RoomAmenities {
      */
     RoomAmenities(String label) {
         this.label = label;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return this.label;
     }
 }

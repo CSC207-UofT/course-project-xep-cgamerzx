@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.util.Pair;
+import androidx.room.Room;
 
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
@@ -20,25 +21,28 @@ import com.xepicgamerzx.hotelier.objects.Address;
 import com.xepicgamerzx.hotelier.objects.Bed;
 import com.xepicgamerzx.hotelier.objects.EpochDateConverter;
 import com.xepicgamerzx.hotelier.objects.Hotel;
-import com.xepicgamerzx.hotelier.objects.Room;
+import com.xepicgamerzx.hotelier.objects.HotelRoom;
 import com.xepicgamerzx.hotelier.storage.BedManager;
 import com.xepicgamerzx.hotelier.storage.HotelManager;
 import com.xepicgamerzx.hotelier.storage.RoomManager;
 
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 
 public class ManagementActivity extends AppCompatActivity {
     private HashMap<String, Address> addressField; // Ask how to use generics? idk about object
     private HashMap<String, Long> dateRange;
-    private ArrayList<Room> rooms;
+    private List<HotelRoom> hotelRooms;
     private int countRooms = 0;
     private HotelManager hotelManager;
 
 
     public ArrayList<Bed> bedsList;
     private BedManager bedManager;
+    private RoomManager roomManager;
 
     // Android App Fields
     private TextInputEditText nameInput;
@@ -58,10 +62,11 @@ public class ManagementActivity extends AppCompatActivity {
 
     public ManagementActivity() {
         this.bedsList = new ArrayList<Bed>();
-        this.bedManager = new BedManager();
+        this.bedManager = new BedManager(getApplication());
+        this.roomManager = new RoomManager();
         this.dateRange = new HashMap<String, Long>();
         this.addressField = new HashMap<String, Address>();
-        this.rooms = new ArrayList<Room>();
+        this.hotelRooms = new ArrayList<HotelRoom>();
     }
 
     @Override
@@ -92,13 +97,12 @@ public class ManagementActivity extends AppCompatActivity {
                 String hotelName = nameInput.getText().toString();
                 // Address is added to the hashmap when the user adds an address.
 
+                Address address = addressField.get("Address");
+                hotelManager.createHotel(hotelName, address, hotelRooms);
 
-                Hotel hotel = new Hotel(hotelName, addressField.get("Address"), rooms);
-                hotelManager.addHotel(hotel);
-
-                // Give all these rooms a reference to their hotels
+                // Give all these hotelRooms a reference to their hotels
                 RoomManager roomManager = new RoomManager();
-                roomManager.setRooms(rooms, hotel);
+                roomManager.setRooms(hotelRooms, hotel);
 
                 // Save hotel object
                 hotelManager.saveData(v.getContext());
@@ -219,14 +223,13 @@ public class ManagementActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // Creating beds
                 String bedSize = bedSizeIn.getText().toString();
-                String totalBeds = totalBedsIn.getText().toString();
+                int totalBeds = Integer.parseInt(totalBedsIn.getText().toString());
 
                 // Adding the inputted beds to the instance variable called beds list.
                 // Need to add some input checker to see if valid.
-                bedsList.addAll(bedManager.createBeds(Integer.parseInt(totalBeds), bedSize));
-
-                // Remember, on save, set all the beds to the room reference.
-
+                for (int i = 0; i < totalBeds; i++) {
+                    bedsList.add(bedManager.createBed(bedSize));
+                }
                 // Updating fields.
                 bedSizeIn.setText("");
                 totalBedsIn.setText("");
@@ -272,25 +275,22 @@ public class ManagementActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Add error handling later, if any fields are blank
-                // Dont run the code below!!
+                int capacity = Integer.parseInt( capacityIn.getText().toString());
+                long price = Long.parseLong(priceIn.getText().toString());
+                long startDate = dateRange.get("startDate");
+                long endDate = dateRange.get("endDate");
+                ZoneId zoneId = ZoneId.systemDefault();
 
-                String capacity = capacityIn.getText().toString();
-                String price = priceIn.getText().toString();
-                long epochStartDate = dateRange.get("startDate");
-                long epochEndDate = dateRange.get("endDate");
+                // Create hotelRoom
+                HotelRoom hotelRoom = roomManager.createRoom(zoneId, startDate, endDate, capacity, price);
 
-                // Create room
-                Room room = new Room(epochStartDate, epochEndDate,
-                        Integer.parseInt(capacity), bedsList,
-                        Long.parseLong(price));
-
-                // Give beds a reference to their room
-                bedManager.setRoomForAllBeds(room, bedsList);
+                // Give beds a reference to their hotelRoom
+                bedManager.setRoomForAllBeds(hotelRoom, bedsList);
 
                 // Save to file system ... ?
                 // Add later
 
-//                System.out.println(room.toString());
+//                System.out.println(hotelRoom.toString());
 
                 // On save, clear bedsList to empty list.
                 bedsList = new ArrayList<Bed>();
@@ -299,10 +299,10 @@ public class ManagementActivity extends AppCompatActivity {
                 countRooms += 1;
 
                 roomDetailsText = (TextView) findViewById(R.id.roomDetailsText);
-                roomDetailsText.append(String.format("\nRoom %d,\n%s", countRooms, room.toString()));
+                roomDetailsText.append(String.format("\nHotelRoom %d,\n%s", countRooms, hotelRoom.toString()));
 
-                // Adding to the rooms list for a single hotel.
-                rooms.add(room);
+                // Adding to the hotelRooms list for a single hotel.
+                hotelRooms.add(hotelRoom);
 
                 dialog.dismiss();
             }
@@ -315,5 +315,6 @@ public class ManagementActivity extends AppCompatActivity {
             }
         });
     }
+
 
 }
