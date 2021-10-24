@@ -30,7 +30,7 @@ public class BedManager {
     }
 
     private void insertBed(Bed bed){
-        bedDao.insertBed(bed);
+        bedDao.insertBeds(bed);
     }
 
     public void addRoomToBed(Bed bed, HotelRoom hotelRoom){

@@ -5,6 +5,7 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.ZoneId;
 import java.util.Locale;
 
@@ -16,7 +17,7 @@ public class HotelRoom{
     private long hotelID;
 
     private int capacity;
-    private long price;
+    private BigDecimal price;
 
     private ZoneId zoneId;
     private long startAvailability;
@@ -32,7 +33,7 @@ public class HotelRoom{
      *                          //* @param hotel The hotel that this hotelRoom is apart of
      *                          //* @param amenities The amenities that this hotelRoom has
      */
-    public HotelRoom(ZoneId zoneId, long startAvailability, long endAvailability, int capacity, long price) {
+    public HotelRoom(ZoneId zoneId, long startAvailability, long endAvailability, int capacity, BigDecimal price) {
         this.zoneId = zoneId;
         this.startAvailability = startAvailability;
         this.endAvailability = endAvailability;
@@ -56,11 +57,11 @@ public class HotelRoom{
         this.capacity = capacity;
     }
 
-    public long getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(long price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 

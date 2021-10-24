@@ -12,9 +12,10 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 
+@Deprecated
 public class BedManagerTest {
 
-    @Test
+/*    @Test
     public void testCreateBeds() {
         ArrayList<Bed> beds = new ArrayList<Bed>();
         BedManager bedManager = new BedManager();
@@ -48,5 +49,5 @@ public class BedManagerTest {
             assertNotNull(bed.getRoom());
         }
 
-    }
+    }*/
 }

@@ -36,12 +36,18 @@ public class HotelManager implements Serializable {
     @NonNull
     public Hotel createHotel(String name, Address address){
         Hotel hotel = new Hotel(name, address);
+        hotelDao.insertHotels(hotel);
         return hotel;
     }
 
     @NonNull
     public Hotel createHotel(String name, Address address, List<HotelRoom> hotelRooms){
-        Hotel hotel = new Hotel(name, address);
+        Hotel hotel = createHotel(name, address);
+
+        for(HotelRoom hotelRoom: hotelRooms){
+            hotelRoom.setHotelID(hotel.hotelID);
+        }
+
         return hotel;
     }
 
@@ -66,5 +72,9 @@ public class HotelManager implements Serializable {
 
     public List<Hotel> getAllHotels(){
         return hotelDao.getAllHotels();
+    }
+
+    public void closeDB() {
+        db.close();
     }
 }

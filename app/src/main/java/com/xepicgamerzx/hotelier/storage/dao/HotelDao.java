@@ -9,6 +9,7 @@ import androidx.room.Transaction;
 import androidx.room.Update;
 
 import com.xepicgamerzx.hotelier.objects.Hotel;
+import com.xepicgamerzx.hotelier.objects.HotelRoom;
 import com.xepicgamerzx.hotelier.objects.relations.HotelWithAmenities;
 import com.xepicgamerzx.hotelier.objects.relations.HotelWithRooms;
 
@@ -27,6 +28,9 @@ public interface HotelDao {
 
     @Query("SELECT * FROM Hotel")
     List<Hotel> getAllHotels();
+
+    @Query("SELECT * FROM Hotel WHERE hotelID IN (:hotelID)")
+    List<Hotel> getHotels(Long... hotelID);
 
     @Transaction
     @Query("SELECT * FROM Hotel")

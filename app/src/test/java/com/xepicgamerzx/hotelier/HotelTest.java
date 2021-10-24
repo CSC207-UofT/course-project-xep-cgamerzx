@@ -15,9 +15,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+@Deprecated
 public class HotelTest {
 
-    @Test
+/*    @Test
     public void testNewHotelObject() {
         Address address = new Address("Testing Lane",
                 "M5T2Y7",
@@ -46,9 +47,9 @@ public class HotelTest {
         assertEquals(h.getName(), "Hilton");
         assertEquals(h.getAddress(), address);
         assertEquals(h.getRooms(), hotelRooms);
-    }
+    }*/
 
-    @Test
+/*    @Test
     public void testGetHotelPriceRange() {
         // Creating a hotel is kind of a long process
         // HotelRoom 1:
@@ -167,5 +168,5 @@ public class HotelTest {
 
         assertEquals(actualSortedHotels, expectedSortedHotels);
 
-    }
+    }*/
 }

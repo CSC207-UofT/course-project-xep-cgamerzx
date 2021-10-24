@@ -27,6 +27,12 @@ public interface RoomDao {
     @Query("SELECT * FROM HotelRoom")
     List<HotelRoom> getAllRooms();
 
+    @Query("SELECT * FROM HotelRoom WHERE roomID IN (:hotelRoomID)")
+    List<HotelRoom> getRooms(Long... hotelRoomID);
+
+    @Query("SELECT * FROM HotelRoom WHERE hotelID =:hotelID")
+    List<HotelRoom> getRoomsInHotel(Long hotelID);
+
     @Transaction
     @Query("SELECT * FROM HotelRoom")
     List<RoomWithBeds> getRoomsWithBeds();

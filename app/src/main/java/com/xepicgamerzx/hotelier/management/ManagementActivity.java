@@ -26,6 +26,7 @@ import com.xepicgamerzx.hotelier.storage.BedManager;
 import com.xepicgamerzx.hotelier.storage.HotelManager;
 import com.xepicgamerzx.hotelier.storage.RoomManager;
 
+import java.math.BigDecimal;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,12 +38,12 @@ public class ManagementActivity extends AppCompatActivity {
     private HashMap<String, Long> dateRange;
     private List<HotelRoom> hotelRooms;
     private int countRooms = 0;
-    private HotelManager hotelManager;
 
 
     public ArrayList<Bed> bedsList;
     private BedManager bedManager;
     private RoomManager roomManager;
+    private HotelManager hotelManager;
 
     // Android App Fields
     private TextInputEditText nameInput;
@@ -63,7 +64,8 @@ public class ManagementActivity extends AppCompatActivity {
     public ManagementActivity() {
         this.bedsList = new ArrayList<Bed>();
         this.bedManager = new BedManager(getApplication());
-        this.roomManager = new RoomManager();
+        this.roomManager = new RoomManager(getApplication());
+        this.hotelManager = new HotelManager(getApplication());
         this.dateRange = new HashMap<String, Long>();
         this.addressField = new HashMap<String, Address>();
         this.hotelRooms = new ArrayList<HotelRoom>();
@@ -73,14 +75,6 @@ public class ManagementActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_management);
-
-        // Getting the HotelManager passed from ActivityMain.
-        Intent intent = getIntent();
-        if (intent.getExtras() != null) {
-            System.out.println("HotelManager Received");
-            hotelManager = (HotelManager) intent.getSerializableExtra("HotelManager");
-        }
-
 
         nameInput = (TextInputEditText) findViewById(R.id.inputText);
         submitButton = (Button) findViewById(R.id.submit);
@@ -99,18 +93,6 @@ public class ManagementActivity extends AppCompatActivity {
 
                 Address address = addressField.get("Address");
                 hotelManager.createHotel(hotelName, address, hotelRooms);
-
-                // Give all these hotelRooms a reference to their hotels
-                RoomManager roomManager = new RoomManager();
-                roomManager.setRooms(hotelRooms, hotel);
-
-                // Save hotel object
-                hotelManager.saveData(v.getContext());
-                System.out.println("Successfully saved data");
-                // System.out.println(hotelManager.loadHotels(v.getContext()));
-
-                // For some reason when I sout the array, every objects toString methods thats inside of it..
-                // System.out.println(hotelManager.getAllHotels());
 
                 // Resetting fields.
                 nameInput.setText("");
@@ -276,7 +258,7 @@ public class ManagementActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // Add error handling later, if any fields are blank
                 int capacity = Integer.parseInt( capacityIn.getText().toString());
-                long price = Long.parseLong(priceIn.getText().toString());
+                BigDecimal price = new BigDecimal(priceIn.getText().toString());
                 long startDate = dateRange.get("startDate");
                 long endDate = dateRange.get("endDate");
                 ZoneId zoneId = ZoneId.systemDefault();
@@ -285,15 +267,10 @@ public class ManagementActivity extends AppCompatActivity {
                 HotelRoom hotelRoom = roomManager.createRoom(zoneId, startDate, endDate, capacity, price);
 
                 // Give beds a reference to their hotelRoom
-                bedManager.setRoomForAllBeds(hotelRoom, bedsList);
-
-                // Save to file system ... ?
-                // Add later
-
-//                System.out.println(hotelRoom.toString());
+                //bedManager.setRoomForAllBeds(hotelRoom, bedsList);
 
                 // On save, clear bedsList to empty list.
-                bedsList = new ArrayList<Bed>();
+                //bedsList = new ArrayList<Bed>();
                 // System.out.println(bedsList);
 
                 countRooms += 1;

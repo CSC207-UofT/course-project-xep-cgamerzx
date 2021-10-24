@@ -10,6 +10,8 @@ public class BedsRoomCrossRef {
     @NonNull
     public String bedID;
 
+    private int bedCount;
+
     public BedsRoomCrossRef(@NonNull long roomID, @NonNull String bedID){
         this.roomID = roomID;
         this.bedID = bedID;
@@ -18,5 +20,13 @@ public class BedsRoomCrossRef {
     public BedsRoomCrossRef(HotelRoom hotelRoom, Bed bed){
         this.roomID = hotelRoom.roomID;
         this.bedID = bed.getBedID();
+    }
+
+    public int getBedCount() {
+        return bedCount;
+    }
+
+    public void setBedCount(int bedCount) {
+        this.bedCount = bedCount;
     }
 }
