@@ -9,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.ui.AppBarConfiguration;
 
 import com.xepicgamerzx.hotelier.R;
-import com.xepicgamerzx.hotelier.customer.CustomerActivity;
 import com.xepicgamerzx.hotelier.databinding.ActivityMainBinding;
 import com.xepicgamerzx.hotelier.management.ManagementActivity;
 import com.xepicgamerzx.hotelier.objects.Hotel;
@@ -17,7 +16,7 @@ import com.xepicgamerzx.hotelier.storage.HotelManager;
 
 import java.util.List;
 
-public class new_home_page extends AppCompatActivity {
+public class old_home_page extends AppCompatActivity {
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
     private HotelManager hotelManager = new HotelManager();
@@ -29,7 +28,7 @@ public class new_home_page extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_new_home_page);
+        setContentView(R.layout.activity_old_home_page);
 
 
         managementBtn = (Button) findViewById(R.id.managementBtn);
@@ -68,7 +67,7 @@ public class new_home_page extends AppCompatActivity {
      * @param v starting view
      */
     public void openManagement(View v) {
-        Intent intent = new Intent(new_home_page.this, ManagementActivity.class).putExtra("HotelManager", hotelManager);
+        Intent intent = new Intent(old_home_page.this, ManagementActivity.class).putExtra("HotelManager", hotelManager);
         startActivity(intent);
     }
 
