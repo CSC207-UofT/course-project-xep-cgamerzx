@@ -50,7 +50,7 @@ public class CustomerActivity extends AppCompatActivity {
     }
 
     public void openListings() {
-        Intent intent = new Intent(this, HotelListActivity.class).putExtra("HotelManager", hotelManager);
+        Intent intent = new Intent(this, HotelListActivity.class);
         startActivity(intent);
     }
 

@@ -55,14 +55,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        resetBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                resetData();
-                loadData();
-            }
-        });
-
     }
 
     /**
@@ -71,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
      * @param v starting view
      */
     public void openManagement(View v) {
-        Intent intent = new Intent(MainActivity.this, ManagementActivity.class).putExtra("HotelManager", hotelManager);
+        Intent intent = new Intent(MainActivity.this, ManagementActivity.class);
         startActivity(intent);
     }
 
@@ -81,15 +73,12 @@ public class MainActivity extends AppCompatActivity {
      * @param view starting view
      */
     public void openCustomer(View view) {
-        Intent intent = new Intent(this, CustomerActivity.class).putExtra("HotelManager", hotelManager);
-        ;
+        Intent intent = new Intent(this, CustomerActivity.class);
+
         startActivity(intent);
     }
 
     public void loadData() {
     }
 
-    public void resetData() {
-
-    }
 }

@@ -136,43 +136,40 @@ public class ManagementActivity extends AppCompatActivity {
         dialog.show();
 
         saveAddressButton.setOnClickListener(new View.OnClickListener() {
-                                                 @Override
-                                                 public void onClick(View v) {
-                                                     String hotelStreetNum = streetNum.getText().toString();
-                                                     String hotelStreetName = streetName.getText().toString();
-                                                     String hotelCity = city.getText().toString();
-                                                     String hotelProvince = province.getText().toString();
-                                                     String hotelPostalCode = postalCode.getText().toString();
-                                                     String hotelLongAndLat = longLat.getText().toString();
+             @Override
+             public void onClick(View v) {
+                 String hotelStreetNum = streetNum.getText().toString();
+                 String hotelStreetName = streetName.getText().toString();
+                 String hotelCity = city.getText().toString();
+                 String hotelProvince = province.getText().toString();
+                 String hotelPostalCode = postalCode.getText().toString();
+                 String hotelLongAndLat = longLat.getText().toString();
 
-                                                     String[] res = hotelLongAndLat.split("[,]", 0);
-                                                     double longitude = Double.parseDouble(res[0]);
-                                                     double latitude = Double.parseDouble(res[1]);
+                 String[] res = hotelLongAndLat.split("[,]", 0);
+                 double longitude = Double.parseDouble(res[0]);
+                 double latitude = Double.parseDouble(res[1]);
 
-                                                     // Create address object
-                                                     Address address = new Address(hotelStreetName,
-                                                             hotelPostalCode, hotelStreetNum,
-                                                             hotelCity, hotelProvince, longitude,
-                                                             latitude);
+                 // Create address object
+                 Address address = new Address(hotelStreetName,
+                         hotelPostalCode, hotelStreetNum,
+                         hotelCity, hotelProvince, longitude,
+                         latitude);
 
-//                  System.out.println(address.toString());
 
-                                                     dialog.dismiss();
-                                                     successText.setText("Added");
+                 dialog.dismiss();
+                 successText.setText("Added");
 
-                                                     addressField.put("Address", address);
+                 addressField.put("Address", address);
 
-                                                 }
-                                             }
-
-        );
+             }
+         });
 
         cancelAddressButton.setOnClickListener(new View.OnClickListener() {
-                                                   @Override
-                                                   public void onClick(View v) {
-                                                       dialog.dismiss();
-                                                   }
-                                               }
+            @Override
+            public void onClick(View v) {
+                   dialog.dismiss();
+               }
+           }
 
         );
     }
@@ -268,7 +265,7 @@ public class ManagementActivity extends AppCompatActivity {
                 //bedManager.setRoomForAllBeds(hotelRoom, bedsList);
 
                 // On save, clear bedsList to empty list.
-                //bedsList = new ArrayList<Bed>();
+                // bedsList = new ArrayList<Bed>();
                 // System.out.println(bedsList);
 
                 countRooms += 1;
