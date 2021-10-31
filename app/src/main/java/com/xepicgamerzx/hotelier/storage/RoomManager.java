@@ -126,6 +126,11 @@ public class RoomManager implements LongManager<HotelRoom>{
         return getHotelRoomsInHotel(hotelID).size();
     }
 
+    public int getNumberOfRooms(Hotel hotel) {
+        return getNumberOfRooms(hotel.hotelID);
+    }
+
+
     public List<BigDecimal> getPriceRange(List<HotelRoom> hotelRooms) {
         HotelRoom minPricedRoom = hotelRooms.stream()
                 .min(Comparator.comparing(HotelRoom::getPrice))
