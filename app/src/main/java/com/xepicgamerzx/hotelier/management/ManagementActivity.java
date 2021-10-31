@@ -17,8 +17,8 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.xepicgamerzx.hotelier.R;
 import com.xepicgamerzx.hotelier.objects.Address;
 import com.xepicgamerzx.hotelier.objects.Bed;
-import com.xepicgamerzx.hotelier.objects.UnixEpochDateConverter;
 import com.xepicgamerzx.hotelier.objects.HotelRoom;
+import com.xepicgamerzx.hotelier.objects.UnixEpochDateConverter;
 import com.xepicgamerzx.hotelier.storage.BedManager;
 import com.xepicgamerzx.hotelier.storage.HotelManager;
 import com.xepicgamerzx.hotelier.storage.RoomManager;
@@ -31,16 +31,14 @@ import java.util.List;
 
 
 public class ManagementActivity extends AppCompatActivity {
-    private HashMap<String, Address> addressField; // Ask how to use generics? idk about object
-    private HashMap<String, Long> dateRange;
-    private List<HotelRoom> hotelRooms;
-    private int countRooms = 0;
-
-
     public ArrayList<Bed> bedsList;
-    private BedManager bedManager;
-    private RoomManager roomManager;
-    private HotelManager hotelManager;
+    private final HashMap<String, Address> addressField; // Ask how to use generics? idk about object
+    private final HashMap<String, Long> dateRange;
+    private final List<HotelRoom> hotelRooms;
+    private int countRooms = 0;
+    private final BedManager bedManager;
+    private final RoomManager roomManager;
+    private final HotelManager hotelManager;
 
     // Android App Fields
     private TextInputEditText nameInput;
@@ -59,13 +57,14 @@ public class ManagementActivity extends AppCompatActivity {
     private TextView dateSelector;
 
     public ManagementActivity() {
-        this.bedsList = new ArrayList<Bed>();
-        this.bedManager = new BedManager(getApplication());
-        this.roomManager = new RoomManager(getApplication());
-        this.hotelManager = new HotelManager(getApplication());
-        this.dateRange = new HashMap<String, Long>();
-        this.addressField = new HashMap<String, Address>();
-        this.hotelRooms = new ArrayList<HotelRoom>();
+        this.bedManager = BedManager.getManager(getApplication());
+        this.roomManager = RoomManager.getManager(getApplication());
+        this.hotelManager = HotelManager.getManager(getApplication());
+
+        this.bedsList = new ArrayList<>();
+        this.dateRange = new HashMap<>();
+        this.addressField = new HashMap<>();
+        this.hotelRooms = new ArrayList<>();
     }
 
     @Override
@@ -73,11 +72,11 @@ public class ManagementActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_management);
 
-        nameInput = (TextInputEditText) findViewById(R.id.inputText);
-        submitButton = (Button) findViewById(R.id.submit);
-        addAddressButton = (Button) findViewById(R.id.addAddressBtn);
-        successText = (TextView) findViewById(R.id.successTxt);
-        addRoomsBtn = (Button) findViewById(R.id.addRoomsBtn);
+        nameInput = findViewById(R.id.inputText);
+        submitButton = findViewById(R.id.submit);
+        addAddressButton = findViewById(R.id.addAddressBtn);
+        successText = findViewById(R.id.successTxt);
+        addRoomsBtn = findViewById(R.id.addRoomsBtn);
 
 
         // Getting the data.
@@ -90,7 +89,7 @@ public class ManagementActivity extends AppCompatActivity {
 
                 Address address = addressField.get("Address");
                 // TODO Implement star class
-                hotelManager.createHotel(hotelName, address, 5, hotelRooms);
+                hotelManager.createHotel(hotelName, address, 5, (HotelRoom) hotelRooms);
 
                 // Resetting fields.
                 nameInput.setText("");
@@ -121,55 +120,55 @@ public class ManagementActivity extends AppCompatActivity {
         dialogBuilder = new AlertDialog.Builder(this);
         final View addressPopUpView = getLayoutInflater().inflate(R.layout.address_popup, null);
 
-        streetNum = (EditText) addressPopUpView.findViewById(R.id.streetNum);
-        streetName = (EditText) addressPopUpView.findViewById(R.id.streetName);
-        city = (EditText) addressPopUpView.findViewById(R.id.city);
-        province = (EditText) addressPopUpView.findViewById(R.id.province);
-        postalCode = (EditText) addressPopUpView.findViewById(R.id.postalCode);
-        longLat = (EditText) addressPopUpView.findViewById(R.id.longAndLat);
+        streetNum = addressPopUpView.findViewById(R.id.streetNum);
+        streetName = addressPopUpView.findViewById(R.id.streetName);
+        city = addressPopUpView.findViewById(R.id.city);
+        province = addressPopUpView.findViewById(R.id.province);
+        postalCode = addressPopUpView.findViewById(R.id.postalCode);
+        longLat = addressPopUpView.findViewById(R.id.longAndLat);
 
-        saveAddressButton = (Button) addressPopUpView.findViewById(R.id.saveButton);
-        cancelAddressButton = (Button) addressPopUpView.findViewById(R.id.cancelButton);
+        saveAddressButton = addressPopUpView.findViewById(R.id.saveButton);
+        cancelAddressButton = addressPopUpView.findViewById(R.id.cancelButton);
 
         dialogBuilder.setView(addressPopUpView);
         dialog = dialogBuilder.create();
         dialog.show();
 
         saveAddressButton.setOnClickListener(new View.OnClickListener() {
-             @Override
-             public void onClick(View v) {
-                 String hotelStreetNum = streetNum.getText().toString();
-                 String hotelStreetName = streetName.getText().toString();
-                 String hotelCity = city.getText().toString();
-                 String hotelProvince = province.getText().toString();
-                 String hotelPostalCode = postalCode.getText().toString();
-                 String hotelLongAndLat = longLat.getText().toString();
-
-                 String[] res = hotelLongAndLat.split("[,]", 0);
-                 double longitude = Double.parseDouble(res[0]);
-                 double latitude = Double.parseDouble(res[1]);
-
-                 // Create address object
-                 Address address = new Address(hotelStreetName,
-                         hotelPostalCode, hotelStreetNum,
-                         hotelCity, hotelProvince, longitude,
-                         latitude);
-
-
-                 dialog.dismiss();
-                 successText.setText("Added");
-
-                 addressField.put("Address", address);
-
-             }
-         });
-
-        cancelAddressButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                   dialog.dismiss();
-               }
-           }
+                String hotelStreetNum = streetNum.getText().toString();
+                String hotelStreetName = streetName.getText().toString();
+                String hotelCity = city.getText().toString();
+                String hotelProvince = province.getText().toString();
+                String hotelPostalCode = postalCode.getText().toString();
+                String hotelLongAndLat = longLat.getText().toString();
+
+                String[] res = hotelLongAndLat.split("[,]", 0);
+                double longitude = Double.parseDouble(res[0]);
+                double latitude = Double.parseDouble(res[1]);
+
+                // Create address object
+                Address address = new Address(hotelStreetName,
+                        hotelPostalCode, hotelStreetNum,
+                        hotelCity, hotelProvince, longitude,
+                        latitude);
+
+
+                dialog.dismiss();
+                successText.setText("Added");
+
+                addressField.put("Address", address);
+
+            }
+        });
+
+        cancelAddressButton.setOnClickListener(new View.OnClickListener() {
+                                                   @Override
+                                                   public void onClick(View v) {
+                                                       dialog.dismiss();
+                                                   }
+                                               }
 
         );
     }
@@ -178,15 +177,15 @@ public class ManagementActivity extends AppCompatActivity {
         dialogBuilder = new AlertDialog.Builder(this);
         final View roomsPopUpView = getLayoutInflater().inflate(R.layout.add_rooms_popup, null);
 
-        availabilityBtn = (Button) roomsPopUpView.findViewById(R.id.availabilityBtn);
-        capacityIn = (EditText) roomsPopUpView.findViewById(R.id.capacityIn);
-        bedSizeIn = (EditText) roomsPopUpView.findViewById(R.id.bedSizeIn);
-        totalBedsIn = (EditText) roomsPopUpView.findViewById(R.id.numberOfBedsIn);
-        addBedsBtn = (Button) roomsPopUpView.findViewById(R.id.addBedsBtn);
-        priceIn = (EditText) roomsPopUpView.findViewById(R.id.priceIn);
-        cancelRoomBtn = (Button) roomsPopUpView.findViewById(R.id.cancelRoomBtn);
-        saveRoomBtn = (Button) roomsPopUpView.findViewById(R.id.saveRoomBtn);
-        dateSelector = (TextView) roomsPopUpView.findViewById(R.id.dateSelector);
+        availabilityBtn = roomsPopUpView.findViewById(R.id.availabilityBtn);
+        capacityIn = roomsPopUpView.findViewById(R.id.capacityIn);
+        bedSizeIn = roomsPopUpView.findViewById(R.id.bedSizeIn);
+        totalBedsIn = roomsPopUpView.findViewById(R.id.numberOfBedsIn);
+        addBedsBtn = roomsPopUpView.findViewById(R.id.addBedsBtn);
+        priceIn = roomsPopUpView.findViewById(R.id.priceIn);
+        cancelRoomBtn = roomsPopUpView.findViewById(R.id.cancelRoomBtn);
+        saveRoomBtn = roomsPopUpView.findViewById(R.id.saveRoomBtn);
+        dateSelector = roomsPopUpView.findViewById(R.id.dateSelector);
 
         dialogBuilder.setView(roomsPopUpView);
         dialog = dialogBuilder.create();
@@ -252,7 +251,7 @@ public class ManagementActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Add error handling later, if any fields are blank
-                int capacity = Integer.parseInt( capacityIn.getText().toString());
+                int capacity = Integer.parseInt(capacityIn.getText().toString());
                 BigDecimal price = new BigDecimal(priceIn.getText().toString());
                 long startDate = dateRange.get("startDate");
                 long endDate = dateRange.get("endDate");
@@ -270,8 +269,8 @@ public class ManagementActivity extends AppCompatActivity {
 
                 countRooms += 1;
 
-                roomDetailsText = (TextView) findViewById(R.id.roomDetailsText);
-                roomDetailsText.append(String.format("\nHotelRoom %d,\n%s", countRooms, hotelRoom.toString()));
+                roomDetailsText = findViewById(R.id.roomDetailsText);
+                roomDetailsText.append(String.format("\nHotelRoom %d,\n%s", countRooms, hotelRoom));
 
                 // Adding to the hotelRooms list for a single hotel.
                 hotelRooms.add(hotelRoom);

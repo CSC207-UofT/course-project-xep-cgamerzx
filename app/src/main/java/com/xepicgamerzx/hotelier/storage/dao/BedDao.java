@@ -27,6 +27,9 @@ public interface BedDao {
     @Query("SELECT * FROM Bed")
     List<Bed> getAllBeds();
 
+    @Query("SELECT * FROM Bed WHERE bedID IN (:bedID)")
+    List<Bed> getBeds(String... bedID);
+
     @Transaction
     @Query("SELECT * FROM Bed")
     List<BedWithRooms> getBedsWithRoom();

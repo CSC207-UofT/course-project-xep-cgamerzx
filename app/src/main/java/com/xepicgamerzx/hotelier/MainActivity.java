@@ -11,10 +11,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import com.xepicgamerzx.hotelier.customer.CustomerActivity;
 import com.xepicgamerzx.hotelier.databinding.ActivityMainBinding;
 import com.xepicgamerzx.hotelier.management.ManagementActivity;
-import com.xepicgamerzx.hotelier.objects.Hotel;
 import com.xepicgamerzx.hotelier.storage.HotelManager;
-
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -37,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         customerBtn = (Button) findViewById(R.id.customerBtn);
         resetBtn = (Button) findViewById(R.id.resetDataBtn);
 
-        hotelManager = new HotelManager(getApplication());
+        hotelManager =  HotelManager.getManager(getApplication());
 
         managementBtn.setOnClickListener(new View.OnClickListener() {
             @Override
