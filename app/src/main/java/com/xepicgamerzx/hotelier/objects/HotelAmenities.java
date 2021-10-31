@@ -1,5 +1,7 @@
 package com.xepicgamerzx.hotelier.objects;
 
+import androidx.annotation.NonNull;
+
 /**
  * Enum with all the types of hotel amenities. Each also stores a String label describing the use case.
  */
@@ -32,5 +34,11 @@ public enum HotelAmenities {
      */
     HotelAmenities(String label) {
         this.label = label;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return this.label;
     }
 }

@@ -1,123 +1,166 @@
 package com.xepicgamerzx.hotelier.storage;
 
-import android.content.Context;
+import android.app.Application;
 
+import androidx.annotation.NonNull;
+
+import com.xepicgamerzx.hotelier.objects.Address;
 import com.xepicgamerzx.hotelier.objects.Hotel;
-import com.xepicgamerzx.hotelier.objects.Room;
+import com.xepicgamerzx.hotelier.objects.HotelAmenities;
+import com.xepicgamerzx.hotelier.objects.HotelAmenitiesCrossRef;
+import com.xepicgamerzx.hotelier.objects.HotelAmenity;
+import com.xepicgamerzx.hotelier.objects.HotelRoom;
+import com.xepicgamerzx.hotelier.storage.dao.HotelAmenitiesCrossDao;
+import com.xepicgamerzx.hotelier.storage.dao.HotelDao;
 
-import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * A class to manage all the hotels in our database.
  */
-public class HotelManager implements Serializable {
-    private List<Hotel> hotels = new ArrayList<>();
-    FileReadWrite<List<Hotel>> frw = new FileReadWrite<>();
+public class HotelManager implements LongManager<Hotel> {
+    private static volatile HotelManager INSTANCE;
 
-    /**
-     * A method to load hotels when opening the app and set the hotels instance variable to them
-     *
-     * @param appContext Context of the app, use View.getContext()
-     * @return return the loaded hotels.
-     */
-    public List<Hotel> loadHotels(Context appContext) {
-        List<Hotel> list = frw.readData("file.dat", appContext);
+    private final HotelierDatabase db;
+    private final HotelDao hotelDao;
+    private final HotelAmenitiesCrossDao hotelAmenitiesCrossDao;
+    private final RoomManager roomManager;
 
-        if (list != null) {
-            this.hotels = list;
-            return this.hotels;
+    private HotelManager(Application application) {
+        db = HotelierDatabase.getDatabase(application);
+        hotelDao = db.hotelDao();
+        hotelAmenitiesCrossDao = db.hotelAmenitiesCrossDao();
+
+        roomManager = RoomManager.getManager(application);
+    }
+
+    private HotelManager(HotelierDatabase dbInstance) {
+        db = dbInstance;
+        hotelDao = db.hotelDao();
+        hotelAmenitiesCrossDao = db.hotelAmenitiesCrossDao();
+
+        roomManager = RoomManager.getManager(dbInstance);
+    }
+
+    public static HotelManager getManager(Application application) {
+        if (INSTANCE == null) {
+            INSTANCE = new HotelManager(application);
         }
 
-        return this.hotels;
+        return INSTANCE;
     }
 
-    /**
-     * A method to save hotels to a file, which is saved to the database.
-     *
-     * @param appContext Context of app.
-     */
-    public void saveData(Context appContext) {
-        frw.writeData(hotels, "file.dat", appContext);
-    }
-
-    /**
-     * Append a hotel object to the hotels ArrayList.
-     *
-     * @param hotel
-     */
-    public void addHotel(Hotel hotel) {
-        if (!(hotels.contains(hotel))) {
-            this.hotels.add(hotel);
-        }
-    }
-
-    public void resetHotelsList() {
-        this.hotels = new ArrayList<>();
-    }
-
-    //    public void deleteHotel(Hotel hotel) {
-    //        if(hotels.contains(hotel)) {
-    //            this.hotels.remove(hotel);
-    //        }
-    //    }
-
-    public List<Hotel> getAllHotels() {
-        return this.hotels;
-    }
-
-    /**
-     * Returns a string of a hotels priceRange.
-     *
-     * @param hotel
-     * @return
-     */
-    public String hotelPriceRangeString(Hotel hotel) {
-        double[] priceRange = hotel.getPrinceRange();
-        String msg;
-        if (priceRange[0] == priceRange[1]) {
-            msg = String.format("Price: %s", Double.toString(priceRange[0]));
-        } else {
-            msg = String.format("Price Range: %s - %s", Double.toString(priceRange[0]), Double.toString(priceRange[1]));
-        }
-        return msg;
-    }
-
-    /**
-     * Returns every room in the database (every hotels rooms).
-     *
-     * @return
-     */
-    public List<Room> getAllHotelsRooms() {
-        List<Room> allRooms = new ArrayList<Room>();
-        for (Hotel hotel : this.hotels) {
-            allRooms.addAll(getOneHotelsRooms(hotel));
+    public static HotelManager getManager(HotelierDatabase dbInstance) {
+        if (INSTANCE == null) {
+            INSTANCE = new HotelManager(dbInstance);
         }
 
-        return allRooms;
+        return INSTANCE;
     }
 
     /**
-     * @param hotel
-     * @return return all of the rooms in ONE specified hotel.
+     * Creates hotel object and saves it to the database. (No rooms)
+     *
+     * @param name      String name of the hotel.
+     * @param address   Address object associated with the hotel.
+     * @param starClass Int star class of the hotel
+     * @return Hotel object created.
      */
-    public List<Room> getOneHotelsRooms(Hotel hotel) {
-        List<Room> rooms = new ArrayList<Room>();
+    @NonNull
+    public Hotel createHotel(String name, Address address, int starClass) {
+        Hotel hotel = new Hotel(name, address, starClass);
+        Long[] id = insert(hotel);
+        return get(id).get(0);
+    }
 
-        try {
-            for (Hotel hotel_other : this.hotels) {
-                if (hotel == hotel_other) {
-                    rooms = hotel.getRooms();
-                    return rooms;
-                }
-            }
-        } catch (Exception e) {
-            System.out.println("Hotel was not found");
+    /**
+     * Creates hotel object and saves it to the database. Also associates a list of hotel rooms
+     * with the hotel object and saves these associations to the HotelRoom database.
+     *
+     * @param name       String name of the hotel.
+     * @param address    Address object associated with the hotel.
+     * @param starClass  Int star class of the hotel
+     * @param hotelRooms List of HotelRooms to be associated with the Hotel object.
+     * @return Hotel object created.
+     */
+    @NonNull
+    public Hotel createHotel(String name, Address address, int starClass, HotelRoom... hotelRooms) {
+        Hotel hotel = createHotel(name, address, starClass);
+
+        for (HotelRoom hotelRoom : hotelRooms) {
+            roomManager.setHotelID(hotel, hotelRoom);
         }
 
-        return rooms;
+        return hotel;
+    }
+
+    /**
+     * Saves the Hotel(s) to the Hotel database.
+     *
+     * @param hotel Hotel object(s) to be saved.
+     * @return Long[], autogenerated HotelID of the Hotel(s) saved.
+     */
+    @Override
+    public Long[] insert(Hotel... hotel) {
+        return hotelDao.insertHotels(hotel).toArray(new Long[0]);
     }
 
 
+    /**
+     * Updates Hotel object(s) in the database.
+     *
+     * @param hotel Hotel object(s) to be updated in the database.
+     */
+    @Override
+    public void update(Hotel... hotel) {
+        hotelDao.updateHotels(hotel);
+    }
+
+    @NonNull
+    public HotelAmenity createHotelAmenity(String amenityName) {
+        HotelAmenity hotelAmenity = new HotelAmenity(amenityName);
+        hotelAmenitiesCrossDao.insertHotelAmenities(hotelAmenity);
+        return hotelAmenity;
+    }
+
+    @NonNull
+    public HotelAmenity createHotelAmenity(HotelAmenities amenity) {
+        HotelAmenity hotelAmenity = new HotelAmenity(amenity);
+        hotelAmenitiesCrossDao.insertHotelAmenities(hotelAmenity);
+        return hotelAmenity;
+    }
+
+    public void addAmenityToHotel(Hotel hotel, HotelAmenity hotelAmenity) {
+        HotelAmenitiesCrossRef hotelAmenitiesCrossRef = new HotelAmenitiesCrossRef(hotel, hotelAmenity);
+        hotelAmenitiesCrossDao.insertHotelAmenitiesCrossRef(hotelAmenitiesCrossRef);
+    }
+
+    /**
+     * Get hotels with matching hotel IDs.
+     *
+     * @param hotelID Long hotelIDs to be used as search keys.
+     * @return List of Hotels with matching HotelIDs.
+     */
+    @Override
+    public List<Hotel> get(Long... hotelID){
+        return hotelDao.getHotels(hotelID);
+    }
+
+    /**
+     * Gets all hotels in the Hotel database.
+     *
+     * @return List of the Hotels in the Hotel database.
+     */
+    @Override
+    public List<Hotel> getAll() {
+        return hotelDao.getAllHotels();
+    }
+
+    /**
+     * Closes the manager if already open.
+     */
+    @Override
+    public void close() {
+        INSTANCE = null;
+    }
 }

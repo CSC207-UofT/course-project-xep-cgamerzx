@@ -1,40 +1,29 @@
 package com.xepicgamerzx.hotelier.objects;
 
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import java.io.Serializable;
 
+@Entity()
 public class Bed implements Serializable {
+    @NonNull
+    @PrimaryKey()
+    private final String bedID;
 
-    private String size;
-    public Room room;
-
-    /**
-     * Creates a new Bed
-     *
-     * @param size a string representing the size of the bed
-     *             TODO: Precondition on size where you can only have valid strings (King, Queen, ...)
-     */
-    public Bed(String size) {
-        this.size = size;
+    public Bed (String bedID){
+        this.bedID = bedID;
     }
 
-    public String getSize() {
-        return size;
+    public Bed (BedSize bedID){
+        this.bedID = bedID.toString();
     }
 
-    /**
-     * Gives a Bed a reference to the Room it is in.
-     *
-     * @param room A room object
-     */
-    public void setRoom(Room room) {
-        this.room = room;
+    public String getBedID() {
+        return bedID;
     }
 
-    public Room getRoom() {
-        if (this.room != null) {
-            return this.room;
-        }
-
-        return null;
+    public void setRoom(HotelRoom hotelRoom) {
     }
 }
