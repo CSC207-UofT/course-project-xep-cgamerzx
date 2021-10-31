@@ -52,6 +52,11 @@ public class BedManager implements StringManager<Bed> {
         return bed;
     }
 
+    /**
+     * Inserts the beds(s) to the Hotel database.
+     *
+     * @param bed Bed object(s) to be saved.
+     */
     @Override
     public void insert(Bed... bed) {
         bedDao.insertBeds(bed);
@@ -71,11 +76,22 @@ public class BedManager implements StringManager<Bed> {
         bedDao.updateBed(bed);
     }
 
+    /**
+     * Get beds with matching bed IDs.
+     *
+     * @param bedID String bedIDs to be used as search keys.
+     * @return List of Beds with matching bedIDs.
+     */
     @Override
-    public List<Bed> get(String... ID) {
-        return bedDao.getBeds(ID);
+    public List<Bed> get(String... bedID) {
+        return bedDao.getBeds(bedID);
     }
 
+    /**
+     * Gets all beds in the Bed database.
+     *
+     * @return List of the Beds in the Bed database.
+     */
     @Override
     public List<Bed> getAll() {
         return bedDao.getAllBeds();
@@ -85,7 +101,7 @@ public class BedManager implements StringManager<Bed> {
      * Closes the manager if already open.
      */
     @Override
-    public void close(){
+    public void close() {
         INSTANCE = null;
     }
 }

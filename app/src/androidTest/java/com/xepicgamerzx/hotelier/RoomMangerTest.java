@@ -30,19 +30,31 @@ import java.util.List;
 @RunWith(AndroidJUnit4.class)
 public class RoomMangerTest {
     private static ArrayList<Address> addresses;
-
-    private HotelierDatabase db;
-    private HotelManager hotelManager;
-    private RoomManager roomManager;
-
     private final ZoneId zoneId = ZoneId.systemDefault();
     private final BigDecimal price = BigDecimal.valueOf(200.91);
     private final long startDate = System.currentTimeMillis();
     private final long endDate = startDate * 2;
     private final int capacity = 5;
     private final int numHotels = 10;
-
+    private HotelierDatabase db;
+    private HotelManager hotelManager;
+    private RoomManager roomManager;
     private Hotel testHotel;
+
+    @BeforeClass
+    public static void createBoilerInfo() {
+        addresses = new ArrayList<>();
+
+        Address address_1 = new Address("Testing Lane",
+                "M5T2Y7",
+                "123",
+                "Toronto",
+                "ON",
+                43.6532,
+                79.3832);
+
+        addresses.add(address_1);
+    }
 
     @Before
     public void createDb() {
@@ -55,28 +67,13 @@ public class RoomMangerTest {
 
         ArrayList<HotelRoom> rooms = new ArrayList<>();
 
-        for (int i = 1; i <= numHotels; i++){
+        for (int i = 1; i <= numHotels; i++) {
             rooms.add(roomManager.createRoom(zoneId, startDate, endDate, capacity, price.multiply(BigDecimal.valueOf(i))));
         }
 
         String name = "RoomManager Test Hotel 1";
         int starClass = 5;
         testHotel = hotelManager.createHotel(name, addresses.get(0), starClass, rooms.toArray(new HotelRoom[0]));
-    }
-
-    @BeforeClass
-    public static void createBoilerInfo(){
-        addresses = new ArrayList<>();
-
-        Address address_1 = new Address("Testing Lane",
-                "M5T2Y7",
-                "123",
-                "Toronto",
-                "ON",
-                43.6532,
-                79.3832);
-
-        addresses.add(address_1);
     }
 
     @Test
@@ -102,8 +99,8 @@ public class RoomMangerTest {
     }
 
     @Test
-    public void testPriceRange(){
-        BigDecimal max = price.multiply(BigDecimal.valueOf(10)).setScale(2, RoundingMode.UP);
+    public void testPriceRange() {
+        BigDecimal max = price.multiply(BigDecimal.valueOf(numHotels)).setScale(2, RoundingMode.UP);
 
         List<BigDecimal> priceRange = roomManager.getPriceRange(testHotel);
         List<BigDecimal> expectedPriceRange = new ArrayList<>(List.of(price, max));
