@@ -3,12 +3,191 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".customer.SearchFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".customer.SearchFragment"
+    android:background="@color/background_secondary"
+    android:theme="@style/EditTextTheme"
+    >
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:id="@+id/textLogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="46dp"
+        android:layout_marginTop="34dp"
+        android:fontFamily="@font/inter_bold"
+        android:text="Explore"
+        android:textColor="@android:color/white"
+        android:textSize="64sp" />
+
+    <ImageButton
+        android:id="@+id/backBtn"
+        android:layout_width="65dp"
+        android:layout_height="72dp"
+        android:background="?android:selectableItemBackground"
+        android:src="@drawable/ic_baseline_arrow_back_24"
+        app:tint="@color/white"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/searchFragSearch"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="313dp"
+        android:layout_height="65dp"
+        android:layout_below="@+id/subText"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="46dp"
+        android:layout_marginTop="150dp"
+        android:layout_marginEnd="52dp"
+        android:textColorHint="@color/white"
+        android:hint="Enter destination"
+        app:expandedHintEnabled="false"
+        app:boxBackgroundColor="@color/light_secondary"
+        app:boxStrokeColor="@color/white"
+        app:boxCornerRadiusBottomEnd="8dp"
+        app:boxCornerRadiusBottomStart="8dp"
+        app:boxCornerRadiusTopEnd="8dp"
+        app:boxCornerRadiusTopStart="8dp"
+        app:startIconDrawable="@drawable/ic_search_logo"
+        app:startIconTint="@color/white">
+
+        <AutoCompleteTextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/selectDestination"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="@font/inter_regular"
+            android:hint="Select a destination"
+            android:layout_gravity="center_vertical"
+            android:backgroundTint="@color/light_secondary"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:textSize="18sp"
+            android:completionThreshold="1"
+            android:popupBackground="@color/background_secondary"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/dateSelection"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="313dp"
+        android:layout_height="65dp"
+        android:layout_below="@+id/subText"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="46dp"
+        android:layout_marginTop="250dp"
+        android:layout_marginEnd="52dp"
+        android:textColorHint="@color/white"
+        android:text="Select dates"
+        android:backgroundTint="@color/light_secondary"
+        app:boxStrokeColor="@color/white"
+        app:boxCornerRadiusBottomEnd="8dp"
+        app:boxCornerRadiusBottomStart="8dp"
+        app:boxCornerRadiusTopEnd="8dp"
+        app:boxCornerRadiusTopStart="8dp"
+        android:fontFamily="@font/inter_regular"
+        android:textSize="18sp"
+        android:drawableLeft="@drawable/ic_baseline_edit_calendar_24"
+        android:gravity="left|center_vertical"
+        >
+
+    </com.google.android.material.button.MaterialButton>
+
+    <LinearLayout
+        android:layout_width="313dp"
+        android:layout_height="55dp"
+        android:background="@drawable/round_rectangle"
+        android:layout_marginTop="350dp"
+        android:layout_marginStart="46dp"
+        android:orientation="horizontal"
+        android:id="@+id/guestsLayout"
+        >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_user"
+            app:tint="@color/white"
+            android:id="@+id/guestsIcon"
+            android:layout_centerVertical="true"/>
+
+        <TextView
+            android:id="@+id/textNumGuests"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@id/guestsIcon"
+            android:fontFamily="@font/inter_regular"
+            android:paddingLeft="4dp"
+            android:text="1"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:layout_gravity="center_vertical"/>
+
+        <TextView
+            android:id="@+id/textGuests"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="4dp"
+            android:fontFamily="@font/inter_regular"
+            android:text="Guests"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:layout_gravity="center"/>
+
+        <!--        Fix later? Possibly relative layout-->
+        <ImageButton
+            android:id="@+id/btnAdd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="100dp"
+            android:background="@null"
+            android:src="@drawable/ic_add"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <ImageButton
+            android:id="@+id/btnMinus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/ic_round_delete_button_svgrepo_com"
+            android:layout_marginLeft="15dp"
+            android:background="@null"
+            />
+    </LinearLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/searchBtn"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="313dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="46dp"
+        android:layout_marginTop="450dp"
+        android:layout_marginEnd="52dp"
+        android:textColorHint="@color/white"
+        android:text="Search"
+        android:backgroundTint="#1568B8"
+        app:boxStrokeColor="@color/white"
+        app:boxCornerRadiusBottomEnd="8dp"
+        app:boxCornerRadiusBottomStart="8dp"
+        app:boxCornerRadiusTopEnd="8dp"
+        app:boxCornerRadiusTopStart="8dp"
+        android:fontFamily="@font/inter_bold"
+        android:textSize="18sp"
+        android:gravity="left|center_vertical"
+        >
+
+    </com.google.android.material.button.MaterialButton>
+
 
 </FrameLayout>

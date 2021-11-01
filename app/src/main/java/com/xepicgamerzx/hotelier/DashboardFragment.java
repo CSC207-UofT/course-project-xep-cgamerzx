@@ -3,10 +3,21 @@ package com.xepicgamerzx.hotelier;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.textfield.TextInputEditText;
+import com.xepicgamerzx.hotelier.customer.SearchFragment;
+import com.xepicgamerzx.hotelier.user.UserManager;
+import com.xepicgamerzx.hotelier.user.model.User;
+
+import org.w3c.dom.Text;
 
 
 public class DashboardFragment extends Fragment {
@@ -19,6 +30,8 @@ public class DashboardFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    TextView nameField;
 
     public DashboardFragment() {
         // Required empty public constructor
@@ -55,6 +68,37 @@ public class DashboardFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_dashboard, container, false);
+        View v = inflater.inflate(R.layout.fragment_dashboard, container, false);
+
+        TextInputEditText search = v.findViewById(R.id.searchToFragment);
+        nameField = v.findViewById(R.id.welcomeField);
+
+        UserManager um = new UserManager();
+
+        // Add if empty, no user, go sign in.
+        if (um.getUser(getContext()) != null) {
+            User user = (User) um.getUser(getContext());
+            nameField.setText("Welcome " + user.getUserName());
+        }
+
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment SearchFragment = new SearchFragment();
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.mainActivity, SearchFragment, null)
+                        .setReorderingAllowed(true)
+                        .addToBackStack(null) // name can be null
+                        .commit();
+            }
+        });
+        return v;
+    }
+
+    public TextView getNameField() {
+        View v = getView();
+        TextView nameField = v.findViewById(R.id.welcomeField);
+        return nameField;
     }
 }
