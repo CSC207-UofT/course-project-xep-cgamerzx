@@ -12,14 +12,16 @@ public class BedsRoomCrossRef {
 
     private int bedCount;
 
-    public BedsRoomCrossRef(@NonNull long roomID, @NonNull String bedID){
+    public BedsRoomCrossRef(@NonNull long roomID, @NonNull String bedID, @NonNull int bedCount){
         this.roomID = roomID;
         this.bedID = bedID;
+        setBedCount(bedCount);
     }
 
-    public BedsRoomCrossRef(HotelRoom hotelRoom, Bed bed){
+    public BedsRoomCrossRef(HotelRoom hotelRoom, Bed bed, @NonNull int bedCount){
         this.roomID = hotelRoom.roomID;
         this.bedID = bed.getBedID();
+        setBedCount(bedCount);
     }
 
     public int getBedCount() {

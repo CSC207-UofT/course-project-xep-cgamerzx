@@ -19,7 +19,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
-public class RoomManager implements LongManager<HotelRoom> {
+public class RoomManager implements Manager<HotelRoom, Long, Long[]> {
     private static volatile RoomManager INSTANCE;
 
     private final HotelierDatabase db;

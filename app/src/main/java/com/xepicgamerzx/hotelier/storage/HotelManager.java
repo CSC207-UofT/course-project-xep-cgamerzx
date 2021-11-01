@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * A class to manage all the hotels in our database.
  */
-public class HotelManager implements LongManager<Hotel> {
+public class HotelManager implements Manager<Hotel, Long, Long[]> {
     private static volatile HotelManager INSTANCE;
 
     private final HotelierDatabase db;

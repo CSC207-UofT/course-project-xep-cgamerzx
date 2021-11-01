@@ -4,25 +4,30 @@ import android.app.Application;
 
 import com.xepicgamerzx.hotelier.objects.Bed;
 import com.xepicgamerzx.hotelier.objects.BedSize;
+import com.xepicgamerzx.hotelier.objects.BedsRoomCrossRef;
 import com.xepicgamerzx.hotelier.objects.HotelRoom;
 import com.xepicgamerzx.hotelier.storage.dao.BedDao;
+import com.xepicgamerzx.hotelier.storage.dao.BedRoomCrossDao;
 
 import java.util.List;
 
-public class BedManager implements StringManager<Bed> {
+public class BedManager implements Manager<Bed, String, Void> {
     private static volatile BedManager INSTANCE;
 
     private final HotelierDatabase db;
     private final BedDao bedDao;
+    private final BedRoomCrossDao bedRoomCrossDao;
 
     private BedManager(Application application) {
         db = HotelierDatabase.getDatabase(application);
         bedDao = db.bedDao();
+        bedRoomCrossDao = db.bedRoomCrossDao();
     }
 
     private BedManager(HotelierDatabase dbInstance) {
         db = dbInstance;
         bedDao = db.bedDao();
+        bedRoomCrossDao = db.bedRoomCrossDao();
     }
 
     public static BedManager getManager(Application application) {
@@ -40,13 +45,13 @@ public class BedManager implements StringManager<Bed> {
     }
 
 
-    public Bed createBed(String bedSize) {
+    public Bed create(String bedSize) {
         Bed bed = new Bed(bedSize);
         insert(bed);
         return bed;
     }
 
-    public Bed createBed(BedSize bedSize) {
+    public Bed create(BedSize bedSize) {
         Bed bed = new Bed(bedSize);
         insert(bed);
         return bed;
@@ -56,14 +61,24 @@ public class BedManager implements StringManager<Bed> {
      * Inserts the beds(s) to the Hotel database.
      *
      * @param bed Bed object(s) to be saved.
+     * @return null
      */
     @Override
-    public void insert(Bed... bed) {
+    public Void insert(Bed... bed) {
         bedDao.insertBeds(bed);
+        return null;
     }
 
-    public void addRoomToBed(Bed bed, HotelRoom hotelRoom) {
-
+    /**
+     * Create and insert relationship between Bed and HotelRoom into BedRoomCrossRef database.
+     *
+     * @param bed Bed being assigned to a hotel room.
+     * @param hotelRoom HotelRoom being assigned beds.
+     * @param bedCount Int number of Bed type associated with the room.
+     */
+    public void addBedToRoom(Bed bed, HotelRoom hotelRoom, int bedCount) {
+        BedsRoomCrossRef bedsRoomCrossRef = new BedsRoomCrossRef(hotelRoom, bed, bedCount);
+        bedRoomCrossDao.insertBedRoomCrossRef(bedsRoomCrossRef);
     }
 
     /**
