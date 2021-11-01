@@ -66,6 +66,8 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 um.signOut(getContext());
+                login.setVisibility(View.VISIBLE);
+                signOut.setVisibility(View.INVISIBLE);
             }
         });
         return v;

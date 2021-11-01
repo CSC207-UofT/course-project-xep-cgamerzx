@@ -13,4 +13,6 @@ public interface UserDAO {
 
     @Query("SELECT * from users where userId=(:userId) and password=(:password)")
     User login( String userId, String password);
+
+    // TODO - Add a userFavourites column, so when a user clicks favourite on something, it gets saved.
 }
