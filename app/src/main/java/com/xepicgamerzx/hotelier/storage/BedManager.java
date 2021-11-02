@@ -52,7 +52,7 @@ public class BedManager implements Manager<Bed, String, Void> {
     }
 
     public Bed create(BedSize bedSize) {
-        Bed bed = new Bed(bedSize);
+        Bed bed = new Bed(bedSize.toString());
         insert(bed);
         return bed;
     }
@@ -102,6 +102,7 @@ public class BedManager implements Manager<Bed, String, Void> {
         return bedDao.getBeds(bedID);
     }
 
+
     /**
      * Gets all beds in the Bed database.
      *
@@ -110,6 +111,16 @@ public class BedManager implements Manager<Bed, String, Void> {
     @Override
     public List<Bed> getAll() {
         return bedDao.getAllBeds();
+    }
+
+    /**
+     * Gets all the beds in the given room.
+     *
+     * @param hotelRoom HotelRoom associated with beds.
+     * @return List<BedsRoomCrossRef> associated with the beds.
+     */
+    public List<BedsRoomCrossRef> getBedsInRoom(HotelRoom hotelRoom){
+        return bedRoomCrossDao.getBedsInRoom(hotelRoom.roomID);
     }
 
     /**

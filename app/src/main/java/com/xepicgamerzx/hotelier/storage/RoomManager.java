@@ -5,11 +5,13 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 
+import com.xepicgamerzx.hotelier.objects.Bed;
 import com.xepicgamerzx.hotelier.objects.Hotel;
 import com.xepicgamerzx.hotelier.objects.HotelRoom;
 import com.xepicgamerzx.hotelier.objects.RoomAmenities;
 import com.xepicgamerzx.hotelier.objects.RoomAmenitiesCrossRef;
 import com.xepicgamerzx.hotelier.objects.RoomAmenity;
+import com.xepicgamerzx.hotelier.storage.dao.BedRoomCrossDao;
 import com.xepicgamerzx.hotelier.storage.dao.RoomAmenitiesCrossDao;
 import com.xepicgamerzx.hotelier.storage.dao.RoomDao;
 
@@ -25,17 +27,20 @@ public class RoomManager implements Manager<HotelRoom, Long, Long[]> {
     private final HotelierDatabase db;
     private final RoomDao roomDao;
     private final RoomAmenitiesCrossDao roomAmenitiesCrossDao;
+    private final BedRoomCrossDao bedRoomCrossDao;
 
     private RoomManager(Application application) {
         db = HotelierDatabase.getDatabase(application);
         roomDao = db.roomDao();
         roomAmenitiesCrossDao = db.roomAmenitiesCrossDao();
+        bedRoomCrossDao = db.bedRoomCrossDao();
     }
 
     private RoomManager(HotelierDatabase dbInstance) {
         db = dbInstance;
         roomDao = db.roomDao();
         roomAmenitiesCrossDao = db.roomAmenitiesCrossDao();
+        bedRoomCrossDao = db.bedRoomCrossDao();
     }
 
     public static RoomManager getManager(Application application) {
@@ -121,6 +126,29 @@ public class RoomManager implements Manager<HotelRoom, Long, Long[]> {
 
     public List<HotelRoom> getHotelRoomsInHotel(long hotelID) {
         return roomDao.getRoomsInHotel(hotelID);
+    }
+
+    /**
+     * Gets room associated with the bed type.
+     *
+     * @param bed Bed type room is to be associated with.
+     * @return List<HotelRoom> of HotelRoos associated with Beds.
+     */
+    public List<HotelRoom> getRoomsWithBed(Bed bed){
+        List<Long> ids = bedRoomCrossDao.getRoomsWithBed(bed.getBedID());
+        return get(ids.toArray(new Long[0]));
+    }
+
+    /**
+     * Gets room associated with the bed type with a quantity of at least count.
+     *
+     * @param bed Bed type room is to be associated with.
+     * @param count Minimum number of beds of type Bed.
+     * @return List<HotelRoom> of HotelRoos associated with at least count Beds.
+     */
+    public List<HotelRoom> getRoomsWithBed(Bed bed, int count){
+        List<Long> ids = bedRoomCrossDao.getRoomsWithBed(bed.getBedID(), count);
+        return get(ids.toArray(new Long[0]));
     }
 
     public int getNumberOfRooms(long hotelID) {
