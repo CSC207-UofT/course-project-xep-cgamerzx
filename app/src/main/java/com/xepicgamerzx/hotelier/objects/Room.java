@@ -1,5 +1,6 @@
 package com.xepicgamerzx.hotelier.objects;
 
+import androidx.annotation.NonNull;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Locale;
@@ -10,7 +11,9 @@ public class Room implements Serializable {
     private int capacity;
     private ArrayList<Bed> beds;
     private Hotel hotel;
+/*
     private RoomAmenities roomAmenities;
+*/
     private long price;
 
     // Theres no tuples in Java so I did an array with 2 spots corresponding to the first day of
@@ -27,8 +30,7 @@ public class Room implements Serializable {
      *                          //* @param amenities The amenities that this room has
      */
     public Room(long startAvailability, long endAvailability, int capacity,
-                ArrayList<Bed> beds, long price) {
-        this.schedule = new long[2];
+                ArrayList<Bed> beds, long price) { this.schedule = new long[2];
         this.schedule[0] = startAvailability;
         this.schedule[1] = endAvailability;
         this.capacity = capacity;
@@ -49,19 +51,23 @@ public class Room implements Serializable {
         return this.beds;
     }
 
-    public int getCapacity() {
-        return this.capacity;
-    }
+    public int getCapacity() { return this.capacity; }
 
     /**
      * A room has a reference to a hotel. This method sets the hotel that the room is in.
      *
      * @param hotel Hotel object the room belongs to.
      */
-    public void setHotel(Hotel hotel) {
-        this.hotel = hotel;
+    public void setHotel(Hotel hotel) { this.hotel = hotel; }
+
+    public Hotel getHotel() {
+        if (this.hotel != null) {
+            return this.hotel;
+        }
+        return null;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return String.format(Locale.CANADA, "Schedule: (%s, %s) \nCapacity: %d \nBeds: %s \nPrice: %d",
