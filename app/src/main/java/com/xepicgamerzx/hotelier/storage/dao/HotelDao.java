@@ -15,7 +15,7 @@ import com.xepicgamerzx.hotelier.objects.relations.HotelWithRooms;
 
 import java.util.List;
 
-@Dao
+@Dao @Deprecated
 public interface HotelDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     List<Long> insertHotels(Hotel... hotels);
