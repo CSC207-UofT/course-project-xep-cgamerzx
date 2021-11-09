@@ -1,29 +1,86 @@
 package com.xepicgamerzx.hotelier.objects;
 
-import java.util.ArrayList;
+import androidx.room.Embedded;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
-public class Hotel {
+import java.io.Serializable;
+import java.util.Objects;
+
+
+@Entity()
+public class Hotel implements Serializable {
+    @PrimaryKey(autoGenerate = true)
+    public long hotelID;
 
     private String name;
-    private Address address;
-    private ArrayList<Room> rooms;
-    private HotelAmenities amenities;
     private int starClass;
+
+    @Embedded
+    private Address address;
+
 
     /**
      * Create a new Hotel
-     * @param name the name of this hotel
+     *
+     * @param name    the name of this hotel
      * @param address the address of this hotel
-     * @param rooms the rooms that are in this hotel
-     * @param amenities the amenities included in this hotel
-     * @param starClass amount of stars this hotel is
+     *                //* @param amenities the amenities included in this hotel
+     *                //* @param starClass amount of stars this hotel is
      */
-    public Hotel(String name, Address address, ArrayList<Room> rooms, HotelAmenities amenities,
-                 int starClass) {
+    public Hotel(String name, Address address, int starClass) {
         this.name = name;
         this.address = address;
-        this.rooms = rooms;
-        this.amenities = amenities;
         this.starClass = starClass;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public int getStarClass() {
+        return starClass;
+    }
+
+    public void setStarClass(int starClass) {
+        this.starClass = starClass;
+    }
+
+    /**
+     * toString Method.
+     *
+     * @return a string for a hotel.
+     */
+    @Override
+    public String toString() {
+        String name = String.format("Name: %s", this.name);
+        String hotelAddress = String.format("\nAddress: %s", this.address.getFullStreet());
+
+        return String.format(name + hotelAddress);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Hotel)) return false;
+        Hotel hotel = (Hotel) o;
+        return hotelID == hotel.hotelID && getStarClass() == hotel.getStarClass() && getName().equals(hotel.getName()) && getAddress().equals(hotel.getAddress());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(hotelID, getName(), getStarClass(), getAddress());
     }
 }

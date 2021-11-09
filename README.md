@@ -1,6 +1,14 @@
-## Replace this README.md!
+Xep!cgamerzX
 
-This is a standard README.md file for you to replace. You'll want to include your own content here!
+- Android 30 Rev 3 (Android 11 or later!)
+- Java 11
+- Gradle 7.2
 
-MD (Markdown) files use [Markdown formatting](https://guides.github.com/features/mastering-markdown/): 
-these look very much like .txt files, so you can write them in a very similar way.
+### Phase 0 Skeleton Demo Video 
+- https://www.youtube.com/watch?v=KvV1JMDOB-4 
+- https://www.youtube.com/watch?v=TqlaXjDW7Ac
+
+Caution, interface inputs do not like it if you put in wrong data types or fail to fill in inputs.
+
+Needs Bumblebee 2021.1.1 Beta 1
+https://developer.android.com/studio/preview

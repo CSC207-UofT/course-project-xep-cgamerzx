@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/customer_activity"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:textAlignment="center"
+    tools:context=".customer.CustomerActivity">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="403dp"
+        android:layout_height="550dp"
+        app:cardBackgroundColor="@color/teal_200"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.100000024">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/select_dates_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="@string/select_date_range"
+                app:layout_constraintBottom_toTopOf="@+id/searchListingsBtn"
+                app:layout_constraintStart_toStartOf="@+id/selected_date_range_txt"
+                tools:ignore="DuplicateSpeakableTextCheck" />
+
+            <TextView
+                android:id="@+id/selected_date_range_txt"
+                android:layout_width="330dp"
+                android:layout_height="34dp"
+                android:layout_marginStart="16dp"
+                android:text="@string/selected_dates"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="#004D40"
+                app:layout_constraintBottom_toTopOf="@+id/select_dates_btn"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/customer_page"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/editTextTextPostalAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:autofillHints="@string/postal_code"
+                android:ems="10"
+                android:hint="@string/postal_code"
+                android:inputType="textPostalAddress"
+                android:minHeight="48dp"
+                android:textColorHint="#37474F"
+                app:layout_constraintBottom_toTopOf="@+id/selected_date_range_txt"
+                app:layout_constraintStart_toStartOf="@+id/selected_date_range_txt" />
+
+            <Button
+                android:id="@+id/searchListingsBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:text="@string/search_listings"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/select_dates_btn" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,9 +1,5 @@
-Specification:
+### Specification:
+Create an android application that allows a user to filter hotels by factors such as price range, address, and amenities to facilitate bookings. Each hotel is associated with a list of hotelRooms. Each hotelRoom is associated with a capacity, price, amenities, schedule, and beds. Beds are stored in a way such that multiple types can be associated with a hotelRoom, with a different quantity count per type. Rooms also reference the hotel they belong to.
 
-Create an android application that filters hotels by factors such as price range, address, and 
-amenities to facilitate bookings. Each hotel is associated with a list of rooms. Each room is 
-associated with a capacity (max number of guests it can accommodate), price, amenities, schedule 
-(dates on which it is available for booking), and beds (which vary based on size and number).
-Users can be managers or customers. If the user is a customer, they should be able to get a list 
-of available rooms that fit their criteria, and book rooms. Managers can add their hotel to the 
-database, create rooms, and get information about rooms in their hotel.
+Users of the application can be classified as either management or customers. If the user is a customer, they should be able to get a list of available hotelRooms that fit their criteria, and book hotelRooms or, obtain information on how to book hotelRooms. Criteria factors can be anything from location, hotelRoom characteristics, to schedule. Management users can add their hotel to the database, create hotelRooms, and get information about hotelRooms in their hotel. Management has control over all characteristics of the hotel and hotelRooms they are creating. This includes hotel location, hotelRoom pricing, hotelRoom availability periods, the kinds of beds associated with each hotelRoom and more. Data is saved in a persistent manner such that even after closing the app, any data created or modified prior is capable of being loaded and utilized.
+
