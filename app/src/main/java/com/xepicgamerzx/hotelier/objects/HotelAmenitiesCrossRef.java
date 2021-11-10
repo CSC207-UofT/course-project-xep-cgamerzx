@@ -1,6 +1,7 @@
 package com.xepicgamerzx.hotelier.objects;
 
 import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 
 @Entity(primaryKeys = {"hotelID", "hotelAmenityID"})
@@ -8,6 +9,7 @@ public class HotelAmenitiesCrossRef {
         @NonNull
         public long hotelID;
         @NonNull
+        @ColumnInfo(index = true)
         public String hotelAmenityID;
 
         public HotelAmenitiesCrossRef(@NonNull long hotelID, @NonNull String hotelAmenityID){
