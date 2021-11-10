@@ -1,8 +1,9 @@
 Xep!cgamerzX
 
-- Android 30 Rev 3 (Android 11 or later!)
+- Android 31 (Android 12 or later!)
 - Java 11
 - Gradle 7.2
+- Google Play Services
 
 ### Phase 0 Skeleton Demo Video 
 - https://www.youtube.com/watch?v=KvV1JMDOB-4 
@@ -12,5 +13,3 @@ Caution, interface inputs do not like it if you put in wrong data types or fail 
 
 Needs Bumblebee 2021.1.1 Beta 2
 https://developer.android.com/studio/preview
-
-Requires Google Play Services (Firebase)
