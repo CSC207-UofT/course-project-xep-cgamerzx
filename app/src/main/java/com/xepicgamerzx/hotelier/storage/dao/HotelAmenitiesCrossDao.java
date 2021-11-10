@@ -5,12 +5,11 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
-import com.xepicgamerzx.hotelier.objects.BedsRoomCrossRef;
 import com.xepicgamerzx.hotelier.objects.HotelAmenitiesCrossRef;
 
 import java.util.List;
 
-@Dao
+@Dao @Deprecated
 public interface HotelAmenitiesCrossDao extends HotelDao, HotelAmenityDao{
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertHotelAmenitiesCrossRef(HotelAmenitiesCrossRef... hotelAmenitiesCrossRefs);
