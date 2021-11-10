@@ -9,7 +9,7 @@ import com.xepicgamerzx.hotelier.objects.RoomAmenitiesCrossRef;
 
 import java.util.List;
 
-@Dao
+@Dao @Deprecated
 public interface RoomAmenitiesCrossDao extends RoomDao, RoomAmenityDao{
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertRoomAmenitiesCrossRef(RoomAmenitiesCrossRef... roomAmenitiesCrossRefs);

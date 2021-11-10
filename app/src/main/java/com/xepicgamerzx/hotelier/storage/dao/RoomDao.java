@@ -13,7 +13,7 @@ import com.xepicgamerzx.hotelier.objects.relations.RoomWithBeds;
 
 import java.util.List;
 
-@Dao
+@Dao @Deprecated
 public interface RoomDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     List<Long> insertRooms(HotelRoom... hotelRooms);
