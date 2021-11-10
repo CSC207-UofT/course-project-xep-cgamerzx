@@ -27,7 +27,7 @@ import com.xepicgamerzx.hotelier.storage.dao.RoomDao;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@TypeConverters({Converters.class}) @Deprecated
+@TypeConverters({Converters.class})
 @Database(entities = {Hotel.class, HotelRoom.class, Bed.class, HotelAmenity.class,
         RoomAmenity.class, BedsRoomCrossRef.class, HotelAmenitiesCrossRef.class,
         RoomAmenitiesCrossRef.class},

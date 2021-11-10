@@ -9,7 +9,7 @@ import com.xepicgamerzx.hotelier.objects.BedsRoomCrossRef;
 
 import java.util.List;
 
-@Dao @Deprecated
+@Dao
 public interface BedRoomCrossDao extends BedDao,RoomDao{
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertBedRoomCrossRef(BedsRoomCrossRef... bedsRoomCrossRefs);

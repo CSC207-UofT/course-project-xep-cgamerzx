@@ -13,7 +13,7 @@ import com.xepicgamerzx.hotelier.objects.relations.BedWithRooms;
 
 import java.util.List;
 
-@Dao @Deprecated
+@Dao
 public interface BedDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insertBeds(Bed... beds);

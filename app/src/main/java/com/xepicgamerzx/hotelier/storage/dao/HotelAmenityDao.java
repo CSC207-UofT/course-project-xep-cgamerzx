@@ -13,7 +13,7 @@ import com.xepicgamerzx.hotelier.objects.relations.AmenityWithHotels;
 
 import java.util.List;
 
-@Dao @Deprecated
+@Dao
 public interface HotelAmenityDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertHotelAmenities(HotelAmenity... hotelAmenities);
