@@ -1,31 +1,19 @@
 package com.xepicgamerzx.hotelier;
 
-import android.app.FragmentTransaction;
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
-import androidx.navigation.NavDestination;
-import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.textfield.TextInputEditText;
-import com.xepicgamerzx.hotelier.customer.SearchFragment;
 import com.xepicgamerzx.hotelier.databinding.ActivityMainBinding;
-import com.xepicgamerzx.hotelier.management.ManagementActivity;
-import com.xepicgamerzx.hotelier.user.UserManager;
 
 
 public class MainActivity extends AppCompatActivity {

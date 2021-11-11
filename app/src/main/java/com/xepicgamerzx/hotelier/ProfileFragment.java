@@ -9,16 +9,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.xepicgamerzx.hotelier.user.LoginActivity;
 import com.xepicgamerzx.hotelier.user.RegisterActivity;
 import com.xepicgamerzx.hotelier.user.UserManager;
+import com.xepicgamerzx.hotelier.user.model.User;
 
 public class ProfileFragment extends Fragment {
     Button registerBtn;
     Button login;
     Button signOut;
-
+    RelativeLayout signedInContent;
+    TextView userNameTxt;
     public ProfileFragment() {
         // Required empty public constructor
     }
@@ -39,11 +43,19 @@ public class ProfileFragment extends Fragment {
         signOut = v.findViewById(R.id.signOutBtn);
         signOut.setVisibility(View.INVISIBLE);
 
-        UserManager um = new UserManager();
+        signedInContent = v.findViewById(R.id.signedInContent);
+        userNameTxt = v.findViewById(R.id.userIdTxt);
 
-        if (um.getUser(getContext()) != null) {
+        UserManager um = new UserManager();
+        User user = um.getUser(getContext());
+
+        // If a user is signed in ...
+        if (user != null) {
             login.setVisibility(View.INVISIBLE);
             signOut.setVisibility(View.VISIBLE);
+
+            signedInContent.setVisibility(View.VISIBLE);
+            userNameTxt.setText(user.getUserName());
         }
 
 

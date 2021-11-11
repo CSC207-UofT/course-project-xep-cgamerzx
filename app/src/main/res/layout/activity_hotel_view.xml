@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
+    android:background="@color/white"
+    tools:context=".customer.HotelView">
+
+    <RelativeLayout
+        android:id="@+id/layoutHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <ImageButton
+            android:id="@+id/backBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_arrow_back_24"
+            android:background="?android:selectableItemBackground"
+            app:tint="@color/black"
+            tools:ignore="SpeakableTextPresentCheck"
+            />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="City"
+            android:fontFamily="@font/inter_regular"
+            android:textColor="@color/black"
+            android:layout_toEndOf="@+id/backBtn"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="5dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/userSchedule"
+            android:text="Nov 10 - Nov 11"
+            android:fontFamily="@font/inter_regular"
+            android:textColor="@color/black"
+            android:layout_below="@id/backBtn"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/userGuests"
+            android:layout_below="@id/backBtn"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_toEndOf="@+id/userSchedule"
+            android:layout_alignParentEnd="true"
+            android:gravity="right"
+            android:text="3 Guests"
+            android:fontFamily="@font/inter_regular"
+            android:textColor="@color/black"/>
+
+    </RelativeLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/hotelsRecyclerView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:layout_centerInParent="true"
+        android:layout_below="@+id/layoutHeader"
+        android:padding="5dp"
+        android:foregroundGravity="center_horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+
+</RelativeLayout>
