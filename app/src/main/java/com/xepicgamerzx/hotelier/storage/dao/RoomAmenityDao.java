@@ -27,6 +27,9 @@ public interface RoomAmenityDao {
     @Query("SELECT * FROM RoomAmenity")
     List<RoomAmenity> getAllRoomAmenities();
 
+    @Query("SELECT * FROM RoomAmenity WHERE roomAmenityID IN (:roomAmenityID)")
+    List<RoomAmenity> getRoomAmenities(String... roomAmenityID);
+
     @Transaction
     @Query("SELECT * FROM RoomAmenity")
     List<AmenityWithRooms> getRoomAmenitiesWithRooms();

@@ -16,14 +16,11 @@ public class Bed implements Serializable {
         this.bedID = bedID;
     }
 
-    public Bed (BedSize bedID){
+    public Bed (BedSizeEnum bedID){
         this.bedID = bedID.toString();
     }
 
     public String getBedID() {
         return bedID;
-    }
-
-    public void setRoom(HotelRoom hotelRoom) {
     }
 }

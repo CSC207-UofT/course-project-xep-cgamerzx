@@ -31,8 +31,6 @@ public class HotelRoom {
      * @param startAvailability the first day where a hotelRoom is available
      * @param endAvailability   the last day of when a hotelRoom is available
      * @param capacity          The maximum number of people that can sleep in this HotelRoom
-     *                          //* @param hotel The hotel that this hotelRoom is apart of
-     *                          //* @param amenities The amenities that this hotelRoom has
      */
     public HotelRoom(ZoneId zoneId, long startAvailability, long endAvailability, int capacity, BigDecimal price) {
         this.zoneId = zoneId;

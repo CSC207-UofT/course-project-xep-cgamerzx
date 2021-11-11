@@ -3,7 +3,7 @@ package com.xepicgamerzx.hotelier.storage;
 import android.app.Application;
 
 import com.xepicgamerzx.hotelier.objects.Bed;
-import com.xepicgamerzx.hotelier.objects.BedSize;
+import com.xepicgamerzx.hotelier.objects.BedSizeEnum;
 import com.xepicgamerzx.hotelier.objects.BedsRoomCrossRef;
 import com.xepicgamerzx.hotelier.objects.HotelRoom;
 import com.xepicgamerzx.hotelier.storage.dao.BedDao;
@@ -11,6 +11,9 @@ import com.xepicgamerzx.hotelier.storage.dao.BedRoomCrossDao;
 
 import java.util.List;
 
+/**
+ * A class to manage all the Beds in the database.
+ */
 public class BedManager implements Manager<Bed, String, Void> {
     private static volatile BedManager INSTANCE;
 
@@ -44,15 +47,14 @@ public class BedManager implements Manager<Bed, String, Void> {
         return INSTANCE;
     }
 
-
     public Bed create(String bedSize) {
         Bed bed = new Bed(bedSize);
         insert(bed);
         return bed;
     }
 
-    public Bed create(BedSize bedSize) {
-        Bed bed = new Bed(bedSize.toString());
+    public Bed create(BedSizeEnum bedSizeEnum) {
+        Bed bed = new Bed(bedSizeEnum.toString());
         insert(bed);
         return bed;
     }
