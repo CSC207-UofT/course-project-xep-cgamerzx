@@ -1,8 +1,12 @@
 package com.xepicgamerzx.hotelier.objects;
 
+import android.icu.util.ULocale;
+
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.format.TextStyle;
+import java.util.Locale;
 
 public class UnixEpochDateConverter {
     // Epoch to local date
@@ -34,6 +38,16 @@ public class UnixEpochDateConverter {
                 .atZone(ZoneId.systemDefault()).toLocalDate();
 
         return String.format("%s - %s", sd, ed);
+    }
+
+    public String epochToReadable(Long date1, Long date2) {
+        String localDate1 = epochToLocal(date1);
+        String localDate2 = epochToLocal(date2);
+
+        LocalDate d1 = LocalDate.parse(localDate1);
+        LocalDate d2 = LocalDate.parse(localDate2);
+        return String.format("%s, %s/%s - %s, %s/%s", d1.getDayOfWeek().getDisplayName(TextStyle.SHORT, Locale.getDefault()), d1.getMonthValue(), d1.getDayOfMonth(),
+                d2.getDayOfWeek().getDisplayName(TextStyle.SHORT, Locale.getDefault()), d2.getMonthValue(), d2.getDayOfMonth());
     }
 
 }
