@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 import com.xepicgamerzx.hotelier.objects.Bed;
 import com.xepicgamerzx.hotelier.objects.Hotel;
 import com.xepicgamerzx.hotelier.objects.HotelRoom;
-import com.xepicgamerzx.hotelier.objects.RoomAmenities;
+import com.xepicgamerzx.hotelier.objects.RoomAmenitiesEnum;
 import com.xepicgamerzx.hotelier.objects.RoomAmenitiesCrossRef;
 import com.xepicgamerzx.hotelier.objects.RoomAmenity;
 import com.xepicgamerzx.hotelier.storage.dao.BedRoomCrossDao;
@@ -207,7 +207,7 @@ public class RoomManager implements Manager<HotelRoom, Long, Long[]> {
     }
 
     @NonNull
-    public RoomAmenity createHotelAmenity(RoomAmenities amenity) {
+    public RoomAmenity createHotelAmenity(RoomAmenitiesEnum amenity) {
         RoomAmenity roomAmenity = new RoomAmenity(amenity);
         insertRoomAmenity(roomAmenity);
         return roomAmenity;

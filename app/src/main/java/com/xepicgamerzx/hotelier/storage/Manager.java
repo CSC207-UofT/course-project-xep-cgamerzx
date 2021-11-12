@@ -3,6 +3,7 @@ package com.xepicgamerzx.hotelier.storage;
 import java.util.List;
 
 /**
+ * Interface for classes involved in managing entities and their persistence in the database.
  *
  * @param <T> Entity Type.
  * @param <I> Entity ID type.

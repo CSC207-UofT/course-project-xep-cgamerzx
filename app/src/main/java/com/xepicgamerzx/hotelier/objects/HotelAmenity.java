@@ -14,7 +14,7 @@ public class HotelAmenity {
         this.hotelAmenityID = hotelAmenityID;
     }
 
-    public HotelAmenity (HotelAmenities hotelAmenity){
+    public HotelAmenity (HotelAmenitiesEnum hotelAmenity){
         this.hotelAmenityID = hotelAmenity.toString();
     }
 

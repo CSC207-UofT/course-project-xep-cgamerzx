@@ -6,7 +6,7 @@ import androidx.annotation.NonNull;
 
 import com.xepicgamerzx.hotelier.objects.Address;
 import com.xepicgamerzx.hotelier.objects.Hotel;
-import com.xepicgamerzx.hotelier.objects.HotelAmenities;
+import com.xepicgamerzx.hotelier.objects.HotelAmenitiesEnum;
 import com.xepicgamerzx.hotelier.objects.HotelAmenitiesCrossRef;
 import com.xepicgamerzx.hotelier.objects.HotelAmenity;
 import com.xepicgamerzx.hotelier.objects.HotelRoom;
@@ -16,7 +16,7 @@ import com.xepicgamerzx.hotelier.storage.dao.HotelDao;
 import java.util.List;
 
 /**
- * A class to manage all the hotels in our database.
+ * A class to manage all the hotels in the database.
  */
 public class HotelManager implements Manager<Hotel, Long, Long[]> {
     private static volatile HotelManager INSTANCE;
@@ -124,7 +124,7 @@ public class HotelManager implements Manager<Hotel, Long, Long[]> {
     }
 
     @NonNull
-    public HotelAmenity createHotelAmenity(HotelAmenities amenity) {
+    public HotelAmenity createHotelAmenity(HotelAmenitiesEnum amenity) {
         HotelAmenity hotelAmenity = new HotelAmenity(amenity);
         hotelAmenitiesCrossDao.insertHotelAmenities(hotelAmenity);
         return hotelAmenity;

@@ -14,7 +14,7 @@ public class RoomAmenity {
         this.roomAmenityID = roomAmenityID;
     }
 
-    public RoomAmenity (RoomAmenities roomAmenityID){
+    public RoomAmenity (RoomAmenitiesEnum roomAmenityID){
         this.roomAmenityID = roomAmenityID.toString();
     }
 

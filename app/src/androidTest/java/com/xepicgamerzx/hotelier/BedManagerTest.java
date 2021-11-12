@@ -10,7 +10,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import com.xepicgamerzx.hotelier.objects.Address;
 import com.xepicgamerzx.hotelier.objects.Bed;
-import com.xepicgamerzx.hotelier.objects.BedSize;
+import com.xepicgamerzx.hotelier.objects.BedSizeEnum;
 import com.xepicgamerzx.hotelier.objects.Hotel;
 import com.xepicgamerzx.hotelier.objects.HotelRoom;
 import com.xepicgamerzx.hotelier.storage.BedManager;
@@ -80,14 +80,14 @@ public class BedManagerTest {
 
     @Test
     public void testCreate(){
-        bedManager.create(BedSize.KING);
+        bedManager.create(BedSizeEnum.KING);
         bedManager.create("Queen");
-        System.out.println(BedSize.QUEEN.toString());
-        System.out.println(BedSize.KING.toString());
+        System.out.println(BedSizeEnum.QUEEN.toString());
+        System.out.println(BedSizeEnum.KING.toString());
 
-        Bed bed = bedManager.get(BedSize.KING.toString()).get(0);
+        Bed bed = bedManager.get(BedSizeEnum.KING.toString()).get(0);
 
-        assertEquals(bed.getBedID(), BedSize.KING.label);
+        assertEquals(bed.getBedID(), BedSizeEnum.KING.label);
     }
 
 
