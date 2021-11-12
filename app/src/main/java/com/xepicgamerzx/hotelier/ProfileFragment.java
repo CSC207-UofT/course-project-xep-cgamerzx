@@ -59,7 +59,6 @@ public class ProfileFragment extends Fragment {
         }
 
 
-
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -80,6 +79,7 @@ public class ProfileFragment extends Fragment {
                 um.signOut(getContext());
                 login.setVisibility(View.VISIBLE);
                 signOut.setVisibility(View.INVISIBLE);
+                signedInContent.setVisibility(View.GONE);
             }
         });
         return v;
