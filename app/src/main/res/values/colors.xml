@@ -9,6 +9,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="background_default">#FFFAF7</color>
     <color name="background_secondary">#002447</color>
+    <color name="hotel_row_background">#E8D7D7</color>
     <color name="light_secondary">#11406E</color>
     <color name="red">#FF0000</color>
     <color name="background_gradient_start">#000000</color>

@@ -16,6 +16,7 @@ public class CustomerHotelRoomsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer_rooms);
+        getSupportActionBar().hide();
 
         TextView descNameText = findViewById(R.id.hotelNameDesc);
 
@@ -24,5 +25,6 @@ public class CustomerHotelRoomsActivity extends AppCompatActivity {
             hotelViewModel = (HotelViewModel) intent.getSerializableExtra("Hotel"); // Gives the hotel object
             descNameText.setText(hotelViewModel.getName());
         }
+
     }
 }

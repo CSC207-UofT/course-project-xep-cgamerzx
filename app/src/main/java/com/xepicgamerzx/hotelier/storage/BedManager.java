@@ -9,6 +9,7 @@ import com.xepicgamerzx.hotelier.objects.HotelRoom;
 import com.xepicgamerzx.hotelier.storage.dao.BedDao;
 import com.xepicgamerzx.hotelier.storage.dao.BedRoomCrossDao;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -121,8 +122,24 @@ public class BedManager implements Manager<Bed, String, Void> {
      * @param hotelRoom HotelRoom associated with beds.
      * @return List<BedsRoomCrossRef> associated with the beds.
      */
-    public List<BedsRoomCrossRef> getBedsInRoom(HotelRoom hotelRoom){
-        return bedRoomCrossDao.getBedsInRoom(hotelRoom.roomID);
+    public List<Bed> getBedsInRoom(HotelRoom hotelRoom){
+        List<String> ids = bedRoomCrossDao.getBedsInRoom(hotelRoom.roomID);
+        return get(ids.toArray(new String[0]));
+    }
+
+    /**
+     * Gets all the beds in the given room as well as the number of each type of bed in the room.
+     *
+     * @param hotelRoom HotelRoom associated with beds.
+     * @return HashMap<Bed, Integer> of beds in the room and the associated count.
+     */
+    public HashMap<Bed, Integer> getBedsInRoomCount(HotelRoom hotelRoom){
+        List<BedsRoomCrossRef> ids = bedRoomCrossDao.getBedsCrossInRoom(hotelRoom.roomID);
+        HashMap<Bed, Integer> bedCount = new HashMap<>();
+        for (BedsRoomCrossRef crossRef : ids){
+            bedCount.put(get(crossRef.bedID).get(0), crossRef.getBedCount());
+        }
+        return bedCount;
     }
 
     /**

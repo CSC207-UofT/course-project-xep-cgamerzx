@@ -12,9 +12,9 @@ public class UserManager {
         fw.writeData(user, "file.dat", context);
     }
 
-    public Object getUser(Context context) {
+    public User getUser(Context context) {
         Object user = fw.readData("file.dat", context);
-        return user;
+        return (User) user;
     }
 
     public void signOut(Context context) {

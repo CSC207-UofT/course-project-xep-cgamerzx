@@ -1,23 +1,19 @@
 package com.xepicgamerzx.hotelier;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.textfield.TextInputEditText;
-import com.xepicgamerzx.hotelier.customer.SearchFragment;
+import com.xepicgamerzx.hotelier.customer.SearchActivity;
 import com.xepicgamerzx.hotelier.user.UserManager;
 import com.xepicgamerzx.hotelier.user.model.User;
-
-import org.w3c.dom.Text;
 
 
 public class DashboardFragment extends Fragment {
@@ -84,13 +80,7 @@ public class DashboardFragment extends Fragment {
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Fragment SearchFragment = new SearchFragment();
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                fragmentManager.beginTransaction()
-                        .replace(R.id.mainActivity, SearchFragment, null)
-                        .setReorderingAllowed(true)
-                        .addToBackStack(null) // name can be null
-                        .commit();
+                startActivity(new Intent(getActivity(), SearchActivity.class));
             }
         });
         return v;

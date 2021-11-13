@@ -19,7 +19,6 @@ import java.util.ArrayList;
  *
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
-@Deprecated
 @RunWith(AndroidJUnit4.class)
 public class FileReadWriteTest {
     @Test
