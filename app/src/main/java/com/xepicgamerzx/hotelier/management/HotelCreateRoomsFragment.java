@@ -67,14 +67,13 @@ public class HotelCreateRoomsFragment extends Fragment {
                         BigDecimal.valueOf(Long.parseLong(pricePerNight.getText().toString()))
                 );
 
-                // Beds
-                for(int i = 0; i < Integer.parseInt(totalBeds.getText().toString()); i++){
+//                // Beds
+//                for(int i = 0; i < Integer.parseInt(totalBeds.getText().toString()); i++){
+//
+//                }
 
-                }
-
-                System.out.println(BigDecimal.valueOf(Long.parseLong(pricePerNight.getText().toString())));
                 System.out.println(room);
-                activity.hotelRooms.add(room);
+//                activity.hotelRooms.add(room);
             }
         });
 

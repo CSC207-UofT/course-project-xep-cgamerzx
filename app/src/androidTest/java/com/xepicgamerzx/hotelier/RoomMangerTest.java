@@ -77,7 +77,7 @@ public class RoomMangerTest {
 
         String name = "RoomManager Test Hotel 1";
         int starClass = 5;
-        testHotel = hotelManager.createHotel(name, addresses.get(0), starClass, rooms.toArray(new HotelRoom[0]));
+        testHotel = hotelManager.createHotel(name, addresses.get(0), starClass, rooms);
     }
 
     @Test

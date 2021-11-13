@@ -97,9 +97,9 @@ public class HotelCreatorActivity extends AppCompatActivity {
 
     public void initializeDb() {
         // HotelierDatabase db = Room.databaseBuilder(getApplicationContext(), Database, HotelierDatabase.class).build();
-        HotelierDatabase hotelierDatabase = HotelierDatabase.getDatabase(getApplicationContext());
-        ClearTablesDao clear = hotelierDatabase.clear_tables();
-        clear.nukeTable();
+//        HotelierDatabase hotelierDatabase = HotelierDatabase.getDatabase(getApplicationContext());
+//        ClearTablesDao clear = hotelierDatabase.clear_tables();
+//        clear.nukeTable();
 
         hotelManager = HotelManager.getManager(getApplication());
         roomManager = RoomManager.getManager(getApplication());
