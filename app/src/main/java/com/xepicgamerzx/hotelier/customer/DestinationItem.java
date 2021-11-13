@@ -1,30 +1,24 @@
 package com.xepicgamerzx.hotelier.customer;
 
 public class DestinationItem {
-    private String city;
-    private String state;
-    private String country;
+    private String cityStateCountry;
+    private String placeId;
 
 
-    public DestinationItem(String city, String state, String country) {
-        this.city = city;
-        this.state = state;
-        this.country = country;
+    public DestinationItem(String cityStateCountry) {
+        this.cityStateCountry = cityStateCountry;
     }
 
-    public String getCountry() {
-        return country;
+    public DestinationItem(String cityStateCountry, String place_id) {
+        this.cityStateCountry = cityStateCountry;
+        this.placeId = place_id;
     }
 
-    public String getCity() {
-        return city;
+    public String getCityStateCountry() {
+        return this.cityStateCountry;
     }
 
-    public String getState() {
-        return state;
-    }
-
-    public String getDestination() {
-        return String.format("%s, %s, %s", this.city, this.state, this.country);
+    public String getPlaceId() {
+        return this.placeId;
     }
 }

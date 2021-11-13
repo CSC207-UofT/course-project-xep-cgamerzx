@@ -42,7 +42,8 @@ public class HotelViewActivity extends AppCompatActivity {
                     hotel.getName(),
                     hotel.getAddress().getFullStreet(),
                     roomManager.getPriceRange(hotel),
-                    roomManager.getNumberOfRooms(hotel)
+                    roomManager.getNumberOfRooms(hotel),
+                    hotel
             ));
             System.out.println(hotel.getName());
         }

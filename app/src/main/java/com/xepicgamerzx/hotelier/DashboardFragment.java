@@ -74,7 +74,7 @@ public class DashboardFragment extends Fragment {
         // Add if empty, no user, go sign in.
         if (um.getUser(getContext()) != null) {
             User user = (User) um.getUser(getContext());
-            nameField.setText("Welcome " + user.getUserName());
+            nameField.setText("Welcome back " + user.getUserName());
         }
 
         search.setOnClickListener(new View.OnClickListener() {

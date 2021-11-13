@@ -1,5 +1,6 @@
 package com.xepicgamerzx.hotelier.customer;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.util.Pair;
 
@@ -11,6 +12,13 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.api.net.PlacesClient;
+import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
+import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.xepicgamerzx.hotelier.MainActivity;
@@ -18,12 +26,13 @@ import com.xepicgamerzx.hotelier.R;
 import com.xepicgamerzx.hotelier.objects.UnixEpochDateConverter;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-public class SearchActivity extends AppCompatActivity {
+public class SearchActivity extends AppCompatActivity implements OnSearchClick {
 
     int numberOfGuests;
-    private List<DestinationItem> destinationList;
+    DestinationItem destinationItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,10 +40,9 @@ public class SearchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search);
         getSupportActionBar().hide();
 
-        fillDestinationList();
 
         AutoCompleteTextView editText = findViewById(R.id.selectDestination);
-        AutoDestinationAdapter adapter = new AutoDestinationAdapter(getApplicationContext(), destinationList);
+        AutoDestinationAdapter adapter = new AutoDestinationAdapter(getApplicationContext(), this);
         editText.setAdapter(adapter);
 
         ImageButton backBtn = findViewById(R.id.backBtn);
@@ -85,14 +93,9 @@ public class SearchActivity extends AppCompatActivity {
                 Long startDate = selection.first;
                 Long endDate = selection.second;
 
-                // Converts to normal date
                 UnixEpochDateConverter epoch = new UnixEpochDateConverter();
                 String dates = epoch.epochToReadable(startDate, endDate);
                 dateSelection.setText(dates);
-
-                // Save Dates Somewhere.
-                //dateRange.put("startDate", startDate);
-                //dateRange.put("endDate", endDate);
             }
         });
 
@@ -114,14 +117,11 @@ public class SearchActivity extends AppCompatActivity {
         }
     }
 
-    private void fillDestinationList() {
-        destinationList = new ArrayList<>();
-
-        // Testing data.
-        destinationList.add(new DestinationItem("Toronto", "Ontario", "Canada"));
-        destinationList.add(new DestinationItem("Ottawa", "Ontario", "Canada"));
-        destinationList.add(new DestinationItem("New York City", "New York", "United States"));
-
+    @Override
+    public void onSearch(DestinationItem destinationItem) {
+        // value to receive from AutoDestinationAdapter
+        // Is there a better way to just return place_id and call this method rather then doing this. = ...
+        this.destinationItem = destinationItem;
 
     }
 }
