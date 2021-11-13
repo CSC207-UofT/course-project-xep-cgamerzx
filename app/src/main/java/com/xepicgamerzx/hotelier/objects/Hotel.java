@@ -1,5 +1,6 @@
 package com.xepicgamerzx.hotelier.objects;
 
+import androidx.annotation.NonNull;
 import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -63,12 +64,13 @@ public class Hotel implements Serializable {
      *
      * @return a string for a hotel.
      */
+    @NonNull
     @Override
     public String toString() {
         String name = String.format("Name: %s", this.name);
         String hotelAddress = String.format("\nAddress: %s", this.address.getFullStreet());
 
-        return String.format(name + hotelAddress);
+        return name + hotelAddress;
     }
 
     @Override

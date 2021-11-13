@@ -15,4 +15,5 @@ public interface UserDAO {
     User login( String userId, String password);
 
     // TODO - Add a userFavourites column, so when a user clicks favourite on something, it gets saved.
+
 }

@@ -6,13 +6,12 @@ import androidx.room.Entity;
 
 @Entity(primaryKeys = {"hotelID", "hotelAmenityID"})
 public class HotelAmenitiesCrossRef {
-        @NonNull
         public long hotelID;
         @NonNull
         @ColumnInfo(index = true)
         public String hotelAmenityID;
 
-        public HotelAmenitiesCrossRef(@NonNull long hotelID, @NonNull String hotelAmenityID){
+        public HotelAmenitiesCrossRef(long hotelID, @NonNull String hotelAmenityID){
             this.hotelID = hotelID;
             this.hotelAmenityID = hotelAmenityID;
         }

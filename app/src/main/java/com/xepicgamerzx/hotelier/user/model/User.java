@@ -1,6 +1,5 @@
 package com.xepicgamerzx.hotelier.user.model;
 
-import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -11,7 +10,6 @@ import java.io.Serializable;
 public class User implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
-    @NonNull
     private int id;
 
     @ColumnInfo(name="userId")

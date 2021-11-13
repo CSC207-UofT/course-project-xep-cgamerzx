@@ -31,7 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RunWith(AndroidJUnit4.class)
-public class RoomMangerTest {
+public class RoomManagerTest {
     private static ArrayList<Address> addresses;
     private final ZoneId zoneId = ZoneId.systemDefault();
     private final BigDecimal price = BigDecimal.valueOf(200.91);
@@ -77,7 +77,7 @@ public class RoomMangerTest {
 
         String name = "RoomManager Test Hotel 1";
         int starClass = 5;
-        testHotel = hotelManager.createHotel(name, addresses.get(0), starClass, rooms.toArray(new HotelRoom[0]));
+        testHotel = hotelManager.createHotel(name, addresses.get(0), starClass, rooms);
     }
 
     @Test

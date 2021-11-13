@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey;
 public class HotelAmenity {
     @NonNull
     @PrimaryKey
-    private String hotelAmenityID;
+    private final String hotelAmenityID;
 
     public HotelAmenity (@NonNull String hotelAmenityID){
         this.hotelAmenityID = hotelAmenityID;

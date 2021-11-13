@@ -6,7 +6,6 @@ import androidx.room.Entity;
 
 @Entity(primaryKeys = {"roomID", "bedID"})
 public class BedsRoomCrossRef {
-    @NonNull
     public long roomID;
     @NonNull
     @ColumnInfo(index = true)
@@ -14,13 +13,13 @@ public class BedsRoomCrossRef {
 
     private int bedCount;
 
-    public BedsRoomCrossRef(@NonNull long roomID, @NonNull String bedID, @NonNull int bedCount){
+    public BedsRoomCrossRef(long roomID, @NonNull String bedID, int bedCount){
         this.roomID = roomID;
         this.bedID = bedID;
         setBedCount(bedCount);
     }
 
-    public BedsRoomCrossRef(HotelRoom hotelRoom, Bed bed, @NonNull int bedCount){
+    public BedsRoomCrossRef(HotelRoom hotelRoom, Bed bed, int bedCount){
         this.roomID = hotelRoom.roomID;
         this.bedID = bed.getBedID();
         setBedCount(bedCount);

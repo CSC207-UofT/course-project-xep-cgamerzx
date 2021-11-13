@@ -115,4 +115,7 @@ public class HotelAmenityManager implements Manager<HotelAmenity, String, Void>{
         insert(hotelAmenity);
         return hotelAmenity;
     }
+
+
+    // TODO: make a getter for a hotel's amenities
 }

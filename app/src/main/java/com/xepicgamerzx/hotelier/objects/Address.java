@@ -1,5 +1,7 @@
 package com.xepicgamerzx.hotelier.objects;
 
+import androidx.annotation.NonNull;
+
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -62,16 +64,16 @@ public class Address implements Serializable {
         return String.format("%s %s", this.streetNumber, this.streetName);
     }
 
+    @NonNull
     @Override
     public String toString() {
-        String sf = ("Street Number: " + this.streetNumber +
+        return ("Street Number: " + this.streetNumber +
                 "\nStreet Name: " + this.streetName +
                 "\nCity: " + this.city +
                 "\nProvince: " + this.province +
                 "\nPostal Code: " + this.postalCode +
                 "\nLongitude: " + this.longitude +
                 "\nLatitude: " + this.latitude);
-        return sf;
     }
 
     @Override

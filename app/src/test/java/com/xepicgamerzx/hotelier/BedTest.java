@@ -1,14 +1,14 @@
 package com.xepicgamerzx.hotelier;
 
-import static org.junit.Assert.assertNull;
-
 import com.xepicgamerzx.hotelier.objects.Bed;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 public class BedTest {
     @Test
-    public void testBedWithNoRoomReference() {
+    public void testGetBedId() {
         Bed bed = new Bed("Queen");
-        assert(bed.getBedID() == "Queen");
+        assertEquals(bed.getBedID(), "Queen");
     }
+
 }

@@ -18,6 +18,7 @@ public class RoomAmenity {
         this.roomAmenityID = roomAmenityID.toString();
     }
 
+    @NonNull
     public String getRoomAmenityID() {
         return roomAmenityID;
     }

@@ -2,8 +2,12 @@ package com.xepicgamerzx.hotelier.storage;
 
 import android.app.Application;
 
+import com.xepicgamerzx.hotelier.objects.Bed;
+import com.xepicgamerzx.hotelier.objects.HotelRoom;
+import com.xepicgamerzx.hotelier.objects.RoomAmenitiesCrossRef;
 import com.xepicgamerzx.hotelier.objects.RoomAmenitiesEnum;
 import com.xepicgamerzx.hotelier.objects.RoomAmenity;
+import com.xepicgamerzx.hotelier.storage.dao.RoomAmenitiesCrossDao;
 import com.xepicgamerzx.hotelier.storage.dao.RoomAmenityDao;
 
 import java.util.List;
@@ -16,15 +20,18 @@ public class RoomAmenityManager implements Manager<RoomAmenity, String, Void> {
 
     private final HotelierDatabase db;
     private final RoomAmenityDao roomAmenityDao;
+    private final RoomAmenitiesCrossDao roomAmenitiesCrossDao;
 
     private RoomAmenityManager(Application application) {
         db = HotelierDatabase.getDatabase(application);
         roomAmenityDao = db.roomAmenityDao();
+        roomAmenitiesCrossDao = db.roomAmenitiesCrossDao();
     }
 
     private RoomAmenityManager(HotelierDatabase dbInstance) {
         db = dbInstance;
         roomAmenityDao = db.roomAmenityDao();
+        roomAmenitiesCrossDao = db.roomAmenitiesCrossDao();
     }
 
     public static RoomAmenityManager getManager(Application application) {
@@ -114,5 +121,16 @@ public class RoomAmenityManager implements Manager<RoomAmenity, String, Void> {
         RoomAmenity roomAmenity = new RoomAmenity(amenity.toString());
         insert(roomAmenity);
         return roomAmenity;
+    }
+
+    /**
+     * Gets all the amenities in the given room.
+     *
+     * @param hotelRoom HotelRoom associated with amenities.
+     * @return List<HotelAmenitiesRoomCrossRef> associated with the room.
+     */
+    public List<RoomAmenity> getAmenitiesInRoom(HotelRoom hotelRoom){
+        List<String> ids = roomAmenitiesCrossDao.getAmenitiesInRoom(hotelRoom.roomID);
+        return get(ids.toArray(new String[0]));
     }
 }
