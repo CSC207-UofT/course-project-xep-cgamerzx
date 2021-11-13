@@ -23,4 +23,19 @@ public class Bed implements Serializable {
     public String getBedID() {
         return bedID;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Bed)) return false;
+
+        Bed bed = (Bed) o;
+
+        return getBedID().equals(bed.getBedID());
+    }
+
+    @Override
+    public int hashCode() {
+        return getBedID().hashCode();
+    }
 }
