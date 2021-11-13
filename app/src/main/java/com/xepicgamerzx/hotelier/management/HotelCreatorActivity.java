@@ -73,10 +73,11 @@ public class HotelCreatorActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // add star input later
                 int starClass = 5;
-
+                String name = hotelName.getText().toString();
                 // Do amentities later.
                 if (validateHotel()) {
-                    hotelManager.createHotel(hotelName.toString(), address, starClass, hotelRooms);
+                    hotelManager.createHotel(name, address, starClass, hotelRooms);
+                    onBackPressed();
                 } else {
                     Toast.makeText(getApplicationContext(), "Missing inputs, try again", Toast.LENGTH_SHORT).show();
                 }
@@ -135,6 +136,7 @@ public class HotelCreatorActivity extends AppCompatActivity {
         final View hotelInfo = getLayoutInflater().inflate(R.layout.hotel_details_dialog, null);
 
         TextView hotelDetails = hotelInfo.findViewById(R.id.hotelDetailsTxt);
+        text += "\nName: " + hotelName.getText().toString();
         hotelDetails.append(text);
 
 

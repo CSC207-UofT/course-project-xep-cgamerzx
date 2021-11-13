@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
     android:background="@color/white"
-    tools:context=".customer.HotelView">
+    tools:context=".customer.HotelViewActivity">
 
     <RelativeLayout
         android:id="@+id/layoutHeader"

@@ -2,7 +2,6 @@ package com.xepicgamerzx.hotelier.customer;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.util.Pair;
-import androidx.fragment.app.FragmentManager;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,11 +15,7 @@ import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.xepicgamerzx.hotelier.MainActivity;
 import com.xepicgamerzx.hotelier.R;
-import com.xepicgamerzx.hotelier.customer.AutoDestinationAdapter;
-import com.xepicgamerzx.hotelier.customer.DestinationItem;
-import com.xepicgamerzx.hotelier.customer.HotelView;
 import com.xepicgamerzx.hotelier.objects.UnixEpochDateConverter;
-import com.xepicgamerzx.hotelier.user.LoginActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -104,7 +99,7 @@ public class SearchActivity extends AppCompatActivity {
         searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), HotelView.class));
+                startActivity(new Intent(getApplicationContext(), HotelViewActivity.class));
             }
         });
     }

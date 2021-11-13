@@ -16,7 +16,7 @@
             android:name=".customer.SearchActivity"
             android:exported="false" />
         <activity
-            android:name=".customer.HotelView"
+            android:name=".customer.HotelViewActivity"
             android:exported="false" />
         <activity
             android:name=".user.LoginActivity"

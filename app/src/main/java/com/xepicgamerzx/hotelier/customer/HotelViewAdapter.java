@@ -72,7 +72,7 @@ public class HotelViewAdapter extends RecyclerView.Adapter<HotelViewAdapter.Hote
             hotelName.setText(hotel.getName());
             hotelAddress.setText(hotel.getAddress());
             hotelPrice.setText(hotel.getPriceRange().toString());
-//            totalRooms.setText(hotel.getNumberOfRooms());
+            totalRooms.setText(String.valueOf(hotel.getNumberOfRooms()));
             // img .set
 
             hotelLayout.setOnClickListener(new View.OnClickListener() {
