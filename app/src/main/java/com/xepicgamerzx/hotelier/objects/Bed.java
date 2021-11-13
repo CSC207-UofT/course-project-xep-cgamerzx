@@ -12,7 +12,7 @@ public class Bed implements Serializable {
     @PrimaryKey()
     private final String bedID;
 
-    public Bed (String bedID){
+    public Bed (@NonNull String bedID){
         this.bedID = bedID;
     }
 
@@ -20,6 +20,7 @@ public class Bed implements Serializable {
         this.bedID = bedID.toString();
     }
 
+    @NonNull
     public String getBedID() {
         return bedID;
     }
