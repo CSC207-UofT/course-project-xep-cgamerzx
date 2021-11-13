@@ -74,7 +74,7 @@
             android:layout_below="@+id/hotelNameLayout"
             android:textColorHint="@color/white"
             android:text="Add address"
-            android:backgroundTint="@color/light_secondary"
+            android:backgroundTint="@color/background_secondary"
             app:boxStrokeColor="@color/white"
             app:boxCornerRadiusBottomEnd="8dp"
             app:boxCornerRadiusBottomStart="8dp"
@@ -95,7 +95,7 @@
             android:textColorHint="@color/white"
             android:text="Add rooms"
             android:layout_below="@+id/addAddressBtn"
-            android:backgroundTint="@color/light_secondary"
+            android:backgroundTint="@color/background_secondary"
             app:boxStrokeColor="@color/white"
             app:boxCornerRadiusBottomEnd="8dp"
             app:boxCornerRadiusBottomStart="8dp"
@@ -115,7 +115,8 @@
         app:cardCornerRadius="6dp"
         app:cardElevation="10dp"
         android:layout_below="@+id/addRoomsBtn"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="20dp"
+        android:id="@+id/hotelAmentities">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -141,12 +142,33 @@
     </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/hotelDetails"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_below="@id/hotelAmentities"
+        android:layout_width="313dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="46dp"
+        android:textColorHint="@color/black"
+        android:text="View Hotel Details"
+        android:backgroundTint="@color/hotel_row_background"
+        app:boxStrokeColor="@color/white"
+        android:textColor="@color/black"
+        app:boxCornerRadiusBottomEnd="8dp"
+        app:boxCornerRadiusBottomStart="8dp"
+        app:boxCornerRadiusTopEnd="8dp"
+        app:boxCornerRadiusTopStart="8dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/inter_bold"
+        android:textSize="18sp">
+
+    </com.google.android.material.button.MaterialButton>
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/saveHotelBtn"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="313dp"
         android:layout_height="65dp"
+        android:layout_below="@id/hotelDetails"
         android:layout_marginStart="46dp"
-        android:layout_marginTop="450dp"
         android:textColorHint="@color/white"
         android:text="Submit"
         android:backgroundTint="@color/black"

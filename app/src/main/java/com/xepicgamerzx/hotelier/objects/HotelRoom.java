@@ -91,8 +91,9 @@ public class HotelRoom {
     @Override
     @NonNull
     public String toString() {
+        UnixEpochDateConverter epoch = new UnixEpochDateConverter();
         String roomID = String.format(Locale.CANADA, "RoomID: %d", this.roomID);
-        String schedule = String.format(Locale.CANADA, "\nSchedule: (%s, %s)", this.getStartAvailability(), this.getEndAvailability());
+        String schedule = String.format(Locale.CANADA, "\nSchedule: " + epoch.epochToReadable(this.getStartAvailability(), this.getEndAvailability()));
         String capacity = String.format(Locale.CANADA, "\nCapacity: %d", this.capacity);
         String price = String.format(Locale.CANADA, "\nPrice: %.2f", this.price);
 

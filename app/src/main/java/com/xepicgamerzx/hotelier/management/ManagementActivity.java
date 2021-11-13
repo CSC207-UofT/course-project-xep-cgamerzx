@@ -100,12 +100,12 @@ public class ManagementActivity extends AppCompatActivity {
             }
         });
 
-        addAddressButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                createNewAddressDialog();
-            }
-        });
+//        addAddressButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                createNewAddressDialog();
+//            }
+//        });
 
         addRoomsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,62 +116,62 @@ public class ManagementActivity extends AppCompatActivity {
 
     }
 
-    public void createNewAddressDialog() {
-        dialogBuilder = new AlertDialog.Builder(this);
-        final View addressPopUpView = getLayoutInflater().inflate(R.layout.address_popup, null);
-
-        streetNum = addressPopUpView.findViewById(R.id.streetNum);
-        streetName = addressPopUpView.findViewById(R.id.streetName);
-        city = addressPopUpView.findViewById(R.id.city);
-        province = addressPopUpView.findViewById(R.id.province);
-        postalCode = addressPopUpView.findViewById(R.id.postalCode);
-        longLat = addressPopUpView.findViewById(R.id.longAndLat);
-
-        saveAddressButton = addressPopUpView.findViewById(R.id.saveButton);
-        cancelAddressButton = addressPopUpView.findViewById(R.id.cancelButton);
-
-        dialogBuilder.setView(addressPopUpView);
-        dialog = dialogBuilder.create();
-        dialog.show();
-
-        saveAddressButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String hotelStreetNum = streetNum.getText().toString();
-                String hotelStreetName = streetName.getText().toString();
-                String hotelCity = city.getText().toString();
-                String hotelProvince = province.getText().toString();
-                String hotelPostalCode = postalCode.getText().toString();
-                String hotelLongAndLat = longLat.getText().toString();
-
-                String[] res = hotelLongAndLat.split("[,]", 0);
-                double longitude = Double.parseDouble(res[0]);
-                double latitude = Double.parseDouble(res[1]);
-
-                // Create address object
-                Address address = new Address(hotelStreetName,
-                        hotelPostalCode, hotelStreetNum,
-                        hotelCity, hotelProvince, longitude,
-                        latitude);
-
-
-                dialog.dismiss();
-                successText.setText("Added");
-
-                addressField.put("Address", address);
-
-            }
-        });
-
-        cancelAddressButton.setOnClickListener(new View.OnClickListener() {
-                                                   @Override
-                                                   public void onClick(View v) {
-                                                       dialog.dismiss();
-                                                   }
-                                               }
-
-        );
-    }
+//    public void createNewAddressDialog() {
+//        dialogBuilder = new AlertDialog.Builder(this);
+//        final View addressPopUpView = getLayoutInflater().inflate(R.layout.address_popup, null);
+//
+//        streetNum = addressPopUpView.findViewById(R.id.streetNum);
+//        streetName = addressPopUpView.findViewById(R.id.streetName);
+//        city = addressPopUpView.findViewById(R.id.city);
+//        province = addressPopUpView.findViewById(R.id.province);
+//        postalCode = addressPopUpView.findViewById(R.id.postalCode);
+//        longLat = addressPopUpView.findViewById(R.id.longAndLat);
+//
+//        saveAddressButton = addressPopUpView.findViewById(R.id.saveButton);
+//        cancelAddressButton = addressPopUpView.findViewById(R.id.cancelButton);
+//
+//        dialogBuilder.setView(addressPopUpView);
+//        dialog = dialogBuilder.create();
+//        dialog.show();
+//
+//        saveAddressButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                String hotelStreetNum = streetNum.getText().toString();
+//                String hotelStreetName = streetName.getText().toString();
+//                String hotelCity = city.getText().toString();
+//                String hotelProvince = province.getText().toString();
+//                String hotelPostalCode = postalCode.getText().toString();
+//                String hotelLongAndLat = longLat.getText().toString();
+//
+//                String[] res = hotelLongAndLat.split("[,]", 0);
+//                double longitude = Double.parseDouble(res[0]);
+//                double latitude = Double.parseDouble(res[1]);
+//
+//                // Create address object
+//                Address address = new Address(hotelStreetName,
+//                        hotelPostalCode, hotelStreetNum,
+//                        hotelCity, hotelProvince, longitude,
+//                        latitude);
+//
+//
+//                dialog.dismiss();
+//                successText.setText("Added");
+//
+//                addressField.put("Address", address);
+//
+//            }
+//        });
+//
+//        cancelAddressButton.setOnClickListener(new View.OnClickListener() {
+//                                                   @Override
+//                                                   public void onClick(View v) {
+//                                                       dialog.dismiss();
+//                                                   }
+//                                               }
+//
+//        );
+//    }
 
     public void createRoomsDialog() {
         dialogBuilder = new AlertDialog.Builder(this);
