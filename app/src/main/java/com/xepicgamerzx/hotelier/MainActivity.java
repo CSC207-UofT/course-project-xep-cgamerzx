@@ -14,6 +14,7 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.xepicgamerzx.hotelier.databinding.ActivityMainBinding;
+import com.xepicgamerzx.hotelier.user.UserManager;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
 
 
         navView = findViewById(R.id.bottomNavigationView);

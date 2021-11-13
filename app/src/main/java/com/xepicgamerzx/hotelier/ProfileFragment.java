@@ -12,10 +12,19 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.xepicgamerzx.hotelier.management.HotelCreatorActivity;
+import com.xepicgamerzx.hotelier.objects.OldObjects.HotelOld;
+import com.xepicgamerzx.hotelier.objects.OldObjects.OldHotelManager;
+import com.xepicgamerzx.hotelier.storage.FileReadWrite;
+import com.xepicgamerzx.hotelier.storage.firebase.HotelOldDAO;
+import com.xepicgamerzx.hotelier.storage.firebase.MyCallback;
 import com.xepicgamerzx.hotelier.user.LoginActivity;
 import com.xepicgamerzx.hotelier.user.RegisterActivity;
 import com.xepicgamerzx.hotelier.user.UserManager;
 import com.xepicgamerzx.hotelier.user.model.User;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProfileFragment extends Fragment {
     Button registerBtn;
@@ -23,6 +32,9 @@ public class ProfileFragment extends Fragment {
     Button signOut;
     RelativeLayout signedInContent;
     TextView userNameTxt;
+    Button listHotel;
+
+
     public ProfileFragment() {
         // Required empty public constructor
     }
@@ -46,6 +58,8 @@ public class ProfileFragment extends Fragment {
         signedInContent = v.findViewById(R.id.signedInContent);
         userNameTxt = v.findViewById(R.id.userIdTxt);
 
+        listHotel = v.findViewById(R.id.listHotelBtn);
+
         UserManager um = new UserManager();
         User user = um.getUser(getContext());
 
@@ -59,10 +73,39 @@ public class ProfileFragment extends Fragment {
         }
 
 
+        listHotel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), HotelCreatorActivity.class));
+            }
+        });
+
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getActivity(), LoginActivity.class));
+
+                HotelOldDAO dao = new HotelOldDAO();
+//                HashMap<String, HashMap<String, Object>> rooms = new HashMap();
+//
+//                rooms.put("Room 1", new HashMap<String, Object>());
+//                HashMap<String, Object> roomVal = rooms.get("Room 1");
+//
+//                roomVal.put("Price", 200);
+//                roomVal.put("Beds", new HashMap<String, String>());
+//                ((HashMap) roomVal.get("Beds")).put("Bed1", "King");
+//                ((HashMap) roomVal.get("Beds")).put("Bed2", "Queen");
+//                HotelOld hotel = new HotelOld("DoubleTree", "123 Testing Lane, Toronto, Ontario", rooms);
+//
+                List<HotelOld> hotels = new ArrayList<>();
+                dao.read(new MyCallback() {
+                    @Override
+                    public void onCallback(HotelOld value) {
+                        // Do everything inside here.
+                        System.out.println(value);
+
+                    }
+                });
             }
         });
 
@@ -82,6 +125,8 @@ public class ProfileFragment extends Fragment {
                 signedInContent.setVisibility(View.GONE);
             }
         });
+
+
         return v;
     }
 }

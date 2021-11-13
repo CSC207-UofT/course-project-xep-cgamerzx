@@ -92,8 +92,8 @@ public class HotelRoom{
     @Override
     @NonNull
     public String toString() {
-        return String.format(Locale.CANADA, "Schedule: (%s, %s) \nCapacity: %d \nBeds: %s \nPrice: %d",
-                this.getStartAvailability(), this.getEndAvailability(), this.capacity, this.price);
+        return String.format(Locale.CANADA, "Schedule: (%s, %s) \nCapacity: %d \nPrice: " + this.price.toString(),
+                this.getStartAvailability(), this.getEndAvailability(), this.capacity);
     }
 
 }

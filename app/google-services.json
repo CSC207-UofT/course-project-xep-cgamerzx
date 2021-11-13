@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "304589401110",
+    "project_id": "hotelier-hotel-storage",
+    "storage_bucket": "hotelier-hotel-storage.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:304589401110:android:7ae595ebfe28f5eb041937",
+        "android_client_info": {
+          "package_name": "com.xepicgamerzx.hotelier"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "304589401110-b2cfabj5js1urrj5qdqs9k28jcfdmfq4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDPMlH0QAjnJRT-KJrelf3xpQZFYQnTfMY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "304589401110-b2cfabj5js1urrj5qdqs9k28jcfdmfq4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
