@@ -35,5 +35,5 @@ public interface RoomDao {
 
     @Transaction
     @Query("SELECT * FROM HotelRoom")
-    List<RoomWithBeds> getRoomsWithBeds();
+    List<RoomWithBeds> getRoomsWithBed();
 }

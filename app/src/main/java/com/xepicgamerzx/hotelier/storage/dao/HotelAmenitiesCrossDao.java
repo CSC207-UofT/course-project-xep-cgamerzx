@@ -5,7 +5,6 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
-import com.xepicgamerzx.hotelier.objects.BedsRoomCrossRef;
 import com.xepicgamerzx.hotelier.objects.HotelAmenitiesCrossRef;
 
 import java.util.List;

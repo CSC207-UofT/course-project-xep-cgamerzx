@@ -4,13 +4,14 @@ import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.ZoneId;
 import java.util.Locale;
+import java.util.Objects;
 
 @Entity
-public class HotelRoom{
+public class HotelRoom {
     @PrimaryKey(autoGenerate = true)
     public long roomID;
 
@@ -30,8 +31,6 @@ public class HotelRoom{
      * @param startAvailability the first day where a hotelRoom is available
      * @param endAvailability   the last day of when a hotelRoom is available
      * @param capacity          The maximum number of people that can sleep in this HotelRoom
-     *                          //* @param hotel The hotel that this hotelRoom is apart of
-     *                          //* @param amenities The amenities that this hotelRoom has
      */
     public HotelRoom(ZoneId zoneId, long startAvailability, long endAvailability, int capacity, BigDecimal price) {
         this.zoneId = zoneId;
@@ -62,7 +61,7 @@ public class HotelRoom{
     }
 
     public void setPrice(BigDecimal price) {
-        this.price = price;
+        this.price = price.setScale(2, RoundingMode.UP);
     }
 
     public ZoneId getZoneId() {
@@ -92,8 +91,24 @@ public class HotelRoom{
     @Override
     @NonNull
     public String toString() {
-        return String.format(Locale.CANADA, "Schedule: (%s, %s) \nCapacity: %d \nPrice: " + this.price.toString(),
-                this.getStartAvailability(), this.getEndAvailability(), this.capacity);
+        String roomID = String.format(Locale.CANADA, "RoomID: %d", this.roomID);
+        String schedule = String.format(Locale.CANADA, "\nSchedule: (%s, %s)", this.getStartAvailability(), this.getEndAvailability());
+        String capacity = String.format(Locale.CANADA, "\nCapacity: %d", this.capacity);
+        String price = String.format(Locale.CANADA, "\nPrice: %.2f", this.price);
+
+        return roomID + schedule + capacity + price;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof HotelRoom)) return false;
+        HotelRoom hotelRoom = (HotelRoom) o;
+        return roomID == hotelRoom.roomID && getHotelID() == hotelRoom.getHotelID() && getCapacity() == hotelRoom.getCapacity() && getStartAvailability() == hotelRoom.getStartAvailability() && getEndAvailability() == hotelRoom.getEndAvailability() && getPrice().equals(hotelRoom.getPrice()) && getZoneId().equals(hotelRoom.getZoneId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(roomID, getHotelID(), getCapacity(), getPrice(), getZoneId(), getStartAvailability(), getEndAvailability());
+    }
 }

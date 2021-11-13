@@ -5,7 +5,7 @@ import androidx.annotation.NonNull;
 /**
  * Enum with all the types of bed sizes. Each also stores a String label describing the use case.
  */
-public enum BedSize {
+public enum BedSizeEnum {
     QUEEN("Queen"),
     TWIN("Twin"),
     KING("King"),
@@ -19,7 +19,7 @@ public enum BedSize {
      *
      * @param label String value to be associated with an enum constant.
      */
-    BedSize(String label) {
+    BedSizeEnum(String label) {
         this.label = label;
     }
 

@@ -27,6 +27,9 @@ public interface HotelAmenityDao {
     @Query("SELECT * FROM HotelAmenity")
     List<HotelAmenity> getAllHotelAmenities();
 
+    @Query("SELECT * FROM HotelAmenity WHERE hotelAmenityID IN (:hotelAmenityID)")
+    List<HotelAmenity> getHotelAmenities(String... hotelAmenityID);
+
     @Transaction
     @Query("SELECT * FROM HotelAmenity")
     List<AmenityWithHotels> getHotelAmenitiesWithHotels();

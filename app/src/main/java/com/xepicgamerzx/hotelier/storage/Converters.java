@@ -5,12 +5,13 @@ import androidx.room.TypeConverter;
 import com.google.gson.Gson;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.Date;
 import java.time.ZoneId;
 
 public class Converters {
 
-    private static Gson gson = new Gson();
+    private static final Gson gson = new Gson();
 
     @TypeConverter
     public static Date toDate(Long dateLong) {
@@ -34,7 +35,8 @@ public class Converters {
 
     @TypeConverter
     public BigDecimal fromLong(Long value) {
-        return value == null ? null : new BigDecimal(value).divide(new BigDecimal(100));
+        return value == null ? null : new BigDecimal(value)
+                .divide(new BigDecimal(100), 2, RoundingMode.UNNECESSARY);
     }
 
     @TypeConverter

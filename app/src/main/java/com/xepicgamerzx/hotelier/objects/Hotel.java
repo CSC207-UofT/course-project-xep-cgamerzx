@@ -5,6 +5,7 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 
 @Entity()
@@ -70,5 +71,16 @@ public class Hotel implements Serializable {
         return String.format(name + hotelAddress);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Hotel)) return false;
+        Hotel hotel = (Hotel) o;
+        return hotelID == hotel.hotelID && getStarClass() == hotel.getStarClass() && getName().equals(hotel.getName()) && getAddress().equals(hotel.getAddress());
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(hotelID, getName(), getStarClass(), getAddress());
+    }
 }

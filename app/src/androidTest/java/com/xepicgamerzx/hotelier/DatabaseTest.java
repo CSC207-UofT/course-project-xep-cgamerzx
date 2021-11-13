@@ -11,6 +11,7 @@ import com.xepicgamerzx.hotelier.storage.dao.HotelDao;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 
 
@@ -24,6 +25,11 @@ public class DatabaseTest {
         Context context = ApplicationProvider.getApplicationContext();
         db = Room.inMemoryDatabaseBuilder(context, HotelierDatabase.class).build();
         hotelDao = db.hotelDao();
+    }
+
+    @Test
+    public void testDummy() {
+        assert(true);
     }
 
     @After

@@ -12,18 +12,31 @@ public class Bed implements Serializable {
     @PrimaryKey()
     private final String bedID;
 
-    public Bed (String bedID){
+    public Bed (@NonNull String bedID){
         this.bedID = bedID;
     }
 
-    public Bed (BedSize bedID){
+    public Bed (BedSizeEnum bedID){
         this.bedID = bedID.toString();
     }
 
+    @NonNull
     public String getBedID() {
         return bedID;
     }
 
-    public void setRoom(HotelRoom hotelRoom) {
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Bed)) return false;
+
+        Bed bed = (Bed) o;
+
+        return getBedID().equals(bed.getBedID());
+    }
+
+    @Override
+    public int hashCode() {
+        return getBedID().hashCode();
     }
 }

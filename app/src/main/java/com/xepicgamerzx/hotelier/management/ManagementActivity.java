@@ -204,7 +204,7 @@ public class ManagementActivity extends AppCompatActivity {
                 // Adding the inputted beds to the instance variable called beds list.
                 // Need to add some input checker to see if valid.
                 for (int i = 0; i < totalBeds; i++) {
-                    bedsList.add(bedManager.createBed(bedSize));
+                    bedsList.add(bedManager.create(bedSize));
                 }
                 // Updating fields.
                 bedSizeIn.setText("");
