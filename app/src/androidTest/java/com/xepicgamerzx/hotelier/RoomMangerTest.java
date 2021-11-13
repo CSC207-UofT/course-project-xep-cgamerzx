@@ -9,8 +9,11 @@ import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import com.xepicgamerzx.hotelier.objects.Address;
+import com.xepicgamerzx.hotelier.objects.Bed;
+import com.xepicgamerzx.hotelier.objects.BedSizeEnum;
 import com.xepicgamerzx.hotelier.objects.Hotel;
 import com.xepicgamerzx.hotelier.objects.HotelRoom;
+import com.xepicgamerzx.hotelier.storage.BedManager;
 import com.xepicgamerzx.hotelier.storage.HotelManager;
 import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
 import com.xepicgamerzx.hotelier.storage.RoomManager;
@@ -39,6 +42,7 @@ public class RoomMangerTest {
     private HotelierDatabase db;
     private HotelManager hotelManager;
     private RoomManager roomManager;
+    private BedManager bedManager;
     private Hotel testHotel;
 
     @BeforeClass
@@ -61,9 +65,9 @@ public class RoomMangerTest {
         Context context = ApplicationProvider.getApplicationContext();
         db = Room.inMemoryDatabaseBuilder(context, HotelierDatabase.class).build();
 
-
         hotelManager = HotelManager.getManager(db);
         roomManager = RoomManager.getManager(db);
+        bedManager = BedManager.getManager(db);
 
         ArrayList<HotelRoom> rooms = new ArrayList<>();
 
@@ -108,10 +112,35 @@ public class RoomMangerTest {
         assertEquals(priceRange, expectedPriceRange);
     }
 
+    @Test
+    public void testGetRoomsWithBed(){
+        Bed bedK = bedManager.create(BedSizeEnum.KING);
+        Bed bedT = bedManager.create("Test Bed Type");
+
+        int k1Count = 3;
+        int t1Count = 2;
+        int t0Count = 1;
+
+        List<HotelRoom> rooms = roomManager.getAll();
+        bedManager.addBedToRoom(bedK, rooms.get(1), k1Count);
+        bedManager.addBedToRoom(bedT, rooms.get(1), t1Count);
+        bedManager.addBedToRoom(bedT, rooms.get(0), t0Count);
+
+        assert(roomManager.getRoomsWithBed(bedK, k1Count).contains(rooms.get(1)));
+        assert(!roomManager.getRoomsWithBed(bedK, k1Count).contains(rooms.get(0)));
+
+        assert(roomManager.getRoomsWithBed(bedT, t1Count).contains(rooms.get(1)));
+        assert(!roomManager.getRoomsWithBed(bedT, t1Count).contains(rooms.get(0)));
+
+        assert(roomManager.getRoomsWithBed(bedT, t0Count).contains(rooms.get(1)));
+        assert(roomManager.getRoomsWithBed(bedT, t0Count).contains(rooms.get(0)));
+    }
+
     @After
     public void closeDb() {
         roomManager.close();
         hotelManager.close();
+        bedManager.close();
         db.close();
     }
 }

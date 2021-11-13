@@ -20,6 +20,9 @@ public interface BedRoomCrossDao extends BedDao,RoomDao{
     @Query("SELECT roomID FROM BedsRoomCrossRef WHERE bedID =:bedID AND bedCount >= :count" )
     List<Long> getRoomsWithBed (String bedID, int count);
 
+    @Query("SELECT bedID FROM BedsRoomCrossRef WHERE roomID =:roomID")
+    List<String> getBedsInRoom (long roomID);
+
     @Query("SELECT * FROM BedsRoomCrossRef WHERE roomID =:roomID")
-    List<BedsRoomCrossRef> getBedsInRoom (long roomID);
+    List<BedsRoomCrossRef> getBedsCrossInRoom (long roomID);
 }

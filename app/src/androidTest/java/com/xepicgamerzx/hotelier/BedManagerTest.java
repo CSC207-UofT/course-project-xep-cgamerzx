@@ -27,6 +27,7 @@ import org.junit.runner.RunWith;
 import java.math.BigDecimal;
 import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.List;
 
 @RunWith(AndroidJUnit4.class)
 public class BedManagerTest {
@@ -82,18 +83,55 @@ public class BedManagerTest {
     public void testCreate(){
         bedManager.create(BedSizeEnum.KING);
         bedManager.create("Queen");
-        System.out.println(BedSizeEnum.QUEEN.toString());
-        System.out.println(BedSizeEnum.KING.toString());
 
         Bed bed = bedManager.get(BedSizeEnum.KING.toString()).get(0);
 
         assertEquals(bed.getBedID(), BedSizeEnum.KING.label);
     }
 
+    @Test
+    public void testAddBedToRoom(){
+        Bed bedK = bedManager.create(BedSizeEnum.KING);
+        Bed bedT = bedManager.create("Test Bed Type");
+
+        List<HotelRoom> rooms = roomManager.getAll();
+        bedManager.addBedToRoom(bedK, rooms.get(1), 3);
+        bedManager.addBedToRoom(bedT, rooms.get(1), 2);
+        bedManager.addBedToRoom(bedT, rooms.get(0), 1);
+
+        assert(roomManager.getRoomsWithBed(bedT).contains(rooms.get(1)));
+        assert(roomManager.getRoomsWithBed(bedT).contains(rooms.get(0)));
+        assert(roomManager.getRoomsWithBed(bedK).contains(rooms.get(1)));
+
+        assert(bedManager.getBedsInRoom(rooms.get(0)).contains(bedT));
+        assert(bedManager.getBedsInRoom(rooms.get(1)).contains(bedT));
+        assert(bedManager.getBedsInRoom(rooms.get(1)).contains(bedK));
+    }
+
+    @Test
+    public void testGetBedsInRoomCount(){
+        Bed bedK = bedManager.create(BedSizeEnum.KING);
+        Bed bedT = bedManager.create("Test Bed Type");
+
+        int k1Count = 3;
+        int t1Count = 2;
+        int t0Count = 1;
+
+        List<HotelRoom> rooms = roomManager.getAll();
+        bedManager.addBedToRoom(bedK, rooms.get(1), k1Count);
+        bedManager.addBedToRoom(bedT, rooms.get(1), t1Count);
+        bedManager.addBedToRoom(bedT, rooms.get(0), t0Count);
+
+        assert(bedManager.getBedsInRoomCount(rooms.get(0)).get(bedT) == t0Count);
+        assert(bedManager.getBedsInRoomCount(rooms.get(1)).get(bedK) == k1Count);
+        assert(bedManager.getBedsInRoomCount(rooms.get(1)).get(bedT) == t1Count);
+    }
+
 
     @After
     public void closeDb() {
         roomManager.close();
+        bedManager.close();
         hotelManager.close();
         db.close();
     }
