@@ -17,6 +17,7 @@ import com.xepicgamerzx.hotelier.objects.RoomAmenitiesCrossRef;
 import com.xepicgamerzx.hotelier.objects.RoomAmenity;
 import com.xepicgamerzx.hotelier.storage.dao.BedDao;
 import com.xepicgamerzx.hotelier.storage.dao.BedRoomCrossDao;
+import com.xepicgamerzx.hotelier.storage.dao.ClearTablesDao;
 import com.xepicgamerzx.hotelier.storage.dao.HotelAmenitiesCrossDao;
 import com.xepicgamerzx.hotelier.storage.dao.HotelAmenityDao;
 import com.xepicgamerzx.hotelier.storage.dao.HotelDao;
@@ -38,7 +39,7 @@ public abstract class HotelierDatabase extends RoomDatabase {
             Executors.newFixedThreadPool(NUMBER_OF_THREADS);
     private static volatile HotelierDatabase INSTANCE;
 
-    static HotelierDatabase getDatabase(Context context) {
+    public static HotelierDatabase getDatabase(Context context) {
         if (INSTANCE == null) {
             INSTANCE = Room.databaseBuilder(context.getApplicationContext(), HotelierDatabase.class, "hotelier_database")
                     .allowMainThreadQueries()
@@ -62,4 +63,6 @@ public abstract class HotelierDatabase extends RoomDatabase {
     public abstract HotelAmenitiesCrossDao hotelAmenitiesCrossDao();
 
     public abstract RoomAmenitiesCrossDao roomAmenitiesCrossDao();
+
+    public abstract ClearTablesDao clear_tables();
 }

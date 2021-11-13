@@ -84,7 +84,7 @@ public class HotelManager implements Manager<Hotel, Long, Long[]> {
      * @return Hotel object created.
      */
     @NonNull
-    public Hotel createHotel(String name, Address address, int starClass, HotelRoom... hotelRooms) {
+    public Hotel createHotel(String name, Address address, int starClass, List<HotelRoom> hotelRooms) {
         Hotel hotel = createHotel(name, address, starClass);
 
         for (HotelRoom hotelRoom : hotelRooms) {

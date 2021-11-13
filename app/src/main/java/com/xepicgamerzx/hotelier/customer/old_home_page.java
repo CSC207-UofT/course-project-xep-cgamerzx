@@ -72,9 +72,9 @@ public class old_home_page extends AppCompatActivity {
      * @param view starting view
      */
     public void openCustomer(View view) {
-        Intent intent = new Intent(this, CustomerActivity.class);
+//        Intent intent = new Intent(this, CustomerActivity.class);
 
-        startActivity(intent);
+//        startActivity(intent);
     }
 
     public void loadData() {

@@ -8,46 +8,48 @@ import com.xepicgamerzx.hotelier.objects.Address;
 import com.xepicgamerzx.hotelier.objects.Bed;
 import com.xepicgamerzx.hotelier.objects.Hotel;
 import com.xepicgamerzx.hotelier.objects.HotelRoom;
+import com.xepicgamerzx.hotelier.objects.OldObjects.AddressOld;
+import com.xepicgamerzx.hotelier.objects.OldObjects.BedOld;
+import com.xepicgamerzx.hotelier.objects.OldObjects.HotelOld;
+import com.xepicgamerzx.hotelier.objects.OldObjects.OldRoom;
 
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 @Deprecated
 public class HotelTest {
 
-/*    @Test
+    @Test
     public void testNewHotelObject() {
-        Address address = new Address("Testing Lane",
-                "M5T2Y7",
-                "123",
-                "Toronto",
-                "ON",
-                43.6532,
-                79.3832);
-        Bed bed1 = new Bed("Queen");
-
-        ArrayList<Bed> beds = new ArrayList<Bed>();
-        beds.add(bed1);
-
-        HotelRoom hotelRoom = new HotelRoom(
-                1634281932,
-                1636960332,
-                4, beds, 250);
-        bed1.setRoom(hotelRoom);
-
-        List<HotelRoom> hotelRooms = new ArrayList<HotelRoom>();
-        hotelRooms.add(hotelRoom);
-
-        Hotel h = new Hotel("Hilton", address, hotelRooms);
-        hotelRoom.setHotel(h);
-
-        assertEquals(h.getName(), "Hilton");
-        assertEquals(h.getAddress(), address);
-        assertEquals(h.getRooms(), hotelRooms);
-    }*/
+//        AddressOld address = new AddressOld("Testing Lane",
+//                "M5T2Y7",
+//                "123",
+//                "Toronto",
+//                "ON",
+//                43.6532,
+//                79.3832);
+//        BedOld bed1 = new BedOld("Queen");
+//
+//        ArrayList<BedOld> beds = new ArrayList<BedOld>();
+//        beds.add(bed1);
+//
+//        OldRoom room = new OldRoom(
+//                1634281932,
+//                1636960332,
+//                4, beds, 250);
+//        bed1.setRoom(room);
+//
+//        HashMap<String, OldRoom> rooms = new  HashMap<String, OldRoom>();
+//        rooms.put("Room 1", room);
+//
+//        HotelOld h = new HotelOld("Testing", address, rooms);
+//        room.setHotel(h);
+//        System.out.println(h.getRooms());
+    }
 
 /*    @Test
     public void testGetHotelPriceRange() {

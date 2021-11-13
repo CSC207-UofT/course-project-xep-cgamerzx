@@ -7,7 +7,7 @@
     tools:context=".ProfileFragment">
 
     <TextView
-        android:id="@+id/signInTxt"
+        android:id="@+id/profileTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -15,81 +15,123 @@
         android:layout_marginStart="46dp"
         android:layout_marginTop="34dp"
         android:fontFamily="@font/inter_bold"
-        android:text="Sign in"
+        android:text="Profile"
         android:textColor="@android:color/black"
         android:textSize="64sp" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/usernameInput"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="313dp"
+
+    <Button
+        android:id="@+id/toRegisterActivBtn"
+        android:layout_width="77dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/signInTxt"
         android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="46dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="52dp"
-        android:textColorHint="@color/white"
-        app:boxBackgroundColor="@color/background_secondary"
-        app:boxCornerRadiusBottomEnd="8dp"
-        app:boxCornerRadiusBottomStart="8dp"
-        app:boxCornerRadiusTopEnd="8dp"
-        app:boxCornerRadiusTopStart="8dp"
-        app:hintEnabled="false"
-        app:endIconMode="custom"
-        app:endIconDrawable="@drawable/ic_user"
-        app:endIconTint="@color/white">
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="201dp"
+        android:layout_marginTop="11dp"
+        android:background="?android:attr/selectableItemBackground"
+        android:fontFamily="@font/inter_bold"
+        android:padding="0dp"
+        android:text="Register"
+        android:textAllCaps="false"
+        android:textColor="@color/black" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:fontFamily="@font/inter_regular"
-            android:hint="Username"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textColorHint="@color/white"
-            android:textSize="18sp" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/passwordInput"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="313dp"
+    <Button
+        android:id="@+id/toLoginActivBtn"
+        android:layout_width="83dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/usernameInput"
         android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="46dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="52dp"
-        android:textColorHint="@color/white"
-        app:boxBackgroundColor="@color/background_secondary"
-        app:boxCornerRadiusBottomEnd="8dp"
-        app:boxCornerRadiusBottomStart="8dp"
-        app:boxCornerRadiusTopEnd="8dp"
-        app:boxCornerRadiusTopStart="8dp"
-        app:hintEnabled="false"
-        app:passwordToggleEnabled="true"
-        app:passwordToggleTint="@color/white"
-        app:startIconTint="@color/white">
+        android:layout_marginStart="308dp"
+        android:layout_marginTop="11dp"
+        android:layout_marginEnd="20dp"
+        android:background="?android:attr/selectableItemBackground"
+        android:fontFamily="@font/inter_bold"
+        android:padding="4dp"
+        android:text="Sign In"
+        android:textAllCaps="false"
+        android:textColor="@color/black" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+    <Button
+        android:id="@+id/signOutBtn"
+        android:layout_width="129dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="281dp"
+        android:layout_marginTop="11dp"
+        android:layout_marginEnd="1dp"
+        android:background="?android:attr/selectableItemBackground"
+        android:fontFamily="@font/inter_bold"
+        android:text="Sign Out"
+        android:textAllCaps="false"
+        android:textColor="@color/black" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/signedInContent"
+        android:layout_below="@id/profileTxt"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/userIdTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
+            android:layout_marginStart="46dp"
+            android:layout_marginTop="10dp"
             android:fontFamily="@font/inter_regular"
-            android:hint="Password"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textColorHint="@color/white"
-            android:textSize="18sp" />
+            android:text="Username"
+            android:textColor="@android:color/black"
+            android:textSize="34sp"
+            />
 
-    </com.google.android.material.textfield.TextInputLayout>
+        <Button
+            android:id="@+id/editUserBtn"
+            android:layout_width="285dp"
+            android:layout_height="65dp"
+            android:backgroundTint="@color/hotel_row_background"
+            android:layout_below="@id/userIdTxt"
+            android:layout_marginLeft="46dp"
+            android:text="Edit user"
+            android:fontFamily="@font/inter_regular"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/black"
+            android:gravity="left|center_vertical"
+            />
+
+        <Button
+            android:id="@+id/managerStatus"
+            android:layout_width="285dp"
+            android:layout_height="65dp"
+            android:backgroundTint="@color/hotel_row_background"
+            android:layout_below="@id/editUserBtn"
+            android:layout_marginLeft="46dp"
+            android:text="Status: manager"
+            android:fontFamily="@font/inter_regular"
+            android:textColor="@color/black"
+            android:layout_marginTop="10dp"
+            android:gravity="left|center_vertical"
+            />
+
+        <Button
+            android:id="@+id/listHotelBtn"
+            android:layout_width="285dp"
+            android:layout_height="65dp"
+            android:backgroundTint="@color/hotel_row_background"
+            android:layout_below="@id/managerStatus"
+            android:layout_marginLeft="46dp"
+            android:text="List a hotel"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/inter_regular"
+            android:textColor="@color/black"
+            android:gravity="left|center_vertical"
+            />
+
+    </RelativeLayout>
+
+
 </RelativeLayout>

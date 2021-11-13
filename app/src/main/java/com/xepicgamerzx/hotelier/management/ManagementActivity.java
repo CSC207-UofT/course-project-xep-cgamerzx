@@ -89,7 +89,7 @@ public class ManagementActivity extends AppCompatActivity {
 
                 Address address = addressField.get("Address");
                 // TODO Implement star class
-                hotelManager.createHotel(hotelName, address, 5, (HotelRoom) hotelRooms);
+                hotelManager.createHotel(hotelName, address, 5, hotelRooms);
 
                 // Resetting fields.
                 nameInput.setText("");

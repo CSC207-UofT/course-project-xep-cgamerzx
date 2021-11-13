@@ -10,13 +10,22 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Hotelier">
         <activity
+            android:name=".management.HotelCreatorActivity"
+            android:exported="false" />
+        <activity
+            android:name=".customer.SearchActivity"
+            android:exported="false" />
+        <activity
+            android:name=".customer.HotelView"
+            android:exported="false" />
+        <activity
+            android:name=".user.LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".user.RegisterActivity"
+            android:exported="false" />
+        <activity
             android:name=".customer.CustomerHotelRoomsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".customer.HotelListActivity"
-            android:exported="false" />
-        <activity
-            android:name=".customer.CustomerActivity"
             android:exported="false" />
         <activity
             android:name=".management.ManagementActivity"
