@@ -11,6 +11,8 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import com.xepicgamerzx.hotelier.objects.Address;
 import com.xepicgamerzx.hotelier.objects.Hotel;
 import com.xepicgamerzx.hotelier.objects.HotelRoom;
+import com.xepicgamerzx.hotelier.objects.HotelAmenity;
+import com.xepicgamerzx.hotelier.objects.HotelAmenitiesEnum;
 import com.xepicgamerzx.hotelier.storage.HotelManager;
 import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
 import com.xepicgamerzx.hotelier.storage.RoomManager;
@@ -27,7 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RunWith(AndroidJUnit4.class)
-public class HotelMangerTest {
+public class HotelManagerTest {
     private static ArrayList<Address> addresses;
 
     private HotelierDatabase db;
@@ -93,6 +95,7 @@ public class HotelMangerTest {
 
 //        assertEquals(room1.getHotelID(), room2.getHotelID(), hotel.hotelID);
     }
+
 
     @After
     public void closeDb() {

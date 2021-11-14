@@ -9,7 +9,6 @@ import com.google.type.LatLng;
 import com.xepicgamerzx.hotelier.customer.HotelViewModel;
 import com.xepicgamerzx.hotelier.objects.Address;
 import com.xepicgamerzx.hotelier.objects.Hotel;
-import com.xepicgamerzx.hotelier.objects.HotelAmenitiesEnum;
 import com.xepicgamerzx.hotelier.objects.HotelAmenitiesCrossRef;
 import com.xepicgamerzx.hotelier.objects.HotelAmenity;
 import com.xepicgamerzx.hotelier.objects.HotelRoom;
@@ -22,7 +21,7 @@ import java.util.List;
 /**
  * A class to manage all the hotels in the database.
  */
-public class HotelManager implements Manager<Hotel, Long, Long[]> {
+public class HotelManager implements DiscreteManager<Hotel, Long, Long[]> {
     private static volatile HotelManager INSTANCE;
 
     private final HotelierDatabase db;
@@ -106,7 +105,7 @@ public class HotelManager implements Manager<Hotel, Long, Long[]> {
      */
     @Override
     public Long[] insert(Hotel... hotel) {
-        return hotelDao.insertHotels(hotel).toArray(new Long[0]);
+        return hotelDao.insert(hotel).toArray(new Long[0]);
     }
 
 
@@ -117,26 +116,13 @@ public class HotelManager implements Manager<Hotel, Long, Long[]> {
      */
     @Override
     public void update(Hotel... hotel) {
-        hotelDao.updateHotels(hotel);
+        hotelDao.update(hotel);
     }
 
-    @NonNull
-    public HotelAmenity createHotelAmenity(String amenityName) {
-        HotelAmenity hotelAmenity = new HotelAmenity(amenityName);
-        hotelAmenitiesCrossDao.insertHotelAmenities(hotelAmenity);
-        return hotelAmenity;
-    }
-
-    @NonNull
-    public HotelAmenity createHotelAmenity(HotelAmenitiesEnum amenity) {
-        HotelAmenity hotelAmenity = new HotelAmenity(amenity);
-        hotelAmenitiesCrossDao.insertHotelAmenities(hotelAmenity);
-        return hotelAmenity;
-    }
-
+    @Deprecated // Move to hotel amenities cross manager
     public void addAmenityToHotel(Hotel hotel, HotelAmenity hotelAmenity) {
         HotelAmenitiesCrossRef hotelAmenitiesCrossRef = new HotelAmenitiesCrossRef(hotel, hotelAmenity);
-        hotelAmenitiesCrossDao.insertHotelAmenitiesCrossRef(hotelAmenitiesCrossRef);
+        hotelAmenitiesCrossDao.insert(hotelAmenitiesCrossRef);
     }
 
     /**

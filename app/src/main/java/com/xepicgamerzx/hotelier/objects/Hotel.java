@@ -1,15 +1,15 @@
 package com.xepicgamerzx.hotelier.objects;
 
+import androidx.annotation.NonNull;
 import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import java.io.Serializable;
 import java.util.Objects;
 
 
 @Entity()
-public class Hotel implements Serializable {
+public class Hotel extends NonUniqueEntity{
     @PrimaryKey(autoGenerate = true)
     public long hotelID;
 
@@ -25,8 +25,7 @@ public class Hotel implements Serializable {
      *
      * @param name    the name of this hotel
      * @param address the address of this hotel
-     *                //* @param amenities the amenities included in this hotel
-     *                //* @param starClass amount of stars this hotel is
+     * @param starClass amount of stars this hotel is
      */
     public Hotel(String name, Address address, int starClass) {
         this.name = name;
@@ -63,12 +62,13 @@ public class Hotel implements Serializable {
      *
      * @return a string for a hotel.
      */
+    @NonNull
     @Override
     public String toString() {
         String name = String.format("Name: %s", this.name);
         String hotelAddress = String.format("\nAddress: %s", this.address.getFullStreet());
 
-        return String.format(name + hotelAddress);
+        return name + hotelAddress;
     }
 
     @Override

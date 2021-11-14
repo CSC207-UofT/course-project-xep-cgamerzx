@@ -2,24 +2,14 @@ package com.xepicgamerzx.hotelier.objects;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
-import androidx.room.PrimaryKey;
 
 @Entity
-public class HotelAmenity {
-    @NonNull
-    @PrimaryKey
-    private String hotelAmenityID;
-
-    public HotelAmenity (@NonNull String hotelAmenityID){
-        this.hotelAmenityID = hotelAmenityID;
+public class HotelAmenity extends UniqueEntity{
+    public HotelAmenity (@NonNull String uniqueId){
+        super(uniqueId);
     }
 
-    public HotelAmenity (HotelAmenitiesEnum hotelAmenity){
-        this.hotelAmenityID = hotelAmenity.toString();
-    }
-
-    @NonNull
-    public String getHotelAmenityID() {
-        return hotelAmenityID;
+    public HotelAmenity (@NonNull HotelAmenitiesEnum hotelAmenity){
+        super(hotelAmenity.toString());
     }
 }

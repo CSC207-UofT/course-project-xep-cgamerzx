@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * A class to manage all the HotelAmenities in the database.
  */
-public class HotelAmenityManager implements Manager<HotelAmenity, String, Void>{
+public class HotelAmenityManager implements UniqueManager<HotelAmenity, HotelAmenitiesEnum> {
     private static volatile HotelAmenityManager INSTANCE;
 
     private final HotelierDatabase db;
@@ -58,7 +58,7 @@ public class HotelAmenityManager implements Manager<HotelAmenity, String, Void>{
      */
     @Override
     public void update(HotelAmenity... hotelAmenities) {
-        hotelAmenityDao.updateHotelAmenities(hotelAmenities);
+        hotelAmenityDao.update(hotelAmenities);
     }
 
     /**
@@ -77,7 +77,7 @@ public class HotelAmenityManager implements Manager<HotelAmenity, String, Void>{
      */
     @Override
     public Void insert(HotelAmenity... object) {
-        hotelAmenityDao.insertHotelAmenities(object);
+        hotelAmenityDao.insert(object);
         return null;
     }
 
@@ -98,6 +98,7 @@ public class HotelAmenityManager implements Manager<HotelAmenity, String, Void>{
      * @param amenity String name of the amenity to be created.
      * @return HotelAmenity created.
      */
+    @Override
     public HotelAmenity create(String amenity) {
         HotelAmenity hotelAmenity = new HotelAmenity(amenity);
         insert(hotelAmenity);
@@ -110,6 +111,7 @@ public class HotelAmenityManager implements Manager<HotelAmenity, String, Void>{
      * @param amenity HotelAmenitiesEnum to be created
      * @return HotelAmenity created.
      */
+    @Override
     public HotelAmenity create(HotelAmenitiesEnum amenity) {
         HotelAmenity hotelAmenity = new HotelAmenity(amenity.toString());
         insert(hotelAmenity);

@@ -9,8 +9,6 @@ import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import com.xepicgamerzx.hotelier.objects.Address;
-import com.xepicgamerzx.hotelier.objects.Bed;
-import com.xepicgamerzx.hotelier.objects.BedSizeEnum;
 import com.xepicgamerzx.hotelier.objects.Hotel;
 import com.xepicgamerzx.hotelier.objects.HotelRoom;
 import com.xepicgamerzx.hotelier.storage.BedManager;
@@ -31,7 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RunWith(AndroidJUnit4.class)
-public class RoomMangerTest {
+public class RoomManagerTest {
     private static ArrayList<Address> addresses;
     private final ZoneId zoneId = ZoneId.systemDefault();
     private final BigDecimal price = BigDecimal.valueOf(200.91);
@@ -112,29 +110,7 @@ public class RoomMangerTest {
         assertEquals(priceRange, expectedPriceRange);
     }
 
-    @Test
-    public void testGetRoomsWithBed(){
-        Bed bedK = bedManager.create(BedSizeEnum.KING);
-        Bed bedT = bedManager.create("Test Bed Type");
 
-        int k1Count = 3;
-        int t1Count = 2;
-        int t0Count = 1;
-
-        List<HotelRoom> rooms = roomManager.getAll();
-        bedManager.addBedToRoom(bedK, rooms.get(1), k1Count);
-        bedManager.addBedToRoom(bedT, rooms.get(1), t1Count);
-        bedManager.addBedToRoom(bedT, rooms.get(0), t0Count);
-
-        assert(roomManager.getRoomsWithBed(bedK, k1Count).contains(rooms.get(1)));
-        assert(!roomManager.getRoomsWithBed(bedK, k1Count).contains(rooms.get(0)));
-
-        assert(roomManager.getRoomsWithBed(bedT, t1Count).contains(rooms.get(1)));
-        assert(!roomManager.getRoomsWithBed(bedT, t1Count).contains(rooms.get(0)));
-
-        assert(roomManager.getRoomsWithBed(bedT, t0Count).contains(rooms.get(1)));
-        assert(roomManager.getRoomsWithBed(bedT, t0Count).contains(rooms.get(0)));
-    }
 
     @After
     public void closeDb() {
