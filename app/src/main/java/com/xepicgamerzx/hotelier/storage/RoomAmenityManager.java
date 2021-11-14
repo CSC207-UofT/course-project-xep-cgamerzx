@@ -2,9 +2,7 @@ package com.xepicgamerzx.hotelier.storage;
 
 import android.app.Application;
 
-import com.xepicgamerzx.hotelier.objects.Bed;
 import com.xepicgamerzx.hotelier.objects.HotelRoom;
-import com.xepicgamerzx.hotelier.objects.RoomAmenitiesCrossRef;
 import com.xepicgamerzx.hotelier.objects.RoomAmenitiesEnum;
 import com.xepicgamerzx.hotelier.objects.RoomAmenity;
 import com.xepicgamerzx.hotelier.storage.dao.RoomAmenitiesCrossDao;
@@ -65,7 +63,7 @@ public class RoomAmenityManager implements Manager<RoomAmenity, String, Void> {
      */
     @Override
     public void update(RoomAmenity... object) {
-        roomAmenityDao.updateRoomAmenities(object);
+        roomAmenityDao.update(object);
     }
 
     /**
@@ -84,7 +82,7 @@ public class RoomAmenityManager implements Manager<RoomAmenity, String, Void> {
      */
     @Override
     public Void insert(RoomAmenity... object) {
-        roomAmenityDao.insertRoomAmenities(object);
+        roomAmenityDao.insert(object);
         return null;
     }
 

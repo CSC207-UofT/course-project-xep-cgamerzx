@@ -68,7 +68,7 @@ public class BedManager implements Manager<Bed, String, Void> {
      */
     @Override
     public Void insert(Bed... bed) {
-        bedDao.insertBeds(bed);
+        bedDao.insert(bed);
         return null;
     }
 
@@ -81,7 +81,7 @@ public class BedManager implements Manager<Bed, String, Void> {
      */
     public void addBedToRoom(Bed bed, HotelRoom hotelRoom, int bedCount) {
         BedsRoomCrossRef bedsRoomCrossRef = new BedsRoomCrossRef(hotelRoom, bed, bedCount);
-        bedRoomCrossDao.insertBedRoomCrossRef(bedsRoomCrossRef);
+        bedRoomCrossDao.insert(bedsRoomCrossRef);
     }
 
     /**
@@ -91,7 +91,7 @@ public class BedManager implements Manager<Bed, String, Void> {
      */
     @Override
     public void update(Bed... bed) {
-        bedDao.updateBed(bed);
+        bedDao.update(bed);
     }
 
     /**

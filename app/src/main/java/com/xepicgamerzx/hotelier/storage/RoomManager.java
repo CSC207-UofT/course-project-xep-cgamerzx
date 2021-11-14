@@ -8,11 +8,11 @@ import androidx.annotation.NonNull;
 import com.xepicgamerzx.hotelier.objects.Bed;
 import com.xepicgamerzx.hotelier.objects.Hotel;
 import com.xepicgamerzx.hotelier.objects.HotelRoom;
-import com.xepicgamerzx.hotelier.objects.RoomAmenitiesEnum;
 import com.xepicgamerzx.hotelier.objects.RoomAmenitiesCrossRef;
 import com.xepicgamerzx.hotelier.objects.RoomAmenity;
 import com.xepicgamerzx.hotelier.storage.dao.BedRoomCrossDao;
 import com.xepicgamerzx.hotelier.storage.dao.RoomAmenitiesCrossDao;
+import com.xepicgamerzx.hotelier.storage.dao.RoomAmenityDao;
 import com.xepicgamerzx.hotelier.storage.dao.RoomDao;
 
 import java.math.BigDecimal;
@@ -26,12 +26,14 @@ public class RoomManager implements Manager<HotelRoom, Long, Long[]> {
 
     private final HotelierDatabase db;
     private final RoomDao roomDao;
+    private final RoomAmenityDao roomAmenityDao;
     private final RoomAmenitiesCrossDao roomAmenitiesCrossDao;
     private final BedRoomCrossDao bedRoomCrossDao;
 
     private RoomManager(Application application) {
         db = HotelierDatabase.getDatabase(application);
         roomDao = db.roomDao();
+        roomAmenityDao = db.roomAmenityDao();
         roomAmenitiesCrossDao = db.roomAmenitiesCrossDao();
         bedRoomCrossDao = db.bedRoomCrossDao();
     }
@@ -39,6 +41,7 @@ public class RoomManager implements Manager<HotelRoom, Long, Long[]> {
     private RoomManager(HotelierDatabase dbInstance) {
         db = dbInstance;
         roomDao = db.roomDao();
+        roomAmenityDao = db.roomAmenityDao();
         roomAmenitiesCrossDao = db.roomAmenitiesCrossDao();
         bedRoomCrossDao = db.bedRoomCrossDao();
     }
@@ -90,7 +93,7 @@ public class RoomManager implements Manager<HotelRoom, Long, Long[]> {
      */
     @Override
     public Long[] insert(HotelRoom... hotelRoom) {
-        return roomDao.insertRooms(hotelRoom).toArray(new Long[0]);
+        return roomDao.insert(hotelRoom).toArray(new Long[0]);
     }
 
     /**
@@ -100,7 +103,7 @@ public class RoomManager implements Manager<HotelRoom, Long, Long[]> {
      */
     @Override
     public void update(HotelRoom... room) {
-        roomDao.updateRooms(room);
+        roomDao.update(room);
     }
 
     /**
@@ -199,27 +202,10 @@ public class RoomManager implements Manager<HotelRoom, Long, Long[]> {
         return getPriceRange(hotelRooms);
     }
 
-    @NonNull
-    public RoomAmenity createRoomAmenity(String amenity_name) {
-        RoomAmenity roomAmenity = new RoomAmenity(amenity_name);
-        insertRoomAmenity(roomAmenity);
-        return roomAmenity;
-    }
-
-    @NonNull
-    public RoomAmenity createHotelAmenity(RoomAmenitiesEnum amenity) {
-        RoomAmenity roomAmenity = new RoomAmenity(amenity);
-        insertRoomAmenity(roomAmenity);
-        return roomAmenity;
-    }
-
-    private void insertRoomAmenity(RoomAmenity roomAmenity) {
-        roomAmenitiesCrossDao.insertRoomAmenities(roomAmenity);
-    }
 
     public void addAmenityToRoom(HotelRoom hotelRoom, RoomAmenity roomAmenity) {
         RoomAmenitiesCrossRef roomAmenitiesCrossRef = new RoomAmenitiesCrossRef(hotelRoom, roomAmenity);
-        roomAmenitiesCrossDao.insertRoomAmenitiesCrossRef(roomAmenitiesCrossRef);
+        roomAmenitiesCrossDao.insert(roomAmenitiesCrossRef);
     }
 
     /**

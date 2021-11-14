@@ -1,8 +1,6 @@
 package com.xepicgamerzx.hotelier.storage.dao;
 
 import androidx.room.Dao;
-import androidx.room.Insert;
-import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import com.xepicgamerzx.hotelier.objects.BedsRoomCrossRef;
@@ -10,10 +8,7 @@ import com.xepicgamerzx.hotelier.objects.BedsRoomCrossRef;
 import java.util.List;
 
 @Dao
-public interface BedRoomCrossDao extends BedDao,RoomDao{
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertBedRoomCrossRef(BedsRoomCrossRef... bedsRoomCrossRefs);
-
+public interface BedRoomCrossDao extends BaseDao<Void, BedsRoomCrossRef>{
     @Query("SELECT roomID FROM BedsRoomCrossRef WHERE id =:bedID")
     List<Long> getRoomsWithBed (String bedID);
 

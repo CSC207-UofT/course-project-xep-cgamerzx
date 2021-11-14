@@ -58,7 +58,7 @@ public class HotelAmenityManager implements Manager<HotelAmenity, String, Void>{
      */
     @Override
     public void update(HotelAmenity... hotelAmenities) {
-        hotelAmenityDao.updateHotelAmenities(hotelAmenities);
+        hotelAmenityDao.update(hotelAmenities);
     }
 
     /**
@@ -77,7 +77,7 @@ public class HotelAmenityManager implements Manager<HotelAmenity, String, Void>{
      */
     @Override
     public Void insert(HotelAmenity... object) {
-        hotelAmenityDao.insertHotelAmenities(object);
+        hotelAmenityDao.insert(object);
         return null;
     }
 

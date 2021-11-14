@@ -10,7 +10,7 @@ import com.xepicgamerzx.hotelier.objects.HotelAmenitiesCrossRef;
 import java.util.List;
 
 @Dao
-public interface HotelAmenitiesCrossDao extends HotelDao, HotelAmenityDao{
+public interface HotelAmenitiesCrossDao extends BaseDao<Void, HotelAmenitiesCrossRef>{
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertHotelAmenitiesCrossRef(HotelAmenitiesCrossRef... hotelAmenitiesCrossRefs);
 
