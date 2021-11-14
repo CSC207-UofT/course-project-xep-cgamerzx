@@ -136,7 +136,6 @@ public class HotelCreatorActivity extends AppCompatActivity {
         final View hotelInfo = getLayoutInflater().inflate(R.layout.hotel_details_dialog, null);
 
         TextView hotelDetails = hotelInfo.findViewById(R.id.hotelDetailsTxt);
-        text += "\nName: " + hotelName.getText().toString();
         hotelDetails.append(text);
 
 

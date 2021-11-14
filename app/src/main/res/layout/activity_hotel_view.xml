@@ -67,12 +67,12 @@
         android:id="@+id/hotelsRecyclerView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_gravity="center"
-        android:layout_centerInParent="true"
         android:layout_below="@+id/layoutHeader"
-        android:padding="5dp"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
         android:foregroundGravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="5dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
 

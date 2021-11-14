@@ -84,6 +84,7 @@ public class HotelCreateRoomsFragment extends Fragment {
                             BigDecimal.valueOf(Long.parseLong(pricePerNight.getText().toString()))
                     );
 
+                    // The parent activity is HotelCreator (where these variables can be found)
                     activity.hotelRooms.add(room);
                     Bed bed = activity.bedManager.create(bedType);
                     activity.bedManager.addBedToRoom(bed, room, Integer.parseInt(totalBeds.getText().toString()));
@@ -103,8 +104,12 @@ public class HotelCreateRoomsFragment extends Fragment {
                 Chip chip = v.findViewById(checkedId);
 
                 // TODO fix error of same chip twice in a row crash
-                bedType = chip.getText().toString();
-                isBedTypeSelected = true;
+                if (chip != null ) {
+                    bedType = chip.getText().toString();
+                    isBedTypeSelected = true;
+                } else {
+                    isBedTypeSelected = false;
+                }
             }
         });
 

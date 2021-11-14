@@ -4,6 +4,7 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 
+import com.xepicgamerzx.hotelier.customer.HotelViewModel;
 import com.xepicgamerzx.hotelier.objects.Address;
 import com.xepicgamerzx.hotelier.objects.Hotel;
 import com.xepicgamerzx.hotelier.objects.HotelAmenitiesEnum;
@@ -13,6 +14,7 @@ import com.xepicgamerzx.hotelier.objects.HotelRoom;
 import com.xepicgamerzx.hotelier.storage.dao.HotelAmenitiesCrossDao;
 import com.xepicgamerzx.hotelier.storage.dao.HotelDao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -154,6 +156,25 @@ public class HotelManager implements Manager<Hotel, Long, Long[]> {
     @Override
     public List<Hotel> getAll() {
         return hotelDao.getAllHotels();
+    }
+
+    /**
+     * Generates a list of HotelViewModel's with specifics
+     */
+    public List<HotelViewModel> generateHotelModel(List<Hotel> hotels) {
+        List<HotelViewModel> hotelsView = new ArrayList<>();
+
+        for (Hotel hotel : hotels) {
+            hotelsView.add(new HotelViewModel(
+                    hotel.getName(),
+                    hotel.getAddress().getFullStreet(),
+                    roomManager.getPriceRange(hotel).get(0),
+                    roomManager.getNumberOfRooms(hotel),
+                    hotel
+            ));
+        }
+
+        return hotelsView;
     }
 
     /**

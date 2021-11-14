@@ -32,23 +32,10 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-
-
         navView = findViewById(R.id.bottomNavigationView);
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentContainer);
         NavController navController = navHostFragment.getNavController();
         NavigationUI.setupWithNavController(navView, navController);
-
-//        navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
-//            @Override
-//            public void onDestinationChanged(@NonNull NavController controller, @NonNull NavDestination destination, @Nullable Bundle arguments) {
-//                if(destination.getId() == R.id.) {
-//                    navView.setVisibility(View.GONE);
-//                } else {
-//                    navView.setVisibility(View.VISIBLE);
-//                }
-//            }
-//        });
 
     }
 
@@ -57,12 +44,8 @@ public class MainActivity extends AppCompatActivity {
         fragmentManager.beginTransaction()
                 .replace(R.id.dashboardFragment, someFragment, null)
                 .setReorderingAllowed(true)
-                .addToBackStack("Test") // name can be null
+                .addToBackStack("Test")
                 .commit();
-    }
-
-    public void openUserSignIn() {
-
     }
 
 }

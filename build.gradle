@@ -17,7 +17,7 @@ plugins {
     id 'pl.allegro.tech.build.axion-release' version '1.13.3'
 }
 
-//project.version = scmVersion.version
+project.version = scmVersion.version
 
 task clean(type: Delete) {
     delete rootProject.buildDir
