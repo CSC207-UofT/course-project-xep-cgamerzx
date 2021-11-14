@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
@@ -17,6 +19,7 @@ import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.google.android.material.textfield.TextInputEditText;
 import com.xepicgamerzx.hotelier.R;
+import com.xepicgamerzx.hotelier.objects.Bed;
 import com.xepicgamerzx.hotelier.objects.HotelRoom;
 import com.xepicgamerzx.hotelier.objects.UnixEpochDateConverter;
 
@@ -27,6 +30,16 @@ public class HotelCreateRoomsFragment extends Fragment {
     Long startDate;
     Long endDate;
     String bedType;
+    boolean isBedTypeSelected = false;
+
+    ZoneId zoneId;
+    MaterialButton schedule;
+    TextInputEditText capacity;
+    TextInputEditText pricePerNight;
+    TextInputEditText totalBeds;
+    MaterialButton saveRoom;
+    ChipGroup chipGroup;
+    ImageButton closeBtn;
 
     public HotelCreateRoomsFragment() {
         // Required empty public constructor
@@ -43,13 +56,14 @@ public class HotelCreateRoomsFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_hotel_create_rooms, container, false);
 
-        ZoneId zoneId = ZoneId.systemDefault();
-        MaterialButton schedule = v.findViewById(R.id.setScheduleBtn);
-        TextInputEditText capacity = v.findViewById(R.id.roomCapacity);
-        TextInputEditText pricePerNight = v.findViewById(R.id.pricePerNight);
-        TextInputEditText totalBeds = v.findViewById(R.id.totalBeds);
-        MaterialButton saveRoom = v.findViewById(R.id.saveRoomBtn);
-        ChipGroup chipGroup = v.findViewById(R.id.chip_group_choice);
+        zoneId = ZoneId.systemDefault();
+        schedule = v.findViewById(R.id.setScheduleBtn);
+        capacity = v.findViewById(R.id.roomCapacity);
+        pricePerNight = v.findViewById(R.id.pricePerNight);
+        totalBeds = v.findViewById(R.id.totalBeds);
+        saveRoom = v.findViewById(R.id.saveRoomBtn);
+        chipGroup = v.findViewById(R.id.chip_group_choice);
+        closeBtn = v.findViewById(R.id.closeBtn);
 
         MaterialDatePicker.Builder<Pair<Long, Long>> builder = MaterialDatePicker.Builder.dateRangePicker();
         builder.setTitleText("SELECT A CHECK IN AND CHECKOUT DATE");
@@ -60,21 +74,27 @@ public class HotelCreateRoomsFragment extends Fragment {
             public void onClick(View v) {
                 HotelCreatorActivity activity = (HotelCreatorActivity) getActivity();
 
-                // Validate input later
-                HotelRoom room = activity.roomManager.createRoom(
-                        zoneId, startDate, endDate,
-                        Integer.parseInt(capacity.getText().toString()),
-                        BigDecimal.valueOf(Long.parseLong(pricePerNight.getText().toString()))
-                );
+                String stringErrorMess = validateRoomInputs();
+                if(!stringErrorMess.equals("")){
+                    Toast.makeText(getContext(), stringErrorMess, Toast.LENGTH_SHORT).show();
+                } else {
+                    HotelRoom room = activity.roomManager.createRoom(
+                            zoneId, startDate, endDate,
+                            Integer.parseInt(capacity.getText().toString()),
+                            BigDecimal.valueOf(Long.parseLong(pricePerNight.getText().toString()))
+                    );
 
-                // Beds
-                for(int i = 0; i < Integer.parseInt(totalBeds.getText().toString()); i++){
+                    // The parent activity is HotelCreator (where these variables can be found)
+                    activity.hotelRooms.add(room);
+                    Bed bed = activity.bedManager.create(bedType);
+                    activity.bedManager.addBedToRoom(bed, room, Integer.parseInt(totalBeds.getText().toString()));
 
+                    activity.text += "\n" + room.toString();
+                    activity.isRoomsMade = true;
+                    activity.addRoomsBtn.setText("Add another room");
+
+                    getActivity().onBackPressed();
                 }
-
-                System.out.println(BigDecimal.valueOf(Long.parseLong(pricePerNight.getText().toString())));
-                System.out.println(room);
-                activity.hotelRooms.add(room);
             }
         });
 
@@ -82,7 +102,14 @@ public class HotelCreateRoomsFragment extends Fragment {
             @Override
             public void onCheckedChanged(ChipGroup group, int checkedId) {
                 Chip chip = v.findViewById(checkedId);
-                bedType = chip.getText().toString();
+
+                // TODO fix error of same chip twice in a row crash
+                if (chip != null ) {
+                    bedType = chip.getText().toString();
+                    isBedTypeSelected = true;
+                } else {
+                    isBedTypeSelected = false;
+                }
             }
         });
 
@@ -106,6 +133,27 @@ public class HotelCreateRoomsFragment extends Fragment {
             }
         });
 
+        closeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().onBackPressed();
+            }
+        });
+
         return v;
+    }
+
+    public String validateRoomInputs() {
+        String s = "";
+        if (!(capacity.getText().toString().matches("\\d+") &&
+                totalBeds.getText().toString().matches("\\d+") &&
+                pricePerNight.getText().toString().matches("\\d+"))) {
+            s = "Input invalid, enter an integer";
+        }
+        if(startDate == null || endDate == null || !(isBedTypeSelected)) {
+            s = "Enter all fields";
+        }
+
+        return s;
     }
 }

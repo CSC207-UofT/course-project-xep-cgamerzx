@@ -1,9 +1,12 @@
 package com.xepicgamerzx.hotelier.storage;
 
 import android.app.Application;
+import android.location.Location;
 
 import androidx.annotation.NonNull;
 
+import com.google.type.LatLng;
+import com.xepicgamerzx.hotelier.customer.HotelViewModel;
 import com.xepicgamerzx.hotelier.objects.Address;
 import com.xepicgamerzx.hotelier.objects.Hotel;
 import com.xepicgamerzx.hotelier.objects.HotelAmenitiesCrossRef;
@@ -12,6 +15,7 @@ import com.xepicgamerzx.hotelier.objects.HotelRoom;
 import com.xepicgamerzx.hotelier.storage.dao.HotelAmenitiesCrossDao;
 import com.xepicgamerzx.hotelier.storage.dao.HotelDao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -140,6 +144,58 @@ public class HotelManager implements DiscreteManager<Hotel, Long, Long[]> {
     @Override
     public List<Hotel> getAll() {
         return hotelDao.getAllHotels();
+    }
+
+    public List<Hotel> getHotelsByLatLong(double destinationLat, double destinationLong) {
+        List<Hotel> hotels = hotelDao.getAllHotels();
+        List<Hotel> filteredHotels = new ArrayList<>();
+
+        for(Hotel hotel : hotels) {
+            double hotelLat = hotel.getAddress().getLongitude();
+            double hotelLong = hotel.getAddress().getLatitude();
+            System.out.println(hotelLat + " " + hotelLong + " " + destinationLat + " " + destinationLong);
+            float distanceToHotel = getDistanceMetres(hotelLat, hotelLong, destinationLat, destinationLong);
+            System.out.println(distanceToHotel);
+
+            // DEFAULT THRESHOLD, 50km?
+            if(distanceToHotel <= 50000) {
+                filteredHotels.add(hotel);
+            }
+        }
+        return filteredHotels;
+    }
+
+    public static float getDistanceMetres(double lat1, double lng1, double lat2, double lng2) {
+        Location location1 = new Location("location1");
+        location1.setLongitude(lng1);
+        location1.setLatitude(lat1);
+
+        Location location2= new Location("location1");
+        location2.setLongitude(lng2);
+        location2.setLatitude(lat2);
+
+        float dist = location1.distanceTo(location2);
+
+        return dist;
+    }
+
+    /**
+     * Generates a list of HotelViewModel's with specifics
+     */
+    public List<HotelViewModel> generateHotelModel(List<Hotel> hotels) {
+        List<HotelViewModel> hotelsView = new ArrayList<>();
+
+        for (Hotel hotel : hotels) {
+            hotelsView.add(new HotelViewModel(
+                    hotel.getName(),
+                    hotel.getAddress().getFullStreet(),
+                    roomManager.getPriceRange(hotel).get(0),
+                    roomManager.getNumberOfRooms(hotel),
+                    hotel
+            ));
+        }
+
+        return hotelsView;
     }
 
     /**

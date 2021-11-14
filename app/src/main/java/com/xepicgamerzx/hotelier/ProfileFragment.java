@@ -61,6 +61,7 @@ public class ProfileFragment extends Fragment {
         listHotel = v.findViewById(R.id.listHotelBtn);
 
         UserManager um = new UserManager();
+        // causes an error when no user, not fatal
         User user = um.getUser(getContext());
 
         // If a user is signed in ...
@@ -84,28 +85,6 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getActivity(), LoginActivity.class));
-
-                HotelOldDAO dao = new HotelOldDAO();
-//                HashMap<String, HashMap<String, Object>> rooms = new HashMap();
-//
-//                rooms.put("Room 1", new HashMap<String, Object>());
-//                HashMap<String, Object> roomVal = rooms.get("Room 1");
-//
-//                roomVal.put("Price", 200);
-//                roomVal.put("Beds", new HashMap<String, String>());
-//                ((HashMap) roomVal.get("Beds")).put("Bed1", "King");
-//                ((HashMap) roomVal.get("Beds")).put("Bed2", "Queen");
-//                HotelOld hotel = new HotelOld("DoubleTree", "123 Testing Lane, Toronto, Ontario", rooms);
-//
-                List<HotelOld> hotels = new ArrayList<>();
-                dao.read(new MyCallback() {
-                    @Override
-                    public void onCallback(HotelOld value) {
-                        // Do everything inside here.
-                        System.out.println(value);
-
-                    }
-                });
             }
         });
 

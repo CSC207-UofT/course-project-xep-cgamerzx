@@ -14,6 +14,7 @@ import com.xepicgamerzx.hotelier.storage.dao.RoomDao;
 
 import java.math.BigDecimal;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
@@ -116,6 +117,22 @@ public class RoomManager implements DiscreteManager<HotelRoom, Long, Long[]> {
     @Override
     public List<HotelRoom> getAll() {
         return roomDao.getAllRooms();
+    }
+
+    public List<HotelRoom> getRoomsInHotelByDate(Hotel hotel, long userStartAvail, long userEndAvail) {
+        List<HotelRoom> hotelRooms = roomDao.getRoomsInHotel(hotel.hotelID);
+        List<HotelRoom> filteredRooms = new ArrayList<>();
+
+        for (HotelRoom hotelRoom : hotelRooms) {
+            long roomStartAvail = hotelRoom.getStartAvailability();
+            long roomEndAvail = hotelRoom.getEndAvailability();
+
+            if (userStartAvail >= roomStartAvail && userEndAvail <= roomEndAvail) {
+                filteredRooms.add(hotelRoom);
+            }
+        }
+
+        return filteredRooms;
     }
 
     public List<HotelRoom> getHotelRoomsInHotel(long hotelID) {

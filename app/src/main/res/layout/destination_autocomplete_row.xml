@@ -15,32 +15,13 @@
         android:src="@drawable/ic_location_svgrepo_com" />
 
     <TextView
-        android:id="@+id/cityTxt"
+        android:id="@+id/cityStateCountry"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:fontFamily="@font/inter_bold"
         android:paddingStart="8dp"
-        android:text="City,"
-        android:textColor="@color/white" />
-
-    <TextView
-        android:id="@+id/stateTxt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:fontFamily="@font/inter_bold"
-        android:paddingStart="4dp"
-        android:text="State,"
-        android:textColor="@color/white" />
-    <TextView
-        android:id="@+id/countryTxt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:fontFamily="@font/inter_bold"
-        android:paddingStart="4dp"
-        android:text="Country"
+        android:text="City, State, Country"
         android:textColor="@color/white" />
 
 </LinearLayout>

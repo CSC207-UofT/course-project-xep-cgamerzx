@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,9 +12,17 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.xepicgamerzx.hotelier.customer.HotelViewAdapter;
+import com.xepicgamerzx.hotelier.customer.HotelViewModel;
 import com.xepicgamerzx.hotelier.customer.SearchActivity;
+import com.xepicgamerzx.hotelier.objects.Hotel;
+import com.xepicgamerzx.hotelier.storage.HotelManager;
+import com.xepicgamerzx.hotelier.storage.RoomManager;
 import com.xepicgamerzx.hotelier.user.UserManager;
 import com.xepicgamerzx.hotelier.user.model.User;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class DashboardFragment extends Fragment {
@@ -69,12 +78,23 @@ public class DashboardFragment extends Fragment {
         TextInputEditText search = v.findViewById(R.id.searchToFragment);
         nameField = v.findViewById(R.id.welcomeField);
 
+        HotelManager hotelManager = HotelManager.getManager(getActivity().getApplication());
+        RoomManager roomManager = RoomManager.getManager(getActivity().getApplication());
+
+        RecyclerView hotelsRecyclerView = v.findViewById(R.id.newListingsView);
+
+        List<Hotel> hotels = hotelManager.getAll();
+        List<HotelViewModel> hotelsView = hotelManager.generateHotelModel(hotels);
+
+        final HotelViewAdapter hotelsAdapter = new HotelViewAdapter(hotelsView);
+        hotelsRecyclerView.setAdapter(hotelsAdapter);
+
         UserManager um = new UserManager();
 
         // Add if empty, no user, go sign in.
         if (um.getUser(getContext()) != null) {
             User user = (User) um.getUser(getContext());
-            nameField.setText("Welcome " + user.getUserName());
+            nameField.setText("Welcome back " + user.getUserName());
         }
 
         search.setOnClickListener(new View.OnClickListener() {

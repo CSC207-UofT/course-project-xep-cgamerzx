@@ -1,5 +1,7 @@
 package com.xepicgamerzx.hotelier.customer;
 
+import com.xepicgamerzx.hotelier.objects.Hotel;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
@@ -7,16 +9,18 @@ import java.util.List;
 public class HotelViewModel implements Serializable {
     private String name;
     private String address;
-    private List<BigDecimal> priceRange;
+    private BigDecimal priceRange;
     private int numberOfRooms;
     boolean isSelected = false;
+    private Hotel hotel;
 //    private String image;
 
-    public HotelViewModel(String name, String address, List<BigDecimal> priceRange, int numberOfRooms) {
+    public HotelViewModel(String name, String address, BigDecimal priceRange, int numberOfRooms, Hotel hotel) {
         this.name = name;
         this.address = address;
         this.priceRange = priceRange;
         this.numberOfRooms = numberOfRooms;
+        this.hotel = hotel;
     }
 
 
@@ -32,7 +36,11 @@ public class HotelViewModel implements Serializable {
         return name;
     }
 
-    public List<BigDecimal> getPriceRange() {
+    public BigDecimal getPriceRange() {
         return priceRange;
+    }
+
+    public Hotel getHotel() {
+        return hotel;
     }
 }

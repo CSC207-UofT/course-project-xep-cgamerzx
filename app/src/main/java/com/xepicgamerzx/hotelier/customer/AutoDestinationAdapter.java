@@ -1,11 +1,13 @@
 package com.xepicgamerzx.hotelier.customer;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,13 +20,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class AutoDestinationAdapter extends ArrayAdapter<DestinationItem> {
+public class AutoDestinationAdapter extends ArrayAdapter<DestinationItem> implements Filterable {
     private List<DestinationItem> destinationsListFull;
+    private OnSearchClick searchCallback;
 
-    public AutoDestinationAdapter(@NonNull Context context, @NonNull List<DestinationItem> destinationsList) {
-        super(context, 0, destinationsList);
+    PlacesAPI placeApi = new PlacesAPI();
+    Context context;
 
-        destinationsListFull = new ArrayList<>(destinationsList); // Creates new ArrayList with DL
+    public AutoDestinationAdapter(@NonNull Context context, OnSearchClick listener) {
+        super(context, 0);
+        this.context = context;
+        this.searchCallback = listener;
     }
 
     @NonNull
@@ -41,20 +47,11 @@ public class AutoDestinationAdapter extends ArrayAdapter<DestinationItem> {
                     R.layout.destination_autocomplete_row, parent, false
             );
         }
-
-        TextView textViewCountry = convertView.findViewById(R.id.countryTxt);
-        TextView textViewCity = convertView.findViewById(R.id.cityTxt);
-        TextView textViewState = convertView.findViewById(R.id.stateTxt);
-
+        TextView textViewCSC = convertView.findViewById(R.id.cityStateCountry);
         DestinationItem destinationItem = getItem(position);
 
-
         if (destinationItem != null) {
-            String city = destinationItem.getCity() + ", ";
-            String state = destinationItem.getState() + ", ";
-            textViewCountry.setText(destinationItem.getCountry());
-            textViewCity.setText(city);
-            textViewState.setText(state);
+            textViewCSC.setText(destinationItem.getCityStateCountry());
         }
 
         return convertView;
@@ -69,32 +66,30 @@ public class AutoDestinationAdapter extends ArrayAdapter<DestinationItem> {
          */
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
-            FilterResults results = new FilterResults();
+            FilterResults filterResults = new FilterResults();
             List<DestinationItem> suggestions = new ArrayList<>();
 
-            if (constraint == null || constraint.length() == 0) {
+            if (constraint != null) {
+                destinationsListFull = placeApi.autoComplete(constraint.toString());
+
                 suggestions.addAll(destinationsListFull);
-            } else {
-                String filter = constraint.toString().toLowerCase().trim();
-                System.out.println(filter);
-                for (DestinationItem item : destinationsListFull) {
-                    if(item.getCity().toLowerCase().contains(filter)) {
-                        suggestions.add(item);
-                    }
-                }
             }
+            filterResults.values = suggestions;
+            filterResults.count = suggestions.size();
 
-            results.values = suggestions;
-            results.count = suggestions.size();
-
-            return results;
+            return filterResults;
         }
 
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
             clear();
-            addAll(((List) results.values));
-            notifyDataSetChanged();
+            addAll((List) results.values);
+
+            if(results != null && results.count > 0) {
+                notifyDataSetChanged();
+            } else {
+                notifyDataSetInvalidated();
+            }
         }
 
         /**
@@ -104,7 +99,11 @@ public class AutoDestinationAdapter extends ArrayAdapter<DestinationItem> {
          */
         @Override
         public CharSequence convertResultToString(Object resultValue) {
-            return ((DestinationItem) resultValue).getDestination();
+            DestinationItem destinationItem = ((DestinationItem) resultValue);
+            // Sends to SearchActivity
+            searchCallback.onSearch(destinationItem);
+
+            return ((DestinationItem) resultValue).getCityStateCountry();
         }
     };
 }
