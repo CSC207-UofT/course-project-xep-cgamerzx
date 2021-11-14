@@ -115,9 +115,10 @@ public class HotelManager implements DiscreteManager<Hotel, Long, Long[]> {
         hotelDao.update(hotel);
     }
 
+    @Deprecated // Move to hotel amenities cross manager
     public void addAmenityToHotel(Hotel hotel, HotelAmenity hotelAmenity) {
         HotelAmenitiesCrossRef hotelAmenitiesCrossRef = new HotelAmenitiesCrossRef(hotel, hotelAmenity);
-        hotelAmenitiesCrossDao.insertHotelAmenitiesCrossRef(hotelAmenitiesCrossRef);
+        hotelAmenitiesCrossDao.insert(hotelAmenitiesCrossRef);
     }
 
     /**
