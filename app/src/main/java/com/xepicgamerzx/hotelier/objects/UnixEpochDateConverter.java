@@ -47,6 +47,7 @@ public class UnixEpochDateConverter {
 
         LocalDate d1 = LocalDate.parse(localDate1);
         LocalDate d2 = LocalDate.parse(localDate2);
+
         return String.format("%s, %s/%s - %s, %s/%s", d1.getDayOfWeek().getDisplayName(TextStyle.SHORT, Locale.getDefault()), d1.getMonthValue(), d1.getDayOfMonth(),
                 d2.getDayOfWeek().getDisplayName(TextStyle.SHORT, Locale.getDefault()), d2.getMonthValue(), d2.getDayOfMonth());
     }

@@ -44,24 +44,37 @@ public class HotelViewActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
 
+        // BELOW IS SOME MESSY CODE, WILL CLEAN LATER BUT WHATS IMPORTANT IS THAT IT WORKS FOR NOW.
         if(intent.getExtras() != null) {
             HashMap<String, Object> map = (HashMap<String, Object>) intent.getSerializableExtra("SearchData");
             String guests = (String) map.get("guests");
+            long userStartDate = 0;
+            long userEndDate = 0;
+            List<Hotel> hotels = hotelManager.getAll();
+            List<HotelViewModel> hotelsView = hotelManager.generateHotelModel(hotels);
             userGuests.setText(guests + " Guests");
 
             if(map.size() == 1) {
-                List<Hotel> hotels = hotelManager.getAll();
-                List<HotelViewModel> hotelsView = hotelManager.generateHotelModel(hotels);
                 final HotelViewAdapter hotelsAdapter = new HotelViewAdapter(hotelsView);
                 hotelsRecyclerView.setAdapter(hotelsAdapter);
+            } else if (map.size() == 3) {
+                if (map.containsKey("startDate") && map.containsKey("endDate")) {
+                    userStartDate = (long) map.get("startDate");
+                    userEndDate = (long) map.get("endDate");
+                    UnixEpochDateConverter date = new UnixEpochDateConverter();
+                    userSchedule.setText(date.epochToReadable(userStartDate, userEndDate));
+
+                    final HotelViewAdapter hotelsAdapter = new HotelViewAdapter(hotelsView, userStartDate, userEndDate);
+                    hotelsRecyclerView.setAdapter(hotelsAdapter);
+                }
             } else {
                 String city = (String) map.get("city");
                 userCity.setText(city);
+                double longitude;
+                double latitude;
+                latitude = (double) map.get("lat");
+                longitude = (double) map.get("long");
 
-                double latitude = (double) map.get("lat");
-                double longitude = (double) map.get("long");
-                long userStartDate = 0;
-                long userEndDate = 0;
                 if (map.containsKey("startDate") && map.containsKey("endDate")) {
                     // Send to adapter
                     userStartDate = (long) map.get("startDate");
@@ -88,7 +101,6 @@ public class HotelViewActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), SearchActivity.class));
-                // pop backstack?
             }
         });
     }

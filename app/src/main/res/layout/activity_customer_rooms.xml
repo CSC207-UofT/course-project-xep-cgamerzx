@@ -17,13 +17,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/frameMapsLay"
-        android:layout_marginTop="10dp"
-        android:textSize="32sp"
-        android:text="Hotel Name"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
         android:fontFamily="@font/inter_bold"
+        android:text="Hotel Name"
         android:textColor="@color/black"
-        />
+        android:textSize="32sp" />
 
     <TextView
         android:id="@+id/addressTxt"

@@ -119,6 +119,9 @@ public class SearchActivity extends AppCompatActivity implements OnSearchClick {
                             searchData.put("lat", coords.get("latitude"));
                             searchData.put("startDate", startDate);
                             searchData.put("endDate", endDate);
+                        } else if (destinationItem == null && (startDate != null && endDate != null)) {
+                            searchData.put("startDate", startDate);
+                            searchData.put("endDate", endDate);
                         } else if (destinationItem != null && (startDate == null && endDate == null)) {
                             // User enters destination, but no schedule
                             HashMap<String, Double> coords = placesAPI.getLocation(destinationItem.getPlaceId());
