@@ -11,10 +11,11 @@ public class UniqueEntity {
     @PrimaryKey
     private final String id;
 
-    protected UniqueEntity(String id) {
+    protected UniqueEntity(@NonNull String id) {
         this.id = id;
     }
 
+    @NonNull
     public String getId(){
         return id;
     }
