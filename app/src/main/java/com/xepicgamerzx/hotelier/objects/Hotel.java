@@ -26,8 +26,7 @@ public class Hotel implements Serializable {
      *
      * @param name    the name of this hotel
      * @param address the address of this hotel
-     *                //* @param amenities the amenities included in this hotel
-     *                //* @param starClass amount of stars this hotel is
+     * @param starClass amount of stars this hotel is
      */
     public Hotel(String name, Address address, int starClass) {
         this.name = name;

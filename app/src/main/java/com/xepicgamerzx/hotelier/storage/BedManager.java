@@ -137,7 +137,7 @@ public class BedManager implements Manager<Bed, String, Void> {
         List<BedsRoomCrossRef> ids = bedRoomCrossDao.getBedsCrossInRoom(hotelRoom.roomID);
         HashMap<Bed, Integer> bedCount = new HashMap<>();
         for (BedsRoomCrossRef crossRef : ids){
-            bedCount.put(get(crossRef.bedID).get(0), crossRef.getBedCount());
+            bedCount.put(get(crossRef.id).get(0), crossRef.getBedCount());
         }
         return bedCount;
     }

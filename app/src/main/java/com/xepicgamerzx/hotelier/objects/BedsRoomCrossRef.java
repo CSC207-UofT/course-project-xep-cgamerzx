@@ -4,24 +4,24 @@ import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 
-@Entity(primaryKeys = {"roomID", "bedID"})
+@Entity(primaryKeys = {"roomID", "id"})
 public class BedsRoomCrossRef {
     public long roomID;
     @NonNull
     @ColumnInfo(index = true)
-    public String bedID;
+    public String id;
 
     private int bedCount;
 
-    public BedsRoomCrossRef(long roomID, @NonNull String bedID, int bedCount){
+    public BedsRoomCrossRef(long roomID, @NonNull String id, int bedCount){
         this.roomID = roomID;
-        this.bedID = bedID;
+        this.id = id;
         setBedCount(bedCount);
     }
 
     public BedsRoomCrossRef(HotelRoom hotelRoom, Bed bed, int bedCount){
         this.roomID = hotelRoom.roomID;
-        this.bedID = bed.getBedID();
+        this.id = bed.getId();
         setBedCount(bedCount);
     }
 

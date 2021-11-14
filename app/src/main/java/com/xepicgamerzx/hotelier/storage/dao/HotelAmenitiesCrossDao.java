@@ -14,9 +14,9 @@ public interface HotelAmenitiesCrossDao extends HotelDao, HotelAmenityDao{
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertHotelAmenitiesCrossRef(HotelAmenitiesCrossRef... hotelAmenitiesCrossRefs);
 
-    @Query("SELECT hotelID FROM HotelAmenitiesCrossRef WHERE hotelAmenityID =:hotelAmenityID")
+    @Query("SELECT hotelID FROM HotelAmenitiesCrossRef WHERE id =:hotelAmenityID")
     List<Long> getHotelsWithAmenity (String hotelAmenityID);
 
-    @Query("SELECT hotelAmenityID FROM HotelAmenitiesCrossRef WHERE hotelID =:hotelID")
+    @Query("SELECT id FROM HotelAmenitiesCrossRef WHERE hotelID =:hotelID")
     List<String> getAmenitiesInHotel (long hotelID);
 }
