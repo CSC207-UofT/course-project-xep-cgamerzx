@@ -41,7 +41,7 @@ public class HotelViewActivity extends AppCompatActivity {
             hotelsView.add(new HotelViewModel(
                     hotel.getName(),
                     hotel.getAddress().getFullStreet(),
-                    roomManager.getPriceRange(hotel),
+                    roomManager.getPriceRange(hotel).get(0),
                     roomManager.getNumberOfRooms(hotel),
                     hotel
             ));
@@ -51,26 +51,6 @@ public class HotelViewActivity extends AppCompatActivity {
 
         // Creating one dummy hotel
 //        List<BigDecimal> priceRange = new ArrayList<>();
-//        BigDecimal number = new BigDecimal(123);
-//        priceRange.add(number);
-//        priceRange.add(number);
-//
-//        HotelViewModel hotel = new HotelViewModel("DoubleTree", "123 Avenue", priceRange, 3);
-//        hotels.add(hotel);
-//
-//        HotelViewModel hotel1 = new HotelViewModel("DoubleTree", "123 Avenue", priceRange, 3);
-//        hotels.add(hotel);
-//
-//        HotelViewModel hotel2 = new HotelViewModel("DoubleTree", "123 Avenue", priceRange, 3);
-//        hotels.add(hotel);
-//
-//        HotelViewModel hotel3 = new HotelViewModel("DoubleTree", "123 Avenue", priceRange, 3);
-//        hotels.add(hotel);
-//
-//        HotelViewModel hotel4 = new HotelViewModel("DoubleTree", "123 Avenue", priceRange, 3);
-//        hotels.add(hotel);
-//
-//        HotelViewModel hotel5 = new HotelViewModel("DoubleTree", "123 Avenue", priceRange, 3);
 //        hotels.add(hotel);
 
         final HotelViewAdapter hotelsAdapter = new HotelViewAdapter(hotelsView);

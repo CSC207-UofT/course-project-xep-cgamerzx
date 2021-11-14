@@ -79,14 +79,27 @@
             android:text="$0"
             android:textColor="@color/black" />
 
+        <TextView
+            android:id="@+id/lowestText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/hotelRowPrice"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="5dp"
+            android:fontFamily="@font/inter_regular"
+            android:gravity="right"
+            android:text="lowest price"
+            android:textSize="10dp"
+            android:textColor="@color/black" />
+
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_favorite_border"
             android:layout_below="@id/hotelRowAddress"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="5dp"
-            />
+            android:layout_marginTop="-8dp"
+            android:layout_marginRight="3dp"
+            android:src="@drawable/ic_favorite_border" />
     </RelativeLayout>
 
 </androidx.cardview.widget.CardView>
