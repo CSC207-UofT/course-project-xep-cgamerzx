@@ -1,15 +1,11 @@
 package com.xepicgamerzx.hotelier.objects;
 
 import androidx.annotation.NonNull;
-import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 
 @Entity(primaryKeys = {"roomID", "uniqueId"})
-public class BedsRoomCrossRef {
+public class BedsRoomCrossRef extends CrossRef{
     public long roomID;
-    @NonNull
-    @ColumnInfo(index = true)
-    public String uniqueId;
 
     private int bedCount;
 
@@ -31,5 +27,25 @@ public class BedsRoomCrossRef {
 
     public void setBedCount(int bedCount) {
         this.bedCount = bedCount;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof BedsRoomCrossRef)) return false;
+        if (!super.equals(o)) return false;
+
+        BedsRoomCrossRef that = (BedsRoomCrossRef) o;
+
+        if (roomID != that.roomID) return false;
+        return getBedCount() == that.getBedCount();
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + (int) (roomID ^ (roomID >>> 32));
+        result = 31 * result + getBedCount();
+        return result;
     }
 }

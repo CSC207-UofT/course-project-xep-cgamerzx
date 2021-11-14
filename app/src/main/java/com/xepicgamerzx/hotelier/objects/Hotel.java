@@ -5,12 +5,11 @@ import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import java.io.Serializable;
 import java.util.Objects;
 
 
 @Entity()
-public class Hotel implements Serializable {
+public class Hotel extends NonUniqueEntity{
     @PrimaryKey(autoGenerate = true)
     public long hotelID;
 
