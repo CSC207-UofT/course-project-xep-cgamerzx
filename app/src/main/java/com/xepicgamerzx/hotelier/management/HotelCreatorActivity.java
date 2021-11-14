@@ -5,12 +5,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipDrawable;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.chip.ChipGroup;
 import com.xepicgamerzx.hotelier.R;
 import com.xepicgamerzx.hotelier.objects.Address;
 import com.xepicgamerzx.hotelier.objects.HotelRoom;
@@ -31,6 +35,9 @@ public class HotelCreatorActivity extends AppCompatActivity {
     TextInputEditText hotelName;
     MaterialButton addAddressBtn;
     MaterialButton addRoomsBtn;
+    TextInputEditText amenityName;
+    ChipGroup chipGroup;
+    Button addAmenityBtn;
     MaterialButton submitBtn;
     MaterialButton hotelDetails;
     ImageButton backBtn;
@@ -60,6 +67,9 @@ public class HotelCreatorActivity extends AppCompatActivity {
         submitBtn = findViewById(R.id.saveHotelBtn);
         backBtn = findViewById(R.id.backBtn);
         hotelDetails = findViewById(R.id.hotelDetails);
+        amenityName = findViewById(R.id.hotelAmentitiesInput);
+        addAmenityBtn = findViewById(R.id.addAmenityBtn);
+        chipGroup = findViewById(R.id.chipGroup);
 
         hotelDetails.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,6 +102,14 @@ public class HotelCreatorActivity extends AppCompatActivity {
                         .add(R.id.hotelCreator, HotelCreateAddressFragment.class, null)
                         .addToBackStack(null)
                         .commit();
+            }
+        });
+
+        addAmenityBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Chip chip = new Chip(v);
+                ChipDrawable drawable = ChipDrawable.createFromAttributes(this)
             }
         });
 
