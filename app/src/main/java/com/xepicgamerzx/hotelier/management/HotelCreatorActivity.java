@@ -17,6 +17,8 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.chip.ChipGroup;
 import com.xepicgamerzx.hotelier.R;
 import com.xepicgamerzx.hotelier.objects.Address;
+import com.xepicgamerzx.hotelier.objects.Hotel;
+import com.xepicgamerzx.hotelier.objects.HotelAmenity;
 import com.xepicgamerzx.hotelier.objects.HotelRoom;
 import com.xepicgamerzx.hotelier.storage.BedManager;
 import com.xepicgamerzx.hotelier.storage.HotelManager;
@@ -31,6 +33,7 @@ public class HotelCreatorActivity extends AppCompatActivity {
     BedManager bedManager;
     Address address;
     List<HotelRoom> hotelRooms = new ArrayList<>();
+    ArrayList<HotelAmenity> hotelAmenities = new ArrayList<>();
 
     TextInputEditText hotelName;
     MaterialButton addAddressBtn;
@@ -86,8 +89,11 @@ public class HotelCreatorActivity extends AppCompatActivity {
                 String name = hotelName.getText().toString();
                 // Do amentities later.
                 if (validateHotel()) {
-                    hotelManager.createHotel(name, address, starClass, hotelRooms);
+                    Hotel hotel = hotelManager.createHotel(name, address, starClass, hotelRooms);
                     onBackPressed();
+                    for (HotelAmenity amenity : hotelAmenities) {
+                        hotelManager.addAmenityToHotel(hotel, amenity);
+                    }
                 } else {
                     Toast.makeText(getApplicationContext(), "Missing inputs, try again", Toast.LENGTH_SHORT).show();
                 }
@@ -102,14 +108,6 @@ public class HotelCreatorActivity extends AppCompatActivity {
                         .add(R.id.hotelCreator, HotelCreateAddressFragment.class, null)
                         .addToBackStack(null)
                         .commit();
-            }
-        });
-
-        addAmenityBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Chip chip = new Chip(v);
-                ChipDrawable drawable = ChipDrawable.createFromAttributes(this)
             }
         });
 
@@ -129,6 +127,27 @@ public class HotelCreatorActivity extends AppCompatActivity {
                 HotelCreatorActivity.super.onBackPressed();
             }
         });
+    }
+
+    public void addAmenityBtnClick(View view) {
+        Chip chip = new Chip(this);
+        ChipDrawable drawable = ChipDrawable.createFromAttributes(this, null, 0, R.style.Widget_MaterialComponents_Chip_Entry);
+        chip.setChipDrawable(drawable);
+        chip.setCheckable(false);
+        chip.setClickable(false);
+        String name = amenityName.getText().toString();
+        chip.setText(name);
+        chip.setOnCloseIconClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                chipGroup.removeView(chip);
+                hotelAmenities.add(hotelManager.createHotelAmenity(name));
+            }
+
+        });
+
+        chipGroup.addView(chip);
+        amenityName.setText("");
     }
 
     public void initializeDb() {
