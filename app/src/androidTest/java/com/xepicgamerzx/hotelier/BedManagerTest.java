@@ -87,7 +87,7 @@ public class BedManagerTest {
 
         Bed bed = bedManager.get(BedSizeEnum.KING.toString()).get(0);
 
-        assertEquals(bed.getUniqueId(), BedSizeEnum.KING.label);
+        assertEquals(bed.getUniqueId(), BedSizeEnum.KING.getLabel());
     }
 
     @Test

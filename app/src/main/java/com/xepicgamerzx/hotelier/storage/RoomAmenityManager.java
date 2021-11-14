@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * A class to manage all the RoomAmenities in the database.
  */
-public class RoomAmenityManager implements Manager<RoomAmenity, String, Void> {
+public class RoomAmenityManager implements IUniqueManager<RoomAmenity> {
     private static volatile RoomAmenityManager INSTANCE;
 
     private final HotelierDatabase db;

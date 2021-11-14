@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * A class to manage all the Beds in the database.
  */
-public class BedManager implements Manager<Bed, String, Void> {
+public class BedManager implements IUniqueManager<Bed> {
     private static volatile BedManager INSTANCE;
 
     private final HotelierDatabase db;
