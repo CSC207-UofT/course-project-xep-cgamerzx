@@ -1,12 +1,44 @@
 package com.xepicgamerzx.hotelier.storage;
 
+import android.app.Application;
+
 import com.xepicgamerzx.hotelier.objects.Hotel;
 import com.xepicgamerzx.hotelier.objects.HotelAmenitiesCrossRef;
 import com.xepicgamerzx.hotelier.objects.HotelAmenity;
+import com.xepicgamerzx.hotelier.storage.dao.HotelAmenitiesCrossDao;
 
 import java.util.List;
 
 public class HotelAmenitiesCrossManager implements CrossManager<HotelAmenitiesCrossRef, Hotel, HotelAmenity> {
+    private static volatile HotelAmenitiesCrossManager INSTANCE;
+
+    private final HotelierDatabase db;
+    private final HotelAmenitiesCrossDao hotelAmenitiesCrossDao;
+    private final HotelAmenityManager hotelAmenityManager;
+    private final HotelManager hotelManager;
+
+
+    private HotelAmenitiesCrossManager(HotelierDatabase dbInstance) {
+        db = dbInstance;
+        hotelAmenitiesCrossDao = db.hotelAmenitiesCrossDao();
+        hotelAmenityManager = HotelAmenityManager.getManager(db);
+        hotelManager = HotelManager.getManager(db);
+    }
+
+    public static HotelAmenitiesCrossManager getManager(Application application) {
+        if (INSTANCE == null) {
+            INSTANCE = new HotelAmenitiesCrossManager(HotelierDatabase.getDatabase(application));
+        }
+        return INSTANCE;
+    }
+
+    public static HotelAmenitiesCrossManager getManager(HotelierDatabase dbInstance) {
+        if (INSTANCE == null) {
+            INSTANCE = new HotelAmenitiesCrossManager(dbInstance);
+        }
+        return INSTANCE;
+    }
+
 
     /**
      * Create and insert relationship between <N> and <U> into <T> database.
@@ -89,7 +121,7 @@ public class HotelAmenitiesCrossManager implements CrossManager<HotelAmenitiesCr
      */
     @Override
     public void close() {
-
+        INSTANCE = null;
     }
 
     /**
