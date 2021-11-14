@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "235b9b7d044fd4776a1fa4e01ccc8ba8",
+    "identityHash": "25389bbdbbfe76f10504c3caee29a471",
     "entities": [
       {
         "tableName": "Hotel",
@@ -224,7 +224,17 @@
           ],
           "autoGenerate": false
         },
-        "indices": [],
+        "indices": [
+          {
+            "name": "index_RoomBedsCrossRef_uniqueId",
+            "unique": false,
+            "columnNames": [
+              "uniqueId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_RoomBedsCrossRef_uniqueId` ON `${TABLE_NAME}` (`uniqueId`)"
+          }
+        ],
         "foreignKeys": []
       },
       {
@@ -251,7 +261,17 @@
           ],
           "autoGenerate": false
         },
-        "indices": [],
+        "indices": [
+          {
+            "name": "index_HotelAmenitiesCrossRef_uniqueId",
+            "unique": false,
+            "columnNames": [
+              "uniqueId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_HotelAmenitiesCrossRef_uniqueId` ON `${TABLE_NAME}` (`uniqueId`)"
+          }
+        ],
         "foreignKeys": []
       },
       {
@@ -278,14 +298,24 @@
           ],
           "autoGenerate": false
         },
-        "indices": [],
+        "indices": [
+          {
+            "name": "index_RoomAmenitiesCrossRef_uniqueId",
+            "unique": false,
+            "columnNames": [
+              "uniqueId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_RoomAmenitiesCrossRef_uniqueId` ON `${TABLE_NAME}` (`uniqueId`)"
+          }
+        ],
         "foreignKeys": []
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '235b9b7d044fd4776a1fa4e01ccc8ba8')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '25389bbdbbfe76f10504c3caee29a471')"
     ]
   }
 }

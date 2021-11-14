@@ -3,7 +3,7 @@ package com.xepicgamerzx.hotelier.objects;
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 
-@Entity(primaryKeys = {"hotelID", "uniqueId"})
+@Entity(primaryKeys = {"hotelID", "uniqueId"}, inheritSuperIndices = true)
 public class HotelAmenitiesCrossRef extends CrossRef{
         public long hotelID;
 
