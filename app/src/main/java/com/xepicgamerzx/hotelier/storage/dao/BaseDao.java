@@ -11,6 +11,7 @@ import androidx.room.Update;
  * @param <Q> insert return type (Accepts either Void or List<Long>.
  * @param <T> Entity being handled by the DAO.
  */
+@SuppressWarnings("unchecked")
 public interface BaseDao <Q, T>{
     /**
      * Insert entity into their corresponding table in the database. Replace on conflict.
