@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
     android:background="@color/white"
-    tools:context=".customer.HotelView">
+    tools:context=".customer.HotelViewActivity">
 
     <RelativeLayout
         android:id="@+id/layoutHeader"
@@ -30,36 +30,38 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="City"
-            android:fontFamily="@font/inter_regular"
-            android:textColor="@color/black"
+            android:layout_marginLeft="5dp"
             android:layout_toEndOf="@+id/backBtn"
+            android:fontFamily="@font/inter_regular"
             android:gravity="center_vertical"
-            android:layout_marginLeft="5dp"/>
+            android:id="@+id/userCityText"
+            android:text=""
+            android:textColor="@color/black" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/userSchedule"
-            android:text="Nov 10 - Nov 11"
+            android:text=""
             android:fontFamily="@font/inter_regular"
             android:textColor="@color/black"
             android:layout_below="@id/backBtn"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"/>
+
         <TextView
+            android:id="@+id/userGuests"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/userGuests"
             android:layout_below="@id/backBtn"
+            android:layout_alignParentEnd="true"
             android:layout_marginTop="5dp"
             android:layout_marginRight="5dp"
             android:layout_toEndOf="@+id/userSchedule"
-            android:layout_alignParentEnd="true"
-            android:gravity="right"
-            android:text="3 Guests"
             android:fontFamily="@font/inter_regular"
-            android:textColor="@color/black"/>
+            android:gravity="right"
+            android:text=""
+            android:textColor="@color/black" />
 
     </RelativeLayout>
 
@@ -67,12 +69,12 @@
         android:id="@+id/hotelsRecyclerView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_gravity="center"
-        android:layout_centerInParent="true"
         android:layout_below="@+id/layoutHeader"
-        android:padding="5dp"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
         android:foregroundGravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="5dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
 

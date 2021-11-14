@@ -6,11 +6,9 @@ import java.util.List;
  * Interface for classes involved in managing entities and their persistence in the database.
  *
  * @param <T> Entity Type.
- * @param <I> Entity ID type.
  * @param <R> Insert return type.
  */
-public interface Manager<T, I, R> {
-
+public interface Manager<T, R> {
     /**
      * Gets all instances of <T> in the database.
      *
@@ -37,12 +35,4 @@ public interface Manager<T, I, R> {
      * @return <R>[] auto-generated IDs of inserted objects.
      */
     R insert(T... object);
-
-    /**
-     * Gets objects with matching primary key IDs.
-     *
-     * @param ID <I> ID(s) acting as primary key to be searched for.
-     * @return List<T> of objects with primary keys that match ID(s).
-     */
-    List<T> get(I... ID);
 }

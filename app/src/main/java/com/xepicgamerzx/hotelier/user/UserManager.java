@@ -13,8 +13,12 @@ public class UserManager {
     }
 
     public User getUser(Context context) {
-        Object user = fw.readData("file.dat", context);
-        return (User) user;
+        // error when no file.dat, how to fix?
+        if (fw.readData("file.dat", context) != null) {
+            Object user = fw.readData("file.dat", context);
+            return (User) user;
+        }
+        return null;
     }
 
     public void signOut(Context context) {

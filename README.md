@@ -1,3 +1,5 @@
+[![GitHub Android Build and Test Workflow](https://github.com/CSC207-UofT/course-project-xep-cgamerzx/actions/workflows/android.yml/badge.svg?branch=android_room_library)](https://github.com/CSC207-UofT/course-project-xep-cgamerzx/actions/workflows/android.yml)
+
 Xep!cgamerzX
 
 - Android 31 (Android 12 or later!)

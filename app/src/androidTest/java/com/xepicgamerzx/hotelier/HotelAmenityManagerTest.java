@@ -87,8 +87,8 @@ public class HotelAmenityManagerTest {
         HotelAmenity amenity1 = hotelAmenityManager.get("Laundry").get(0);
         HotelAmenity amenity2 = hotelAmenityManager.get(HotelAmenitiesEnum.GYM.toString()).get(0);
 
-        assertEquals(amenity1.getHotelAmenityID(), HotelAmenitiesEnum.LAUNDRY.label);
-        assertEquals(amenity2.getHotelAmenityID(), HotelAmenitiesEnum.GYM.label);
+        assertEquals(amenity1.getUniqueId(), HotelAmenitiesEnum.LAUNDRY.getLabel());
+        assertEquals(amenity2.getUniqueId(), HotelAmenitiesEnum.GYM.getLabel());
     }
 
 

@@ -2,9 +2,12 @@ package com.xepicgamerzx.hotelier.management;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
@@ -13,9 +16,7 @@ import com.xepicgamerzx.hotelier.objects.Address;
 import com.xepicgamerzx.hotelier.objects.HotelRoom;
 import com.xepicgamerzx.hotelier.storage.BedManager;
 import com.xepicgamerzx.hotelier.storage.HotelManager;
-import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
 import com.xepicgamerzx.hotelier.storage.RoomManager;
-import com.xepicgamerzx.hotelier.storage.dao.ClearTablesDao;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,8 +32,17 @@ public class HotelCreatorActivity extends AppCompatActivity {
     MaterialButton addAddressBtn;
     MaterialButton addRoomsBtn;
     MaterialButton submitBtn;
+    MaterialButton hotelDetails;
     ImageButton backBtn;
 
+    private AlertDialog.Builder dialogBuilder;
+    private AlertDialog dialog;
+
+    boolean isRoomsMade = false;
+    boolean isAddressMade = false;
+    boolean isHotelNameMade = false;
+
+    String text = "Hotel Details:";
     // Amentities
 
     @Override
@@ -49,20 +59,28 @@ public class HotelCreatorActivity extends AppCompatActivity {
         addRoomsBtn = findViewById(R.id.addRoomsBtn);
         submitBtn = findViewById(R.id.saveHotelBtn);
         backBtn = findViewById(R.id.backBtn);
+        hotelDetails = findViewById(R.id.hotelDetails);
+
+        hotelDetails.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createHotelInfoDialog();
+            }
+        });
 
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Add input verification
-
                 // add star input later
                 int starClass = 5;
-
-                // First, create the hotel with rooms
-                if (address != null ){
-                    hotelManager.createHotel(hotelName.toString(), address, starClass, hotelRooms);
+                String name = hotelName.getText().toString();
+                // Do amentities later.
+                if (validateHotel()) {
+                    hotelManager.createHotel(name, address, starClass, hotelRooms);
+                    onBackPressed();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Missing inputs, try again", Toast.LENGTH_SHORT).show();
                 }
-
 
             }
         });
@@ -96,15 +114,35 @@ public class HotelCreatorActivity extends AppCompatActivity {
     }
 
     public void initializeDb() {
-        // HotelierDatabase db = Room.databaseBuilder(getApplicationContext(), Database, HotelierDatabase.class).build();
-        HotelierDatabase hotelierDatabase = HotelierDatabase.getDatabase(getApplicationContext());
-        ClearTablesDao clear = hotelierDatabase.clear_tables();
-        clear.nukeTable();
-
+        //pretty sure something is causing an error
         hotelManager = HotelManager.getManager(getApplication());
         roomManager = RoomManager.getManager(getApplication());
+        bedManager = bedManager.getManager(getApplication());
     }
 
+    public boolean validateHotel() {
+        if (!hotelName.getText().toString().equals("")) {
+            isHotelNameMade = true;
+        }
+
+        if(isAddressMade && isHotelNameMade && isRoomsMade) {
+            return true;
+        }
+        return false;
+    }
+
+    public void createHotelInfoDialog() {
+        dialogBuilder = new AlertDialog.Builder(this);
+        final View hotelInfo = getLayoutInflater().inflate(R.layout.hotel_details_dialog, null);
+
+        TextView hotelDetails = hotelInfo.findViewById(R.id.hotelDetailsTxt);
+        hotelDetails.append(text);
+
+
+        dialogBuilder.setView(hotelInfo);
+        dialog = dialogBuilder.create();
+        dialog.show();
+    }
 
 }
 

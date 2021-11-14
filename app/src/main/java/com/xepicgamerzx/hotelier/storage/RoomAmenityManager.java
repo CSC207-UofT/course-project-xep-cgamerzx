@@ -2,9 +2,7 @@ package com.xepicgamerzx.hotelier.storage;
 
 import android.app.Application;
 
-import com.xepicgamerzx.hotelier.objects.Bed;
 import com.xepicgamerzx.hotelier.objects.HotelRoom;
-import com.xepicgamerzx.hotelier.objects.RoomAmenitiesCrossRef;
 import com.xepicgamerzx.hotelier.objects.RoomAmenitiesEnum;
 import com.xepicgamerzx.hotelier.objects.RoomAmenity;
 import com.xepicgamerzx.hotelier.storage.dao.RoomAmenitiesCrossDao;
@@ -15,7 +13,7 @@ import java.util.List;
 /**
  * A class to manage all the RoomAmenities in the database.
  */
-public class RoomAmenityManager implements Manager<RoomAmenity, String, Void> {
+public class RoomAmenityManager implements UniqueManager<RoomAmenity, RoomAmenitiesEnum> {
     private static volatile RoomAmenityManager INSTANCE;
 
     private final HotelierDatabase db;
@@ -65,7 +63,7 @@ public class RoomAmenityManager implements Manager<RoomAmenity, String, Void> {
      */
     @Override
     public void update(RoomAmenity... object) {
-        roomAmenityDao.updateRoomAmenities(object);
+        roomAmenityDao.update(object);
     }
 
     /**
@@ -84,7 +82,7 @@ public class RoomAmenityManager implements Manager<RoomAmenity, String, Void> {
      */
     @Override
     public Void insert(RoomAmenity... object) {
-        roomAmenityDao.insertRoomAmenities(object);
+        roomAmenityDao.insert(object);
         return null;
     }
 
@@ -105,6 +103,7 @@ public class RoomAmenityManager implements Manager<RoomAmenity, String, Void> {
      * @param amenity String name of the amenity to be created.
      * @return RoomAmenity created.
      */
+    @Override
     public RoomAmenity create(String amenity) {
         RoomAmenity roomAmenity = new RoomAmenity(amenity);
         insert(roomAmenity);
@@ -117,6 +116,7 @@ public class RoomAmenityManager implements Manager<RoomAmenity, String, Void> {
      * @param amenity RoomAmenity to be created
      * @return RoomAmenity created.
      */
+    @Override
     public RoomAmenity create(RoomAmenitiesEnum amenity) {
         RoomAmenity roomAmenity = new RoomAmenity(amenity.toString());
         insert(roomAmenity);
@@ -129,8 +129,9 @@ public class RoomAmenityManager implements Manager<RoomAmenity, String, Void> {
      * @param hotelRoom HotelRoom associated with amenities.
      * @return List<HotelAmenitiesRoomCrossRef> associated with the room.
      */
+    @Deprecated // Move to room amenity cross manager
     public List<RoomAmenity> getAmenitiesInRoom(HotelRoom hotelRoom){
-        List<String> ids = roomAmenitiesCrossDao.getAmenitiesInRoom(hotelRoom.roomID);
+        List<String> ids = roomAmenitiesCrossDao.getWith(hotelRoom.roomID);
         return get(ids.toArray(new String[0]));
     }
 }

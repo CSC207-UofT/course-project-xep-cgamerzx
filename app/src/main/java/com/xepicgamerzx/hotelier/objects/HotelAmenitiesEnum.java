@@ -5,7 +5,7 @@ import androidx.annotation.NonNull;
 /**
  * Enum with all the types of hotel amenities. Each also stores a String label describing the use case.
  */
-public enum HotelAmenitiesEnum {
+public enum HotelAmenitiesEnum implements LabeledEnum{
     INDOOR_POOL("Indoor Pool"),
     OUTDOOR_POOL("Outdoor Pool"),
     GYM("Gym"),
@@ -25,7 +25,7 @@ public enum HotelAmenitiesEnum {
     FRONT_DESK_SAFE("Front Desk Safe");
 
 
-    public final String label;
+    private final String label;
 
     /**
      * Set each enum constant to have a String label value.
@@ -39,6 +39,16 @@ public enum HotelAmenitiesEnum {
     @NonNull
     @Override
     public String toString() {
+        return this.label;
+    }
+
+    /**
+     * Gets label of enum.
+     *
+     * @return String label of enum.
+     */
+    @Override
+    public String getLabel() {
         return this.label;
     }
 }

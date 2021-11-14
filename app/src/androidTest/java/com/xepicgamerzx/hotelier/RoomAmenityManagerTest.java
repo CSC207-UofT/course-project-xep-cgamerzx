@@ -9,11 +9,10 @@ import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import com.xepicgamerzx.hotelier.objects.Address;
-import com.xepicgamerzx.hotelier.objects.HotelAmenity;
-import com.xepicgamerzx.hotelier.objects.RoomAmenity;
 import com.xepicgamerzx.hotelier.objects.Hotel;
 import com.xepicgamerzx.hotelier.objects.HotelRoom;
 import com.xepicgamerzx.hotelier.objects.RoomAmenitiesEnum;
+import com.xepicgamerzx.hotelier.objects.RoomAmenity;
 import com.xepicgamerzx.hotelier.storage.HotelManager;
 import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
 import com.xepicgamerzx.hotelier.storage.RoomAmenityManager;
@@ -89,8 +88,8 @@ public class RoomAmenityManagerTest {
         RoomAmenity amenity1 = roomAmenityManager.get("Patio").get(0);
         RoomAmenity amenity2 = roomAmenityManager.get(RoomAmenitiesEnum.WIFI.toString()).get(0);
 
-        assertEquals(amenity1.getRoomAmenityID(), RoomAmenitiesEnum.PATIO.label);
-        assertEquals(amenity2.getRoomAmenityID(), RoomAmenitiesEnum.WIFI.label);
+        assertEquals(amenity1.getUniqueId(), RoomAmenitiesEnum.PATIO.getLabel());
+        assertEquals(amenity2.getUniqueId(), RoomAmenitiesEnum.WIFI.getLabel());
     }
 
     @Test

@@ -5,42 +5,37 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 
-import com.xepicgamerzx.hotelier.objects.Bed;
 import com.xepicgamerzx.hotelier.objects.Hotel;
 import com.xepicgamerzx.hotelier.objects.HotelRoom;
-import com.xepicgamerzx.hotelier.objects.RoomAmenitiesEnum;
 import com.xepicgamerzx.hotelier.objects.RoomAmenitiesCrossRef;
 import com.xepicgamerzx.hotelier.objects.RoomAmenity;
-import com.xepicgamerzx.hotelier.storage.dao.BedRoomCrossDao;
 import com.xepicgamerzx.hotelier.storage.dao.RoomAmenitiesCrossDao;
 import com.xepicgamerzx.hotelier.storage.dao.RoomDao;
 
 import java.math.BigDecimal;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
-public class RoomManager implements Manager<HotelRoom, Long, Long[]> {
+public class RoomManager implements DiscreteManager<HotelRoom, Long, Long[]> {
     private static volatile RoomManager INSTANCE;
 
     private final HotelierDatabase db;
     private final RoomDao roomDao;
     private final RoomAmenitiesCrossDao roomAmenitiesCrossDao;
-    private final BedRoomCrossDao bedRoomCrossDao;
 
     private RoomManager(Application application) {
         db = HotelierDatabase.getDatabase(application);
         roomDao = db.roomDao();
         roomAmenitiesCrossDao = db.roomAmenitiesCrossDao();
-        bedRoomCrossDao = db.bedRoomCrossDao();
     }
 
     private RoomManager(HotelierDatabase dbInstance) {
         db = dbInstance;
         roomDao = db.roomDao();
         roomAmenitiesCrossDao = db.roomAmenitiesCrossDao();
-        bedRoomCrossDao = db.bedRoomCrossDao();
     }
 
     public static RoomManager getManager(Application application) {
@@ -90,7 +85,7 @@ public class RoomManager implements Manager<HotelRoom, Long, Long[]> {
      */
     @Override
     public Long[] insert(HotelRoom... hotelRoom) {
-        return roomDao.insertRooms(hotelRoom).toArray(new Long[0]);
+        return roomDao.insert(hotelRoom).toArray(new Long[0]);
     }
 
     /**
@@ -100,7 +95,7 @@ public class RoomManager implements Manager<HotelRoom, Long, Long[]> {
      */
     @Override
     public void update(HotelRoom... room) {
-        roomDao.updateRooms(room);
+        roomDao.update(room);
     }
 
     /**
@@ -124,31 +119,24 @@ public class RoomManager implements Manager<HotelRoom, Long, Long[]> {
         return roomDao.getAllRooms();
     }
 
+    public List<HotelRoom> getRoomsInHotelByDate(Hotel hotel, long userStartAvail, long userEndAvail) {
+        List<HotelRoom> hotelRooms = roomDao.getRoomsInHotel(hotel.hotelID);
+        List<HotelRoom> filteredRooms = new ArrayList<>();
+
+        for (HotelRoom hotelRoom : hotelRooms) {
+            long roomStartAvail = hotelRoom.getStartAvailability();
+            long roomEndAvail = hotelRoom.getEndAvailability();
+
+            if (userStartAvail >= roomStartAvail && userEndAvail <= roomEndAvail) {
+                filteredRooms.add(hotelRoom);
+            }
+        }
+
+        return filteredRooms;
+    }
+
     public List<HotelRoom> getHotelRoomsInHotel(long hotelID) {
         return roomDao.getRoomsInHotel(hotelID);
-    }
-
-    /**
-     * Gets room associated with the bed type.
-     *
-     * @param bed Bed type room is to be associated with.
-     * @return List<HotelRoom> of HotelRoos associated with Beds.
-     */
-    public List<HotelRoom> getRoomsWithBed(Bed bed){
-        List<Long> ids = bedRoomCrossDao.getRoomsWithBed(bed.getBedID());
-        return get(ids.toArray(new Long[0]));
-    }
-
-    /**
-     * Gets room associated with the bed type with a quantity of at least count.
-     *
-     * @param bed Bed type room is to be associated with.
-     * @param count Minimum number of beds of type Bed.
-     * @return List<HotelRoom> of HotelRoos associated with at least count Beds.
-     */
-    public List<HotelRoom> getRoomsWithBed(Bed bed, int count){
-        List<Long> ids = bedRoomCrossDao.getRoomsWithBed(bed.getBedID(), count);
-        return get(ids.toArray(new Long[0]));
     }
 
     public int getNumberOfRooms(long hotelID) {
@@ -199,27 +187,10 @@ public class RoomManager implements Manager<HotelRoom, Long, Long[]> {
         return getPriceRange(hotelRooms);
     }
 
-    @NonNull
-    public RoomAmenity createRoomAmenity(String amenity_name) {
-        RoomAmenity roomAmenity = new RoomAmenity(amenity_name);
-        insertRoomAmenity(roomAmenity);
-        return roomAmenity;
-    }
-
-    @NonNull
-    public RoomAmenity createHotelAmenity(RoomAmenitiesEnum amenity) {
-        RoomAmenity roomAmenity = new RoomAmenity(amenity);
-        insertRoomAmenity(roomAmenity);
-        return roomAmenity;
-    }
-
-    private void insertRoomAmenity(RoomAmenity roomAmenity) {
-        roomAmenitiesCrossDao.insertRoomAmenities(roomAmenity);
-    }
-
+    @Deprecated // move to room amenities cross manager
     public void addAmenityToRoom(HotelRoom hotelRoom, RoomAmenity roomAmenity) {
         RoomAmenitiesCrossRef roomAmenitiesCrossRef = new RoomAmenitiesCrossRef(hotelRoom, roomAmenity);
-        roomAmenitiesCrossDao.insertRoomAmenitiesCrossRef(roomAmenitiesCrossRef);
+        roomAmenitiesCrossDao.insert(roomAmenitiesCrossRef);
     }
 
     /**

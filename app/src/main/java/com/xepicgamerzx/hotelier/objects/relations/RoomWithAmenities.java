@@ -15,7 +15,7 @@ public class RoomWithAmenities {
     public HotelRoom hotelRoom;
     @Relation(
             parentColumn = "roomID",
-            entityColumn = "roomAmenityID",
+            entityColumn = "uniqueId",
             associateBy = @Junction(RoomAmenitiesCrossRef.class)
     )
     public List<RoomAmenity> roomAmenityList;

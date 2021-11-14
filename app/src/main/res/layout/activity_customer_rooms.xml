@@ -6,16 +6,83 @@
     android:layout_height="match_parent"
     tools:context=".customer.CustomerHotelRoomsActivity">
 
+    <FrameLayout
+        android:id="@+id/frameMapsLay"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_centerHorizontal="true" />
+
     <TextView
         android:id="@+id/hotelNameDesc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/frameMapsLay"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+        android:fontFamily="@font/inter_bold"
+        android:text="Hotel Name"
+        android:textColor="@color/black"
+        android:textSize="32sp" />
+
+    <TextView
+        android:id="@+id/addressTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:textSize="18sp"
+        android:text="Address"
+        android:layout_below="@id/hotelNameDesc"
+        android:fontFamily="@font/inter_regular"
+        android:textColor="@color/black"
+        android:layout_marginStart="46dp"
+        />
+
+    <TextView
+        android:id="@+id/ratingTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:textSize="18sp"
-        android:layout_centerHorizontal="true"
-        android:fontFamily="@font/inter_bold"
+        android:text="Rating"
+        android:layout_below="@id/addressTxt"
+        android:fontFamily="@font/inter_regular"
         android:textColor="@color/black"
+        android:layout_marginStart="46dp"
         />
+
+    <TextView
+        android:id="@+id/customerRoomDetails"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textSize="18sp"
+        android:text=""
+        android:layout_below="@id/availableRoomsTxt"
+        android:fontFamily="@font/inter_regular"
+        android:textColor="@color/black"
+        android:layout_marginStart="46dp"
+        />
+
+    <TextView
+        android:id="@+id/availableRoomsTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ratingTxt"
+        android:layout_marginStart="46dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/inter_regular"
+        android:text="Available Rooms:"
+        android:textColor="@color/black"
+        android:textSize="24sp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/availableRoomsTxt"
+        android:layout_marginStart="46dp">
+    </androidx.recyclerview.widget.RecyclerView>
 
 
 </RelativeLayout>

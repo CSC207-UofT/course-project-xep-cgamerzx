@@ -12,12 +12,14 @@
         android:id="@+id/closeBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_baseline_close_24"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
         android:background="?android:selectableItemBackground"
+        android:src="@drawable/ic_baseline_close_24"
         app:tint="@color/black"
-        tools:ignore="SpeakableTextPresentCheck"
-        android:layout_margin="10dp"
-        />
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <TextView
         android:id="@+id/textRoomsCreate"
@@ -100,6 +102,7 @@
         app:boxCornerRadiusBottomStart="8dp"
         app:boxCornerRadiusTopEnd="8dp"
         app:boxCornerRadiusTopStart="8dp"
+        app:startIconDrawable="@drawable/ic_baseline_attach_money_24"
         app:hintEnabled="false"
         app:startIconTint="@color/white">
 

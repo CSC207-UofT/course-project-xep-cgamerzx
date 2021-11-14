@@ -17,7 +17,7 @@ public class UnixEpochDateConverter {
      * @param date A date in epoch format.
      * @return A String in LocalDate format.
      */
-    public String epochToLocal(Long date) {
+    public String epochToLocal(long date) {
         LocalDate sd = Instant.ofEpochMilli(date)
                 .atZone(ZoneId.systemDefault()).toLocalDate();
 
@@ -31,7 +31,7 @@ public class UnixEpochDateConverter {
      * @param date2 Epoch date
      * @return String
      */
-    public String epochToLocal(Long date1, Long date2) {
+    public String epochToLocal(long date1, long date2) {
         LocalDate sd = Instant.ofEpochMilli(date1)
                 .atZone(ZoneId.systemDefault()).toLocalDate();
         LocalDate ed = Instant.ofEpochMilli(date2)
@@ -40,12 +40,14 @@ public class UnixEpochDateConverter {
         return String.format("%s - %s", sd, ed);
     }
 
-    public String epochToReadable(Long date1, Long date2) {
+    public String epochToReadable(long date1, long date2) {
+        System.out.println(date1);
         String localDate1 = epochToLocal(date1);
         String localDate2 = epochToLocal(date2);
 
         LocalDate d1 = LocalDate.parse(localDate1);
         LocalDate d2 = LocalDate.parse(localDate2);
+
         return String.format("%s, %s/%s - %s, %s/%s", d1.getDayOfWeek().getDisplayName(TextStyle.SHORT, Locale.getDefault()), d1.getMonthValue(), d1.getDayOfMonth(),
                 d2.getDayOfWeek().getDisplayName(TextStyle.SHORT, Locale.getDefault()), d2.getMonthValue(), d2.getDayOfMonth());
     }
