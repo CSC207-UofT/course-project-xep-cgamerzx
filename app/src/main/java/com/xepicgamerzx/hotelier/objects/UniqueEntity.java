@@ -23,7 +23,7 @@ public abstract class UniqueEntity {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof UniqueEntity)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
 
         UniqueEntity that = (UniqueEntity) o;
 
