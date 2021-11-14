@@ -11,6 +11,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.maps.model.LatLng;
@@ -27,19 +28,21 @@ import com.xepicgamerzx.hotelier.objects.UnixEpochDateConverter;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 public class SearchActivity extends AppCompatActivity implements OnSearchClick {
 
-    int numberOfGuests;
+    int numberOfGuests = 1;
     DestinationItem destinationItem;
+    Long startDate;
+    Long endDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         getSupportActionBar().hide();
-
 
         AutoCompleteTextView editText = findViewById(R.id.selectDestination);
         AutoDestinationAdapter adapter = new AutoDestinationAdapter(getApplicationContext(), this);
@@ -90,8 +93,8 @@ public class SearchActivity extends AppCompatActivity implements OnSearchClick {
         materialDatePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener<Pair<Long, Long>>() {
             @Override
             public void onPositiveButtonClick(Pair<Long, Long> selection) {
-                Long startDate = selection.first;
-                Long endDate = selection.second;
+                startDate = selection.first;
+                endDate = selection.second;
 
                 UnixEpochDateConverter epoch = new UnixEpochDateConverter();
                 String dates = epoch.epochToReadable(startDate, endDate);
@@ -102,7 +105,32 @@ public class SearchActivity extends AppCompatActivity implements OnSearchClick {
         searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), HotelViewActivity.class));
+                Thread thread = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        HashMap<String, Object> searchData= new HashMap<>();
+                        searchData.put("guests", numGuests.getText().toString());
+
+                        PlacesAPI placesAPI = new PlacesAPI();
+                        if (destinationItem != null && startDate != null && endDate != null) {
+                            HashMap<String, Double> coords = placesAPI.getLocation(destinationItem.getPlaceId());
+                            searchData.put("city", destinationItem.getCityStateCountry());
+                            searchData.put("long", coords.get("longitude"));
+                            searchData.put("lat", coords.get("latitude"));
+                            searchData.put("startDate", startDate);
+                            searchData.put("endDate", endDate);
+                        } else if (destinationItem != null && (startDate == null && endDate == null)) {
+                            // User enters destination, but no schedule
+                            HashMap<String, Double> coords = placesAPI.getLocation(destinationItem.getPlaceId());
+                            searchData.put("city", destinationItem.getCityStateCountry());
+                            searchData.put("long", coords.get("longitude"));
+                            searchData.put("lat", coords.get("latitude"));
+                        }
+                        startActivity(new Intent(getApplicationContext(), HotelViewActivity.class).putExtra("SearchData", searchData));
+                    }
+                });
+                thread.start();
+
             }
         });
     }
@@ -117,6 +145,7 @@ public class SearchActivity extends AppCompatActivity implements OnSearchClick {
         }
     }
 
+    // Interface method
     @Override
     public void onSearch(DestinationItem destinationItem) {
         // value to receive from AutoDestinationAdapter

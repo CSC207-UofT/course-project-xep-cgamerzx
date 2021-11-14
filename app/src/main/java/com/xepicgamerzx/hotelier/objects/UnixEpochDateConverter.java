@@ -41,6 +41,7 @@ public class UnixEpochDateConverter {
     }
 
     public String epochToReadable(long date1, long date2) {
+        System.out.println(date1);
         String localDate1 = epochToLocal(date1);
         String localDate2 = epochToLocal(date2);
 

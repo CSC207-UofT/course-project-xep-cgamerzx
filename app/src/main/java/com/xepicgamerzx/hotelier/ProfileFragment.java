@@ -61,6 +61,7 @@ public class ProfileFragment extends Fragment {
         listHotel = v.findViewById(R.id.listHotelBtn);
 
         UserManager um = new UserManager();
+        // causes an error when no user, not fatal
         User user = um.getUser(getContext());
 
         // If a user is signed in ...

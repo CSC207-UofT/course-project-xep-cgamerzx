@@ -78,8 +78,8 @@ public class HotelCreateAddressFragment extends Fragment {
                             streetNum.getText().toString(),
                             city.getText().toString(),
                             province.getText().toString(),
-                            Double.parseDouble(longLat.getText().toString().split(",")[0]),
-                            Double.parseDouble(longLat.getText().toString().split(",")[1])
+                            Double.parseDouble(longLat.getText().toString().split(",")[1]),
+                            Double.parseDouble(longLat.getText().toString().split(",")[0])
                     );
                     System.out.println(activity.address);
 

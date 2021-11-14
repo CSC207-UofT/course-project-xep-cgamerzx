@@ -5,16 +5,20 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.xepicgamerzx.hotelier.R;
 import com.xepicgamerzx.hotelier.objects.Hotel;
+import com.xepicgamerzx.hotelier.objects.UnixEpochDateConverter;
 import com.xepicgamerzx.hotelier.storage.HotelManager;
 import com.xepicgamerzx.hotelier.storage.RoomManager;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class HotelViewActivity extends AppCompatActivity {
@@ -33,29 +37,52 @@ public class HotelViewActivity extends AppCompatActivity {
         roomManager = RoomManager.getManager(getApplication());
 
         RecyclerView hotelsRecyclerView = findViewById(R.id.hotelsRecyclerView);
-
-        List<Hotel> hotels = hotelManager.getAll();
-        List<HotelViewModel> hotelsView = new ArrayList<>();
-        // creating view model
-        for (Hotel hotel : hotels) {
-            hotelsView.add(new HotelViewModel(
-                    hotel.getName(),
-                    hotel.getAddress().getFullStreet(),
-                    roomManager.getPriceRange(hotel).get(0),
-                    roomManager.getNumberOfRooms(hotel),
-                    hotel
-            ));
-            System.out.println(hotel.getName());
-        }
         backBtn = findViewById(R.id.backBtn);
+        TextView userGuests = findViewById(R.id.userGuests);
+        TextView userCity = findViewById(R.id.userCityText);
+        TextView userSchedule = findViewById(R.id.userSchedule);
 
-        // Creating one dummy hotel
-//        List<BigDecimal> priceRange = new ArrayList<>();
-//        hotels.add(hotel);
+        Intent intent = getIntent();
 
-        final HotelViewAdapter hotelsAdapter = new HotelViewAdapter(hotelsView);
+        if(intent.getExtras() != null) {
+            HashMap<String, Object> map = (HashMap<String, Object>) intent.getSerializableExtra("SearchData");
+            String guests = (String) map.get("guests");
+            userGuests.setText(guests + " Guests");
 
-        hotelsRecyclerView.setAdapter(hotelsAdapter);
+            if(map.size() == 1) {
+                List<Hotel> hotels = hotelManager.getAll();
+                List<HotelViewModel> hotelsView = hotelManager.generateHotelModel(hotels);
+                final HotelViewAdapter hotelsAdapter = new HotelViewAdapter(hotelsView);
+                hotelsRecyclerView.setAdapter(hotelsAdapter);
+            } else {
+                String city = (String) map.get("city");
+                userCity.setText(city);
+
+                double latitude = (double) map.get("lat");
+                double longitude = (double) map.get("long");
+                long userStartDate = 0;
+                long userEndDate = 0;
+                if (map.containsKey("startDate") && map.containsKey("endDate")) {
+                    // Send to adapter
+                    userStartDate = (long) map.get("startDate");
+                    userEndDate = (long) map.get("endDate");
+                    UnixEpochDateConverter date = new UnixEpochDateConverter();
+                    userSchedule.setText(date.epochToReadable(userStartDate, userEndDate));
+                }
+
+                List<Hotel> filterHotels = hotelManager.getHotelsByLatLong(latitude, longitude);
+                List<HotelViewModel> filteredHotelsView = hotelManager.generateHotelModel(filterHotels);
+
+                // Giving recycler view only hotels in user destination, and if the user entered a schedule, sending the schedule to adapter.
+                if (userStartDate != 0 && userEndDate != 0) {
+                    final HotelViewAdapter hotelsAdapter = new HotelViewAdapter(filteredHotelsView, userStartDate, userEndDate);
+                    hotelsRecyclerView.setAdapter(hotelsAdapter);
+                } else {
+                    final HotelViewAdapter hotelsAdapter = new HotelViewAdapter(filteredHotelsView);
+                    hotelsRecyclerView.setAdapter(hotelsAdapter);
+                }
+            }
+        }
 
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,7 +91,5 @@ public class HotelViewActivity extends AppCompatActivity {
                 // pop backstack?
             }
         });
-
-
     }
 }

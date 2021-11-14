@@ -19,14 +19,23 @@ import com.xepicgamerzx.hotelier.MainActivity;
 import com.xepicgamerzx.hotelier.R;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class HotelViewAdapter extends RecyclerView.Adapter<HotelViewAdapter.HotelViewHolder> {
 
     public List<HotelViewModel> hotels;
+    long userStartDate;
+    long userEndDate;
 
     public HotelViewAdapter(List<HotelViewModel> hotels) {
         this.hotels = hotels;
+    }
+
+    public HotelViewAdapter(List<HotelViewModel> hotels, long userStartDate, long userEndDate) {
+        this.hotels = hotels;
+        this.userStartDate = userStartDate;
+        this.userEndDate = userEndDate;
     }
 
     @NonNull
@@ -78,8 +87,13 @@ public class HotelViewAdapter extends RecyclerView.Adapter<HotelViewAdapter.Hote
             hotelLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    System.out.println("hi");
-                    v.getContext().startActivity(new Intent(v.getContext(), CustomerHotelRoomsActivity.class).putExtra("Hotel", hotel));
+                    HashMap<String, Object> data = new HashMap<>();
+                    if(userStartDate != 0 && userEndDate != 0) {
+                        data.put("startDate", userStartDate);
+                        data.put("endDate", userEndDate);
+                    }
+                    data.put("Hotel", hotel);
+                    v.getContext().startActivity(new Intent(v.getContext(), CustomerHotelRoomsActivity.class).putExtra("HotelData", data));
                 }
             });
 

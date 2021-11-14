@@ -52,17 +52,29 @@
         />
 
     <TextView
-        android:id="@+id/availableRoomsTxt"
+        android:id="@+id/customerRoomDetails"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:textSize="24sp"
-        android:text="Available Rooms:"
-        android:layout_below="@id/ratingTxt"
+        android:layout_marginTop="10dp"
+        android:textSize="18sp"
+        android:text=""
+        android:layout_below="@id/availableRoomsTxt"
         android:fontFamily="@font/inter_regular"
         android:textColor="@color/black"
         android:layout_marginStart="46dp"
         />
+
+    <TextView
+        android:id="@+id/availableRoomsTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ratingTxt"
+        android:layout_marginStart="46dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/inter_regular"
+        android:text="Available Rooms:"
+        android:textColor="@color/black"
+        android:textSize="24sp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
