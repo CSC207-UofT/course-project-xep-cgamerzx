@@ -170,7 +170,7 @@ public class RoomManager implements DiscreteManager<HotelRoom, Long, Long[]> {
         return getPriceRange(hotelRooms);
     }
 
-
+    @Deprecated // move to room amenities cross manager
     public void addAmenityToRoom(HotelRoom hotelRoom, RoomAmenity roomAmenity) {
         RoomAmenitiesCrossRef roomAmenitiesCrossRef = new RoomAmenitiesCrossRef(hotelRoom, roomAmenity);
         roomAmenitiesCrossDao.insert(roomAmenitiesCrossRef);
