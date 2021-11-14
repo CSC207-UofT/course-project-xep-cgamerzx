@@ -9,7 +9,6 @@ import com.xepicgamerzx.hotelier.objects.Hotel;
 import com.xepicgamerzx.hotelier.objects.HotelRoom;
 import com.xepicgamerzx.hotelier.objects.RoomAmenitiesCrossRef;
 import com.xepicgamerzx.hotelier.objects.RoomAmenity;
-import com.xepicgamerzx.hotelier.storage.dao.BedRoomCrossDao;
 import com.xepicgamerzx.hotelier.storage.dao.RoomAmenitiesCrossDao;
 import com.xepicgamerzx.hotelier.storage.dao.RoomDao;
 
@@ -25,20 +24,17 @@ public class RoomManager implements DiscreteManager<HotelRoom, Long, Long[]> {
     private final HotelierDatabase db;
     private final RoomDao roomDao;
     private final RoomAmenitiesCrossDao roomAmenitiesCrossDao;
-    private final BedRoomCrossDao bedRoomCrossDao;
 
     private RoomManager(Application application) {
         db = HotelierDatabase.getDatabase(application);
         roomDao = db.roomDao();
         roomAmenitiesCrossDao = db.roomAmenitiesCrossDao();
-        bedRoomCrossDao = db.bedRoomCrossDao();
     }
 
     private RoomManager(HotelierDatabase dbInstance) {
         db = dbInstance;
         roomDao = db.roomDao();
         roomAmenitiesCrossDao = db.roomAmenitiesCrossDao();
-        bedRoomCrossDao = db.bedRoomCrossDao();
     }
 
     public static RoomManager getManager(Application application) {
