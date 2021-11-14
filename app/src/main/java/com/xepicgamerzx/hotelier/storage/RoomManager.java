@@ -12,7 +12,6 @@ import com.xepicgamerzx.hotelier.objects.RoomAmenitiesCrossRef;
 import com.xepicgamerzx.hotelier.objects.RoomAmenity;
 import com.xepicgamerzx.hotelier.storage.dao.BedRoomCrossDao;
 import com.xepicgamerzx.hotelier.storage.dao.RoomAmenitiesCrossDao;
-import com.xepicgamerzx.hotelier.storage.dao.RoomAmenityDao;
 import com.xepicgamerzx.hotelier.storage.dao.RoomDao;
 
 import java.math.BigDecimal;
@@ -26,14 +25,12 @@ public class RoomManager implements Manager<HotelRoom, Long, Long[]> {
 
     private final HotelierDatabase db;
     private final RoomDao roomDao;
-    private final RoomAmenityDao roomAmenityDao;
     private final RoomAmenitiesCrossDao roomAmenitiesCrossDao;
     private final BedRoomCrossDao bedRoomCrossDao;
 
     private RoomManager(Application application) {
         db = HotelierDatabase.getDatabase(application);
         roomDao = db.roomDao();
-        roomAmenityDao = db.roomAmenityDao();
         roomAmenitiesCrossDao = db.roomAmenitiesCrossDao();
         bedRoomCrossDao = db.bedRoomCrossDao();
     }
@@ -41,7 +38,6 @@ public class RoomManager implements Manager<HotelRoom, Long, Long[]> {
     private RoomManager(HotelierDatabase dbInstance) {
         db = dbInstance;
         roomDao = db.roomDao();
-        roomAmenityDao = db.roomAmenityDao();
         roomAmenitiesCrossDao = db.roomAmenitiesCrossDao();
         bedRoomCrossDao = db.bedRoomCrossDao();
     }
