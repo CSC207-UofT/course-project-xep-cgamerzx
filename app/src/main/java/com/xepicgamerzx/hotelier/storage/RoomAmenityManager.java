@@ -129,8 +129,9 @@ public class RoomAmenityManager implements UniqueManager<RoomAmenity, RoomAmenit
      * @param hotelRoom HotelRoom associated with amenities.
      * @return List<HotelAmenitiesRoomCrossRef> associated with the room.
      */
+    @Deprecated // Move to room amenity cross manager
     public List<RoomAmenity> getAmenitiesInRoom(HotelRoom hotelRoom){
-        List<String> ids = roomAmenitiesCrossDao.getAmenitiesInRoom(hotelRoom.roomID);
+        List<String> ids = roomAmenitiesCrossDao.getWith(hotelRoom.roomID);
         return get(ids.toArray(new String[0]));
     }
 }
