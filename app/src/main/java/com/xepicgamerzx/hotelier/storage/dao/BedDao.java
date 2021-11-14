@@ -14,7 +14,7 @@ public interface BedDao extends BaseDao<Void, Bed>{
     @Query("SELECT * FROM Bed")
     List<Bed> getAllBeds();
 
-    @Query("SELECT * FROM Bed WHERE id IN (:bedID)")
+    @Query("SELECT * FROM Bed WHERE uniqueId IN (:bedID)")
     List<Bed> getBeds(String... bedID);
 
     @Transaction

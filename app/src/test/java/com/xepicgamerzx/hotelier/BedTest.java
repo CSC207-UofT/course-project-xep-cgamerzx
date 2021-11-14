@@ -9,7 +9,7 @@ public class BedTest {
     @Test
     public void testGetBedId() {
         Bed bed = new Bed("Queen");
-        assertEquals(bed.getId(), "Queen");
+        assertEquals(bed.getUniqueId(), "Queen");
     }
 
 }

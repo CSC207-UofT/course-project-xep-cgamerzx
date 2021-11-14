@@ -134,7 +134,7 @@ public class RoomManager implements Manager<HotelRoom, Long, Long[]> {
      * @return List<HotelRoom> of HotelRoos associated with Beds.
      */
     public List<HotelRoom> getRoomsWithBed(Bed bed){
-        List<Long> ids = bedRoomCrossDao.getRoomsWithBed(bed.getId());
+        List<Long> ids = bedRoomCrossDao.getRoomsWithBed(bed.getUniqueId());
         return get(ids.toArray(new Long[0]));
     }
 
@@ -146,7 +146,7 @@ public class RoomManager implements Manager<HotelRoom, Long, Long[]> {
      * @return List<HotelRoom> of HotelRoos associated with at least count Beds.
      */
     public List<HotelRoom> getRoomsWithBed(Bed bed, int count){
-        List<Long> ids = bedRoomCrossDao.getRoomsWithBed(bed.getId(), count);
+        List<Long> ids = bedRoomCrossDao.getRoomsWithBed(bed.getUniqueId(), count);
         return get(ids.toArray(new Long[0]));
     }
 

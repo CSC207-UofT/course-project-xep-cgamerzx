@@ -14,7 +14,7 @@ public interface HotelAmenityDao extends BaseDao<Void, HotelAmenity>{
     @Query("SELECT * FROM HotelAmenity")
     List<HotelAmenity> getAllHotelAmenities();
 
-    @Query("SELECT * FROM HotelAmenity WHERE id IN (:hotelAmenityID)")
+    @Query("SELECT * FROM HotelAmenity WHERE uniqueId IN (:hotelAmenityID)")
     List<HotelAmenity> getHotelAmenities(String... hotelAmenityID);
 
     @Transaction

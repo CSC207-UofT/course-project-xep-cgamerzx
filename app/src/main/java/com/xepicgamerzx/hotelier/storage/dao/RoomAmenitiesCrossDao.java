@@ -9,9 +9,9 @@ import java.util.List;
 
 @Dao
 public interface RoomAmenitiesCrossDao extends BaseDao<Void, RoomAmenitiesCrossRef>{
-    @Query("SELECT roomID FROM RoomAmenitiesCrossRef WHERE id =:roomAmenityID")
+    @Query("SELECT roomID FROM RoomAmenitiesCrossRef WHERE uniqueId =:roomAmenityID")
     List<Long> getRoomsWithAmenity (String roomAmenityID);
 
-    @Query("SELECT id FROM RoomAmenitiesCrossRef WHERE roomID =:hotelRoomID")
+    @Query("SELECT uniqueId FROM RoomAmenitiesCrossRef WHERE roomID =:hotelRoomID")
     List<String> getAmenitiesInRoom (long hotelRoomID);
 }

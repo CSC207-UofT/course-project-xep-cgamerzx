@@ -11,15 +11,15 @@ import com.google.common.base.Objects;
 public abstract class UniqueEntity {
     @NonNull
     @PrimaryKey
-    private final String id;
+    private final String uniqueId;
 
-    protected UniqueEntity(@NonNull String id) {
-        this.id = id;
+    protected UniqueEntity(@NonNull String uniqueId) {
+        this.uniqueId = uniqueId;
     }
 
     @NonNull
-    public String getId(){
-        return id;
+    public String getUniqueId(){
+        return uniqueId;
     }
 
     @Override
@@ -27,11 +27,11 @@ public abstract class UniqueEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UniqueEntity that = (UniqueEntity) o;
-        return Objects.equal(getId(), that.getId());
+        return Objects.equal(getUniqueId(), that.getUniqueId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getId());
+        return Objects.hashCode(getUniqueId());
     }
 }

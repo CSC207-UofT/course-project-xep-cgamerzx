@@ -88,8 +88,8 @@ public class RoomAmenityManagerTest {
         RoomAmenity amenity1 = roomAmenityManager.get("Patio").get(0);
         RoomAmenity amenity2 = roomAmenityManager.get(RoomAmenitiesEnum.WIFI.toString()).get(0);
 
-        assertEquals(amenity1.getId(), RoomAmenitiesEnum.PATIO.label);
-        assertEquals(amenity2.getId(), RoomAmenitiesEnum.WIFI.label);
+        assertEquals(amenity1.getUniqueId(), RoomAmenitiesEnum.PATIO.label);
+        assertEquals(amenity2.getUniqueId(), RoomAmenitiesEnum.WIFI.label);
     }
 
     @Test

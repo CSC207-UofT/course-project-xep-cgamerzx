@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "ec7583330bf3c427b7784d95f9837781",
+    "identityHash": "7358bc2056ba8d232ad82f09f2b17a66",
     "entities": [
       {
         "tableName": "Hotel",
@@ -136,18 +136,18 @@
       },
       {
         "tableName": "Bed",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uniqueId` TEXT NOT NULL, PRIMARY KEY(`uniqueId`))",
         "fields": [
           {
-            "fieldPath": "id",
-            "columnName": "id",
+            "fieldPath": "uniqueId",
+            "columnName": "uniqueId",
             "affinity": "TEXT",
             "notNull": true
           }
         ],
         "primaryKey": {
           "columnNames": [
-            "id"
+            "uniqueId"
           ],
           "autoGenerate": false
         },
@@ -156,18 +156,18 @@
       },
       {
         "tableName": "HotelAmenity",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uniqueId` TEXT NOT NULL, PRIMARY KEY(`uniqueId`))",
         "fields": [
           {
-            "fieldPath": "id",
-            "columnName": "id",
+            "fieldPath": "uniqueId",
+            "columnName": "uniqueId",
             "affinity": "TEXT",
             "notNull": true
           }
         ],
         "primaryKey": {
           "columnNames": [
-            "id"
+            "uniqueId"
           ],
           "autoGenerate": false
         },
@@ -176,18 +176,18 @@
       },
       {
         "tableName": "RoomAmenity",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uniqueId` TEXT NOT NULL, PRIMARY KEY(`uniqueId`))",
         "fields": [
           {
-            "fieldPath": "id",
-            "columnName": "id",
+            "fieldPath": "uniqueId",
+            "columnName": "uniqueId",
             "affinity": "TEXT",
             "notNull": true
           }
         ],
         "primaryKey": {
           "columnNames": [
-            "id"
+            "uniqueId"
           ],
           "autoGenerate": false
         },
@@ -196,7 +196,7 @@
       },
       {
         "tableName": "BedsRoomCrossRef",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`roomID` INTEGER NOT NULL, `id` TEXT NOT NULL, `bedCount` INTEGER NOT NULL, PRIMARY KEY(`roomID`, `id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`roomID` INTEGER NOT NULL, `uniqueId` TEXT NOT NULL, `bedCount` INTEGER NOT NULL, PRIMARY KEY(`roomID`, `uniqueId`))",
         "fields": [
           {
             "fieldPath": "roomID",
@@ -205,8 +205,8 @@
             "notNull": true
           },
           {
-            "fieldPath": "id",
-            "columnName": "id",
+            "fieldPath": "uniqueId",
+            "columnName": "uniqueId",
             "affinity": "TEXT",
             "notNull": true
           },
@@ -220,26 +220,26 @@
         "primaryKey": {
           "columnNames": [
             "roomID",
-            "id"
+            "uniqueId"
           ],
           "autoGenerate": false
         },
         "indices": [
           {
-            "name": "index_BedsRoomCrossRef_id",
+            "name": "index_BedsRoomCrossRef_uniqueId",
             "unique": false,
             "columnNames": [
-              "id"
+              "uniqueId"
             ],
             "orders": [],
-            "createSql": "CREATE INDEX IF NOT EXISTS `index_BedsRoomCrossRef_id` ON `${TABLE_NAME}` (`id`)"
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_BedsRoomCrossRef_uniqueId` ON `${TABLE_NAME}` (`uniqueId`)"
           }
         ],
         "foreignKeys": []
       },
       {
         "tableName": "HotelAmenitiesCrossRef",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`hotelID` INTEGER NOT NULL, `id` TEXT NOT NULL, PRIMARY KEY(`hotelID`, `id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`hotelID` INTEGER NOT NULL, `uniqueId` TEXT NOT NULL, PRIMARY KEY(`hotelID`, `uniqueId`))",
         "fields": [
           {
             "fieldPath": "hotelID",
@@ -248,8 +248,8 @@
             "notNull": true
           },
           {
-            "fieldPath": "id",
-            "columnName": "id",
+            "fieldPath": "uniqueId",
+            "columnName": "uniqueId",
             "affinity": "TEXT",
             "notNull": true
           }
@@ -257,26 +257,26 @@
         "primaryKey": {
           "columnNames": [
             "hotelID",
-            "id"
+            "uniqueId"
           ],
           "autoGenerate": false
         },
         "indices": [
           {
-            "name": "index_HotelAmenitiesCrossRef_id",
+            "name": "index_HotelAmenitiesCrossRef_uniqueId",
             "unique": false,
             "columnNames": [
-              "id"
+              "uniqueId"
             ],
             "orders": [],
-            "createSql": "CREATE INDEX IF NOT EXISTS `index_HotelAmenitiesCrossRef_id` ON `${TABLE_NAME}` (`id`)"
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_HotelAmenitiesCrossRef_uniqueId` ON `${TABLE_NAME}` (`uniqueId`)"
           }
         ],
         "foreignKeys": []
       },
       {
         "tableName": "RoomAmenitiesCrossRef",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`roomID` INTEGER NOT NULL, `id` TEXT NOT NULL, PRIMARY KEY(`roomID`, `id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`roomID` INTEGER NOT NULL, `uniqueId` TEXT NOT NULL, PRIMARY KEY(`roomID`, `uniqueId`))",
         "fields": [
           {
             "fieldPath": "roomID",
@@ -285,8 +285,8 @@
             "notNull": true
           },
           {
-            "fieldPath": "id",
-            "columnName": "id",
+            "fieldPath": "uniqueId",
+            "columnName": "uniqueId",
             "affinity": "TEXT",
             "notNull": true
           }
@@ -294,19 +294,19 @@
         "primaryKey": {
           "columnNames": [
             "roomID",
-            "id"
+            "uniqueId"
           ],
           "autoGenerate": false
         },
         "indices": [
           {
-            "name": "index_RoomAmenitiesCrossRef_id",
+            "name": "index_RoomAmenitiesCrossRef_uniqueId",
             "unique": false,
             "columnNames": [
-              "id"
+              "uniqueId"
             ],
             "orders": [],
-            "createSql": "CREATE INDEX IF NOT EXISTS `index_RoomAmenitiesCrossRef_id` ON `${TABLE_NAME}` (`id`)"
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_RoomAmenitiesCrossRef_uniqueId` ON `${TABLE_NAME}` (`uniqueId`)"
           }
         ],
         "foreignKeys": []
@@ -315,7 +315,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'ec7583330bf3c427b7784d95f9837781')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '7358bc2056ba8d232ad82f09f2b17a66')"
     ]
   }
 }
