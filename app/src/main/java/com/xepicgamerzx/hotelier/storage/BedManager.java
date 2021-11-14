@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * A class to manage all the Beds in the database.
  */
-public class BedManager implements IUniqueManager<Bed> {
+public class BedManager implements UniqueManager<Bed, BedSizeEnum> {
     private static volatile BedManager INSTANCE;
 
     private final HotelierDatabase db;
@@ -48,12 +48,26 @@ public class BedManager implements IUniqueManager<Bed> {
         return INSTANCE;
     }
 
+    /**
+     * Creates, inserts, and returns Bed object.
+     *
+     * @param bedSize String name of the bed to be created.
+     * @return Bed created.
+     */
+    @Override
     public Bed create(String bedSize) {
         Bed bed = new Bed(bedSize);
         insert(bed);
         return bed;
     }
 
+    /**
+     * Creates, inserts, and returns Bed object.
+     *
+     * @param bedSizeEnum BedSize to be created.
+     * @return Bed created.
+     */
+    @Override
     public Bed create(BedSizeEnum bedSizeEnum) {
         Bed bed = new Bed(bedSizeEnum.toString());
         insert(bed);

@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * A class to manage all the RoomAmenities in the database.
  */
-public class RoomAmenityManager implements IUniqueManager<RoomAmenity> {
+public class RoomAmenityManager implements UniqueManager<RoomAmenity, RoomAmenitiesEnum> {
     private static volatile RoomAmenityManager INSTANCE;
 
     private final HotelierDatabase db;
@@ -103,6 +103,7 @@ public class RoomAmenityManager implements IUniqueManager<RoomAmenity> {
      * @param amenity String name of the amenity to be created.
      * @return RoomAmenity created.
      */
+    @Override
     public RoomAmenity create(String amenity) {
         RoomAmenity roomAmenity = new RoomAmenity(amenity);
         insert(roomAmenity);
@@ -115,6 +116,7 @@ public class RoomAmenityManager implements IUniqueManager<RoomAmenity> {
      * @param amenity RoomAmenity to be created
      * @return RoomAmenity created.
      */
+    @Override
     public RoomAmenity create(RoomAmenitiesEnum amenity) {
         RoomAmenity roomAmenity = new RoomAmenity(amenity.toString());
         insert(roomAmenity);

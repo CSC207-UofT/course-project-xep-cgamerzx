@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * A class to manage all the HotelAmenities in the database.
  */
-public class HotelAmenityManager implements IUniqueManager<HotelAmenity>{
+public class HotelAmenityManager implements UniqueManager<HotelAmenity, HotelAmenitiesEnum> {
     private static volatile HotelAmenityManager INSTANCE;
 
     private final HotelierDatabase db;
@@ -98,6 +98,7 @@ public class HotelAmenityManager implements IUniqueManager<HotelAmenity>{
      * @param amenity String name of the amenity to be created.
      * @return HotelAmenity created.
      */
+    @Override
     public HotelAmenity create(String amenity) {
         HotelAmenity hotelAmenity = new HotelAmenity(amenity);
         insert(hotelAmenity);
@@ -110,12 +111,10 @@ public class HotelAmenityManager implements IUniqueManager<HotelAmenity>{
      * @param amenity HotelAmenitiesEnum to be created
      * @return HotelAmenity created.
      */
+    @Override
     public HotelAmenity create(HotelAmenitiesEnum amenity) {
         HotelAmenity hotelAmenity = new HotelAmenity(amenity.toString());
         insert(hotelAmenity);
         return hotelAmenity;
     }
-
-
-    // TODO: make a getter for a hotel's amenities
 }
