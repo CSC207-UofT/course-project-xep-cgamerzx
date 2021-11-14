@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "b214329fc566a239710c6bfa09c791d2",
+    "identityHash": "235b9b7d044fd4776a1fa4e01ccc8ba8",
     "entities": [
       {
         "tableName": "Hotel",
@@ -195,7 +195,7 @@
         "foreignKeys": []
       },
       {
-        "tableName": "BedsRoomCrossRef",
+        "tableName": "RoomBedsCrossRef",
         "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`roomID` INTEGER NOT NULL, `bedCount` INTEGER NOT NULL, `uniqueId` TEXT NOT NULL, PRIMARY KEY(`roomID`, `uniqueId`))",
         "fields": [
           {
@@ -285,7 +285,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'b214329fc566a239710c6bfa09c791d2')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '235b9b7d044fd4776a1fa4e01ccc8ba8')"
     ]
   }
 }

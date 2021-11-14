@@ -8,7 +8,7 @@ import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
 import com.xepicgamerzx.hotelier.objects.Bed;
-import com.xepicgamerzx.hotelier.objects.BedsRoomCrossRef;
+import com.xepicgamerzx.hotelier.objects.RoomBedsCrossRef;
 import com.xepicgamerzx.hotelier.objects.Hotel;
 import com.xepicgamerzx.hotelier.objects.HotelAmenitiesCrossRef;
 import com.xepicgamerzx.hotelier.objects.HotelAmenity;
@@ -30,7 +30,7 @@ import java.util.concurrent.Executors;
 
 @TypeConverters({Converters.class})
 @Database(entities = {Hotel.class, HotelRoom.class, Bed.class, HotelAmenity.class,
-        RoomAmenity.class, BedsRoomCrossRef.class, HotelAmenitiesCrossRef.class,
+        RoomAmenity.class, RoomBedsCrossRef.class, HotelAmenitiesCrossRef.class,
         RoomAmenitiesCrossRef.class},
         version = 1)
 public abstract class HotelierDatabase extends RoomDatabase {

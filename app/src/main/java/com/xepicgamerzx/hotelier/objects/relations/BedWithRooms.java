@@ -5,7 +5,7 @@ import androidx.room.Junction;
 import androidx.room.Relation;
 
 import com.xepicgamerzx.hotelier.objects.Bed;
-import com.xepicgamerzx.hotelier.objects.BedsRoomCrossRef;
+import com.xepicgamerzx.hotelier.objects.RoomBedsCrossRef;
 import com.xepicgamerzx.hotelier.objects.HotelRoom;
 
 import java.util.List;
@@ -16,7 +16,7 @@ public class BedWithRooms {
     @Relation(
             parentColumn = "uniqueId",
             entityColumn = "roomID",
-            associateBy = @Junction(BedsRoomCrossRef.class)
+            associateBy = @Junction(RoomBedsCrossRef.class)
     )
     public List<HotelRoom> hotelRooms;
 }

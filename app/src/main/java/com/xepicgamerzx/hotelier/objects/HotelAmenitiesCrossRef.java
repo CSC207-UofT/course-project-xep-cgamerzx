@@ -13,8 +13,7 @@ public class HotelAmenitiesCrossRef extends CrossRef{
         }
 
         public HotelAmenitiesCrossRef(Hotel hotel, HotelAmenity hotelAmenity){
-                this.hotelID = hotel.hotelID;
-                this.uniqueId = hotelAmenity.getUniqueId();
+            this(hotel.hotelID, hotelAmenity.getUniqueId());
         }
 
     @Override

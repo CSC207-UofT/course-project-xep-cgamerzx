@@ -4,12 +4,9 @@ import android.app.Application;
 
 import com.xepicgamerzx.hotelier.objects.Bed;
 import com.xepicgamerzx.hotelier.objects.BedSizeEnum;
-import com.xepicgamerzx.hotelier.objects.BedsRoomCrossRef;
-import com.xepicgamerzx.hotelier.objects.HotelRoom;
 import com.xepicgamerzx.hotelier.storage.dao.BedDao;
 import com.xepicgamerzx.hotelier.storage.dao.BedRoomCrossDao;
 
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -87,18 +84,6 @@ public class BedManager implements UniqueManager<Bed, BedSizeEnum> {
     }
 
     /**
-     * Create and insert relationship between Bed and HotelRoom into BedRoomCrossRef database.
-     *
-     * @param bed Bed being assigned to a hotel room.
-     * @param hotelRoom HotelRoom being assigned beds.
-     * @param bedCount Int number of Bed type associated with the room.
-     */
-    public void addBedToRoom(Bed bed, HotelRoom hotelRoom, int bedCount) {
-        BedsRoomCrossRef bedsRoomCrossRef = new BedsRoomCrossRef(hotelRoom, bed, bedCount);
-        bedRoomCrossDao.insert(bedsRoomCrossRef);
-    }
-
-    /**
      * Updates Bed object(s) in the database.
      *
      * @param bed Bed object(s) to be updated in the database.
@@ -127,33 +112,7 @@ public class BedManager implements UniqueManager<Bed, BedSizeEnum> {
      */
     @Override
     public List<Bed> getAll() {
-        return bedDao.getAllBeds();
-    }
-
-    /**
-     * Gets all the beds in the given room.
-     *
-     * @param hotelRoom HotelRoom associated with beds.
-     * @return List<BedsRoomCrossRef> associated with the beds.
-     */
-    public List<Bed> getBedsInRoom(HotelRoom hotelRoom){
-        List<String> ids = bedRoomCrossDao.getBedsInRoom(hotelRoom.roomID);
-        return get(ids.toArray(new String[0]));
-    }
-
-    /**
-     * Gets all the beds in the given room as well as the number of each type of bed in the room.
-     *
-     * @param hotelRoom HotelRoom associated with beds.
-     * @return HashMap<Bed, Integer> of beds in the room and the associated count.
-     */
-    public HashMap<Bed, Integer> getBedsInRoomCount(HotelRoom hotelRoom){
-        List<BedsRoomCrossRef> ids = bedRoomCrossDao.getBedsCrossInRoom(hotelRoom.roomID);
-        HashMap<Bed, Integer> bedCount = new HashMap<>();
-        for (BedsRoomCrossRef crossRef : ids){
-            bedCount.put(get(crossRef.uniqueId).get(0), crossRef.getBedCount());
-        }
-        return bedCount;
+        return bedDao.getAll();
     }
 
     /**

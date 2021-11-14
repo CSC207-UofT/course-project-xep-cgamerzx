@@ -5,7 +5,6 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 
-import com.xepicgamerzx.hotelier.objects.Bed;
 import com.xepicgamerzx.hotelier.objects.Hotel;
 import com.xepicgamerzx.hotelier.objects.HotelRoom;
 import com.xepicgamerzx.hotelier.objects.RoomAmenitiesCrossRef;
@@ -20,7 +19,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
-public class RoomManager implements Manager<HotelRoom, Long, Long[]> {
+public class RoomManager implements DiscreteManager<HotelRoom, Long, Long[]> {
     private static volatile RoomManager INSTANCE;
 
     private final HotelierDatabase db;
@@ -125,29 +124,6 @@ public class RoomManager implements Manager<HotelRoom, Long, Long[]> {
 
     public List<HotelRoom> getHotelRoomsInHotel(long hotelID) {
         return roomDao.getRoomsInHotel(hotelID);
-    }
-
-    /**
-     * Gets room associated with the bed type.
-     *
-     * @param bed Bed type room is to be associated with.
-     * @return List<HotelRoom> of HotelRoos associated with Beds.
-     */
-    public List<HotelRoom> getRoomsWithBed(Bed bed){
-        List<Long> ids = bedRoomCrossDao.getRoomsWithBed(bed.getUniqueId());
-        return get(ids.toArray(new Long[0]));
-    }
-
-    /**
-     * Gets room associated with the bed type with a quantity of at least count.
-     *
-     * @param bed Bed type room is to be associated with.
-     * @param count Minimum number of beds of type Bed.
-     * @return List<HotelRoom> of HotelRoos associated with at least count Beds.
-     */
-    public List<HotelRoom> getRoomsWithBed(Bed bed, int count){
-        List<Long> ids = bedRoomCrossDao.getRoomsWithBed(bed.getUniqueId(), count);
-        return get(ids.toArray(new Long[0]));
     }
 
     public int getNumberOfRooms(long hotelID) {

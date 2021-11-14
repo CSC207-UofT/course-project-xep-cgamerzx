@@ -12,7 +12,7 @@ import java.util.List;
 @Dao
 public interface BedDao extends BaseDao<Void, Bed>{
     @Query("SELECT * FROM Bed")
-    List<Bed> getAllBeds();
+    List<Bed> getAll();
 
     @Query("SELECT * FROM Bed WHERE uniqueId IN (:bedID)")
     List<Bed> getBeds(String... bedID);

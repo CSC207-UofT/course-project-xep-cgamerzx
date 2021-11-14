@@ -3,7 +3,7 @@ package com.xepicgamerzx.hotelier.objects;
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 
-public abstract class CrossRef {
+public abstract class CrossRef{
     @NonNull
     @ColumnInfo(index = true)
     public String uniqueId;

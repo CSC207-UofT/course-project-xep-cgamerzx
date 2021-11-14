@@ -11,11 +11,11 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import com.xepicgamerzx.hotelier.objects.Address;
 import com.xepicgamerzx.hotelier.objects.Bed;
 import com.xepicgamerzx.hotelier.objects.BedSizeEnum;
-import com.xepicgamerzx.hotelier.objects.Hotel;
 import com.xepicgamerzx.hotelier.objects.HotelRoom;
 import com.xepicgamerzx.hotelier.storage.BedManager;
 import com.xepicgamerzx.hotelier.storage.HotelManager;
 import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
+import com.xepicgamerzx.hotelier.storage.RoomBedsCrossManager;
 import com.xepicgamerzx.hotelier.storage.RoomManager;
 
 import org.junit.After;
@@ -30,7 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RunWith(AndroidJUnit4.class)
-public class BedManagerTest {
+public class RoomBedsCrossManagerTest {
 
     private static ArrayList<Address> addresses;
     private final ZoneId zoneId = ZoneId.systemDefault();
@@ -43,7 +43,7 @@ public class BedManagerTest {
     private HotelManager hotelManager;
     private RoomManager roomManager;
     private BedManager bedManager;
-    private Hotel testHotel;
+    private RoomBedsCrossManager roomBedsCrossManager;
 
     @BeforeClass
     public static void createBoilerInfo() {
@@ -68,6 +68,7 @@ public class BedManagerTest {
         hotelManager = HotelManager.getManager(db);
         roomManager = RoomManager.getManager(db);
         bedManager = BedManager.getManager(db);
+        roomBedsCrossManager = RoomBedsCrossManager.getManager(db);
 
         ArrayList<HotelRoom> rooms = new ArrayList<>();
 
@@ -77,7 +78,6 @@ public class BedManagerTest {
 
         String name = "RoomManager Test Hotel 1";
         int starClass = 5;
-        testHotel = hotelManager.createHotel(name, addresses.get(0), starClass, rooms);
     }
 
     @Test
@@ -96,17 +96,17 @@ public class BedManagerTest {
         Bed bedT = bedManager.create("Test Bed Type");
 
         List<HotelRoom> rooms = roomManager.getAll();
-        bedManager.addBedToRoom(bedK, rooms.get(1), 3);
-        bedManager.addBedToRoom(bedT, rooms.get(1), 2);
-        bedManager.addBedToRoom(bedT, rooms.get(0), 1);
+        roomBedsCrossManager.createRelationship(rooms.get(1), bedK,  3);
+        roomBedsCrossManager.createRelationship(rooms.get(1), bedT,  2);
+        roomBedsCrossManager.createRelationship(rooms.get(0), bedT, 1);
 
-        assert(roomManager.getRoomsWithBed(bedT).contains(rooms.get(1)));
-        assert(roomManager.getRoomsWithBed(bedT).contains(rooms.get(0)));
-        assert(roomManager.getRoomsWithBed(bedK).contains(rooms.get(1)));
+        assert(roomBedsCrossManager.getRelated(bedT).contains(rooms.get(1)));
+        assert(roomBedsCrossManager.getRelated(bedT).contains(rooms.get(0)));
+        assert(roomBedsCrossManager.getRelated(bedK).contains(rooms.get(1)));
 
-        assert(bedManager.getBedsInRoom(rooms.get(0)).contains(bedT));
-        assert(bedManager.getBedsInRoom(rooms.get(1)).contains(bedT));
-        assert(bedManager.getBedsInRoom(rooms.get(1)).contains(bedK));
+        assert(roomBedsCrossManager.getRelated(rooms.get(0)).contains(bedT));
+        assert(roomBedsCrossManager.getRelated(rooms.get(1)).contains(bedT));
+        assert(roomBedsCrossManager.getRelated(rooms.get(1)).contains(bedK));
     }
 
     @Test
@@ -119,13 +119,37 @@ public class BedManagerTest {
         int t0Count = 1;
 
         List<HotelRoom> rooms = roomManager.getAll();
-        bedManager.addBedToRoom(bedK, rooms.get(1), k1Count);
-        bedManager.addBedToRoom(bedT, rooms.get(1), t1Count);
-        bedManager.addBedToRoom(bedT, rooms.get(0), t0Count);
+        roomBedsCrossManager.createRelationship(rooms.get(1), bedK,  k1Count);
+        roomBedsCrossManager.createRelationship(rooms.get(1), bedT,  t1Count);
+        roomBedsCrossManager.createRelationship(rooms.get(0), bedT, t0Count);
 
-        assert(bedManager.getBedsInRoomCount(rooms.get(0)).get(bedT) == t0Count);
-        assert(bedManager.getBedsInRoomCount(rooms.get(1)).get(bedK) == k1Count);
-        assert(bedManager.getBedsInRoomCount(rooms.get(1)).get(bedT) == t1Count);
+        assert(roomBedsCrossManager.getBedsInRoomCount(rooms.get(0)).get(bedT) == t0Count);
+        assert(roomBedsCrossManager.getBedsInRoomCount(rooms.get(1)).get(bedK) == k1Count);
+        assert(roomBedsCrossManager.getBedsInRoomCount(rooms.get(1)).get(bedT) == t1Count);
+    }
+
+    @Test
+    public void testGetRoomsWithBed(){
+        Bed bedK = bedManager.create(BedSizeEnum.KING);
+        Bed bedT = bedManager.create("Test Bed Type");
+
+        int k1Count = 3;
+        int t1Count = 2;
+        int t0Count = 1;
+
+        List<HotelRoom> rooms = roomManager.getAll();
+        roomBedsCrossManager.createRelationship(rooms.get(1), bedK,  k1Count);
+        roomBedsCrossManager.createRelationship(rooms.get(1), bedT,  t1Count);
+        roomBedsCrossManager.createRelationship(rooms.get(0), bedT, t0Count);
+
+        assert(roomBedsCrossManager.getRelated(bedK, k1Count).contains(rooms.get(1)));
+        assert(!roomBedsCrossManager.getRelated(bedK, k1Count).contains(rooms.get(0)));
+
+        assert(roomBedsCrossManager.getRelated(bedT, t1Count).contains(rooms.get(1)));
+        assert(!roomBedsCrossManager.getRelated(bedT, t1Count).contains(rooms.get(0)));
+
+        assert(roomBedsCrossManager.getRelated(bedT, t0Count).contains(rooms.get(1)));
+        assert(roomBedsCrossManager.getRelated(bedT, t0Count).contains(rooms.get(0)));
     }
 
     @After
@@ -133,6 +157,7 @@ public class BedManagerTest {
         roomManager.close();
         bedManager.close();
         hotelManager.close();
+        roomBedsCrossManager.close();
         db.close();
     }
 }
