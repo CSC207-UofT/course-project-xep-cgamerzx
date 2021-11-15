@@ -7,17 +7,24 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
 import com.xepicgamerzx.hotelier.R;
+import com.xepicgamerzx.hotelier.objects.Bed;
 import com.xepicgamerzx.hotelier.objects.Hotel;
 import com.xepicgamerzx.hotelier.objects.HotelRoom;
+import com.xepicgamerzx.hotelier.objects.RoomBedsCrossRef;
+import com.xepicgamerzx.hotelier.objects.UnixEpochDateConverter;
 import com.xepicgamerzx.hotelier.storage.BedManager;
 import com.xepicgamerzx.hotelier.storage.HotelManager;
+import com.xepicgamerzx.hotelier.storage.RoomBedsCrossManager;
 import com.xepicgamerzx.hotelier.storage.RoomManager;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 public class CustomerHotelRoomsActivity extends AppCompatActivity {
 
@@ -30,14 +37,10 @@ public class CustomerHotelRoomsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_customer_rooms);
         getSupportActionBar().hide();
 
-        BedManager bedManager = BedManager.getManager(getApplication());
-        HotelManager hotelManager = HotelManager.getManager(getApplication());
         RoomManager roomManager = RoomManager.getManager(getApplication());
-
         TextView descNameText = findViewById(R.id.hotelNameDesc);
         TextView hotelAddress = findViewById(R.id.addressTxt);
         TextView hotelRating = findViewById(R.id.ratingTxt);
-        TextView roomsText = findViewById(R.id.customerRoomDetails);
 
         // Intent coming from hotelViewAdapter
         Intent intent = getIntent();
@@ -45,43 +48,41 @@ public class CustomerHotelRoomsActivity extends AppCompatActivity {
             hotelData = (HashMap<String, Object>) intent.getSerializableExtra("HotelData"); // Gives the hotel object
             HotelViewModel hotelModel = (HotelViewModel) hotelData.get("Hotel");
             Hotel hotel = hotelModel.getHotel();
-
-            if(hotelData.containsKey("startDate") && hotelData.containsKey("endDate")) {
-                long startDate = (long) hotelData.get("startDate");
-                long endDate = (long) hotelData.get("endDate");
-                List<HotelRoom> roomsBySchedule = roomManager.getRoomsInHotelByDate(hotel, startDate, endDate);
-                String roomsDetails = "";
-                for(HotelRoom room : roomsBySchedule) {
-                    roomsDetails += room.toString();
-                }
-                roomsText.setText(roomsDetails);
-            } else {
-                List<HotelRoom> hotelRooms = roomManager.getHotelRoomsInHotel(hotel.hotelID);
-                String roomsDetails = "";
-                for(HotelRoom room : hotelRooms) {
-                    roomsDetails += room.toString();
-                }
-                roomsText.setText(roomsDetails);
-            }
+            List<CustomerHotelRoomsModel> roomViewModel;
+            RecyclerView roomsRecyclerView = findViewById(R.id.roomsRecyclerView);
 
             descNameText.setText(hotel.getName());
             hotelAddress.setText("Address: " + hotel.getAddress().getFullStreet());
             hotelRating.setText("Rating: " + String.valueOf(hotel.getStarClass()) + " Stars");
 
-            double latitude = hotel.getAddress().getLatitude();
-            double longitude = hotel.getAddress().getLongitude();
+            if(hotelData.containsKey("userStartDate") && hotelData.containsKey("userEndDate")) {
+                long userStartDate = (long) hotelData.get("userStartDate");
+                long userEndDate = (long) hotelData.get("userEndDate");
+                List<HotelRoom> hotelRooms = roomManager.getRoomsInHotelByDate(hotel, userStartDate, userEndDate); // Filtered
+                roomViewModel = HotelRoomModelManager.getHotelViewModelList(hotelRooms, getApplication());
+                final CustomerHotelRoomsAdapter hotelRoomsAdapter = new CustomerHotelRoomsAdapter(roomViewModel);
+                roomsRecyclerView.setAdapter(hotelRoomsAdapter);
 
-            FragmentTransaction fragmentTransaction = getSupportFragmentManager()
-                    .beginTransaction();
-            MapsFragment fragInfo = new MapsFragment();
+            } else {
+                List<HotelRoom> hotelRooms = roomManager.getHotelRoomsInHotel(hotel.hotelID); // Not filtered
+                roomViewModel = HotelRoomModelManager.getHotelViewModelList(hotelRooms, getApplication());
+                final CustomerHotelRoomsAdapter hotelRoomsAdapter = new CustomerHotelRoomsAdapter(roomViewModel);
+                roomsRecyclerView.setAdapter(hotelRoomsAdapter);
+            }
 
-            Bundle bundle = new Bundle();
-            bundle.putDouble("longitude", longitude);
-            bundle.putDouble("latitude", latitude);
-            fragInfo.setArguments(bundle);
-
-            fragmentTransaction.replace(R.id.frameMapsLay, fragInfo).commit();
-
+            sendCoordToMapFragment(hotel.getAddress().getLatitude(), hotel.getAddress().getLongitude());
         }
+    }
+
+    public void sendCoordToMapFragment(double latitude, double longitude) {
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager()
+                .beginTransaction();
+        MapsFragment fragInfo = new MapsFragment();
+        Bundle bundle = new Bundle();
+        bundle.putDouble("longitude", longitude);
+        bundle.putDouble("latitude", latitude);
+        fragInfo.setArguments(bundle);
+
+        fragmentTransaction.replace(R.id.frameMapsLay, fragInfo).commit();
     }
 }

@@ -10,23 +10,33 @@ import java.util.List;
 
 public class CustomerHotelRoomsModel implements Serializable {
     //private int bedsInRoomCount;
-    private List<Bed> bedsInRoom;
+    private int bedsCount;
+    private String bedTypes;
     private int capacity;
     private BigDecimal price;
     private HotelRoom hotelRoom;
+    private String roomAvailability;
 
     public CustomerHotelRoomsModel(//int bedsInRoomCount,
-                                   List<Bed> bedsInRoom, int capacity, BigDecimal price, HotelRoom hotelRoom) {
+                                   int bedCount, String bedTypes, int capacity, BigDecimal price, String roomAvail, HotelRoom hotelRoom) {
         //this.bedsInRoomCount = bedsInRoomCount;
-        this.bedsInRoom = bedsInRoom;
+        this.bedsCount = bedCount;
+        this.bedTypes = bedTypes;
         this.capacity = capacity;
         this.price = price;
         this.hotelRoom = hotelRoom;
+        this.roomAvailability = roomAvail;
     }
 
     //public int getHotelID() { return bedsInRoomCount; }
 
-    public List<Bed> getRelated() { return bedsInRoom; }
+    public int getBedsCount() {
+        return bedsCount;
+    }
+
+    public String getBedTypes() {
+        return bedTypes;
+    }
 
     public int getCapacity() {
         return capacity;
@@ -36,6 +46,9 @@ public class CustomerHotelRoomsModel implements Serializable {
         return price;
     }
 
+    public String getRoomAvailability() {
+        return roomAvailability;
+    }
 
     public HotelRoom getHotelRoom() {
         return hotelRoom;

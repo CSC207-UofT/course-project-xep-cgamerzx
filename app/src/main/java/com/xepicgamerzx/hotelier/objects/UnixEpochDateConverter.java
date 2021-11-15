@@ -44,7 +44,7 @@ public class UnixEpochDateConverter {
         return String.format("%s - %s", sd, ed);
     }
 
-    public String epochToReadable(long date1, long date2) {
+    public static String epochToReadable(long date1, long date2) {
 
         ZonedDateTime dt1 = Instant.ofEpochMilli(date1).atZone(ZoneOffset.UTC);
         String day1 = dt1.getDayOfWeek().getDisplayName( TextStyle.SHORT , Locale.US );

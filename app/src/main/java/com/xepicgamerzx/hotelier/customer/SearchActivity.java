@@ -96,8 +96,7 @@ public class SearchActivity extends AppCompatActivity implements OnSearchClick {
                 startDate = selection.first;
                 endDate = selection.second;
 
-                UnixEpochDateConverter epoch = new UnixEpochDateConverter();
-                String dates = epoch.epochToReadable(startDate, endDate);
+                String dates = UnixEpochDateConverter.epochToReadable(startDate, endDate);
                 dateSelection.setText(dates);
             }
         });
@@ -155,5 +154,10 @@ public class SearchActivity extends AppCompatActivity implements OnSearchClick {
         // Is there a better way to just return place_id and call this method rather then doing this. = ...
         this.destinationItem = destinationItem;
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(getApplicationContext(), MainActivity.class));
     }
 }
