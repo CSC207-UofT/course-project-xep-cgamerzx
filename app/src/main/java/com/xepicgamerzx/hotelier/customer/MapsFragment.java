@@ -49,7 +49,7 @@ public class MapsFragment extends Fragment {
                     LatLng hotelCoord = new LatLng(latitude, longitude);
                     googleMap.addMarker(new MarkerOptions().position(hotelCoord));
                     googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom (
-                            hotelCoord, 10
+                            hotelCoord, 15
                     ));
                 }
 

@@ -53,14 +53,14 @@ public class CustomerHotelRoomsActivity extends AppCompatActivity {
                 List<HotelRoom> roomsBySchedule = roomManager.getRoomsInHotelByDate(hotel, startDate, endDate);
                 String roomsDetails = "";
                 for(HotelRoom room : roomsBySchedule) {
-                    roomsDetails += "\n" + room.toString();
+                    roomsDetails += room.toString();
                 }
                 roomsText.setText(roomsDetails);
             } else {
                 List<HotelRoom> hotelRooms = roomManager.getHotelRoomsInHotel(hotel.hotelID);
                 String roomsDetails = "";
                 for(HotelRoom room : hotelRooms) {
-                    roomsDetails += "\n" + room.toString();
+                    roomsDetails += room.toString();
                 }
                 roomsText.setText(roomsDetails);
             }

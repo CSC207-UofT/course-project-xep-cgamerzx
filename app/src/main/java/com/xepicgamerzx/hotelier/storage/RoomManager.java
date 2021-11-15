@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class RoomManager implements DiscreteManager<HotelRoom, Long, Long[]> {
     private static volatile RoomManager INSTANCE;
@@ -122,14 +123,15 @@ public class RoomManager implements DiscreteManager<HotelRoom, Long, Long[]> {
     public List<HotelRoom> getRoomsInHotelByDate(Hotel hotel, long userStartAvail, long userEndAvail) {
         List<HotelRoom> hotelRooms = roomDao.getRoomsInHotel(hotel.hotelID);
         List<HotelRoom> filteredRooms = new ArrayList<>();
+        long userStart = TimeUnit.MILLISECONDS.toDays(userStartAvail);
+        long userEnd = TimeUnit.MILLISECONDS.toDays(userEndAvail);
 
         for (HotelRoom hotelRoom : hotelRooms) {
-            long roomStartAvail = hotelRoom.getStartAvailability();
-            long roomEndAvail = hotelRoom.getEndAvailability();
-            System.out.println(roomStartAvail);
-            System.out.println(userStartAvail);
-
-            if (userStartAvail >= roomStartAvail && userEndAvail <= roomEndAvail) {
+            long roomStartAvail = TimeUnit.MILLISECONDS.toDays(hotelRoom.getStartAvailability());
+            long roomEndAvail = TimeUnit.MILLISECONDS.toDays(hotelRoom.getEndAvailability());
+            System.out.println("UserStart" + userStart + "roomStart" + roomStartAvail);
+            System.out.println("UserEnd" + userStart + "roomEnd" + roomStartAvail);
+            if (userStart >= roomStartAvail && userEnd <= roomEndAvail) {
                 filteredRooms.add(hotelRoom);
             }
         }
