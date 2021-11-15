@@ -117,7 +117,7 @@ Howard: Worked on room library implementation, managers and the backend in gener
 
 Rafee: Worked on frontend and backend. Created some methods in managers, and validated input for listing a hotel. Worked on the searching logic and hotel views as well. In the future, might work on some sort of online storage, enhancing the user system, and a booking system.
 
-Megan: 
+Megan: I implemented HotelAmenitiesCrossManager and RomAmenitiesCrossManager. I made boiler data and tests in HotelAmenityManagerTest, RoomAmenityManagerTest, UserTest, HotelManagerTest, RoomManagerTest and BedTest. I also added documentation and fixed warnings. I plan on working on implementing a better design pattern for our object managers.
 
 Veronica: Contributed to the making of the hotels dummy data. Worked on UI for rooms listing when a hotel has been selected. Will work on possibly adding a booking feature for hotel rooms so the user can book a room according to their schedule.
 
