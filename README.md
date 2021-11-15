@@ -11,7 +11,8 @@ Xep!cgamerzX
 - https://www.youtube.com/watch?v=KvV1JMDOB-4 
 - https://www.youtube.com/watch?v=TqlaXjDW7Ac
 
-Caution, interface inputs do not like it if you put in wrong data types or fail to fill in inputs.
+~~Caution, interface inputs do not like it if you put in wrong data types or fail to fill in inputs.
+
 
 Needs Bumblebee 2021.1.1 Beta 2
 https://developer.android.com/studio/preview
