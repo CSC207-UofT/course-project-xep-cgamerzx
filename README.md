@@ -14,5 +14,5 @@ Xep!cgamerzX
 ~~Caution, interface inputs do not like it if you put in wrong data types or fail to fill in inputs.~~
 
 
-Needs Bumblebee 2021.1.1 Beta 2
+Needs Bumblebee 2021.1.1 Beta Branch
 https://developer.android.com/studio/preview
