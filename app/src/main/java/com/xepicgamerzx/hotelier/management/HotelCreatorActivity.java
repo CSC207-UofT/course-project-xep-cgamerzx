@@ -16,6 +16,7 @@ import com.xepicgamerzx.hotelier.objects.Address;
 import com.xepicgamerzx.hotelier.objects.HotelRoom;
 import com.xepicgamerzx.hotelier.storage.BedManager;
 import com.xepicgamerzx.hotelier.storage.HotelManager;
+import com.xepicgamerzx.hotelier.storage.RoomBedsCrossManager;
 import com.xepicgamerzx.hotelier.storage.RoomManager;
 
 import java.util.ArrayList;
@@ -25,6 +26,7 @@ public class HotelCreatorActivity extends AppCompatActivity {
     HotelManager hotelManager;
     RoomManager roomManager;
     BedManager bedManager;
+    RoomBedsCrossManager roomBedsCrossManager;
     Address address;
     List<HotelRoom> hotelRooms = new ArrayList<>();
 
