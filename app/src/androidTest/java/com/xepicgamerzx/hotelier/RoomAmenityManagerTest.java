@@ -9,12 +9,12 @@ import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import com.xepicgamerzx.hotelier.objects.Address;
+import com.xepicgamerzx.hotelier.objects.Hotel;
 import com.xepicgamerzx.hotelier.objects.HotelRoom;
 import com.xepicgamerzx.hotelier.objects.RoomAmenitiesEnum;
 import com.xepicgamerzx.hotelier.objects.RoomAmenity;
 import com.xepicgamerzx.hotelier.storage.HotelManager;
 import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
-import com.xepicgamerzx.hotelier.storage.RoomAmenitiesCrossManager;
 import com.xepicgamerzx.hotelier.storage.RoomAmenityManager;
 import com.xepicgamerzx.hotelier.storage.RoomManager;
 
@@ -27,8 +27,6 @@ import org.junit.runner.RunWith;
 import java.math.BigDecimal;
 import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 @RunWith(AndroidJUnit4.class)
@@ -39,11 +37,11 @@ public class RoomAmenityManagerTest {
     private HotelManager hotelManager;
     private RoomManager roomManager;
     private RoomAmenityManager roomAmenityManager;
-    private RoomAmenitiesCrossManager roomAmenitiesCrossManager;
     private final ZoneId zoneId = ZoneId.systemDefault();
     private final BigDecimal price = BigDecimal.valueOf(200.91);
     private final long startDate = System.currentTimeMillis();
     private final long endDate = startDate * 2;
+    private Hotel testHotel;
 
     @BeforeClass
     public static void createBoilerInfo() {
@@ -68,7 +66,6 @@ public class RoomAmenityManagerTest {
         hotelManager = HotelManager.getManager(db);
         roomManager = RoomManager.getManager(db);
         roomAmenityManager = RoomAmenityManager.getManager(db);
-        roomAmenitiesCrossManager = RoomAmenitiesCrossManager.getManager(db);
 
         ArrayList<HotelRoom> rooms = new ArrayList<>();
 
@@ -80,7 +77,7 @@ public class RoomAmenityManagerTest {
 
         String name = "Gamer Hotel";
         int starClass = 5;
-        hotelManager.createHotel(name, addresses.get(0), starClass, rooms);
+        testHotel = hotelManager.createHotel(name, addresses.get(0), starClass, rooms);
     }
 
     @Test
@@ -100,15 +97,15 @@ public class RoomAmenityManagerTest {
         RoomAmenity amenity1 = roomAmenityManager.create("Patio");
         RoomAmenity amenity2 = roomAmenityManager.create(RoomAmenitiesEnum.WIFI);
 
-        HotelRoom room = roomManager.getAll().get(1);
+        List<HotelRoom> rooms = roomManager.getAll();
 
-        roomAmenitiesCrossManager.addAmenityToRoom(room, amenity1);
-        roomAmenitiesCrossManager.addAmenityToRoom(room, amenity2);
+        roomManager.addAmenityToRoom(rooms.get(0), amenity1);
+        roomManager.addAmenityToRoom(rooms.get(0), amenity2);
+        roomManager.addAmenityToRoom(rooms.get(1), amenity1);
 
-        List <RoomAmenity> actual = roomAmenitiesCrossManager.getRelated(room);
-        List <RoomAmenity> expected = Arrays.asList(amenity1, amenity2);
-
-        assertEquals(actual, expected);
+        assert(roomAmenityManager.getAmenitiesInRoom(rooms.get(0)).contains(amenity1));
+        assert(roomAmenityManager.getAmenitiesInRoom(rooms.get(0)).contains(amenity2));
+        assert(roomAmenityManager.getAmenitiesInRoom(rooms.get(1)).contains(amenity1));
     }
 
     @After
@@ -116,7 +113,6 @@ public class RoomAmenityManagerTest {
         roomManager.close();
         roomAmenityManager.close();
         hotelManager.close();
-        roomAmenitiesCrossManager.close();
         db.close();
     }
 

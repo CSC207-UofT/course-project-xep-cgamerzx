@@ -12,15 +12,17 @@ import java.util.List;
 public class RoomAmenitiesCrossManager implements CrossManager<RoomAmenitiesCrossRef, HotelRoom, RoomAmenity> {
     private static volatile RoomAmenitiesCrossManager INSTANCE;
 
+    private final HotelierDatabase db;
     private final RoomAmenitiesCrossDao roomAmenitiesCrossDao;
     private final RoomManager roomManager;
     private final RoomAmenityManager roomAmenityManager;
 
 
     private RoomAmenitiesCrossManager(HotelierDatabase dbInstance) {
-        roomAmenitiesCrossDao = dbInstance.roomAmenitiesCrossDao();
-        roomAmenityManager = RoomAmenityManager.getManager(dbInstance);
-        roomManager = RoomManager.getManager(dbInstance);
+        db = dbInstance;
+        roomAmenitiesCrossDao = db.roomAmenitiesCrossDao();
+        roomAmenityManager = RoomAmenityManager.getManager(db);
+        roomManager = RoomManager.getManager(db);
     }
 
     public static RoomAmenitiesCrossManager getManager(Application application) {
@@ -39,83 +41,79 @@ public class RoomAmenitiesCrossManager implements CrossManager<RoomAmenitiesCros
 
 
     /**
-     * Create and insert relationship between hotelRoom and roomAmenity into RoomAmenitiesCrossRef database.
+     * Create and insert relationship between <N> and <U> into <T> database.
      *
-     * @param hotelRoom HotelRoom being assigned to roomAmenity.
-     * @param roomAmenity    RoomAmenity being assigned to HotelRoom.
-     * @return RoomAmenitiesCrossRef created.
+     * @param nonUniqueEntity <N> being assigned to uniqueEntity.
+     * @param uniqueEntity    <U> being assigned to nonUniqueEntity.
+     * @return <T> crossRef created.
      */
     @Override
-    public RoomAmenitiesCrossRef createRelationship(HotelRoom hotelRoom, RoomAmenity roomAmenity) {
-        RoomAmenitiesCrossRef crossRef = new RoomAmenitiesCrossRef(hotelRoom, roomAmenity);
-        insert(crossRef);
-        return crossRef;
+    public RoomAmenitiesCrossRef createRelationship(HotelRoom nonUniqueEntity, RoomAmenity uniqueEntity) {
+        return null;
     }
 
     /**
-     * Get all HotelRoom associated with RoomAmenity.
+     * Get all <N> associated with uniqueEntity.
      *
-     * @param roomAmenity RoomAmenity key to search with.
-     * @return List<HotelRoom> associated with RoomAmenity.
+     * @param uniqueEntity <U> key to search with.
+     * @return List<N> associated with UniqueEntity.
      */
     @Override
-    public List<HotelRoom> getRelated(RoomAmenity roomAmenity) {
-        List<Long> ids = roomAmenitiesCrossDao.getWith(roomAmenity.getUniqueId());
-        return roomManager.get(ids.toArray(new Long[0]));
+    public List<HotelRoom> getRelated(RoomAmenity uniqueEntity) {
+        return null;
     }
 
     /**
-     * Get all RoomAmenity associated with HotelRoom.
+     * Get all <U> associated with nonUniqueEntity.
      *
-     * @param hotelRoom HotelRoom key to search with.
-     * @return List<RoomAmenity> associated with HotelRoom.
+     * @param nonUniqueEntity <N> key to search with.
+     * @return List<U> associated with nonUniqueEntity.
      */
     @Override
-    public List<RoomAmenity> getRelated(HotelRoom hotelRoom) {
-        List<String> ids = roomAmenitiesCrossDao.getWith(hotelRoom.roomID);
-        return roomAmenityManager.get(ids.toArray(new String[0]));
+    public List<RoomAmenity> getRelated(HotelRoom nonUniqueEntity) {
+        return null;
     }
 
     /**
-     * Get all RoomAmenitiesCrossRef cross references associated with RoomAmenity
+     * Get all <T> cross references associated with uniqueEntity
      *
-     * @param roomAmenity RoomAmenity key to search with.
-     * @return List<RoomAmenitiesCrossRef> cross references associated with RoomAmenity
+     * @param uniqueEntity <U> key to search with.
+     * @return List<T> cross references associated with <U>
      */
     @Override
-    public List<RoomAmenitiesCrossRef> getRelatedCross(RoomAmenity roomAmenity) {
-        return roomAmenitiesCrossDao.getCrossWith(roomAmenity.getUniqueId());
+    public List<RoomAmenitiesCrossRef> getRelatedCross(RoomAmenity uniqueEntity) {
+        return null;
     }
 
     /**
-     * Get all RoomAmenitiesCrossRef cross references associated with HotelRoom
+     * Get all <T> cross references associated with nonUniqueEntity
      *
-     * @param hotelRoom HotelRoom key to search with.
-     * @return List<RoomAmenitiesCrossRef> cross references associated with HotelRoom.
+     * @param nonUniqueEntity <N> key to search with.
+     * @return List<T> cross references associated with <N>
      */
     @Override
-    public List<RoomAmenitiesCrossRef> getRelatedCross(HotelRoom hotelRoom) {
-        return roomAmenitiesCrossDao.getCrossWith(hotelRoom.roomID);
+    public List<RoomAmenitiesCrossRef> getRelatedCross(HotelRoom nonUniqueEntity) {
+        return null;
     }
 
     /**
-     * Gets all instances of RoomAmenitiesCrossRef in the database.
+     * Gets all instances of <T> in the database.
      *
-     * @return List<RoomAmenitiesCrossRef> saved in the database.
+     * @return List<T> saved in the database.
      */
     @Override
     public List<RoomAmenitiesCrossRef> getAll() {
-        return roomAmenitiesCrossDao.getAll();
+        return null;
     }
 
     /**
-     * Updates RoomAmenitiesCrossRef roomAmenitiesCrossRef(s) in the database.
+     * Updates <T> object(s) in the database.
      *
-     * @param roomAmenitiesCrossRef <RoomAmenitiesCrossRef> roomAmenitiesCrossRef(s) to be updated in the database.
+     * @param object <T> object(s) to be updated in the database.
      */
     @Override
-    public void update(RoomAmenitiesCrossRef... roomAmenitiesCrossRef) {
-        roomAmenitiesCrossDao.update(roomAmenitiesCrossRef);
+    public void update(RoomAmenitiesCrossRef... object) {
+
     }
 
     /**
@@ -127,24 +125,13 @@ public class RoomAmenitiesCrossManager implements CrossManager<RoomAmenitiesCros
     }
 
     /**
-     * Inserts RoomAmenitiesCrossRef objects to their database.
+     * Inserts <T> objects to their database.
      *
-     * @param roomAmenitiesCrossRef RoomAmenitiesCrossRef(s) to be inserted into the database.
-     * @return null.
+     * @param object <T> object(s) to be inserted into the database.
+     * @return <R>[] auto-generated IDs of inserted objects.
      */
     @Override
-    public Void insert(RoomAmenitiesCrossRef... roomAmenitiesCrossRef) {
-        return roomAmenitiesCrossDao.insert(roomAmenitiesCrossRef);
-    }
-
-    /**
-     * Adds RoomAmenity object to HotelRoom.
-     *
-     * @param hotelRoom HotelRoom to which we are adding RoomAmenity.
-     * @param roomAmenity RoomAmenity that we are adding to HotelRoom.
-     */
-    public void addAmenityToRoom(HotelRoom hotelRoom, RoomAmenity roomAmenity) {
-        RoomAmenitiesCrossRef roomAmenitiesCrossRef = new RoomAmenitiesCrossRef(hotelRoom, roomAmenity);
-        roomAmenitiesCrossDao.insert(roomAmenitiesCrossRef);
+    public Void insert(RoomAmenitiesCrossRef... object) {
+        return null;
     }
 }

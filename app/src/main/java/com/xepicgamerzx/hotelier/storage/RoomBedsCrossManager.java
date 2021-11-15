@@ -13,15 +13,17 @@ import java.util.List;
 public class RoomBedsCrossManager implements CrossManager<RoomBedsCrossRef, HotelRoom, Bed> {
     private static volatile RoomBedsCrossManager INSTANCE;
 
+    private final HotelierDatabase db;
     private final BedRoomCrossDao bedRoomCrossDao;
     private final BedManager bedManager;
     private final RoomManager roomManager;
 
 
     private RoomBedsCrossManager(HotelierDatabase dbInstance) {
-        bedRoomCrossDao = dbInstance.bedRoomCrossDao();
-        bedManager = BedManager.getManager(dbInstance);
-        roomManager = RoomManager.getManager(dbInstance);
+        db = dbInstance;
+        bedRoomCrossDao = db.bedRoomCrossDao();
+        bedManager = BedManager.getManager(db);
+        roomManager = RoomManager.getManager(db);
     }
 
     public static RoomBedsCrossManager getManager(Application application) {

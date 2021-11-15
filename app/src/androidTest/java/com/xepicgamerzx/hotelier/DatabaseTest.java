@@ -32,7 +32,6 @@ public class DatabaseTest {
         assert(true);
     }
 
-
     @After
     public void closeDb(){
         db.close();
