@@ -122,5 +122,5 @@ Veronica: Contributed to the making of the hotels dummy data. Worked on UI for r
 
 Wei: 
 
-Thomas: 
+Thomas: Will work on implementing the favourite feature, as well as an autocomplete for searches and UX on the frontend.
 
