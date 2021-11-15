@@ -17,7 +17,27 @@ This whole system was implemented using a data access object (DAO) pattern. See 
 
 We explored using Firestore, a cloud hosted NoSQL database but cloud based APIs are usually asynchronous in nature and we found it difficult to adhere to clean architecture due to how async methods are implemented in Java. We identified callbacks as a potential solution, but determined that it would take too much time to explore this avenue though we may [revisit in Phase 2](#Firestore-Implementation), time permitting.
 
-### User Interface Update
+### User Interface Update/Explanations & Backend Methods, Along With Ideas For the Future.
+A lot of time was spent updating the UI. 
+
+There are two parts to the UI at the moment, the customer searching, and the management hotel creation. When a user registers, and signs in, in the profile fragment a new view will show up with an option to list a hotel. 
+
+Listing a hotel consists of 3 types of inputs, the hotel name, the hotel address, and the rooms in the hotel. With an update on the UI, we also focused on handling input errors. If the user ever types in something they are not supposed to, or clicks submit with no inputs, a message will pop up at the bottom of their screen, telling them their error.
+
+**Note about hotel creation:**
+One downside to this, is that there are a lot of inputs, so the user has to be careful they are typing in the right stuff. For example, it is important they give the right longitude and latitude. However, in the future, this input won't be neccessary because using the PlacesAPI class, we can get longitude and latitude of a destination they submit.
+Because creating these hotels might take a while, we created some dummy data in a json file under the assets folder. The json file contains some hotels in different cities, and also has dummy room data. In the ReadDummyData class, we parse this json file, create hotels along with their relationships within the database. The JSON file structure, and the reader, may also be good for loading Hotel API data in the future.
+
+When hotels are listed, users can go back to the main page, and click search. With the new search feature, using google places api, typing in any location autogenerate suggestions for the users destination. When the user clicks on the location, in the backend, the longitude and latitude is saved. In addition, the user can set a schedule and increase their number of guests. The location, schedule, and number of guests are sent to the HotelViewActivity, where the respective hotels are displayed given the user inputs. One example of how we did this is getting hotels within a 50km radius of the users destination. This method is within HotelManager's getHotelsByLatLong().
+
+**Note about searching:**
+If a user does not input a schedule or destination, this is taken care of as all the hotels will show up instead. If a user enters a schedule, but not a destination, only hotels with rooms given their schedule show up. If a user enters a destination, but no schedule, all hotels within 50km of the destination show up.
+
+After searching for a hotel, a recycler view shows up, with the hotels in the database that are within a 50km radius of the user's destination, filtered by their schedule. Upon viewing the new page with hotels, a user can click on a hotel and a new page will show up, with a detailed view.
+
+This detailed view is the CustomerRoomsActivity class. In this page, we used google maps api to display a google map in a fragment of the hotels longitude and latitude. We also display the hotel name, address, and the respective rooms based on the users schedule. In the future, we plan to make this page nicer, add hotel amentities, and possibly add a "Book" feature to each hotel room.
+
+We also made a sign in and register page, which uses the rooms library to save a user locally. At the moment, the system has no security, and user's can make their passwords and usernames anything they want. In the future, we probably want to make this more secure.
 
 ## SOLID
 ## Clean Architecture
