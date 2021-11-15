@@ -25,7 +25,13 @@ This whole system was implemented using a data access object (DAO) pattern. See 
 ## Progress Report
 ### Open Questions
 ### Things that have worked well
-- Use of github feature?
+#### Use of Github Features
+In order to track issues as well as feature implementations that were being handled, and or identified but still needed to be dealt with, we used Github issues. The label system made it easy to discern at a glance what tasks needed to be done, and what tasks could be done relatively easily. For example, we used the "good first issue" label in order to label issues that can be done by anyone looking to contribute, but were not very sure where to start and or felt lost. The forum like discussion in issues allowed for detailed descriptions of instructions to be added.
+
+We used pull requests and branches tightly with Github issues as they can be linked together. We generally adhered to the idea of one branch per feature and thus issue in order to minimize merge conflicts. However, if a lot of things have changed in an active branch but it wasn't ready to be merged with main, we would merge the active branches together to prevent future merge issues. All merges even those done between non-main branches were done using pull requests as the structure of pull requests allow for a good overview of what commits have been made, the build status of the latest push, and whom to go to if something goes wrong. 
+
+In order to check if a commit had any issues, we utilized Github actions by creating a custom Android orientated workflow which built the app and ran all the tests. This includes the tests which require an android instance such as those testing data persistence. Our workflow action triggered for every push, and would indicate whenever or not a build or test failed or if everything ran correctly. This helped determine the status of a branch at a glance and is an obvious indicator for any issues that may have arisen because either the branch is actively being worked on, or if someone may have forgotten to run the tests themselves before pushing.
+
 ### Group Member Current and Future Responsibilities
 
 
