@@ -139,6 +139,24 @@ public class RoomManager implements DiscreteManager<HotelRoom, Long, Long[]> {
         return filteredRooms;
     }
 
+    public boolean isUserScheduleInHotel (Hotel hotel, long userStartAvail, long userEndAvail) {
+        List<HotelRoom> hotelRooms = roomDao.getRoomsInHotel(hotel.hotelID);
+        long userStart = TimeUnit.MILLISECONDS.toDays(userStartAvail);
+        long userEnd = TimeUnit.MILLISECONDS.toDays(userEndAvail);
+
+        for (HotelRoom hotelRoom : hotelRooms) {
+            long roomStartAvail = TimeUnit.MILLISECONDS.toDays(hotelRoom.getStartAvailability());
+            long roomEndAvail = TimeUnit.MILLISECONDS.toDays(hotelRoom.getEndAvailability());
+            System.out.println("UserStart" + userStart + "roomStart" + roomStartAvail);
+            System.out.println("UserEnd" + userStart + "roomEnd" + roomStartAvail);
+            if (userStart >= roomStartAvail && userEnd <= roomEndAvail) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public List<HotelRoom> getHotelRoomsInHotel(long hotelID) {
         return roomDao.getRoomsInHotel(hotelID);
     }

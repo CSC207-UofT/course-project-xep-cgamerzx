@@ -64,7 +64,13 @@ public class HotelViewActivity extends AppCompatActivity {
                     UnixEpochDateConverter date = new UnixEpochDateConverter();
                     userSchedule.setText(date.epochToReadable(userStartDate, userEndDate));
 
-                    final HotelViewAdapter hotelsAdapter = new HotelViewAdapter(hotelsView, userStartDate, userEndDate);
+                    List<HotelViewModel> filterHotelsByUserSchedule = new ArrayList<>();
+                    for (HotelViewModel hotelModel : hotelsView) {
+                        if (roomManager.isUserScheduleInHotel(hotelModel.getHotel(), userStartDate, userEndDate)) {
+                            filterHotelsByUserSchedule.add(hotelModel);
+                        }
+                    }
+                    final HotelViewAdapter hotelsAdapter = new HotelViewAdapter(filterHotelsByUserSchedule, userStartDate, userEndDate);
                     hotelsRecyclerView.setAdapter(hotelsAdapter);
                 }
             } else {
@@ -84,14 +90,20 @@ public class HotelViewActivity extends AppCompatActivity {
                 }
 
                 List<Hotel> filterHotels = hotelManager.getHotelsByLatLong(latitude, longitude);
-                List<HotelViewModel> filteredHotelsView = hotelManager.generateHotelModel(filterHotels);
+                List<HotelViewModel> filteredHotelsByCity = hotelManager.generateHotelModel(filterHotels);
 
                 // Giving recycler view only hotels in user destination, and if the user entered a schedule, sending the schedule to adapter.
                 if (userStartDate != 0 && userEndDate != 0) {
-                    final HotelViewAdapter hotelsAdapter = new HotelViewAdapter(filteredHotelsView, userStartDate, userEndDate);
+                    List<HotelViewModel> filterHotelsByScheduleAndCity = new ArrayList<>();
+                    for (HotelViewModel hotelViewModel : filteredHotelsByCity) {
+                        if (roomManager.isUserScheduleInHotel(hotelViewModel.getHotel(), userStartDate, userEndDate)) {
+                            filterHotelsByScheduleAndCity.add(hotelViewModel);
+                        }
+                    }
+                    final HotelViewAdapter hotelsAdapter = new HotelViewAdapter(filterHotelsByScheduleAndCity, userStartDate, userEndDate);
                     hotelsRecyclerView.setAdapter(hotelsAdapter);
                 } else {
-                    final HotelViewAdapter hotelsAdapter = new HotelViewAdapter(filteredHotelsView);
+                    final HotelViewAdapter hotelsAdapter = new HotelViewAdapter(filteredHotelsByCity);
                     hotelsRecyclerView.setAdapter(hotelsAdapter);
                 }
             }

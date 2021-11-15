@@ -22,6 +22,7 @@ public interface HotelDao extends BaseDao<List<Long>, Hotel>{
     @Query("SELECT * FROM Hotel")
     List<HotelWithRooms> getAllHotelsWithRoom();
 
+
     @Transaction
     @Query("SELECT * FROM Hotel")
     List<HotelWithAmenities> getHotelsWithAmenities();
