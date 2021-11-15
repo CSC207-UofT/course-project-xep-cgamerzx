@@ -34,7 +34,6 @@ public class CustomerHotelRoomsActivity extends AppCompatActivity {
         HotelManager hotelManager = HotelManager.getManager(getApplication());
         RoomManager roomManager = RoomManager.getManager(getApplication());
 
-
         TextView descNameText = findViewById(R.id.hotelNameDesc);
         TextView hotelAddress = findViewById(R.id.addressTxt);
         TextView hotelRating = findViewById(R.id.ratingTxt);
