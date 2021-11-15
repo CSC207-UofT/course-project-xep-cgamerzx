@@ -48,6 +48,8 @@ public abstract class HotelierDatabase extends RoomDatabase {
         return INSTANCE;
     }
 
+
+
     public abstract HotelDao hotelDao();
 
     public abstract RoomDao roomDao();

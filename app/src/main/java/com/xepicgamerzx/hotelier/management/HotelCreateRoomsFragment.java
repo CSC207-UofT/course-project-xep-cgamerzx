@@ -87,7 +87,7 @@ public class HotelCreateRoomsFragment extends Fragment {
                     // The parent activity is HotelCreator (where these variables can be found)
                     activity.hotelRooms.add(room);
                     Bed bed = activity.bedManager.create(bedType);
-                    activity.bedManager.addBedToRoom(bed, room, Integer.parseInt(totalBeds.getText().toString()));
+                    activity.roomBedsCrossManager.createRelationship(room, bed, Integer.parseInt(totalBeds.getText().toString()));
 
                     activity.text += "\n" + room.toString();
                     activity.isRoomsMade = true;
@@ -103,7 +103,6 @@ public class HotelCreateRoomsFragment extends Fragment {
             public void onCheckedChanged(ChipGroup group, int checkedId) {
                 Chip chip = v.findViewById(checkedId);
 
-                // TODO fix error of same chip twice in a row crash
                 if (chip != null ) {
                     bedType = chip.getText().toString();
                     isBedTypeSelected = true;

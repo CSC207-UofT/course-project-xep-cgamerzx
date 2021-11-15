@@ -126,6 +126,8 @@ public class RoomManager implements DiscreteManager<HotelRoom, Long, Long[]> {
         for (HotelRoom hotelRoom : hotelRooms) {
             long roomStartAvail = hotelRoom.getStartAvailability();
             long roomEndAvail = hotelRoom.getEndAvailability();
+            System.out.println(roomStartAvail);
+            System.out.println(userStartAvail);
 
             if (userStartAvail >= roomStartAvail && userEndAvail <= roomEndAvail) {
                 filteredRooms.add(hotelRoom);
@@ -185,12 +187,6 @@ public class RoomManager implements DiscreteManager<HotelRoom, Long, Long[]> {
     public List<BigDecimal> getPriceRange(long hotelID) {
         List<HotelRoom> hotelRooms = getHotelRoomsInHotel(hotelID);
         return getPriceRange(hotelRooms);
-    }
-
-    @Deprecated // move to room amenities cross manager
-    public void addAmenityToRoom(HotelRoom hotelRoom, RoomAmenity roomAmenity) {
-        RoomAmenitiesCrossRef roomAmenitiesCrossRef = new RoomAmenitiesCrossRef(hotelRoom, roomAmenity);
-        roomAmenitiesCrossDao.insert(roomAmenitiesCrossRef);
     }
 
     /**

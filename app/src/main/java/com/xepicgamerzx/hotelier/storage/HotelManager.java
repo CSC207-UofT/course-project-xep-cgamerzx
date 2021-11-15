@@ -119,11 +119,6 @@ public class HotelManager implements DiscreteManager<Hotel, Long, Long[]> {
         hotelDao.update(hotel);
     }
 
-    @Deprecated // Move to hotel amenities cross manager
-    public void addAmenityToHotel(Hotel hotel, HotelAmenity hotelAmenity) {
-        HotelAmenitiesCrossRef hotelAmenitiesCrossRef = new HotelAmenitiesCrossRef(hotel, hotelAmenity);
-        hotelAmenitiesCrossDao.insert(hotelAmenitiesCrossRef);
-    }
 
     /**
      * Get hotels with matching hotel IDs.
@@ -151,11 +146,11 @@ public class HotelManager implements DiscreteManager<Hotel, Long, Long[]> {
         List<Hotel> filteredHotels = new ArrayList<>();
 
         for(Hotel hotel : hotels) {
-            double hotelLat = hotel.getAddress().getLongitude();
-            double hotelLong = hotel.getAddress().getLatitude();
+            double hotelLat = hotel.getAddress().getLatitude();
+            double hotelLong = hotel.getAddress().getLongitude();
             System.out.println(hotelLat + " " + hotelLong + " " + destinationLat + " " + destinationLong);
             float distanceToHotel = getDistanceMetres(hotelLat, hotelLong, destinationLat, destinationLong);
-            System.out.println(distanceToHotel);
+            System.out.println("Distance to hotel" + distanceToHotel);
 
             // DEFAULT THRESHOLD, 50km?
             if(distanceToHotel <= 50000) {
