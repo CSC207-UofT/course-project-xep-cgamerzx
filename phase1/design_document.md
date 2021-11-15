@@ -50,7 +50,7 @@ We also made a sign in and register page, which uses the rooms library to save a
 ## Packaging Strategies/Code Organization
 ## Design Patterns
 ### Data Access Object Pattern
-Our persistence system done using the [room persistence library](#room-persistence-librarydata-persistence-overhaul) was implemented using a data access object (DAO) design pattern. The goal of this pattern is to separate low level data accessing operations such as Room library queries from business services. 
+Our persistence system done using the [room persistence library](#room-persistence-librarydata-persistence-overhaul-23-17) was implemented using a data access object (DAO) design pattern. The goal of this pattern is to separate low level data accessing operations such as Room library queries from business services. 
 
 Data access objects which are implemented as interfaces define the actual methods that can be used by the rest of the app to manipulate data in the database. These act as use cases. In our implementation, the DAOs also implement a base DAO interface which removes the boilerplate for insert, update and delete functionality.
 
@@ -63,10 +63,16 @@ Additional use cases called managers deal with more complex actions that can't b
 #TODO Add picture
 
 ### Singleton
+
+Singletons are used rather extensively due to how our persistent data system works. In our DAO pattern, the database class is a singleton. This is required because the database should be acting as a single point of access for the persisted data. Multiple instances of the database class can result in duplicate tables and SQL databases, cascading to bugs where one part of the app saves an entity, but the other part of the app trying to load said data has a different database instance, such that it can't find the data that was just saved. Similarly, because managers utilize the databases directly, each manager acts as a singleton to ensure they are always accessing the same database and data access objects.
+
+The implementation of singleton for all managers is the same where each manager has a private constructor and the class has saves a private volatile instance of itself. To access the instance, one must use the public method getManager which either returns the instance already created, or creates a new instance using a passed app context or database instance. The database class works similarly, except it is an abstract class and thus has no constructor. It uses a database builder in order to create a database instance if one does not exist.
+
+
 ## Progress Report
 ### Open Questions
 #### Firestore Implementation
-As discussed in [room persistence library](#Room-Persistence-Library/Data-Persistence-Overhaul), we explored using Firestore, a cloud NoSQL database implementation, in order to deal with data persistence. However, cloud based solutions such as Firestore are asynchronous in nature and we found it difficult to implement them while adhering to Clean Architecture, as any use cases done using data accessed would have to be implemented within that same data access method. We identified callbacks as a potential solution but decided that it would be too time costly to explore for now. 
+As discussed in [room persistence library](#room-persistence-librarydata-persistence-overhaul-23-17), we explored using Firestore, a cloud NoSQL database implementation, in order to deal with data persistence. However, cloud based solutions such as Firestore are asynchronous in nature and we found it difficult to implement them while adhering to Clean Architecture, as any use cases done using data accessed would have to be implemented within that same data access method. We identified callbacks as a potential solution but decided that it would be too time costly to explore for now. 
 
 #### Fireauth Implementation
 ### Things that have worked well
