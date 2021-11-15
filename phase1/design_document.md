@@ -11,7 +11,7 @@ In a more general sense, because every hotel won't use our app and list their ow
 
 A significant portion of the time spent working on the backend was to implement the Room persistence library. This is a native Android library that provides an abstraction layer over SQLite which is also natively implemented in Android. Our previous method for data persistence involved a a generic file read write class which took any object and saved it as a file. This made things very simple and easy code wise, but it was horrible for performance because every time a new object was added, updated, or deleted, the entire database file had to be remade. Furthermore, everything in the file had to be loaded into memory in order to access data.
 
-Using the Room library fixes all of this, and allows for the data to be handled in a way such that insertions, entry updates and deletions as well as complex queries are able to be handled without recreating the database every time. Each entity type has its own individual table allowing for easy organization.
+Using the Room library fixes all of this, and allows for the data to be handled in a way such that insertions, entry updates and deletions as well as complex queries are able to be handled without recreating the database every time. Each entity type has its own individual table allowing for easy organization. Furthermore, Room is an Object Relational Mapping library (ORM). This means that database objects are mapped to Java objects, meaning data access and insertion will utilize Java objects.
 
 Moving to this library did add code complexity. For one, the type of data that can be stored in the SQLite database is limited to basic types like strings, floats and integers. You can't nest objects or put a list of objects directly into a cell either. For more basic types such as BigDecimal, which we used to represent pricing in a way that would avoid float operation errors, it is simple to create a converter for saving and loading data. Some objects like Address can feasibly be flattened into their own columns using the embedded annotation. However, relations between more complex entities such as HotelRooms or even just lists of strings can't be flattened like this without compromising on the database's ability to index, which would negatively affect query speed.
 
@@ -50,7 +50,7 @@ We also made a sign in and register page, which uses the rooms library to save a
 ## Packaging Strategies/Code Organization
 ## Design Patterns
 ### Data Access Object Pattern
-Our persistence system done using the [room persistence library](#room-persistence-librarydata-persistence-overhaul-23-17) was implemented using a data access object (DAO) design pattern. The goal of this pattern is to separate low level data accessing operations such as Room library queries from business services. 
+Our persistence system done using the [room persistence library](#room-persistence-librarydata-persistence-overhaul-23-17) which has an implementation architecture that uses the data access object (DAO) design pattern. The goal of this pattern is to separate low level data accessing operations such as Room library queries from business services. 
 
 Data access objects which are implemented as interfaces define the actual methods that can be used by the rest of the app to manipulate data in the database. These act as use cases. In our implementation, the DAOs also implement a base DAO interface which removes the boilerplate for insert, update and delete functionality.
 
@@ -60,7 +60,9 @@ Entities represent the structure of the individual tables within the database.
 
 Additional use cases called managers deal with more complex actions that can't be implemented in the DAOs directly such as overloading methods for more forgiving type implementations.
 
-#TODO Add picture
+![](https://developer.android.com/images/training/data-storage/room_architecture.png)
+Image Credit: https://developer.android.com/training/data-storage/room
+
 
 ### Singleton
 
