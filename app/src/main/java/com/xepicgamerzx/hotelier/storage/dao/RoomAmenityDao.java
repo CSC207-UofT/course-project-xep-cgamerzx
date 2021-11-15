@@ -4,7 +4,7 @@ import androidx.room.Dao;
 import androidx.room.Query;
 import androidx.room.Transaction;
 
-import com.xepicgamerzx.hotelier.objects.RoomAmenity;
+import com.xepicgamerzx.hotelier.objects.hotel_objects.RoomAmenity;
 import com.xepicgamerzx.hotelier.objects.relations.AmenityWithRooms;
 
 import java.util.List;

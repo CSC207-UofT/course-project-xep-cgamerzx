@@ -8,13 +8,13 @@ import androidx.room.Room;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
-import com.xepicgamerzx.hotelier.objects.Address;
-import com.xepicgamerzx.hotelier.objects.Hotel;
-import com.xepicgamerzx.hotelier.objects.HotelRoom;
-import com.xepicgamerzx.hotelier.storage.BedManager;
-import com.xepicgamerzx.hotelier.storage.HotelManager;
-import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
-import com.xepicgamerzx.hotelier.storage.RoomManager;
+import com.xepicgamerzx.hotelier.objects.hotel_objects.Address;
+import com.xepicgamerzx.hotelier.objects.hotel_objects.Hotel;
+import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelRoom;
+import com.xepicgamerzx.hotelier.storage.hotel_managers.BedManager;
+import com.xepicgamerzx.hotelier.storage.hotel_managers.HotelManager;
+import com.xepicgamerzx.hotelier.storage.hotelier_database.HotelierDatabase;
+import com.xepicgamerzx.hotelier.storage.hotel_managers.RoomManager;
 
 import org.junit.After;
 import org.junit.Before;

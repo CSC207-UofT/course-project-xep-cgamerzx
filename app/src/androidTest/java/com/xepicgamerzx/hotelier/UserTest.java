@@ -1,6 +1,6 @@
 package com.xepicgamerzx.hotelier;
 
-import com.xepicgamerzx.hotelier.user.model.User;
+import com.xepicgamerzx.hotelier.storage.user.model.User;
 import static org.junit.Assert.assertEquals;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import org.junit.Test;

@@ -1,8 +1,8 @@
 package com.xepicgamerzx.hotelier;
 
-import com.xepicgamerzx.hotelier.objects.Bed;
-import com.xepicgamerzx.hotelier.objects.HotelAmenity;
-import com.xepicgamerzx.hotelier.objects.RoomAmenity;
+import com.xepicgamerzx.hotelier.objects.hotel_objects.Bed;
+import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelAmenity;
+import com.xepicgamerzx.hotelier.objects.hotel_objects.RoomAmenity;
 
 import org.junit.Test;
 

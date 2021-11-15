@@ -7,7 +7,7 @@
     android:elevation="999dp"
     android:background="@color/white"
     android:clickable="true"
-    tools:context=".management.HotelCreateRoomsFragment">
+    tools:context=".management_hotel_listing_activity.HotelCreateRoomsFragment">
 
     <ImageButton
         android:id="@+id/closeBtn"
