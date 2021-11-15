@@ -101,6 +101,10 @@ As discussed in [room persistence library](#room-persistence-librarydata-persist
 
 #### Fireauth Implementation
 Fireauth is a library that handles user authentication services. This includes custom user accounts as well as accounts linked to services such as Google accounts. It also syncs authentication details with the cloud. Currently our users systems store user credentials locally in an insecure manner. By potentially implementing Fireauth in the future, we can circumvent this and simply use user tokens as user identifiers for the app, and separate the authentication process to be handled solely by Fireauth for a more secure and easy to use process. 
+
+#### Design Pattern for Managers
+Currently managers are unified using abstractions such as interfaces, but to complete certain tasks, a number of managers need to be used at the same time. A design pattern may be able to help mitigate this somewhat and consolidate manager functions into a single object, simplifying complex actions.
+
 ### Things that have worked well
 #### Use of Github Features
 In order to track issues as well as feature implementations that were being handled, and or identified but still needed to be dealt with, we used Github issues. The label system made it easy to discern at a glance what tasks needed to be done, and what tasks could be done relatively easily. For example, we used the "good first issue" label in order to label issues that can be done by anyone looking to contribute, but were not very sure where to start and or felt lost. The forum like discussion in issues allowed for detailed descriptions of instructions to be added.
