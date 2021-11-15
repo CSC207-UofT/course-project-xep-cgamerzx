@@ -46,7 +46,7 @@ public class MapsFragment extends Fragment {
             @Override
             public void onMapReady(@NonNull GoogleMap googleMap) {
                 if(latitude != 0  && longitude != 0) {
-                    LatLng hotelCoord = new LatLng(longitude, latitude);
+                    LatLng hotelCoord = new LatLng(latitude, longitude);
                     googleMap.addMarker(new MarkerOptions().position(hotelCoord));
                     googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom (
                             hotelCoord, 10

@@ -22,6 +22,7 @@ import com.xepicgamerzx.hotelier.user.UserManager;
 import com.xepicgamerzx.hotelier.user.model.User;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -85,6 +86,7 @@ public class DashboardFragment extends Fragment {
 
         List<Hotel> hotels = hotelManager.getAll();
         List<HotelViewModel> hotelsView = hotelManager.generateHotelModel(hotels);
+        Collections.reverse(hotelsView); // Reversing for "Newest listings"
 
         final HotelViewAdapter hotelsAdapter = new HotelViewAdapter(hotelsView);
         hotelsRecyclerView.setAdapter(hotelsAdapter);

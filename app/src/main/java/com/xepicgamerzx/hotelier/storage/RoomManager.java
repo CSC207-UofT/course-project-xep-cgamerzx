@@ -126,6 +126,8 @@ public class RoomManager implements DiscreteManager<HotelRoom, Long, Long[]> {
         for (HotelRoom hotelRoom : hotelRooms) {
             long roomStartAvail = hotelRoom.getStartAvailability();
             long roomEndAvail = hotelRoom.getEndAvailability();
+            System.out.println(roomStartAvail);
+            System.out.println(userStartAvail);
 
             if (userStartAvail >= roomStartAvail && userEndAvail <= roomEndAvail) {
                 filteredRooms.add(hotelRoom);
