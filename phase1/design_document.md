@@ -62,8 +62,16 @@ Entities represent the structure of the individual tables within the database.
 Additional use cases called managers deal with more complex actions that can't be implemented in the DAOs directly such as overloading methods for more forgiving type implementations.
 
 ![](https://developer.android.com/images/training/data-storage/room_architecture.png)
+
 Image Credit: https://developer.android.com/training/data-storage/room
 
+### Frontend MVC Design Pattern (Model View Controller)
+
+![](https://miro.medium.com/max/875/1*wumdzeLMAL0xvaIhMyMZPQ.png)
+
+Image Credit:https://medium.com/@jeyahariprakash/android-design-patterns-3b69e649aad6
+
+When a user clicks search, a list of hotels is displayed to this. Similarly, when the user clicks a hotel, the hotel details are displayed to this. The way we are displaying this data is through the model view controller design pattern. Using data models, we initialize the data that we need for the respective views, and set getters for them. Then, in the controllers (activities, adapters etc), we can create the model objects and get the data we want from them. This makes it easy to set text fields to the data we want, without having to rely on many managers and use case classes. The "View" part of this pattern is the actual UI the user see's, which are the xml files that interact with the Java activity controllers.
 
 ### Singleton
 
@@ -94,7 +102,7 @@ Rafee:
 
 Megan: 
 
-Veronica: Contributed to the making of the hotels dummy data. Worked on UI for rooms listing when a hotel has been selected. Will work on possibly adding a booking feature for hotel rooms so the user can book a room according to their schedule.
+Veronica: 
 
 Wei: 
 
