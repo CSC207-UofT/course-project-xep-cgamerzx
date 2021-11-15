@@ -98,11 +98,11 @@ In order to check if a commit had any issues, we utilized Github actions by crea
 ### Group Member Current and Future Responsibilities
 Howard: Worked on room library implementation, backend, as well as design document. Will explore cloud syncing of persistent data for phase 2 as well as fireauth implementations.
 
-Rafee: 
+Rafee: Worked on frontend and backend. Created some methods in managers, and validated input for listing a hotel. Worked on the searching logic and hotel views as well. In the future, might work on some sort of online storage, enhancing the user system, and a booking system.
 
 Megan: 
 
-Veronica: 
+Veronica: Contributed to the making of the hotels dummy data. Worked on UI for rooms listing when a hotel has been selected. Will work on possibly adding a booking feature for hotel rooms so the user can book a room according to their schedule.
 
 Wei: 
 
