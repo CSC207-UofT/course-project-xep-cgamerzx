@@ -61,7 +61,7 @@ We adhere to the dependency inversion principle by ensuring that all modules dep
 We followed clean archictecture by using the same SOLID design principle structure from phase 0. We have entities for hotel objects, use case managers for to manage things like rooms, hotels, beds, amentities, and more. Within our activities, we use several usecase classes to fetch and output data. In phase 1, we also implemented a new database structure that used android rooms library to save data and query with SQLite. We followed clean architecture here by using a database access object interfaces, which required certain methods the use case managers. This structure allowed us to use the database methods within the usecase classes by and not break SOLID structure because we used interfaces instead of calling the database directly.
 
 ## Packaging Strategies/Code Organization
-We packaged our code using the "by component method". We packaged by what made sense to us, and structured it in a way that controllers (activities) have their own packages, and within them, adapters and models are there as well. We also have a storage package, that holds anything saves and creates data. For example, we have our managers here, data access objects, and file read write classes in their own respective packages. 
+We packaged our code using the "by component method". We packaged by what made sense to us, and structured it in a way that controllers (activities) have their own packages, and within them, adapters and models. We also have a storage package, that holds data and also saves and creates data. For example, we have our managers here, data access objects, and file read write classes in their own respective packages. 
 
 ## Design Patterns
 ### Data Access Object Pattern
@@ -121,7 +121,7 @@ Howard: Worked on room library implementation, managers and the backend in gener
 
 Rafee: Worked on frontend and backend. Created some methods in managers, and validated input for listing a hotel. Worked on the searching logic and hotel views as well. In the future, might work on some sort of online storage, enhancing the user system, and a booking system.
 
-Megan: I implemented HotelAmenitiesCrossManager and RomAmenitiesCrossManager. I made boiler data and tests in HotelAmenityManagerTest, RoomAmenityManagerTest, UserTest, HotelManagerTest, RoomManagerTest and BedTest. I also added documentation and fixed warnings. I plan on working on implementing a better design pattern for our object managers.
+Megan: I implemented HotelAmenitiesCrossManager and RoomAmenitiesCrossManager. I made boiler data and tests in HotelAmenityManagerTest, RoomAmenityManagerTest, UserTest, HotelManagerTest, RoomManagerTest and BedTest. I also added documentation and fixed warnings. I plan on working on implementing a better design pattern for our object managers.
 
 Veronica: Contributed to the making of the hotels dummy data. Worked on UI for rooms listing when a hotel has been selected. Will work on possibly adding a booking feature for hotel rooms so the user can book a room according to their schedule.
 
