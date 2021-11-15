@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:elevation="999dp"
     android:background="@color/white"
+    android:clickable="true"
     tools:context=".management.HotelCreateRoomsFragment">
 
     <ImageButton

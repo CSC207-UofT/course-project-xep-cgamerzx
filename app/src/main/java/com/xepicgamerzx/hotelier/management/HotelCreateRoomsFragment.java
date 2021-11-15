@@ -103,7 +103,6 @@ public class HotelCreateRoomsFragment extends Fragment {
             public void onCheckedChanged(ChipGroup group, int checkedId) {
                 Chip chip = v.findViewById(checkedId);
 
-                // TODO fix error of same chip twice in a row crash
                 if (chip != null ) {
                     bedType = chip.getText().toString();
                     isBedTypeSelected = true;

@@ -27,6 +27,7 @@ public class HotelCreatorActivity extends AppCompatActivity {
     RoomManager roomManager;
     BedManager bedManager;
     RoomBedsCrossManager roomBedsCrossManager;
+
     Address address;
     List<HotelRoom> hotelRooms = new ArrayList<>();
 
@@ -119,7 +120,8 @@ public class HotelCreatorActivity extends AppCompatActivity {
         //pretty sure something is causing an error
         hotelManager = HotelManager.getManager(getApplication());
         roomManager = RoomManager.getManager(getApplication());
-        bedManager = bedManager.getManager(getApplication());
+        bedManager = BedManager.getManager(getApplication());
+        roomBedsCrossManager = RoomBedsCrossManager.getManager(getApplication());
     }
 
     public boolean validateHotel() {

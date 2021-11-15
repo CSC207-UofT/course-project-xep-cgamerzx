@@ -13,15 +13,16 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.textfield.TextInputEditText;
+import com.xepicgamerzx.hotelier.ReadDummyData.ReadDummyData;
 import com.xepicgamerzx.hotelier.databinding.ActivityMainBinding;
-import com.xepicgamerzx.hotelier.user.UserManager;
+import com.xepicgamerzx.hotelier.storage.HotelManager;
+
+import org.json.JSONException;
 
 
 public class MainActivity extends AppCompatActivity {
 
-    private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
-    private TextInputEditText searchInput;
     private BottomNavigationView navView;
 
     private TextView username;
@@ -32,20 +33,22 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        HotelManager hotelManager = HotelManager.getManager(getApplication());
+        // LOADING DUMMY DATA ON FIRST TIME LOADING APP, CAN PROBABLY USE AN API LATER
+        if (hotelManager.getAll().isEmpty()) {
+            ReadDummyData readDummyData = new ReadDummyData(getApplication());
+            try {
+                readDummyData.readData(getApplicationContext());
+                System.out.println("Success");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
         navView = findViewById(R.id.bottomNavigationView);
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentContainer);
         NavController navController = navHostFragment.getNavController();
         NavigationUI.setupWithNavController(navView, navController);
 
     }
-
-    public void replaceFragment(Fragment someFragment) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.dashboardFragment, someFragment, null)
-                .setReorderingAllowed(true)
-                .addToBackStack("Test")
-                .commit();
-    }
-
 }
