@@ -6,7 +6,6 @@ import androidx.room.Entity;
 @Entity(primaryKeys = {"roomID", "uniqueId"}, inheritSuperIndices = true)
 public class RoomBedsCrossRef extends CrossRef{
     public long roomID;
-
     private int bedCount;
 
     public RoomBedsCrossRef(long roomID, @NonNull String uniqueId, int bedCount){

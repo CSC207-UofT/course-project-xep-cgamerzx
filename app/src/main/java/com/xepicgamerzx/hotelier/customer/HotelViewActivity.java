@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.xepicgamerzx.hotelier.MainActivity;
 import com.xepicgamerzx.hotelier.R;
 import com.xepicgamerzx.hotelier.objects.Hotel;
 import com.xepicgamerzx.hotelier.objects.UnixEpochDateConverter;
@@ -85,8 +86,7 @@ public class HotelViewActivity extends AppCompatActivity {
                     // Send to adapter
                     userStartDate = (long) map.get("startDate");
                     userEndDate = (long) map.get("endDate");
-                    UnixEpochDateConverter date = new UnixEpochDateConverter();
-                    userSchedule.setText(date.epochToReadable(userStartDate, userEndDate));
+                    userSchedule.setText(UnixEpochDateConverter.epochToReadable(userStartDate, userEndDate));
                 }
 
                 List<Hotel> filterHotels = hotelManager.getHotelsByLatLong(latitude, longitude);
@@ -115,5 +115,10 @@ public class HotelViewActivity extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(), SearchActivity.class));
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(getApplicationContext(), SearchActivity.class));
     }
 }
