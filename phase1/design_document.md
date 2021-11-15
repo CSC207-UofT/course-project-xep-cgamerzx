@@ -13,15 +13,25 @@ This is solved in a number of different ways. For one to many relationships, suc
 
 For many to many relationships such as the relationship between Hotels and HotelAmenities, it gets slightly more complicated. An entire new cross relationship entity, and thus table, is needed to save the identifier of both entities in the relationship. There is one entity/entry in the table per relationship between two entities, with the entity identifiers in their own individual columns such that one can query for them separately.
 
-This whole system was implemented using a data access object (DAO) pattern. See the [design patterns section](#Design_Patterns) for more information.
+This whole system was implemented using a data access object (DAO) pattern. See the [design patterns section](#Data-Access-Object-Pattern) for more information.
 
 ### User Interface Update
 
 ## SOLID
 ## Clean Architecture
-## Packaging Strategies/ Code Organization
+## Packaging Strategies/Code Organization
 ## Design Patterns
-- Data Access Object Pattern
+### Data Access Object Pattern
+Our persistence system done using the [room persistence library]{#room-persistence-librarydata-persistence-overhaul} was implemented using a data access object (DAO) design pattern. The goal of this pattern is to separate low level data accessing operations such as Room library queries from business services. 
+
+Data access objects which are implemented as interfaces define the actual methods that can be used by the rest of the app to manipulate data in the database. These act as use cases. In our implementation, the DAOs also implement a base DAO interface which removes the boilerplate for insert, update and delete functionality.
+
+The database class holds the database instance and acts as an access point for the actual persisted data. This class also implements the singleton design pattern. These act as an interface adaptor.
+
+Entities represent the structure of the individual tables within the database.
+
+Additional use cases called managers deal with more complex actions that can't be implemented in the DAOs directly such as overloading methods for more forgiving type implementations.
+### Singleton
 ## Progress Report
 ### Open Questions
 ### Things that have worked well
