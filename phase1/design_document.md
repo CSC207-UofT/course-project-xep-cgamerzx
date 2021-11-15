@@ -67,7 +67,7 @@ We packaged our code using the "by component method". We packaged by what made s
 ### Data Access Object Pattern
 Our persistence system done using the [room persistence library](#room-persistence-librarydata-persistence-overhaul-23-17) which has an implementation architecture that uses the data access object (DAO) design pattern. The goal of this pattern is to separate low level data accessing operations such as Room library queries from business services. 
 
-Data access objects which are implemented as interfaces define the actual methods that can be used by the rest of the app to manipulate data in the database. These act as use cases. In our implementation, the DAOs also implement a base DAO interface which removes the boilerplate for insert, update and delete functionality.
+Data access objects which are implemented as interfaces define the actual methods that can be used by the rest of the app to manipulate data in the database. They also act as abstractions over SQLite. These act as use cases. In our implementation, the DAOs also implement a base DAO interface which removes the boilerplate for insert, update and delete functionality.
 
 The database class holds the database instance and acts as an access point for the actual persisted data. This class also implements the singleton design pattern. These act as an interface adaptor.
 
