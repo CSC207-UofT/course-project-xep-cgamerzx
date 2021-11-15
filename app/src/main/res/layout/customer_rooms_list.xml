@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="90dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="10dp"
+    android:backgroundTint="@color/hotel_row_background"
+    android:layout_marginTop="10dp"
+    android:id="@+id/layoutRooms">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+
+        <TextView
+            android:id="@+id/roomBeds"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:fontFamily="@font/inter_regular"
+            android:text="Beds:"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/roomBedSize"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/inter_regular"
+            android:text="Bed Size:"
+            android:textColor="@color/black"
+            android:layout_below="@id/roomBeds"
+            android:layout_marginLeft="15dp"/>
+
+        <TextView
+            android:id="@+id/roomCapacity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/inter_regular"
+            android:text="Capacity:"
+            android:textColor="@color/black"
+            android:layout_below="@id/roomBedSize"
+            android:layout_marginLeft="15dp"/>
+
+        <TextView
+            android:id="@+id/roomPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/roomCapacity"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="-60dp"
+            android:layout_marginRight="15dp"
+            android:fontFamily="@font/inter_regular"
+            android:gravity="right"
+            android:text="$0"
+            android:textColor="@color/black"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/roomPricetxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/roomPrice"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="15dp"
+            android:fontFamily="@font/inter_regular"
+            android:gravity="right"
+            android:text="per night"
+            android:textColor="@color/black" />
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>
