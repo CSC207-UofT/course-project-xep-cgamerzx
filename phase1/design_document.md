@@ -94,7 +94,7 @@ Rafee:
 
 Megan: 
 
-Veronica: 
+Veronica: Contributed to the making of the hotels dummy data. Worked on UI for rooms listing when a hotel has been selected. Will work on possibly adding a booking feature for hotel rooms so the user can book a room according to their schedule.
 
 Wei: 
 
