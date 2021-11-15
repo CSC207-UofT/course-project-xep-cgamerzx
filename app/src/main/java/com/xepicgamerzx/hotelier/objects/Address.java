@@ -1,16 +1,19 @@
 package com.xepicgamerzx.hotelier.objects;
 
+import androidx.annotation.NonNull;
+
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Address implements Serializable {
 
-    private String streetName;
     public String postalCode;
-    private String streetNumber;
-    private String city;
-    private String province;
-    private double longitude;
-    private double latitude;
+    private final String streetName;
+    private final String streetNumber;
+    private final String city;
+    private final String province;
+    private final double longitude;
+    private final double latitude;
 
     /**
      * Creates a new Address
@@ -61,16 +64,35 @@ public class Address implements Serializable {
         return String.format("%s %s", this.streetNumber, this.streetName);
     }
 
+    @NonNull
     @Override
     public String toString() {
-        String sf = ("Street Number: " + this.streetNumber +
+        return ("Street Number: " + this.streetNumber +
                 "\nStreet Name: " + this.streetName +
                 "\nCity: " + this.city +
                 "\nProvince: " + this.province +
                 "\nPostal Code: " + this.postalCode +
                 "\nLongitude: " + this.longitude +
                 "\nLatitude: " + this.latitude);
-        return sf;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Address)) return false;
+        Address address = (Address) o;
+        return Double.compare(address.getLongitude(), getLongitude()) == 0 &&
+                Double.compare(address.getLatitude(), getLatitude()) == 0 &&
+                getStreetName().equals(address.getStreetName()) &&
+                getPostalCode().equals(address.getPostalCode()) &&
+                getStreetNumber().equals(address.getStreetNumber()) &&
+                getCity().equals(address.getCity()) &&
+                getProvince().equals(address.getProvince());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getStreetName(), getPostalCode(), getStreetNumber(), getCity(), getProvince(), getLongitude(), getLatitude());
     }
 }
 

@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.xepicgamerzx.hotelier" >
+    package="com.xepicgamerzx.hotelier">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 
     <application
         android:allowBackup="true"
@@ -8,24 +12,36 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Hotelier" >
+        android:theme="@style/Theme.Hotelier">
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDgbO256UmNGH74yVSq9NsRD4MyXltqGwQ"/>
+
+
+        <activity
+            android:name=".management.HotelCreatorActivity"
+            android:exported="false" />
+        <activity
+            android:name=".customer.SearchActivity"
+            android:exported="false" />
+        <activity
+            android:name=".customer.HotelViewActivity"
+            android:exported="false" />
+        <activity
+            android:name=".user.LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".user.RegisterActivity"
+            android:exported="false" />
         <activity
             android:name=".customer.CustomerHotelRoomsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".customer.HotelListActivity"
-            android:exported="false" />
-        <activity
-            android:name=".customer.CustomerActivity"
-            android:exported="false" />
-        <activity
-            android:name=".management.ManagementActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.Hotelier.NoActionBar" >
+            android:theme="@style/Theme.Hotelier.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

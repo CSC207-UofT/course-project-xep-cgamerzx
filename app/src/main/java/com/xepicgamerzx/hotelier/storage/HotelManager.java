@@ -1,123 +1,203 @@
 package com.xepicgamerzx.hotelier.storage;
 
-import android.content.Context;
+import android.app.Application;
+import android.location.Location;
 
+import androidx.annotation.NonNull;
+
+import com.google.type.LatLng;
+import com.xepicgamerzx.hotelier.customer.HotelViewModel;
+import com.xepicgamerzx.hotelier.objects.Address;
 import com.xepicgamerzx.hotelier.objects.Hotel;
-import com.xepicgamerzx.hotelier.objects.Room;
+import com.xepicgamerzx.hotelier.objects.HotelAmenitiesCrossRef;
+import com.xepicgamerzx.hotelier.objects.HotelAmenity;
+import com.xepicgamerzx.hotelier.objects.HotelRoom;
+import com.xepicgamerzx.hotelier.storage.dao.HotelAmenitiesCrossDao;
+import com.xepicgamerzx.hotelier.storage.dao.HotelDao;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * A class to manage all the hotels in our database.
+ * A class to manage all the hotels in the database.
  */
-public class HotelManager implements Serializable {
-    private List<Hotel> hotels = new ArrayList<>();
-    FileReadWrite<List<Hotel>> frw = new FileReadWrite<>();
+public class HotelManager implements DiscreteManager<Hotel, Long, Long[]> {
+    private static volatile HotelManager INSTANCE;
 
-    /**
-     * A method to load hotels when opening the app and set the hotels instance variable to them
-     *
-     * @param appContext Context of the app, use View.getContext()
-     * @return return the loaded hotels.
-     */
-    public List<Hotel> loadHotels(Context appContext) {
-        List<Hotel> list = frw.readData("file.dat", appContext);
+    private final HotelierDatabase db;
+    private final HotelDao hotelDao;
+    private final HotelAmenitiesCrossDao hotelAmenitiesCrossDao;
+    private final RoomManager roomManager;
 
-        if (list != null) {
-            this.hotels = list;
-            return this.hotels;
+    private HotelManager(Application application) {
+        db = HotelierDatabase.getDatabase(application);
+        hotelDao = db.hotelDao();
+        hotelAmenitiesCrossDao = db.hotelAmenitiesCrossDao();
+
+        roomManager = RoomManager.getManager(application);
+    }
+
+    private HotelManager(HotelierDatabase dbInstance) {
+        db = dbInstance;
+        hotelDao = db.hotelDao();
+        hotelAmenitiesCrossDao = db.hotelAmenitiesCrossDao();
+
+        roomManager = RoomManager.getManager(dbInstance);
+    }
+
+    public static HotelManager getManager(Application application) {
+        if (INSTANCE == null) {
+            INSTANCE = new HotelManager(application);
         }
 
-        return this.hotels;
+        return INSTANCE;
     }
 
-    /**
-     * A method to save hotels to a file, which is saved to the database.
-     *
-     * @param appContext Context of app.
-     */
-    public void saveData(Context appContext) {
-        frw.writeData(hotels, "file.dat", appContext);
-    }
-
-    /**
-     * Append a hotel object to the hotels ArrayList.
-     *
-     * @param hotel
-     */
-    public void addHotel(Hotel hotel) {
-        if (!(hotels.contains(hotel))) {
-            this.hotels.add(hotel);
-        }
-    }
-
-    public void resetHotelsList() {
-        this.hotels = new ArrayList<>();
-    }
-
-    //    public void deleteHotel(Hotel hotel) {
-    //        if(hotels.contains(hotel)) {
-    //            this.hotels.remove(hotel);
-    //        }
-    //    }
-
-    public List<Hotel> getAllHotels() {
-        return this.hotels;
-    }
-
-    /**
-     * Returns a string of a hotels priceRange.
-     *
-     * @param hotel
-     * @return
-     */
-    public String hotelPriceRangeString(Hotel hotel) {
-        double[] priceRange = hotel.getPrinceRange();
-        String msg;
-        if (priceRange[0] == priceRange[1]) {
-            msg = String.format("Price: %s", Double.toString(priceRange[0]));
-        } else {
-            msg = String.format("Price Range: %s - %s", Double.toString(priceRange[0]), Double.toString(priceRange[1]));
-        }
-        return msg;
-    }
-
-    /**
-     * Returns every room in the database (every hotels rooms).
-     *
-     * @return
-     */
-    public List<Room> getAllHotelsRooms() {
-        List<Room> allRooms = new ArrayList<Room>();
-        for (Hotel hotel : this.hotels) {
-            allRooms.addAll(getOneHotelsRooms(hotel));
+    public static HotelManager getManager(HotelierDatabase dbInstance) {
+        if (INSTANCE == null) {
+            INSTANCE = new HotelManager(dbInstance);
         }
 
-        return allRooms;
+        return INSTANCE;
     }
 
     /**
-     * @param hotel
-     * @return return all of the rooms in ONE specified hotel.
+     * Creates hotel object and inserts it to the database. (No rooms)
+     *
+     * @param name      String name of the hotel.
+     * @param address   Address object associated with the hotel.
+     * @param starClass Int star class of the hotel
+     * @return Hotel object created.
      */
-    public List<Room> getOneHotelsRooms(Hotel hotel) {
-        List<Room> rooms = new ArrayList<Room>();
+    @NonNull
+    public Hotel createHotel(String name, Address address, int starClass) {
+        Hotel hotel = new Hotel(name, address, starClass);
+        Long[] id = insert(hotel);
+        return get(id).get(0);
+    }
 
-        try {
-            for (Hotel hotel_other : this.hotels) {
-                if (hotel == hotel_other) {
-                    rooms = hotel.getRooms();
-                    return rooms;
-                }
+    /**
+     * Creates hotel object and inserts it to the database. Also associates a list of hotel rooms
+     * with the hotel object and inserts these associations to the HotelRoom database.
+     *
+     * @param name       String name of the hotel.
+     * @param address    Address object associated with the hotel.
+     * @param starClass  Int star class of the hotel
+     * @param hotelRooms List of HotelRooms to be associated with the Hotel object.
+     * @return Hotel object created.
+     */
+    @NonNull
+    public Hotel createHotel(String name, Address address, int starClass, List<HotelRoom> hotelRooms) {
+        Hotel hotel = createHotel(name, address, starClass);
+
+        for (HotelRoom hotelRoom : hotelRooms) {
+            roomManager.setHotelID(hotel, hotelRoom);
+        }
+
+        return hotel;
+    }
+
+    /**
+     * Inserts the Hotel(s) to the Hotel database.
+     *
+     * @param hotel Hotel object(s) to be saved.
+     * @return Long[], autogenerated HotelID of the Hotel(s) saved.
+     */
+    @Override
+    public Long[] insert(Hotel... hotel) {
+        return hotelDao.insert(hotel).toArray(new Long[0]);
+    }
+
+
+    /**
+     * Updates Hotel object(s) in the database.
+     *
+     * @param hotel Hotel object(s) to be updated in the database.
+     */
+    @Override
+    public void update(Hotel... hotel) {
+        hotelDao.update(hotel);
+    }
+
+
+    /**
+     * Get hotels with matching hotel IDs.
+     *
+     * @param hotelID Long hotelIDs to be used as search keys.
+     * @return List of Hotels with matching HotelIDs.
+     */
+    @Override
+    public List<Hotel> get(Long... hotelID) {
+        return hotelDao.getHotels(hotelID);
+    }
+
+    /**
+     * Gets all hotels in the Hotel database.
+     *
+     * @return List of the Hotels in the Hotel database.
+     */
+    @Override
+    public List<Hotel> getAll() {
+        return hotelDao.getAllHotels();
+    }
+
+    public List<Hotel> getHotelsByLatLong(double destinationLat, double destinationLong) {
+        List<Hotel> hotels = hotelDao.getAllHotels();
+        List<Hotel> filteredHotels = new ArrayList<>();
+
+        for(Hotel hotel : hotels) {
+            double hotelLat = hotel.getAddress().getLatitude();
+            double hotelLong = hotel.getAddress().getLongitude();
+            System.out.println(hotelLat + " " + hotelLong + " " + destinationLat + " " + destinationLong);
+            float distanceToHotel = getDistanceMetres(hotelLat, hotelLong, destinationLat, destinationLong);
+            System.out.println("Distance to hotel" + distanceToHotel);
+
+            // DEFAULT THRESHOLD, 50km?
+            if(distanceToHotel <= 50000) {
+                filteredHotels.add(hotel);
             }
-        } catch (Exception e) {
-            System.out.println("Hotel was not found");
         }
-
-        return rooms;
+        return filteredHotels;
     }
 
+    public static float getDistanceMetres(double lat1, double lng1, double lat2, double lng2) {
+        Location location1 = new Location("location1");
+        location1.setLongitude(lng1);
+        location1.setLatitude(lat1);
 
+        Location location2= new Location("location1");
+        location2.setLongitude(lng2);
+        location2.setLatitude(lat2);
+
+        float dist = location1.distanceTo(location2);
+
+        return dist;
+    }
+
+    /**
+     * Generates a list of HotelViewModel's with specifics
+     */
+    public List<HotelViewModel> generateHotelModel(List<Hotel> hotels) {
+        List<HotelViewModel> hotelsView = new ArrayList<>();
+
+        for (Hotel hotel : hotels) {
+            hotelsView.add(new HotelViewModel(
+                    hotel.getName(),
+                    hotel.getAddress().getFullStreet(),
+                    roomManager.getPriceRange(hotel).get(0),
+                    roomManager.getNumberOfRooms(hotel),
+                    hotel
+            ));
+        }
+
+        return hotelsView;
+    }
+
+    /**
+     * Closes the manager if already open.
+     */
+    @Override
+    public void close() {
+        INSTANCE = null;
+    }
 }
