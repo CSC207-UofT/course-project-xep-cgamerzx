@@ -5,7 +5,7 @@
     android:layout_above="@+id/host"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
+    tools:context=".home_page_activities.MainActivity"
     android:background="@color/background_default"
     android:id="@+id/mainActivity">
 

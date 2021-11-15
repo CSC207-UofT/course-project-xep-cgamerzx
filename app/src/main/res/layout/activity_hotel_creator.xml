@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/hotelCreator"
-    tools:context=".management.HotelCreatorActivity">
+    tools:context=".management_hotel_listing_activity.HotelCreatorActivity">
 
     <ImageButton
         android:id="@+id/backBtn"

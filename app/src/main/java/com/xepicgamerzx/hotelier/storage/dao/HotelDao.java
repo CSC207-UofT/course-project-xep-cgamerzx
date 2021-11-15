@@ -4,7 +4,7 @@ import androidx.room.Dao;
 import androidx.room.Query;
 import androidx.room.Transaction;
 
-import com.xepicgamerzx.hotelier.objects.Hotel;
+import com.xepicgamerzx.hotelier.objects.hotel_objects.Hotel;
 import com.xepicgamerzx.hotelier.objects.relations.HotelWithAmenities;
 import com.xepicgamerzx.hotelier.objects.relations.HotelWithRooms;
 
@@ -21,6 +21,7 @@ public interface HotelDao extends BaseDao<List<Long>, Hotel>{
     @Transaction
     @Query("SELECT * FROM Hotel")
     List<HotelWithRooms> getAllHotelsWithRoom();
+
 
     @Transaction
     @Query("SELECT * FROM Hotel")

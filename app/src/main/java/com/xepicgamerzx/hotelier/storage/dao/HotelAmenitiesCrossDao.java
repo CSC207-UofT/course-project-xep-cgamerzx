@@ -3,7 +3,7 @@ package com.xepicgamerzx.hotelier.storage.dao;
 import androidx.room.Dao;
 import androidx.room.Query;
 
-import com.xepicgamerzx.hotelier.objects.HotelAmenitiesCrossRef;
+import com.xepicgamerzx.hotelier.objects.cross_reference_objects.HotelAmenitiesCrossRef;
 
 import java.util.List;
 

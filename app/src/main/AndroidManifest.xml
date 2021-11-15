@@ -20,25 +20,25 @@
 
 
         <activity
-            android:name=".management.HotelCreatorActivity"
+            android:name=".management_hotel_listing_activity.HotelCreatorActivity"
             android:exported="false" />
         <activity
-            android:name=".customer.SearchActivity"
+            android:name=".customer_activities.customer_search_activity.SearchActivity"
             android:exported="false" />
         <activity
-            android:name=".customer.HotelViewActivity"
+            android:name=".customer_activities.customer_hotels_activity.HotelViewActivity"
             android:exported="false" />
         <activity
-            android:name=".user.LoginActivity"
+            android:name=".user_activities.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".user.RegisterActivity"
+            android:name=".user_activities.RegisterActivity"
             android:exported="false" />
         <activity
-            android:name=".customer.CustomerHotelRoomsActivity"
+            android:name=".customer_activities.customer_rooms_activity.CustomerHotelRoomsActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".home_page_activities.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.Hotelier.NoActionBar">

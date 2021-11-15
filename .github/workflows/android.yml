@@ -1,4 +1,4 @@
-    name: GitHub Android Build and Test Workflow
+    name: Build
 
 
     on: [push]

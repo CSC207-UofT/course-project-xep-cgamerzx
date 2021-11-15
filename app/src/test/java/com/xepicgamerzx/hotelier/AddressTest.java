@@ -2,7 +2,7 @@ package com.xepicgamerzx.hotelier;
 
 import static org.junit.Assert.assertEquals;
 
-import com.xepicgamerzx.hotelier.objects.Address;
+import com.xepicgamerzx.hotelier.objects.hotel_objects.Address;
 
 import org.junit.Test;
 
