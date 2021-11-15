@@ -121,7 +121,7 @@ Megan: I implemented HotelAmenitiesCrossManager and RomAmenitiesCrossManager. I 
 
 Veronica: Contributed to the making of the hotels dummy data. Worked on UI for rooms listing when a hotel has been selected. Will work on possibly adding a booking feature for hotel rooms so the user can book a room according to their schedule.
 
-Wei: 
+Wei: Contributed to designing some of the UI for adding amenities when creating a hotel. In the future will possibly work implementing a design pattern for creating hotels.
 
 Thomas: Will work on implementing the favourite feature, as well as an autocomplete for searches and UX on the frontend.
 
