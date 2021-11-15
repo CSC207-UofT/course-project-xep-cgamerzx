@@ -1,7 +1,7 @@
 # Phase 1 Design Document - Xep!cgamerzX
 ## Updated Specification
 ## Major Design Decisions
-### Room Persistence Library/Data Persistence Overhaul
+### Room Persistence Library/Data Persistence Overhaul {[#23](https://github.com/CSC207-UofT/course-project-xep-cgamerzx/issues/23)} {[#17](https://github.com/CSC207-UofT/course-project-xep-cgamerzx/pull/17)}
 
 A significant portion of the time spent working on the backend was to implement the Room persistence library. This is a native Android library that provides an abstraction layer over SQLite which is also natively implemented in Android. Our previous method for data persistence involved a a generic file read write class which took any object and saved it as a file. This made things very simple and easy code wise, but it was horrible for performance because every time a new object was added, updated, or deleted, the entire database file had to be remade. Furthermore, everything in the file had to be loaded into memory in order to access data.
 
@@ -15,7 +15,7 @@ For many to many relationships such as the relationship between Hotels and Hotel
 
 This whole system was implemented using a data access object (DAO) pattern. See the [design patterns section](#Data-Access-Object-Pattern) for more information.
 
-We explored using Firestore, a cloud hosted NoSQL database but cloud based APIs are usually asynchronous in nature and we found it difficult to adhere to clean architecture due to how async methods are implemented in Java. We identified callbacks as a potential solution, but determined that it would take too much time to explore this avenue though we may revisit in Phase 2, time permitting.
+We explored using Firestore, a cloud hosted NoSQL database but cloud based APIs are usually asynchronous in nature and we found it difficult to adhere to clean architecture due to how async methods are implemented in Java. We identified callbacks as a potential solution, but determined that it would take too much time to explore this avenue though we may [revisit in Phase 2](#Firestore-Implementation), time permitting.
 
 ### User Interface Update
 
