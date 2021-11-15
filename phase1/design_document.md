@@ -87,10 +87,15 @@ We used pull requests and branches tightly with Github issues as they can be lin
 In order to check if a commit had any issues, we utilized Github actions by creating a custom Android orientated workflow which built the app and ran all the tests. This includes the tests which require an android instance such as those testing data persistence. Our workflow action triggered for every push, and would indicate whenever or not a build or test failed or if everything ran correctly. This helped determine the status of a branch at a glance and is an obvious indicator for any issues that may have arisen because either the branch is actively being worked on, or if someone may have forgotten to run the tests themselves before pushing.
 
 ### Group Member Current and Future Responsibilities
-Howard: 
+Howard: Worked on room library implementation, backend, as well as design document. Will explore cloud syncing of persistent data for phase 2 as well as fireauth implementations.
+
 Rafee: 
+
 Megan: 
+
 Veronica: 
+
 Wei: 
+
 Thomas: 
 
