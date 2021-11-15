@@ -9,7 +9,6 @@ import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import com.xepicgamerzx.hotelier.objects.Address;
-import com.xepicgamerzx.hotelier.objects.Hotel;
 import com.xepicgamerzx.hotelier.objects.HotelRoom;
 import com.xepicgamerzx.hotelier.objects.RoomAmenitiesEnum;
 import com.xepicgamerzx.hotelier.objects.RoomAmenity;
@@ -41,7 +40,6 @@ public class RoomAmenityManagerTest {
     private final BigDecimal price = BigDecimal.valueOf(200.91);
     private final long startDate = System.currentTimeMillis();
     private final long endDate = startDate * 2;
-    private Hotel testHotel;
 
     @BeforeClass
     public static void createBoilerInfo() {
@@ -77,7 +75,7 @@ public class RoomAmenityManagerTest {
 
         String name = "Gamer Hotel";
         int starClass = 5;
-        testHotel = hotelManager.createHotel(name, addresses.get(0), starClass, rooms);
+        hotelManager.createHotel(name, addresses.get(0), starClass, rooms);
     }
 
     @Test
