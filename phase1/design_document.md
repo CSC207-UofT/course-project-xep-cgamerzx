@@ -15,6 +15,8 @@ For many to many relationships such as the relationship between Hotels and Hotel
 
 This whole system was implemented using a data access object (DAO) pattern. See the [design patterns section](#Data-Access-Object-Pattern) for more information.
 
+We explored using Firestore, a cloud hosted NoSQL database but cloud based APIs are usually asynchronous in nature and we found it difficult to adhere to clean architecture due to how async methods are implemented in Java. We identified callbacks as a potential solution, but determined that it would take too much time to explore this avenue though we may revisit in Phase 2, time permitting.
+
 ### User Interface Update
 
 ## SOLID
@@ -22,7 +24,7 @@ This whole system was implemented using a data access object (DAO) pattern. See 
 ## Packaging Strategies/Code Organization
 ## Design Patterns
 ### Data Access Object Pattern
-Our persistence system done using the [room persistence library]{#room-persistence-librarydata-persistence-overhaul} was implemented using a data access object (DAO) design pattern. The goal of this pattern is to separate low level data accessing operations such as Room library queries from business services. 
+Our persistence system done using the [room persistence library](#room-persistence-librarydata-persistence-overhaul) was implemented using a data access object (DAO) design pattern. The goal of this pattern is to separate low level data accessing operations such as Room library queries from business services. 
 
 Data access objects which are implemented as interfaces define the actual methods that can be used by the rest of the app to manipulate data in the database. These act as use cases. In our implementation, the DAOs also implement a base DAO interface which removes the boilerplate for insert, update and delete functionality.
 
@@ -31,9 +33,16 @@ The database class holds the database instance and acts as an access point for t
 Entities represent the structure of the individual tables within the database.
 
 Additional use cases called managers deal with more complex actions that can't be implemented in the DAOs directly such as overloading methods for more forgiving type implementations.
+
+#TODO Add picture
+
 ### Singleton
 ## Progress Report
 ### Open Questions
+#### Firestore Implementation
+As discussed in [room persistence library](#Room-Persistence-Library/Data-Persistence-Overhaul), we explored using Firestore, a cloud NoSQL database implementation, in order to deal with data persistence. However, cloud based solutions such as Firestore are asynchronous in nature and we found it difficult to implement them while adhering to Clean Architecture, as any use cases done using data accessed would have to be implemented within that same data access method. We identified callbacks as a potential solution but decided that it would be too time costly to explore for now. 
+
+#### Fireauth Implementation
 ### Things that have worked well
 #### Use of Github Features
 In order to track issues as well as feature implementations that were being handled, and or identified but still needed to be dealt with, we used Github issues. The label system made it easy to discern at a glance what tasks needed to be done, and what tasks could be done relatively easily. For example, we used the "good first issue" label in order to label issues that can be done by anyone looking to contribute, but were not very sure where to start and or felt lost. The forum like discussion in issues allowed for detailed descriptions of instructions to be added.
