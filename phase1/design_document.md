@@ -4,7 +4,7 @@ Our original specification involved users being able to create hotels, and custo
 
 // Rafee - I wanted to have a more concrete problem for our scope, is this ok?
 
-In a more general sense, because every hotel wont use our app and list their own data, we want to specify a more concrete problem. This problem is hotels being cancelled upon last minute, or unpopular hotels that dont get many visitors. Both of these problems can lead to rooms being unused and less money being made. Our app solves this problem as it provides a quick way for a hotel to list their details, the rooms available, the price per night, and other information. This gives hotels an outlet to list their rooms for a cheaper price, for last minute or general bookings. Customers can then view all of these hotels, their location, the rooms available, and get data based on their schedule and city. A booking feature could also be implemented that allows a user to book these rooms that a hotel manager might have listed.
+In a more general sense, because every hotel won't use our app and list their own data, we want to specify a more concrete problem. This problem is hotels being cancelled upon last minute, or unpopular hotels that don't get many visitors. Both of these problems can lead to rooms being unused and less money being made. Our app solves this problem as it provides a quick way for a hotel to list their details, the rooms available, the price per night, and other information. This gives hotels an outlet to list their rooms for a cheaper price, for last minute or general bookings. Customers can then view all of these hotels, their location, the rooms available, and get data based on their schedule and city. A booking feature could also be implemented that allows a user to book these rooms that a hotel manager might have listed.
 
 ## Major Design Decisions
 ### Room Persistence Library/Data Persistence Overhaul {[#23](https://github.com/CSC207-UofT/course-project-xep-cgamerzx/issues/23)} {[#17](https://github.com/CSC207-UofT/course-project-xep-cgamerzx/pull/17)}
@@ -31,7 +31,7 @@ There are two parts to the UI at the moment, the customer searching, and the man
 Listing a hotel consists of 3 types of inputs, the hotel name, the hotel address, and the rooms in the hotel. With an update on the UI, we also focused on handling input errors. If the user ever clicks save with no inputs or if the input is the wrong type, a message will pop up at the bottom of their screen telling them their error.
 
 **Note about hotel creation:**
-One downside to this, is that there are a lot of inputs, so the user has to be careful that they are typing in the right stuff. For example, it is important they give the right longitude and latitude. However, in the future, this input won't be neccessary because using the PlacesAPI class, we can get longitude and latitude of a destination they submit.
+One downside to this, is that there are a lot of inputs, so the user has to be careful that they are typing in the right stuff. For example, it is important they give the right longitude and latitude. However, in the future, this input won't be necessary because using the PlacesAPI class, we can get longitude and latitude of a destination they submit.
 Because creating these hotels might take a while, we created some dummy data in a json file under the assets folder. The json file contains some hotels in different cities, and also has dummy room data. In the ReadDummyData class, we parse this json file, create hotels along with their relationships within the database. The JSON file structure, and the reader, may also be good for loading Hotel API data in the future.
 
 When hotels are listed, users can go back to the main page, and click search. With the new search feature, using google places api, typing in any location autogenerates suggestions for the users destination. When the user clicks on the location, in the backend, the longitude and latitude is saved. In addition, the user can set a schedule and increase their number of guests. The location, schedule, and number of guests are sent to the HotelViewActivity, where the respective hotels are displayed given the user inputs. One example of how we did this is getting hotels within a 50km radius of the users destination. This method is within HotelManager's getHotelsByLatLong().
@@ -41,7 +41,7 @@ If a user does not input a schedule or destination, this is taken care of as all
 
 After searching for a hotel, a recycler view shows up, with the hotels in the database that are within a 50km radius of the user's destination, filtered by their schedule. As of now, each hotel has a default picture attached to them, but in the future, we can let hotels upload an image instead. Upon viewing the new page with hotels, a user can click on a hotel and a new page will show up, with a detailed view.
 
-This detailed view is the CustomerRoomsActivity class. In this page, we used google maps api to display a google map in a fragment of the hotels longitude and latitude. We also display the hotel name, address, and the respective rooms based on the users schedule. In the future, we plan to make this page nicer, add hotel amentities, and possibly add a "Book" feature to each hotel room.
+This detailed view is the CustomerRoomsActivity class. In this page, we used google maps api to display a google map in a fragment of the hotels longitude and latitude. We also display the hotel name, address, and the respective rooms based on the users schedule. Each room displays their respective number of beds, bed size, capacity, price per night, and schedule that it is available. In the future, we plan to make this page nicer, add hotel amenities, and possibly add a "Book" feature to each hotel room.
 
 We also made a sign in and register page, which uses the rooms library to save a user locally. At the moment, the system has no security, and user's can make their passwords and usernames anything they want. In the future, we probably want to make this more secure.
 
@@ -78,5 +78,10 @@ We used pull requests and branches tightly with Github issues as they can be lin
 In order to check if a commit had any issues, we utilized Github actions by creating a custom Android orientated workflow which built the app and ran all the tests. This includes the tests which require an android instance such as those testing data persistence. Our workflow action triggered for every push, and would indicate whenever or not a build or test failed or if everything ran correctly. This helped determine the status of a branch at a glance and is an obvious indicator for any issues that may have arisen because either the branch is actively being worked on, or if someone may have forgotten to run the tests themselves before pushing.
 
 ### Group Member Current and Future Responsibilities
-
+Howard: 
+Rafee: 
+Megan: 
+Veronica: 
+Wei: 
+Thomas: 
 
