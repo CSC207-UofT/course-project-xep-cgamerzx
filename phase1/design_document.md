@@ -3,8 +3,6 @@
 ## Updated Specification
 Our original specification involved users being able to create hotels, and customer users being able to view the hotel information, available rooms, location, and a possibility to book the room. 
 
-// Rafee - I wanted to have a more concrete problem for our scope, is this ok?
-
 In a more general sense, because every hotel won't use our app and list their own data, we want to specify a more concrete problem. This problem is hotels being cancelled upon last minute, or unpopular hotels that don't get many visitors. Both of these problems can lead to rooms being unused and less money being made. Our app solves this problem as it provides a quick way for a hotel to list their details, the rooms available, the price per night, and other information. This gives hotels an outlet to list their rooms for a cheaper price, for last minute or general bookings. Customers can then view all of these hotels, their location, the rooms available, and get data based on their schedule and city. A booking feature could also be implemented that allows a user to book these rooms that a hotel manager might have listed.
 
 ## Major Design Decisions
