@@ -1,15 +1,15 @@
-package com.xepicgamerzx.hotelier.storage.hotel_reference_managers;
-
-import com.xepicgamerzx.hotelier.storage.hotel_managers.Manager;
+package com.xepicgamerzx.hotelier.storage.hotel_managers;
 
 import java.util.List;
 
 /**
+ * Interface for managers handling discrete entities.
  *
  * @param <T> Entity Type.
  * @param <I> Entity ID type.
  * @param <R> Insert return type.
  */
+@SuppressWarnings("unchecked")
 public interface DiscreteManager <T, I, R> extends Manager<T, R> {
     /**
      * Gets objects with matching primary key IDs.
