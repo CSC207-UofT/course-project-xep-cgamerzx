@@ -7,18 +7,17 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
-import com.xepicgamerzx.hotelier.objects.hotel_objects.Bed;
-import com.xepicgamerzx.hotelier.objects.cross_reference_objects.RoomBedsCrossRef;
-import com.xepicgamerzx.hotelier.objects.hotel_objects.Hotel;
 import com.xepicgamerzx.hotelier.objects.cross_reference_objects.HotelAmenitiesCrossRef;
+import com.xepicgamerzx.hotelier.objects.cross_reference_objects.RoomAmenitiesCrossRef;
+import com.xepicgamerzx.hotelier.objects.cross_reference_objects.RoomBedsCrossRef;
+import com.xepicgamerzx.hotelier.objects.hotel_objects.Bed;
+import com.xepicgamerzx.hotelier.objects.hotel_objects.Hotel;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelAmenity;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelRoom;
-import com.xepicgamerzx.hotelier.objects.cross_reference_objects.RoomAmenitiesCrossRef;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.RoomAmenity;
 import com.xepicgamerzx.hotelier.storage.Converters;
 import com.xepicgamerzx.hotelier.storage.dao.BedDao;
 import com.xepicgamerzx.hotelier.storage.dao.BedRoomCrossDao;
-import com.xepicgamerzx.hotelier.storage.dao.ClearTablesDao;
 import com.xepicgamerzx.hotelier.storage.dao.HotelAmenitiesCrossDao;
 import com.xepicgamerzx.hotelier.storage.dao.HotelAmenityDao;
 import com.xepicgamerzx.hotelier.storage.dao.HotelDao;
@@ -66,6 +65,4 @@ public abstract class HotelierDatabase extends RoomDatabase {
     public abstract HotelAmenitiesCrossDao hotelAmenitiesCrossDao();
 
     public abstract RoomAmenitiesCrossDao roomAmenitiesCrossDao();
-
-    public abstract ClearTablesDao clear_tables();
 }
