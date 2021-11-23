@@ -126,7 +126,7 @@ public class HotelManager implements DiscreteManager<Hotel, Long, Long[]> {
      */
     @Override
     public List<Hotel> get(Long... hotelID) {
-        return hotelDao.getHotels(hotelID);
+        return hotelDao.getIdMatch(hotelID);
     }
 
     /**
@@ -136,11 +136,11 @@ public class HotelManager implements DiscreteManager<Hotel, Long, Long[]> {
      */
     @Override
     public List<Hotel> getAll() {
-        return hotelDao.getAllHotels();
+        return hotelDao.getAll();
     }
 
     public List<Hotel> getHotelsByLatLong(double destinationLat, double destinationLong) {
-        List<Hotel> hotels = hotelDao.getAllHotels();
+        List<Hotel> hotels = hotelDao.getAll();
         List<Hotel> filteredHotels = new ArrayList<>();
 
         for(Hotel hotel : hotels) {

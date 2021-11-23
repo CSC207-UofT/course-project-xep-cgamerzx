@@ -12,10 +12,10 @@ import java.util.List;
 @Dao
 public interface RoomAmenityDao extends BaseDao<Void, RoomAmenity>{
     @Query("SELECT * FROM RoomAmenity")
-    List<RoomAmenity> getAllRoomAmenities();
+    List<RoomAmenity> getAll();
 
     @Query("SELECT * FROM RoomAmenity WHERE uniqueId IN (:roomAmenityID)")
-    List<RoomAmenity> getRoomAmenities(String... roomAmenityID);
+    List<RoomAmenity> getIdMatch(String... roomAmenityID);
 
     @Transaction
     @Query("SELECT * FROM RoomAmenity")

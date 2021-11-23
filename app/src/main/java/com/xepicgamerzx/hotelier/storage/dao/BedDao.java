@@ -29,7 +29,7 @@ public interface BedDao extends BaseDao<Void, Bed>{
      * @return List<Bed> list of all beds with unique IDs that match bedID.
      */
     @Query("SELECT * FROM Bed WHERE uniqueId IN (:bedID)")
-    List<Bed> getBeds(String... bedID);
+    List<Bed> getIdMatch(String... bedID);
 
     /**
      * Get all beds associated with a room.

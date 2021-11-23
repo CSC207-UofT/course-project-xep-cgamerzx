@@ -13,10 +13,10 @@ import java.util.List;
 @Dao
 public interface HotelDao extends BaseDao<List<Long>, Hotel>{
     @Query("SELECT * FROM Hotel")
-    List<Hotel> getAllHotels();
+    List<Hotel> getAll();
 
     @Query("SELECT * FROM Hotel WHERE hotelID IN (:hotelID)")
-    List<Hotel> getHotels(Long... hotelID);
+    List<Hotel> getIdMatch(Long... hotelID);
 
     @Transaction
     @Query("SELECT * FROM Hotel")

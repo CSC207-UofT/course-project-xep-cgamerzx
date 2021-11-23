@@ -49,7 +49,7 @@ public class HotelAmenityManager implements UniqueManager<HotelAmenity, HotelAme
      */
     @Override
     public List<HotelAmenity> getAll() {
-        return hotelAmenityDao.getAllHotelAmenities();
+        return hotelAmenityDao.getAll();
     }
 
     /**
@@ -90,7 +90,7 @@ public class HotelAmenityManager implements UniqueManager<HotelAmenity, HotelAme
      */
     @Override
     public List<HotelAmenity> get(String... ID) {
-        return hotelAmenityDao.getHotelAmenities(ID);
+        return hotelAmenityDao.getIdMatch(ID);
     }
 
     /**

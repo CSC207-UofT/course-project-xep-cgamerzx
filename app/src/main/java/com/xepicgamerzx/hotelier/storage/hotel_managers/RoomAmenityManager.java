@@ -54,7 +54,7 @@ public class RoomAmenityManager implements UniqueManager<RoomAmenity, RoomAmenit
      */
     @Override
     public List<RoomAmenity> getAll() {
-        return roomAmenityDao.getAllRoomAmenities();
+        return roomAmenityDao.getAll();
     }
 
     /**
@@ -95,7 +95,7 @@ public class RoomAmenityManager implements UniqueManager<RoomAmenity, RoomAmenit
      */
     @Override
     public List<RoomAmenity> get(String... ID) {
-        return roomAmenityDao.getRoomAmenities(ID);
+        return roomAmenityDao.getIdMatch(ID);
     }
 
     /**
