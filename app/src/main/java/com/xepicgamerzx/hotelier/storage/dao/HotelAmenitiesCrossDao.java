@@ -11,14 +11,14 @@ import java.util.List;
  * Data access object for HotelAmenitiesCrossRef
  */
 @Dao
-public interface HotelAmenitiesCrossDao extends BaseDao<Void, HotelAmenitiesCrossRef>{
+public abstract class HotelAmenitiesCrossDao implements BaseDao<Void, HotelAmenitiesCrossRef>{
     /**
      * Get all RoomBedsCrossRef in RoomBedsCrossRef table.
      *
      * @return List<HotelAmenitiesCrossRef> list of all HotelAmenitiesCrossRef in HotelAmenitiesCrossRef table.
      */
     @Query("SELECT * FROM HotelAmenitiesCrossRef")
-    List<HotelAmenitiesCrossRef> getAll();
+    public abstract List<HotelAmenitiesCrossRef> getAll();
 
     /**
      * Get all hotel IDs in RoomBedsCrossRef table with matching hotel amenity ID.
@@ -27,7 +27,7 @@ public interface HotelAmenitiesCrossDao extends BaseDao<Void, HotelAmenitiesCros
      * @return List<Long> hotel IDs related to amenityID.
      */
     @Query("SELECT hotelID FROM HotelAmenitiesCrossRef WHERE uniqueId =:amenityID")
-    List<Long> getWith(String amenityID);
+    public abstract List<Long> getWith(String amenityID);
 
     /**
      * Get all hotel amenity IDs in RoomBedsCrossRef table with matching hotel IDs.
@@ -36,7 +36,7 @@ public interface HotelAmenitiesCrossDao extends BaseDao<Void, HotelAmenitiesCros
      * @return List<String> hotel amenity unique IDs related to hotelID.
      */
     @Query("SELECT uniqueId FROM HotelAmenitiesCrossRef WHERE hotelID =:hotelID")
-    List<String> getWith(long hotelID);
+    public abstract List<String> getWith(long hotelID);
 
     /**
      * Get all HotelAmenitiesCrossRef in HotelAmenitiesCrossRef table with matching hotel IDs
@@ -45,7 +45,7 @@ public interface HotelAmenitiesCrossDao extends BaseDao<Void, HotelAmenitiesCros
      * @return List<HotelAmenitiesCrossRef> cross refs related to hotelID
      */
     @Query("SELECT * FROM HotelAmenitiesCrossRef WHERE hotelID =:hotelID")
-    List<HotelAmenitiesCrossRef> getCrossWith(long hotelID);
+    public abstract List<HotelAmenitiesCrossRef> getCrossWith(long hotelID);
 
     /**
      * Get all HotelAmenitiesCrossRef in HotelAmenitiesCrossRef table with matching amenity IDs
@@ -54,5 +54,5 @@ public interface HotelAmenitiesCrossDao extends BaseDao<Void, HotelAmenitiesCros
      * @return List<HotelAmenitiesCrossRef> cross refs related to amenityID
      */
     @Query("SELECT * FROM HotelAmenitiesCrossRef WHERE uniqueId =:amenityID")
-    List<HotelAmenitiesCrossRef> getCrossWith (String amenityID);
+    public abstract List<HotelAmenitiesCrossRef> getCrossWith (String amenityID);
 }

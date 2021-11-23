@@ -11,14 +11,14 @@ import java.util.List;
  * Data access object for RoomAmenitiesCrossRef.
  */
 @Dao
-public interface RoomAmenitiesCrossDao extends BaseDao<Void, RoomAmenitiesCrossRef>{
+public abstract class RoomAmenitiesCrossDao implements BaseDao<Void, RoomAmenitiesCrossRef>{
     /**
      * Get all RoomAmenitiesCrossRef in RoomAmenitiesCrossRef table.
      *
      * @return List<RoomAmenitiesCrossRef> list of all RoomAmenitiesCrossRef in RoomAmenitiesCrossRef table.
      */
     @Query("SELECT * FROM RoomAmenitiesCrossRef")
-    List<RoomAmenitiesCrossRef> getAll();
+    public abstract List<RoomAmenitiesCrossRef> getAll();
 
     /**
      * Get all room IDs in RoomAmenitiesCrossRef table with matching room amenity ID.
@@ -27,7 +27,7 @@ public interface RoomAmenitiesCrossDao extends BaseDao<Void, RoomAmenitiesCrossR
      * @return List<Long> room IDs related to roomAmenityID.
      */
     @Query("SELECT roomID FROM RoomAmenitiesCrossRef WHERE uniqueId =:roomAmenityID")
-    List<Long> getWith(String roomAmenityID);
+    public abstract List<Long> getWith(String roomAmenityID);
 
     /**
      * Get all room amenity IDs in RoomAmenitiesCrossRef table with matching room ID.
@@ -36,7 +36,7 @@ public interface RoomAmenitiesCrossDao extends BaseDao<Void, RoomAmenitiesCrossR
      * @return List<String> unique room amenity IDs related to roomID.
      */
     @Query("SELECT uniqueId FROM RoomAmenitiesCrossRef WHERE roomID =:roomID")
-    List<String> getWith(long roomID);
+    public abstract List<String> getWith(long roomID);
 
     /**
      * Get all RoomAmenitiesCrossRef in RoomAmenitiesCrossRef table with matching room IDs.
@@ -45,7 +45,7 @@ public interface RoomAmenitiesCrossDao extends BaseDao<Void, RoomAmenitiesCrossR
      * @return List<RoomAmenitiesCrossRef> room room amenity cross refs related to roomID.
      */
     @Query("SELECT * FROM RoomAmenitiesCrossRef WHERE roomID =:roomID")
-    List<RoomAmenitiesCrossRef> getCrossWith(long roomID);
+    public abstract List<RoomAmenitiesCrossRef> getCrossWith(long roomID);
 
     /**
      * Get all RoomAmenitiesCrossRef in RoomAmenitiesCrossRef table with matching roomAmenity IDs.
@@ -54,5 +54,5 @@ public interface RoomAmenitiesCrossDao extends BaseDao<Void, RoomAmenitiesCrossR
      * @return List<RoomAmenitiesCrossRef> room room amenity cross refs related to roomAmenityID.
      */
     @Query("SELECT * FROM RoomAmenitiesCrossRef WHERE uniqueId =:roomAmenityID")
-    List<RoomAmenitiesCrossRef> getCrossWith (String roomAmenityID);
+    public abstract List<RoomAmenitiesCrossRef> getCrossWith (String roomAmenityID);
 }
