@@ -13,7 +13,7 @@ import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelRoom;
 import com.xepicgamerzx.hotelier.objects.cross_reference_objects.RoomAmenitiesEnum;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.RoomAmenity;
 import com.xepicgamerzx.hotelier.storage.hotel_managers.HotelManager;
-import com.xepicgamerzx.hotelier.storage.hotelier_database.HotelierDatabase;
+import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
 import com.xepicgamerzx.hotelier.storage.hotel_reference_managers.RoomAmenitiesCrossManager;
 import com.xepicgamerzx.hotelier.storage.hotel_managers.RoomAmenityManager;
 import com.xepicgamerzx.hotelier.storage.hotel_managers.RoomManager;

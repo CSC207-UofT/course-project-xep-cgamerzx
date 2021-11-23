@@ -13,14 +13,14 @@ import java.util.List;
  * Data access object for RoomAmenity.
  */
 @Dao
-public interface RoomAmenityDao extends BaseDao<Void, RoomAmenity>{
+public abstract class RoomAmenityDao implements BaseDao<Void, RoomAmenity>{
     /**
      * Get all RoomAmenity in RoomAmenity table.
      *
      * @return List<RoomAmenity> list of all RoomAmenity in RoomAmenity table.
      */
     @Query("SELECT * FROM RoomAmenity")
-    List<RoomAmenity> getAll();
+    public abstract List<RoomAmenity> getAll();
 
     /**
      * Get RoomAmenity with matching unique IDs in RoomAmenity table.
@@ -29,7 +29,7 @@ public interface RoomAmenityDao extends BaseDao<Void, RoomAmenity>{
      * @return List<RoomAmenity> list of all room amenities with unique IDs that match roomAmenityID.
      */
     @Query("SELECT * FROM RoomAmenity WHERE uniqueId IN (:roomAmenityID)")
-    List<RoomAmenity> getIdMatch(String... roomAmenityID);
+    public abstract List<RoomAmenity> getIdMatch(String... roomAmenityID);
 
     /**
      * Get all room amenities associated with any room.
@@ -38,5 +38,5 @@ public interface RoomAmenityDao extends BaseDao<Void, RoomAmenity>{
      */
     @Transaction
     @Query("SELECT * FROM RoomAmenity")
-    List<AmenityWithRooms> getRoomAmenitiesWithRooms();
+    public abstract List<AmenityWithRooms> getRoomAmenitiesWithRooms();
 }

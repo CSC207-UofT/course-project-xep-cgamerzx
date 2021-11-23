@@ -14,14 +14,14 @@ import java.util.List;
  * Data access object for Hotel
  */
 @Dao
-public interface HotelDao extends BaseDao<List<Long>, Hotel>{
+public abstract class HotelDao implements BaseDao<List<Long>, Hotel>{
     /**
      * Get all Hotel in Hotel table.
      *
      * @return List<Hotel> list of all Hotel in Hotel table.
      */
     @Query("SELECT * FROM Hotel")
-    List<Hotel> getAll();
+    public abstract List<Hotel> getAll();
 
     /**
      * Get Hotel with matching IDs in Hotel table.
@@ -30,7 +30,7 @@ public interface HotelDao extends BaseDao<List<Long>, Hotel>{
      * @return List<Hotel> list of all hotel with IDs that match hotelID.
      */
     @Query("SELECT * FROM Hotel WHERE hotelID IN (:hotelID)")
-    List<Hotel> getIdMatch(Long... hotelID);
+    public abstract List<Hotel> getIdMatch(Long... hotelID);
 
     /**
      * Get all hotels associated with any room.
@@ -39,7 +39,7 @@ public interface HotelDao extends BaseDao<List<Long>, Hotel>{
      */
     @Transaction
     @Query("SELECT * FROM Hotel")
-    List<HotelWithRooms> getHotelWithRoom();
+    public abstract List<HotelWithRooms> getHotelWithRoom();
 
     /**
      * Get all hotels associated with any hotel amenity.
@@ -48,5 +48,5 @@ public interface HotelDao extends BaseDao<List<Long>, Hotel>{
      */
     @Transaction
     @Query("SELECT * FROM Hotel")
-    List<HotelWithAmenities> getHotelWithAmenities();
+    public abstract List<HotelWithAmenities> getHotelWithAmenities();
 }

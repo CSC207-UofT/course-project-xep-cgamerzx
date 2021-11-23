@@ -16,7 +16,7 @@ import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelAmenitiesEnum;
 import com.xepicgamerzx.hotelier.storage.hotel_reference_managers.HotelAmenitiesCrossManager;
 import com.xepicgamerzx.hotelier.storage.hotel_managers.HotelAmenityManager;
 import com.xepicgamerzx.hotelier.storage.hotel_managers.HotelManager;
-import com.xepicgamerzx.hotelier.storage.hotelier_database.HotelierDatabase;
+import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
 import com.xepicgamerzx.hotelier.storage.hotel_managers.RoomManager;
 
 import org.junit.After;

@@ -1,4 +1,4 @@
-package com.xepicgamerzx.hotelier.storage.hotelier_database;
+package com.xepicgamerzx.hotelier.storage;
 
 import android.content.Context;
 
@@ -7,24 +7,24 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
-import com.xepicgamerzx.hotelier.objects.hotel_objects.Bed;
-import com.xepicgamerzx.hotelier.objects.cross_reference_objects.RoomBedsCrossRef;
-import com.xepicgamerzx.hotelier.objects.hotel_objects.Hotel;
 import com.xepicgamerzx.hotelier.objects.cross_reference_objects.HotelAmenitiesCrossRef;
+import com.xepicgamerzx.hotelier.objects.cross_reference_objects.RoomAmenitiesCrossRef;
+import com.xepicgamerzx.hotelier.objects.cross_reference_objects.RoomBedsCrossRef;
+import com.xepicgamerzx.hotelier.objects.hotel_objects.Bed;
+import com.xepicgamerzx.hotelier.objects.hotel_objects.Hotel;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelAmenity;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelRoom;
-import com.xepicgamerzx.hotelier.objects.cross_reference_objects.RoomAmenitiesCrossRef;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.RoomAmenity;
-import com.xepicgamerzx.hotelier.storage.Converters;
 import com.xepicgamerzx.hotelier.storage.dao.BedDao;
 import com.xepicgamerzx.hotelier.storage.dao.BedRoomCrossDao;
-import com.xepicgamerzx.hotelier.storage.dao.ClearTablesDao;
 import com.xepicgamerzx.hotelier.storage.dao.HotelAmenitiesCrossDao;
 import com.xepicgamerzx.hotelier.storage.dao.HotelAmenityDao;
 import com.xepicgamerzx.hotelier.storage.dao.HotelDao;
 import com.xepicgamerzx.hotelier.storage.dao.RoomAmenitiesCrossDao;
 import com.xepicgamerzx.hotelier.storage.dao.RoomAmenityDao;
 import com.xepicgamerzx.hotelier.storage.dao.RoomDao;
+import com.xepicgamerzx.hotelier.storage.dao.UserDao;
+import com.xepicgamerzx.hotelier.storage.user.model.User;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -32,7 +32,7 @@ import java.util.concurrent.Executors;
 @TypeConverters({Converters.class})
 @Database(entities = {Hotel.class, HotelRoom.class, Bed.class, HotelAmenity.class,
         RoomAmenity.class, RoomBedsCrossRef.class, HotelAmenitiesCrossRef.class,
-        RoomAmenitiesCrossRef.class},
+        RoomAmenitiesCrossRef.class, User.class},
         version = 1)
 public abstract class HotelierDatabase extends RoomDatabase {
     private static final int NUMBER_OF_THREADS = 2;
@@ -48,8 +48,6 @@ public abstract class HotelierDatabase extends RoomDatabase {
         }
         return INSTANCE;
     }
-
-
 
     public abstract HotelDao hotelDao();
 
@@ -67,5 +65,5 @@ public abstract class HotelierDatabase extends RoomDatabase {
 
     public abstract RoomAmenitiesCrossDao roomAmenitiesCrossDao();
 
-    public abstract ClearTablesDao clear_tables();
+    public abstract UserDao userDao();
 }

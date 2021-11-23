@@ -14,7 +14,7 @@ import com.xepicgamerzx.hotelier.objects.hotel_objects.BedSizeEnum;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelRoom;
 import com.xepicgamerzx.hotelier.storage.hotel_managers.BedManager;
 import com.xepicgamerzx.hotelier.storage.hotel_managers.HotelManager;
-import com.xepicgamerzx.hotelier.storage.hotelier_database.HotelierDatabase;
+import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
 import com.xepicgamerzx.hotelier.storage.hotel_reference_managers.RoomBedsCrossManager;
 import com.xepicgamerzx.hotelier.storage.hotel_managers.RoomManager;
 

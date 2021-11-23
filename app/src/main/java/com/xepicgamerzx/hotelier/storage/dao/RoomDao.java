@@ -13,14 +13,14 @@ import java.util.List;
  * Data access object for Room.
  */
 @Dao
-public interface RoomDao extends BaseDao<List<Long>, HotelRoom>{
+public abstract class RoomDao implements BaseDao<List<Long>, HotelRoom>{
     /**
      * Get all HotelRoom in HotelRoom table.
      *
      * @return List<HotelRoom> list of all HotelRoom in HotelRoom table.
      */
     @Query("SELECT * FROM HotelRoom")
-    List<HotelRoom> getAll();
+    public abstract List<HotelRoom> getAll();
 
     /**
      * Get HotelRoom with matching IDs in HotelRoom table.
@@ -29,7 +29,7 @@ public interface RoomDao extends BaseDao<List<Long>, HotelRoom>{
      * @return List<HotelRoom> list of all hotel rooms with IDs that match hotelRoomID.
      */
     @Query("SELECT * FROM HotelRoom WHERE roomID IN (:hotelRoomID)")
-    List<HotelRoom> getIdMatch(Long... hotelRoomID);
+    public abstract List<HotelRoom> getIdMatch(Long... hotelRoomID);
 
     /**
      * Get all HotelRooms associated with a Hotel
@@ -38,7 +38,7 @@ public interface RoomDao extends BaseDao<List<Long>, HotelRoom>{
      * @return List<HotelRoom> list of all hotel rooms associated with hotelID.
      */
     @Query("SELECT * FROM HotelRoom WHERE hotelID =:hotelID")
-    List<HotelRoom> getInHotel(Long hotelID);
+    public abstract List<HotelRoom> getInHotel(Long hotelID);
 
     /**
      * Get all rooms associated with any bed.
@@ -47,5 +47,5 @@ public interface RoomDao extends BaseDao<List<Long>, HotelRoom>{
      */
     @Transaction
     @Query("SELECT * FROM HotelRoom")
-    List<RoomWithBeds> getRoomsWithBed();
+    public abstract List<RoomWithBeds> getRoomsWithBed();
 }
