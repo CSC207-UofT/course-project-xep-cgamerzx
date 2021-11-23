@@ -15,7 +15,7 @@ import java.util.List;
 @Dao
 public interface HotelAmenityDao extends BaseDao<Void, HotelAmenity>{
     @Query("SELECT * FROM HotelAmenity")
-    List<HotelAmenity> getAll();
+    List<HotelAmenity> getAllHotelAmenities();
 
     @Query("SELECT * FROM HotelAmenity WHERE uniqueId IN (:hotelAmenityID)")
     List<HotelAmenity> getHotelAmenities(String... hotelAmenityID);

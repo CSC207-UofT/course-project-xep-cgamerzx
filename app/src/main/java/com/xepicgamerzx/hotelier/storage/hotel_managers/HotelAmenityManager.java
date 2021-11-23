@@ -49,7 +49,7 @@ public class HotelAmenityManager implements UniqueManager<HotelAmenity, HotelAme
      */
     @Override
     public List<HotelAmenity> getAll() {
-        return hotelAmenityDao.getAll();
+        return hotelAmenityDao.getAllHotelAmenities();
     }
 
     /**
