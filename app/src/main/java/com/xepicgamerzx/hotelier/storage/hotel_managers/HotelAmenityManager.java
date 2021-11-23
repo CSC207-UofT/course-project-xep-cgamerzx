@@ -1,11 +1,10 @@
-package com.xepicgamerzx.hotelier.storage.hotel_reference_managers;
+package com.xepicgamerzx.hotelier.storage.hotel_managers;
 
 import android.app.Application;
 
 import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelAmenitiesEnum;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelAmenity;
 import com.xepicgamerzx.hotelier.storage.hotelier_database.HotelierDatabase;
-import com.xepicgamerzx.hotelier.storage.hotel_managers.UniqueManager;
 import com.xepicgamerzx.hotelier.storage.dao.HotelAmenityDao;
 
 import java.util.List;
