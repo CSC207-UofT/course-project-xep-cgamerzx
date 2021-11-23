@@ -9,7 +9,6 @@ import com.xepicgamerzx.hotelier.customer_activities.customer_hotels_activity.Ho
 import com.xepicgamerzx.hotelier.objects.hotel_objects.Address;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.Hotel;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelRoom;
-import com.xepicgamerzx.hotelier.storage.hotel_reference_managers.DiscreteManager;
 import com.xepicgamerzx.hotelier.storage.hotelier_database.HotelierDatabase;
 import com.xepicgamerzx.hotelier.storage.dao.HotelAmenitiesCrossDao;
 import com.xepicgamerzx.hotelier.storage.dao.HotelDao;
@@ -127,7 +126,7 @@ public class HotelManager implements DiscreteManager<Hotel, Long, Long[]> {
      */
     @Override
     public List<Hotel> get(Long... hotelID) {
-        return hotelDao.getHotels(hotelID);
+        return hotelDao.getIdMatch(hotelID);
     }
 
     /**
@@ -137,11 +136,11 @@ public class HotelManager implements DiscreteManager<Hotel, Long, Long[]> {
      */
     @Override
     public List<Hotel> getAll() {
-        return hotelDao.getAllHotels();
+        return hotelDao.getAll();
     }
 
     public List<Hotel> getHotelsByLatLong(double destinationLat, double destinationLong) {
-        List<Hotel> hotels = hotelDao.getAllHotels();
+        List<Hotel> hotels = hotelDao.getAll();
         List<Hotel> filteredHotels = new ArrayList<>();
 
         for(Hotel hotel : hotels) {

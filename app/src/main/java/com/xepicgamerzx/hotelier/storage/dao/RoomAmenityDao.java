@@ -9,14 +9,33 @@ import com.xepicgamerzx.hotelier.objects.relations.AmenityWithRooms;
 
 import java.util.List;
 
+/**
+ * Data access object for RoomAmenity.
+ */
 @Dao
 public interface RoomAmenityDao extends BaseDao<Void, RoomAmenity>{
+    /**
+     * Get all RoomAmenity in RoomAmenity table.
+     *
+     * @return List<RoomAmenity> list of all RoomAmenity in RoomAmenity table.
+     */
     @Query("SELECT * FROM RoomAmenity")
-    List<RoomAmenity> getAllRoomAmenities();
+    List<RoomAmenity> getAll();
 
+    /**
+     * Get RoomAmenity with matching unique IDs in RoomAmenity table.
+     *
+     * @param roomAmenityID String unique ID of room amenity.
+     * @return List<RoomAmenity> list of all room amenities with unique IDs that match roomAmenityID.
+     */
     @Query("SELECT * FROM RoomAmenity WHERE uniqueId IN (:roomAmenityID)")
-    List<RoomAmenity> getRoomAmenities(String... roomAmenityID);
+    List<RoomAmenity> getIdMatch(String... roomAmenityID);
 
+    /**
+     * Get all room amenities associated with any room.
+     *
+     * @return List<AmenityWithRooms> list of AmenityWithRooms entities available.
+     */
     @Transaction
     @Query("SELECT * FROM RoomAmenity")
     List<AmenityWithRooms> getRoomAmenitiesWithRooms();

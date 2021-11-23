@@ -8,7 +8,7 @@ import com.xepicgamerzx.hotelier.storage.hotel_managers.Manager;
 import java.util.List;
 
 /**
- * Manager for CrossReferences.
+ * Interface for Manager for CrossReferences.
  *
  * @param <T> CrossRef type being managed.
  * @param <N> NonUniqueEntity type of CrossRef.

@@ -6,11 +6,15 @@ import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelRoom;
 import com.xepicgamerzx.hotelier.objects.cross_reference_objects.RoomAmenitiesCrossRef;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.RoomAmenity;
 import com.xepicgamerzx.hotelier.storage.dao.RoomAmenitiesCrossDao;
+import com.xepicgamerzx.hotelier.storage.hotel_managers.RoomAmenityManager;
 import com.xepicgamerzx.hotelier.storage.hotel_managers.RoomManager;
 import com.xepicgamerzx.hotelier.storage.hotelier_database.HotelierDatabase;
 
 import java.util.List;
 
+/**
+ *  A class to manage all the RoomAmenitiesCrossRefs in the database.
+ */
 public class RoomAmenitiesCrossManager implements CrossManager<RoomAmenitiesCrossRef, HotelRoom, RoomAmenity> {
     private static volatile RoomAmenitiesCrossManager INSTANCE;
 
@@ -145,6 +149,7 @@ public class RoomAmenitiesCrossManager implements CrossManager<RoomAmenitiesCros
      * @param hotelRoom HotelRoom to which we are adding RoomAmenity.
      * @param roomAmenity RoomAmenity that we are adding to HotelRoom.
      */
+    @Deprecated // Use createRelationship
     public void addAmenityToRoom(HotelRoom hotelRoom, RoomAmenity roomAmenity) {
         RoomAmenitiesCrossRef roomAmenitiesCrossRef = new RoomAmenitiesCrossRef(hotelRoom, roomAmenity);
         roomAmenitiesCrossDao.insert(roomAmenitiesCrossRef);

@@ -1,11 +1,10 @@
-package com.xepicgamerzx.hotelier.storage.hotel_reference_managers;
+package com.xepicgamerzx.hotelier.storage.hotel_managers;
 
 import android.app.Application;
 
 import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelRoom;
 import com.xepicgamerzx.hotelier.objects.cross_reference_objects.RoomAmenitiesEnum;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.RoomAmenity;
-import com.xepicgamerzx.hotelier.storage.hotel_managers.UniqueManager;
 import com.xepicgamerzx.hotelier.storage.dao.RoomAmenitiesCrossDao;
 import com.xepicgamerzx.hotelier.storage.dao.RoomAmenityDao;
 import com.xepicgamerzx.hotelier.storage.hotelier_database.HotelierDatabase;
@@ -55,7 +54,7 @@ public class RoomAmenityManager implements UniqueManager<RoomAmenity, RoomAmenit
      */
     @Override
     public List<RoomAmenity> getAll() {
-        return roomAmenityDao.getAllRoomAmenities();
+        return roomAmenityDao.getAll();
     }
 
     /**
@@ -96,7 +95,7 @@ public class RoomAmenityManager implements UniqueManager<RoomAmenity, RoomAmenit
      */
     @Override
     public List<RoomAmenity> get(String... ID) {
-        return roomAmenityDao.getRoomAmenities(ID);
+        return roomAmenityDao.getIdMatch(ID);
     }
 
     /**

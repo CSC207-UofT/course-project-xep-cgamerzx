@@ -102,7 +102,7 @@ public class BedManager implements UniqueManager<Bed, BedSizeEnum> {
      */
     @Override
     public List<Bed> get(String... bedID) {
-        return bedDao.getBeds(bedID);
+        return bedDao.getIdMatch(bedID);
     }
 
 

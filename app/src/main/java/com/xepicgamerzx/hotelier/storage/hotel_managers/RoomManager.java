@@ -7,7 +7,6 @@ import androidx.annotation.NonNull;
 
 import com.xepicgamerzx.hotelier.objects.hotel_objects.Hotel;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelRoom;
-import com.xepicgamerzx.hotelier.storage.hotel_reference_managers.DiscreteManager;
 import com.xepicgamerzx.hotelier.storage.hotelier_database.HotelierDatabase;
 import com.xepicgamerzx.hotelier.storage.dao.RoomAmenitiesCrossDao;
 import com.xepicgamerzx.hotelier.storage.dao.RoomDao;
@@ -112,16 +111,16 @@ public class RoomManager implements DiscreteManager<HotelRoom, Long, Long[]> {
 
     @Override
     public List<HotelRoom> get(Long... hotelRoomID) {
-        return roomDao.getRooms(hotelRoomID);
+        return roomDao.getIdMatch(hotelRoomID);
     }
 
     @Override
     public List<HotelRoom> getAll() {
-        return roomDao.getAllRooms();
+        return roomDao.getAll();
     }
 
     public List<HotelRoom> getRoomsInHotelByDate(Hotel hotel, long userStartAvail, long userEndAvail) {
-        List<HotelRoom> hotelRooms = roomDao.getRoomsInHotel(hotel.hotelID);
+        List<HotelRoom> hotelRooms = roomDao.getInHotel(hotel.hotelID);
         List<HotelRoom> filteredRooms = new ArrayList<>();
         long userStart = TimeUnit.MILLISECONDS.toDays(userStartAvail);
         long userEnd = TimeUnit.MILLISECONDS.toDays(userEndAvail);
@@ -140,7 +139,7 @@ public class RoomManager implements DiscreteManager<HotelRoom, Long, Long[]> {
     }
 
     public boolean isUserScheduleInHotel (Hotel hotel, long userStartAvail, long userEndAvail) {
-        List<HotelRoom> hotelRooms = roomDao.getRoomsInHotel(hotel.hotelID);
+        List<HotelRoom> hotelRooms = roomDao.getInHotel(hotel.hotelID);
         long userStart = TimeUnit.MILLISECONDS.toDays(userStartAvail);
         long userEnd = TimeUnit.MILLISECONDS.toDays(userEndAvail);
 
@@ -158,7 +157,7 @@ public class RoomManager implements DiscreteManager<HotelRoom, Long, Long[]> {
     }
 
     public List<HotelRoom> getHotelRoomsInHotel(long hotelID) {
-        return roomDao.getRoomsInHotel(hotelID);
+        return roomDao.getInHotel(hotelID);
     }
 
     public int getNumberOfRooms(long hotelID) {
