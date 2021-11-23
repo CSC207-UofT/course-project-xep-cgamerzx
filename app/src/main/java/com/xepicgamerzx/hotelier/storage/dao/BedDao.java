@@ -32,9 +32,9 @@ public interface BedDao extends BaseDao<Void, Bed>{
     List<Bed> getIdMatch(String... bedID);
 
     /**
-     * Get all beds associated with a room.
+     * Get all beds associated with any room.
      *
-     * @return List<BedWithRooms> list of BedWithRooms objects available.
+     * @return List<BedWithRooms> list of BedWithRooms entities available.
      */
     @Transaction
     @Query("SELECT * FROM Bed")
