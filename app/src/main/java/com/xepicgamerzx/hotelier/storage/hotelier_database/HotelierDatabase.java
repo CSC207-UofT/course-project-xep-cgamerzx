@@ -24,7 +24,7 @@ import com.xepicgamerzx.hotelier.storage.dao.HotelDao;
 import com.xepicgamerzx.hotelier.storage.dao.RoomAmenitiesCrossDao;
 import com.xepicgamerzx.hotelier.storage.dao.RoomAmenityDao;
 import com.xepicgamerzx.hotelier.storage.dao.RoomDao;
-import com.xepicgamerzx.hotelier.storage.dao.UserDAO;
+import com.xepicgamerzx.hotelier.storage.dao.UserDao;
 import com.xepicgamerzx.hotelier.storage.user.model.User;
 
 import java.util.concurrent.ExecutorService;
@@ -66,5 +66,5 @@ public abstract class HotelierDatabase extends RoomDatabase {
 
     public abstract RoomAmenitiesCrossDao roomAmenitiesCrossDao();
 
-    public abstract UserDAO userDao();
+    public abstract UserDao userDao();
 }

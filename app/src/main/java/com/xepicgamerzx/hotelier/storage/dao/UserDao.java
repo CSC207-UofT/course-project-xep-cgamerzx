@@ -5,8 +5,17 @@ import androidx.room.Query;
 
 import com.xepicgamerzx.hotelier.storage.user.model.User;
 
+/**
+ * Data access object for users.
+ */
 @Dao
-public abstract class UserDAO implements  BaseDao<Void, User>{
+public abstract class UserDao implements  BaseDao<Void, User>{
+    /**
+     * TODO
+     * @param userId
+     * @param password
+     * @return
+     */
     @Query("SELECT * from users where userId=(:userId) and password=(:password)")
     public abstract User login( String userId, String password);
 
