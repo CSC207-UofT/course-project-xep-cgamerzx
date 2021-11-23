@@ -4,7 +4,7 @@ import android.app.Application;
 
 import com.xepicgamerzx.hotelier.objects.hotel_objects.Bed;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.BedSizeEnum;
-import com.xepicgamerzx.hotelier.storage.hotelier_database.HotelierDatabase;
+import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
 import com.xepicgamerzx.hotelier.storage.dao.BedDao;
 import com.xepicgamerzx.hotelier.storage.dao.BedRoomCrossDao;
 

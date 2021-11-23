@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.textfield.TextInputEditText;
 import com.xepicgamerzx.hotelier.R;
 import com.xepicgamerzx.hotelier.storage.dao.UserDao;
-import com.xepicgamerzx.hotelier.storage.hotelier_database.HotelierDatabase;
+import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
 import com.xepicgamerzx.hotelier.storage.user.model.User;
 
 public class RegisterActivity extends AppCompatActivity {

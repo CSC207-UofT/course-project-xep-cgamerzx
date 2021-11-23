@@ -8,7 +8,7 @@ import com.xepicgamerzx.hotelier.objects.hotel_objects.RoomAmenity;
 import com.xepicgamerzx.hotelier.storage.dao.RoomAmenitiesCrossDao;
 import com.xepicgamerzx.hotelier.storage.hotel_managers.RoomAmenityManager;
 import com.xepicgamerzx.hotelier.storage.hotel_managers.RoomManager;
-import com.xepicgamerzx.hotelier.storage.hotelier_database.HotelierDatabase;
+import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
 
 import java.util.List;
 

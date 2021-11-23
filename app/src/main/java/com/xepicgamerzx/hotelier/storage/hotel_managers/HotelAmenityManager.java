@@ -4,7 +4,7 @@ import android.app.Application;
 
 import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelAmenitiesEnum;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelAmenity;
-import com.xepicgamerzx.hotelier.storage.hotelier_database.HotelierDatabase;
+import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
 import com.xepicgamerzx.hotelier.storage.dao.HotelAmenityDao;
 
 import java.util.List;

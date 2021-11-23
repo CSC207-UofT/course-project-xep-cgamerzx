@@ -1,4 +1,4 @@
-package com.xepicgamerzx.hotelier.storage.hotelier_database;
+package com.xepicgamerzx.hotelier.storage;
 
 import android.content.Context;
 
@@ -15,7 +15,6 @@ import com.xepicgamerzx.hotelier.objects.hotel_objects.Hotel;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelAmenity;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelRoom;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.RoomAmenity;
-import com.xepicgamerzx.hotelier.storage.Converters;
 import com.xepicgamerzx.hotelier.storage.dao.BedDao;
 import com.xepicgamerzx.hotelier.storage.dao.BedRoomCrossDao;
 import com.xepicgamerzx.hotelier.storage.dao.HotelAmenitiesCrossDao;

@@ -12,7 +12,7 @@ import com.xepicgamerzx.hotelier.objects.hotel_objects.Address;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.Hotel;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelRoom;
 import com.xepicgamerzx.hotelier.storage.hotel_managers.HotelManager;
-import com.xepicgamerzx.hotelier.storage.hotelier_database.HotelierDatabase;
+import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
 import com.xepicgamerzx.hotelier.storage.hotel_managers.RoomManager;
 
 import org.junit.After;
