@@ -24,6 +24,8 @@ import com.xepicgamerzx.hotelier.storage.dao.HotelDao;
 import com.xepicgamerzx.hotelier.storage.dao.RoomAmenitiesCrossDao;
 import com.xepicgamerzx.hotelier.storage.dao.RoomAmenityDao;
 import com.xepicgamerzx.hotelier.storage.dao.RoomDao;
+import com.xepicgamerzx.hotelier.storage.dao.UserDAO;
+import com.xepicgamerzx.hotelier.storage.user.model.User;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -31,7 +33,7 @@ import java.util.concurrent.Executors;
 @TypeConverters({Converters.class})
 @Database(entities = {Hotel.class, HotelRoom.class, Bed.class, HotelAmenity.class,
         RoomAmenity.class, RoomBedsCrossRef.class, HotelAmenitiesCrossRef.class,
-        RoomAmenitiesCrossRef.class},
+        RoomAmenitiesCrossRef.class, User.class},
         version = 1)
 public abstract class HotelierDatabase extends RoomDatabase {
     private static final int NUMBER_OF_THREADS = 2;
@@ -48,8 +50,6 @@ public abstract class HotelierDatabase extends RoomDatabase {
         return INSTANCE;
     }
 
-
-
     public abstract HotelDao hotelDao();
 
     public abstract RoomDao roomDao();
@@ -65,4 +65,6 @@ public abstract class HotelierDatabase extends RoomDatabase {
     public abstract HotelAmenitiesCrossDao hotelAmenitiesCrossDao();
 
     public abstract RoomAmenitiesCrossDao roomAmenitiesCrossDao();
+
+    public abstract UserDAO userDao();
 }

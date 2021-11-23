@@ -1,17 +1,17 @@
 package com.xepicgamerzx.hotelier.user_activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.material.textfield.TextInputEditText;
 import com.xepicgamerzx.hotelier.R;
-import com.xepicgamerzx.hotelier.storage.user.data.UserDAO;
-import com.xepicgamerzx.hotelier.storage.user.data.UserDatabase;
+import com.xepicgamerzx.hotelier.storage.dao.UserDAO;
+import com.xepicgamerzx.hotelier.storage.hotelier_database.HotelierDatabase;
 import com.xepicgamerzx.hotelier.storage.user.model.User;
 
 public class RegisterActivity extends AppCompatActivity {
@@ -39,12 +39,12 @@ public class RegisterActivity extends AppCompatActivity {
 
                 if(validateInput(user)) {
                     // Insert to db
-                    UserDatabase userDatabase = UserDatabase.getUserDatabase(getApplicationContext());
-                    UserDAO userDao = userDatabase.userDao();
+                    HotelierDatabase hotelierDatabase = HotelierDatabase.getDatabase(getApplicationContext());
+                    UserDAO userDao = hotelierDatabase.userDao();
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
-                            userDao.registerUser(user);
+                            userDao.insert(user);
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
