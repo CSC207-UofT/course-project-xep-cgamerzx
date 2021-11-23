@@ -9,10 +9,13 @@ import com.xepicgamerzx.hotelier.objects.relations.AmenityWithHotels;
 
 import java.util.List;
 
+/**
+ * Data access object for HotelAmenity
+ */
 @Dao
 public interface HotelAmenityDao extends BaseDao<Void, HotelAmenity>{
     @Query("SELECT * FROM HotelAmenity")
-    List<HotelAmenity> getAllHotelAmenities();
+    List<HotelAmenity> getAll();
 
     @Query("SELECT * FROM HotelAmenity WHERE uniqueId IN (:hotelAmenityID)")
     List<HotelAmenity> getHotelAmenities(String... hotelAmenityID);
