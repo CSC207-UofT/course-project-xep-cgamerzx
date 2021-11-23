@@ -7,7 +7,6 @@ import androidx.annotation.NonNull;
 
 import com.xepicgamerzx.hotelier.objects.hotel_objects.Hotel;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelRoom;
-import com.xepicgamerzx.hotelier.storage.hotel_reference_managers.DiscreteManager;
 import com.xepicgamerzx.hotelier.storage.hotelier_database.HotelierDatabase;
 import com.xepicgamerzx.hotelier.storage.dao.RoomAmenitiesCrossDao;
 import com.xepicgamerzx.hotelier.storage.dao.RoomDao;
