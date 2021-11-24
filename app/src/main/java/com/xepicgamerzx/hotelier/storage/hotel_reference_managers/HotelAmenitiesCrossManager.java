@@ -139,15 +139,4 @@ public class HotelAmenitiesCrossManager implements CrossManager<HotelAmenitiesCr
     public Void insert(HotelAmenitiesCrossRef... hotelAmenitiesCrossRef) {
         return hotelAmenitiesCrossDao.insert(hotelAmenitiesCrossRef);
     }
-
-    /**
-     * Adds HotelAmenity object to Hotel.
-     *
-     * @param hotel        Hotel to which we are adding HotelAmenity.
-     * @param hotelAmenity HotelAmenity that we are adding to Hotel.
-     */
-    public void addAmenityToHotel(Hotel hotel, HotelAmenity hotelAmenity) {
-        HotelAmenitiesCrossRef hotelAmenitiesCrossRef = new HotelAmenitiesCrossRef(hotel, hotelAmenity);
-        hotelAmenitiesCrossDao.insert(hotelAmenitiesCrossRef);
-    }
 }

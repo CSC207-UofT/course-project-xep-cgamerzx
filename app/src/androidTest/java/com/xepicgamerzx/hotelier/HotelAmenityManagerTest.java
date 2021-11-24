@@ -105,8 +105,8 @@ public class HotelAmenityManagerTest {
         HotelAmenity amenity1 = hotelAmenityManager.create("Laundry");
         HotelAmenity amenity2 = hotelAmenityManager.create(HotelAmenitiesEnum.GYM);
 
-        hotelAmenitiesCrossManager.addAmenityToHotel(testHotel, amenity1);
-        hotelAmenitiesCrossManager.addAmenityToHotel(testHotel, amenity2);
+        hotelAmenitiesCrossManager.createRelationship(testHotel, amenity1);
+        hotelAmenitiesCrossManager.createRelationship(testHotel, amenity2);
 
         List<HotelAmenity> actual = hotelAmenitiesCrossManager.getRelated(testHotel);
         List<HotelAmenity> expected = Arrays.asList(amenity2, amenity1);
