@@ -138,25 +138,25 @@ public class RoomManager implements DiscreteManager<HotelRoom, Long, Long[]> {
     /**
      * Get all HotelRooms in a hotel that are are available within the given timeframe.
      *
-     * @param hotel Hotel associated with hotel rooms.
      * @param startTime long UnixEpoch time start of period
      * @param endTime long UnixEpoch time end of period
+     @param hotel Hotel associated with hotel rooms.
      * @return List<HotelRoom> list of all hotel rooms associated with hotelID available within the given timeframe.
      */
-    public List<HotelRoom> getAvailableRoomsInHotel(Hotel hotel, long startTime, long endTime){
-        return getAvailableRoomsInHotel(hotel.hotelID, startTime, endTime);
+    public List<HotelRoom> getAvailableRooms(long startTime, long endTime, Hotel hotel){
+        return getAvailableRooms(startTime, endTime, hotel.hotelID);
     }
 
     /**
      * Get all HotelRooms in a hotel that are are available within the given timeframe.
      *
-     * @param hotelID Hotel associated with hotel rooms.
      * @param startTime long UnixEpoch time start of period
      * @param endTime long UnixEpoch time end of period
+     * @param hotelID Hotel associated with hotel rooms.
      * @return List<HotelRoom> list of all hotel rooms associated with hotelID available within the given timeframe.
      */
-    public List<HotelRoom> getAvailableRoomsInHotel(long hotelID, long startTime, long endTime){
-        return roomDao.getAvailableRoomsInHotel(hotelID, startTime, endTime);
+    public List<HotelRoom> getAvailableRooms(long startTime, long endTime, long hotelID){
+        return roomDao.getAvailableRooms(startTime, endTime, hotelID);
     }
 
     /**
