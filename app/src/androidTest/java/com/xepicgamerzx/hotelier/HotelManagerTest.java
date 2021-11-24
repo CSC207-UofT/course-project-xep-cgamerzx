@@ -53,7 +53,7 @@ public class HotelManagerTest {
                 "Toronto",
                 "ON",
                 43.6532,
-                79.3832);
+                -79.3832);
 
         addresses.add(address_1);
     }
@@ -92,6 +92,12 @@ public class HotelManagerTest {
         //Hotel hotel = hotelManager.createHotel(name, addresses.get(0), starClass, rooms);
 
 //        assertEquals(room1.getHotelID(), room2.getHotelID(), hotel.hotelID);
+    }
+
+    @Test
+    public void testGetHotelsInArea(){
+
+
     }
 
 

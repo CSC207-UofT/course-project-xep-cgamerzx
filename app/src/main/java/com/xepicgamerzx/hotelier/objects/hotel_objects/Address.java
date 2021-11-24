@@ -12,12 +12,12 @@ public class Address implements Serializable {
     private final String streetNumber;
     private final String city;
     private final String province;
-    private final double longitude;
     private final double latitude;
-    private final double lonCos;
-    private final double lonSin;
+    private final double longitude;
     private final double latCos;
     private final double latSin;
+    private final double lonCos;
+    private final double lonSin;
 
     /**
      * Create a new address
@@ -27,17 +27,17 @@ public class Address implements Serializable {
      * @param streetNumber String street number
      * @param city String city name
      * @param province String province/state name
-     * @param longitude double longitude
      * @param latitude double latitude
+     * @param longitude double longitude
      */
     @Ignore
     public Address(String streetName, String postalCode, String streetNumber, String city,
-                   String province, double longitude, double latitude) {
+                   String province,double latitude, double longitude) {
         this(postalCode, streetName, streetNumber, city, province, longitude, latitude,
                 Math.cos(latitude * Math.PI / 180),
                 Math.sin(latitude * Math.PI / 180),
-                Math.cos(latitude * Math.PI / 180),
-                Math.sin(latitude * Math.PI / 180));
+                Math.cos(longitude * Math.PI / 180),
+                Math.sin(longitude * Math.PI / 180));
     }
 
     /**
@@ -48,25 +48,25 @@ public class Address implements Serializable {
      * @param streetNumber String street number
      * @param city String city name
      * @param province String province/state name
-     * @param longitude double longitude
      * @param latitude double latitude
-     * @param lonCos double cosine representation of longitude
-     * @param lonSin double sine representation of longitude
+     * @param longitude double longitude
      * @param latCos double cosine representation of latitude
      * @param latSin double sine representation of latitude
+     * @param lonCos double cosine representation of longitude
+     * @param lonSin double sine representation of longitude
      */
-    public Address(String postalCode, String streetName, String streetNumber, String city, String province, double longitude, double latitude, double lonCos, double lonSin, double latCos, double latSin) {
+    public Address(String postalCode, String streetName, String streetNumber, String city, String province, double latitude, double longitude, double latCos, double latSin, double lonCos, double lonSin) {
         this.postalCode = postalCode;
         this.streetName = streetName;
         this.streetNumber = streetNumber;
         this.city = city;
         this.province = province;
-        this.longitude = longitude;
         this.latitude = latitude;
-        this.lonCos = lonCos;
-        this.lonSin = lonSin;
+        this.longitude = longitude;
         this.latCos = latCos;
         this.latSin = latSin;
+        this.lonCos = lonCos;
+        this.lonSin = lonSin;
     }
 
     public String getStreetNumber() {
@@ -125,8 +125,8 @@ public class Address implements Serializable {
                 "\nCity: " + this.city +
                 "\nProvince: " + this.province +
                 "\nPostal Code: " + this.postalCode +
-                "\nLongitude: " + this.longitude +
-                "\nLatitude: " + this.latitude);
+                "\nLatitude: " + this.latitude +
+                "\nLongitude: " + this.longitude);
     }
 
     @Override
@@ -136,43 +136,39 @@ public class Address implements Serializable {
 
         Address address = (Address) o;
 
-        if (Double.compare(address.getLongitude(), getLongitude()) != 0) return false;
         if (Double.compare(address.getLatitude(), getLatitude()) != 0) return false;
-        if (Double.compare(address.getLonCos(), getLonCos()) != 0) return false;
-        if (Double.compare(address.getLonSin(), getLonSin()) != 0) return false;
+        if (Double.compare(address.getLongitude(), getLongitude()) != 0) return false;
         if (Double.compare(address.getLatCos(), getLatCos()) != 0) return false;
         if (Double.compare(address.getLatSin(), getLatSin()) != 0) return false;
-        if (getPostalCode() != null ? !getPostalCode().equals(address.getPostalCode()) : address.getPostalCode() != null)
-            return false;
-        if (getStreetName() != null ? !getStreetName().equals(address.getStreetName()) : address.getStreetName() != null)
-            return false;
-        if (getStreetNumber() != null ? !getStreetNumber().equals(address.getStreetNumber()) : address.getStreetNumber() != null)
-            return false;
-        if (getCity() != null ? !getCity().equals(address.getCity()) : address.getCity() != null)
-            return false;
-        return getProvince() != null ? getProvince().equals(address.getProvince()) : address.getProvince() == null;
+        if (Double.compare(address.getLonCos(), getLonCos()) != 0) return false;
+        if (Double.compare(address.getLonSin(), getLonSin()) != 0) return false;
+        if (!getPostalCode().equals(address.getPostalCode())) return false;
+        if (!getStreetName().equals(address.getStreetName())) return false;
+        if (!getStreetNumber().equals(address.getStreetNumber())) return false;
+        if (!getCity().equals(address.getCity())) return false;
+        return getProvince().equals(address.getProvince());
     }
 
     @Override
     public int hashCode() {
         int result;
         long temp;
-        result = getPostalCode() != null ? getPostalCode().hashCode() : 0;
-        result = 31 * result + (getStreetName() != null ? getStreetName().hashCode() : 0);
-        result = 31 * result + (getStreetNumber() != null ? getStreetNumber().hashCode() : 0);
-        result = 31 * result + (getCity() != null ? getCity().hashCode() : 0);
-        result = 31 * result + (getProvince() != null ? getProvince().hashCode() : 0);
-        temp = Double.doubleToLongBits(getLongitude());
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = getPostalCode().hashCode();
+        result = 31 * result + getStreetName().hashCode();
+        result = 31 * result + getStreetNumber().hashCode();
+        result = 31 * result + getCity().hashCode();
+        result = 31 * result + getProvince().hashCode();
         temp = Double.doubleToLongBits(getLatitude());
         result = 31 * result + (int) (temp ^ (temp >>> 32));
-        temp = Double.doubleToLongBits(getLonCos());
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        temp = Double.doubleToLongBits(getLonSin());
+        temp = Double.doubleToLongBits(getLongitude());
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         temp = Double.doubleToLongBits(getLatCos());
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         temp = Double.doubleToLongBits(getLatSin());
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(getLonCos());
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(getLonSin());
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         return result;
     }
