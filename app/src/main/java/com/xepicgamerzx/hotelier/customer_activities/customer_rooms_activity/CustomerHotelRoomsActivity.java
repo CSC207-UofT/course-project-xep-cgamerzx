@@ -56,7 +56,7 @@ public class CustomerHotelRoomsActivity extends AppCompatActivity {
                 roomsRecyclerView.setAdapter(hotelRoomsAdapter);
 
             } else {
-                List<HotelRoom> hotelRooms = roomManager.getHotelRoomsInHotel(hotel.hotelID); // Not filtered
+                List<HotelRoom> hotelRooms = roomManager.getHotelRoomsInHotel(hotel.hotelId); // Not filtered
                 roomViewModel = HotelRoomModelManager.getHotelViewModelList(hotelRooms, getApplication());
                 final CustomerHotelRoomsAdapter hotelRoomsAdapter = new CustomerHotelRoomsAdapter(roomViewModel);
                 roomsRecyclerView.setAdapter(hotelRoomsAdapter);

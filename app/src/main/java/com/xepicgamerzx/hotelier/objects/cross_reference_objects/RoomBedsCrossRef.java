@@ -6,19 +6,19 @@ import androidx.room.Entity;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.Bed;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelRoom;
 
-@Entity(primaryKeys = {"roomID", "uniqueId"}, inheritSuperIndices = true)
+@Entity(primaryKeys = {"roomId", "uniqueId"}, inheritSuperIndices = true)
 public class RoomBedsCrossRef extends CrossRef {
-    public long roomID;
+    public long roomId;
     private int bedCount;
 
-    public RoomBedsCrossRef(long roomID, @NonNull String uniqueId, int bedCount) {
-        this.roomID = roomID;
+    public RoomBedsCrossRef(long roomId, @NonNull String uniqueId, int bedCount) {
+        this.roomId = roomId;
         this.uniqueId = uniqueId;
         setBedCount(bedCount);
     }
 
     public RoomBedsCrossRef(HotelRoom hotelRoom, Bed bed, int bedCount) {
-        this(hotelRoom.roomID, bed.getUniqueId(), bedCount);
+        this(hotelRoom.roomId, bed.getUniqueId(), bedCount);
     }
 
     public int getBedCount() {
@@ -37,14 +37,14 @@ public class RoomBedsCrossRef extends CrossRef {
 
         RoomBedsCrossRef that = (RoomBedsCrossRef) o;
 
-        if (roomID != that.roomID) return false;
+        if (roomId != that.roomId) return false;
         return getBedCount() == that.getBedCount();
     }
 
     @Override
     public int hashCode() {
         int result = super.hashCode();
-        result = 31 * result + (int) (roomID ^ (roomID >>> 32));
+        result = 31 * result + (int) (roomId ^ (roomId >>> 32));
         result = 31 * result + getBedCount();
         return result;
     }

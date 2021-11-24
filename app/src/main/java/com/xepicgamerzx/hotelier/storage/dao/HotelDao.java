@@ -29,7 +29,7 @@ public abstract class HotelDao implements BaseDao<List<Long>, Hotel> {
      * @param hotelID long ID of hotel amenity.
      * @return List<Hotel> list of all hotel with IDs that match hotelID.
      */
-    @Query("SELECT * FROM Hotel WHERE hotelID IN (:hotelID)")
+    @Query("SELECT * FROM Hotel WHERE hotelId IN (:hotelID)")
     public abstract List<Hotel> getIdMatch(Long... hotelID);
 
     /**

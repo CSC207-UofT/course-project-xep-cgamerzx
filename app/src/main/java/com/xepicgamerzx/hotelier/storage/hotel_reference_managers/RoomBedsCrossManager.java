@@ -99,7 +99,7 @@ public class RoomBedsCrossManager implements CrossManager<RoomBedsCrossRef, Hote
      */
     @Override
     public List<Bed> getRelated(HotelRoom hotelRoom) {
-        List<String> ids = bedRoomCrossDao.getWith(hotelRoom.roomID);
+        List<String> ids = bedRoomCrossDao.getWith(hotelRoom.roomId);
         return bedManager.get(ids.toArray(new String[0]));
     }
 
@@ -122,7 +122,7 @@ public class RoomBedsCrossManager implements CrossManager<RoomBedsCrossRef, Hote
      */
     @Override
     public List<RoomBedsCrossRef> getRelatedCross(HotelRoom hotelRoom) {
-        return bedRoomCrossDao.getCrossWith(hotelRoom.roomID);
+        return bedRoomCrossDao.getCrossWith(hotelRoom.roomId);
     }
 
     /**

@@ -12,7 +12,7 @@ import java.util.Objects;
 @Entity()
 public class Hotel extends NonUniqueEntity implements Serializable {
     @PrimaryKey(autoGenerate = true)
-    public long hotelID;
+    public long hotelId;
 
     private String name;
     private int starClass;
@@ -77,11 +77,11 @@ public class Hotel extends NonUniqueEntity implements Serializable {
         if (this == o) return true;
         if (!(o instanceof Hotel)) return false;
         Hotel hotel = (Hotel) o;
-        return hotelID == hotel.hotelID && getStarClass() == hotel.getStarClass() && getName().equals(hotel.getName()) && getAddress().equals(hotel.getAddress());
+        return hotelId == hotel.hotelId && getStarClass() == hotel.getStarClass() && getName().equals(hotel.getName()) && getAddress().equals(hotel.getAddress());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(hotelID, getName(), getStarClass(), getAddress());
+        return Objects.hash(hotelId, getName(), getStarClass(), getAddress());
     }
 }

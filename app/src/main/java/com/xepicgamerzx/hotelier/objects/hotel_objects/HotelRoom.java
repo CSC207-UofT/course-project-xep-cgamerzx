@@ -15,9 +15,9 @@ import java.util.Objects;
 @Entity
 public class HotelRoom extends NonUniqueEntity {
     @PrimaryKey(autoGenerate = true)
-    public long roomID;
+    public long roomId;
 
-    private long hotelID;
+    private long hotelId;
 
     private int capacity;
     private BigDecimal price;
@@ -30,24 +30,27 @@ public class HotelRoom extends NonUniqueEntity {
     /**
      * Crates a new HotelRoom with given schedule, capacity, beds
      *
-     * @param startAvailability the first day where a hotelRoom is available
-     * @param endAvailability   the last day of when a hotelRoom is available
+     * @param zoneId ZoneId of the hotel room
+     * @param startAvailability The first day where a hotelRoom is available
+     * @param endAvailability   The last day of when a hotelRoom is available
      * @param capacity          The maximum number of people that can sleep in this HotelRoom
+     * @param price BigDecimal price of the hotel.
      */
     public HotelRoom(ZoneId zoneId, long startAvailability, long endAvailability, int capacity, BigDecimal price) {
         this.zoneId = zoneId;
         this.startAvailability = startAvailability;
         this.endAvailability = endAvailability;
         this.capacity = capacity;
-        this.price = price;
+
+        setPrice(price);
     }
 
-    public long getHotelID() {
-        return hotelID;
+    public long getHotelId() {
+        return hotelId;
     }
 
-    public void setHotelID(long hotelID) {
-        this.hotelID = hotelID;
+    public void setHotelId(long hotelId) {
+        this.hotelId = hotelId;
     }
 
     public int getCapacity() {
@@ -93,13 +96,12 @@ public class HotelRoom extends NonUniqueEntity {
     @Override
     @NonNull
     public String toString() {
-        UnixEpochDateConverter epoch = new UnixEpochDateConverter();
-        //String roomID = String.format(Locale.CANADA, "RoomID: %d", this.roomID);
+        String roomId = String.format(Locale.CANADA, "RoomID: %d", this.roomId);
         String schedule = String.format(Locale.CANADA, "\nSchedule: " + UnixEpochDateConverter.epochToReadable(this.getStartAvailability(), this.getEndAvailability()));
         String capacity = String.format(Locale.CANADA, "\nCapacity: %d", this.capacity);
         String price = String.format(Locale.CANADA, "\nPrice: %.2f", this.price);
 
-        return schedule + capacity + price + "\n";
+        return roomId + schedule + capacity + price + "\n";
     }
 
     @Override
@@ -107,11 +109,11 @@ public class HotelRoom extends NonUniqueEntity {
         if (this == o) return true;
         if (!(o instanceof HotelRoom)) return false;
         HotelRoom hotelRoom = (HotelRoom) o;
-        return roomID == hotelRoom.roomID && getHotelID() == hotelRoom.getHotelID() && getCapacity() == hotelRoom.getCapacity() && getStartAvailability() == hotelRoom.getStartAvailability() && getEndAvailability() == hotelRoom.getEndAvailability() && getPrice().equals(hotelRoom.getPrice()) && getZoneId().equals(hotelRoom.getZoneId());
+        return roomId == hotelRoom.roomId && getHotelId() == hotelRoom.getHotelId() && getCapacity() == hotelRoom.getCapacity() && getStartAvailability() == hotelRoom.getStartAvailability() && getEndAvailability() == hotelRoom.getEndAvailability() && getPrice().equals(hotelRoom.getPrice()) && getZoneId().equals(hotelRoom.getZoneId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(roomID, getHotelID(), getCapacity(), getPrice(), getZoneId(), getStartAvailability(), getEndAvailability());
+        return Objects.hash(roomId, getHotelId(), getCapacity(), getPrice(), getZoneId(), getStartAvailability(), getEndAvailability());
     }
 }

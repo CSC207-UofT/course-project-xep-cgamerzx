@@ -2,15 +2,15 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "ccd47e340c53dcec3b98fb09fe642bef",
+    "identityHash": "5a8bb03e8bd5ccf8a997f29b7000ee79",
     "entities": [
       {
         "tableName": "Hotel",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`hotelID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT, `starClass` INTEGER NOT NULL, `postalCode` TEXT, `streetName` TEXT, `streetNumber` TEXT, `city` TEXT, `province` TEXT, `longitude` REAL, `latitude` REAL, `lonCos` REAL, `lonSin` REAL, `latCos` REAL, `latSin` REAL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`hotelId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT, `starClass` INTEGER NOT NULL, `postalCode` TEXT, `streetName` TEXT, `streetNumber` TEXT, `city` TEXT, `province` TEXT, `latitude` REAL, `longitude` REAL, `latCos` REAL, `latSin` REAL, `lonCos` REAL, `lonSin` REAL)",
         "fields": [
           {
-            "fieldPath": "hotelID",
-            "columnName": "hotelID",
+            "fieldPath": "hotelId",
+            "columnName": "hotelId",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -57,26 +57,14 @@
             "notNull": false
           },
           {
-            "fieldPath": "address.longitude",
-            "columnName": "longitude",
-            "affinity": "REAL",
-            "notNull": false
-          },
-          {
             "fieldPath": "address.latitude",
             "columnName": "latitude",
             "affinity": "REAL",
             "notNull": false
           },
           {
-            "fieldPath": "address.lonCos",
-            "columnName": "lonCos",
-            "affinity": "REAL",
-            "notNull": false
-          },
-          {
-            "fieldPath": "address.lonSin",
-            "columnName": "lonSin",
+            "fieldPath": "address.longitude",
+            "columnName": "longitude",
             "affinity": "REAL",
             "notNull": false
           },
@@ -91,11 +79,23 @@
             "columnName": "latSin",
             "affinity": "REAL",
             "notNull": false
+          },
+          {
+            "fieldPath": "address.lonCos",
+            "columnName": "lonCos",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "address.lonSin",
+            "columnName": "lonSin",
+            "affinity": "REAL",
+            "notNull": false
           }
         ],
         "primaryKey": {
           "columnNames": [
-            "hotelID"
+            "hotelId"
           ],
           "autoGenerate": true
         },
@@ -104,17 +104,17 @@
       },
       {
         "tableName": "HotelRoom",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`roomID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `hotelID` INTEGER NOT NULL, `capacity` INTEGER NOT NULL, `price` INTEGER, `zoneId` TEXT, `startAvailability` INTEGER NOT NULL, `endAvailability` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`roomId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `hotelId` INTEGER NOT NULL, `capacity` INTEGER NOT NULL, `price` INTEGER, `zoneId` TEXT, `startAvailability` INTEGER NOT NULL, `endAvailability` INTEGER NOT NULL)",
         "fields": [
           {
-            "fieldPath": "roomID",
-            "columnName": "roomID",
+            "fieldPath": "roomId",
+            "columnName": "roomId",
             "affinity": "INTEGER",
             "notNull": true
           },
           {
-            "fieldPath": "hotelID",
-            "columnName": "hotelID",
+            "fieldPath": "hotelId",
+            "columnName": "hotelId",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -151,7 +151,7 @@
         ],
         "primaryKey": {
           "columnNames": [
-            "roomID"
+            "roomId"
           ],
           "autoGenerate": true
         },
@@ -220,11 +220,11 @@
       },
       {
         "tableName": "RoomBedsCrossRef",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`roomID` INTEGER NOT NULL, `bedCount` INTEGER NOT NULL, `uniqueId` TEXT NOT NULL, PRIMARY KEY(`roomID`, `uniqueId`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`roomId` INTEGER NOT NULL, `bedCount` INTEGER NOT NULL, `uniqueId` TEXT NOT NULL, PRIMARY KEY(`roomId`, `uniqueId`))",
         "fields": [
           {
-            "fieldPath": "roomID",
-            "columnName": "roomID",
+            "fieldPath": "roomId",
+            "columnName": "roomId",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -243,7 +243,7 @@
         ],
         "primaryKey": {
           "columnNames": [
-            "roomID",
+            "roomId",
             "uniqueId"
           ],
           "autoGenerate": false
@@ -263,11 +263,11 @@
       },
       {
         "tableName": "HotelAmenitiesCrossRef",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`hotelID` INTEGER NOT NULL, `uniqueId` TEXT NOT NULL, PRIMARY KEY(`hotelID`, `uniqueId`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`hotelId` INTEGER NOT NULL, `uniqueId` TEXT NOT NULL, PRIMARY KEY(`hotelId`, `uniqueId`))",
         "fields": [
           {
-            "fieldPath": "hotelID",
-            "columnName": "hotelID",
+            "fieldPath": "hotelId",
+            "columnName": "hotelId",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -280,7 +280,7 @@
         ],
         "primaryKey": {
           "columnNames": [
-            "hotelID",
+            "hotelId",
             "uniqueId"
           ],
           "autoGenerate": false
@@ -300,11 +300,11 @@
       },
       {
         "tableName": "RoomAmenitiesCrossRef",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`roomID` INTEGER NOT NULL, `uniqueId` TEXT NOT NULL, PRIMARY KEY(`roomID`, `uniqueId`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`roomId` INTEGER NOT NULL, `uniqueId` TEXT NOT NULL, PRIMARY KEY(`roomId`, `uniqueId`))",
         "fields": [
           {
-            "fieldPath": "roomID",
-            "columnName": "roomID",
+            "fieldPath": "roomId",
+            "columnName": "roomId",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -317,7 +317,7 @@
         ],
         "primaryKey": {
           "columnNames": [
-            "roomID",
+            "roomId",
             "uniqueId"
           ],
           "autoGenerate": false
@@ -377,7 +377,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'ccd47e340c53dcec3b98fb09fe642bef')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '5a8bb03e8bd5ccf8a997f29b7000ee79')"
     ]
   }
 }

@@ -12,8 +12,8 @@ public class HotelWithRooms {
     @Embedded
     public Hotel hotel;
     @Relation(
-            parentColumn = "hotelID",
-            entityColumn = "roomID"
+            parentColumn = "hotelId",
+            entityColumn = "roomId"
     )
     public List<HotelRoom> hotelRooms;
 }

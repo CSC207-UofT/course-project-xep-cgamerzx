@@ -14,7 +14,7 @@ public class HotelWithAmenities {
     @Embedded
     public Hotel hotel;
     @Relation(
-            parentColumn = "hotelID",
+            parentColumn = "hotelId",
             entityColumn = "uniqueId",
             associateBy = @Junction(HotelAmenitiesCrossRef.class)
     )

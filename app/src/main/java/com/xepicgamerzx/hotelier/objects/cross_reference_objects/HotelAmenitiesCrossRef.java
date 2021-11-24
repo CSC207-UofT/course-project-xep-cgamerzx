@@ -6,17 +6,17 @@ import androidx.room.Entity;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.Hotel;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelAmenity;
 
-@Entity(primaryKeys = {"hotelID", "uniqueId"}, inheritSuperIndices = true)
+@Entity(primaryKeys = {"hotelId", "uniqueId"}, inheritSuperIndices = true)
 public class HotelAmenitiesCrossRef extends CrossRef {
-    public long hotelID;
+    public long hotelId;
 
-    public HotelAmenitiesCrossRef(long hotelID, @NonNull String uniqueId) {
-        this.hotelID = hotelID;
+    public HotelAmenitiesCrossRef(long hotelId, @NonNull String uniqueId) {
+        this.hotelId = hotelId;
         this.uniqueId = uniqueId;
     }
 
     public HotelAmenitiesCrossRef(Hotel hotel, HotelAmenity hotelAmenity) {
-        this(hotel.hotelID, hotelAmenity.getUniqueId());
+        this(hotel.hotelId, hotelAmenity.getUniqueId());
     }
 
     @Override
@@ -27,13 +27,13 @@ public class HotelAmenitiesCrossRef extends CrossRef {
 
         HotelAmenitiesCrossRef that = (HotelAmenitiesCrossRef) o;
 
-        return hotelID == that.hotelID;
+        return hotelId == that.hotelId;
     }
 
     @Override
     public int hashCode() {
         int result = super.hashCode();
-        result = 31 * result + (int) (hotelID ^ (hotelID >>> 32));
+        result = 31 * result + (int) (hotelId ^ (hotelId >>> 32));
         return result;
     }
 }

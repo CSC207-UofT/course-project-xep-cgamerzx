@@ -26,7 +26,7 @@ public abstract class HotelAmenitiesCrossDao implements BaseDao<Void, HotelAmeni
      * @param amenityID String amenityID referring to unique ID of hotel amenity.
      * @return List<Long> hotel IDs related to amenityID.
      */
-    @Query("SELECT hotelID FROM HotelAmenitiesCrossRef WHERE uniqueId =:amenityID")
+    @Query("SELECT hotelId FROM HotelAmenitiesCrossRef WHERE uniqueId =:amenityID")
     public abstract List<Long> getWith(String amenityID);
 
     /**
@@ -35,7 +35,7 @@ public abstract class HotelAmenitiesCrossDao implements BaseDao<Void, HotelAmeni
      * @param hotelID long IDs referring to ID of the hotel.
      * @return List<String> hotel amenity unique IDs related to hotelID.
      */
-    @Query("SELECT uniqueId FROM HotelAmenitiesCrossRef WHERE hotelID =:hotelID")
+    @Query("SELECT uniqueId FROM HotelAmenitiesCrossRef WHERE hotelId =:hotelID")
     public abstract List<String> getWith(long hotelID);
 
     /**
@@ -44,7 +44,7 @@ public abstract class HotelAmenitiesCrossDao implements BaseDao<Void, HotelAmeni
      * @param hotelID long ID referring to ID of the hotel.
      * @return List<HotelAmenitiesCrossRef> cross refs related to hotelID
      */
-    @Query("SELECT * FROM HotelAmenitiesCrossRef WHERE hotelID =:hotelID")
+    @Query("SELECT * FROM HotelAmenitiesCrossRef WHERE hotelId =:hotelID")
     public abstract List<HotelAmenitiesCrossRef> getCrossWith(long hotelID);
 
     /**

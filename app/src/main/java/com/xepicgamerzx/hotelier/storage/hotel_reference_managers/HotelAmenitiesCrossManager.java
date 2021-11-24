@@ -75,7 +75,7 @@ public class HotelAmenitiesCrossManager implements CrossManager<HotelAmenitiesCr
      */
     @Override
     public List<HotelAmenity> getRelated(Hotel hotel) {
-        List<String> ids = hotelAmenitiesCrossDao.getWith(hotel.hotelID);
+        List<String> ids = hotelAmenitiesCrossDao.getWith(hotel.hotelId);
         return hotelAmenityManager.get(ids.toArray(new String[0]));
     }
 
@@ -98,7 +98,7 @@ public class HotelAmenitiesCrossManager implements CrossManager<HotelAmenitiesCr
      */
     @Override
     public List<HotelAmenitiesCrossRef> getRelatedCross(Hotel hotel) {
-        return hotelAmenitiesCrossDao.getCrossWith(hotel.hotelID);
+        return hotelAmenitiesCrossDao.getCrossWith(hotel.hotelId);
     }
 
     /**

@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.room.Entity;
 
 @Entity
-public class HotelAmenity extends UniqueEntity {
+public class HotelAmenity extends UniqueEntity implements Amenity{
     public HotelAmenity(@NonNull String uniqueId) {
         super(uniqueId);
     }

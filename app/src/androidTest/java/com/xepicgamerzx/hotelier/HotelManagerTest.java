@@ -86,7 +86,7 @@ public class HotelManagerTest {
         String name = "Hotel With Rooms Test";
         int starClass = 5;
         Hotel hotel = hotelManager.createHotel(name, addresses.get(0), starClass, Arrays.asList(rooms));
-        assertEquals(room1.getHotelID(), room2.getHotelID(), hotel.hotelID);
+        assertEquals(room1.getHotelId(), room2.getHotelId(), hotel.hotelId);
     }
 
     @Test
