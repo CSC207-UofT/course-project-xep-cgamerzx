@@ -24,6 +24,7 @@ import org.junit.runner.RunWith;
 import java.math.BigDecimal;
 import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @RunWith(AndroidJUnit4.class)
@@ -89,15 +90,23 @@ public class HotelManagerTest {
 
         String name = "Hotel With Rooms Test";
         int starClass = 5;
-        //Hotel hotel = hotelManager.createHotel(name, addresses.get(0), starClass, rooms);
-
-//        assertEquals(room1.getHotelID(), room2.getHotelID(), hotel.hotelID);
+        Hotel hotel = hotelManager.createHotel(name, addresses.get(0), starClass, Arrays.asList(rooms));
+        assertEquals(room1.getHotelID(), room2.getHotelID(), hotel.hotelID);
     }
 
     @Test
     public void testGetHotelsInArea(){
+        double montrealLat = 45.5017;
+        double montrealLon = -73.561668;
+        double approxDistanceBetweenMT =  550;
 
+        String name = "Hilton";
+        int starClass = 5;
 
+        Hotel testHotel1 = hotelManager.createHotel(name, addresses.get(0), starClass);
+
+        assert (!hotelManager.getHotelsInArea(montrealLat, montrealLon, 5).contains(testHotel1));
+        assert (hotelManager.getHotelsInArea(montrealLat, montrealLon, approxDistanceBetweenMT).contains(testHotel1));
     }
 
 

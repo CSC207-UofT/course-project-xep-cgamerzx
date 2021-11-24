@@ -60,6 +60,6 @@ public abstract class HotelDao implements BaseDao<List<Long>, Hotel>{
      * @param distanceCos double cosine radius search area
      * @return List<Hotel> list of all hotel within the defined latitude and longitude areas
      */
-    @Query("SELECT * FROM Hotel WHERE :centerLatSin * latSin + :centerLatCos * latCos * (lonCos* :centerLonCos + lonSin * :centerLonSin) < :distanceCos")
+    @Query("SELECT * FROM Hotel WHERE :centerLatSin * latSin + :centerLatCos * latCos * (lonCos* :centerLonCos + lonSin * :centerLonSin) > :distanceCos")
     public abstract List<Hotel> getHotelsInArea(double centerLonCos, double centerLonSin, double centerLatCos, double centerLatSin, double distanceCos);
 }

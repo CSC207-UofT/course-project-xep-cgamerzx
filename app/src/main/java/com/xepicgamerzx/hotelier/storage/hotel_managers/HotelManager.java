@@ -169,23 +169,23 @@ public class HotelManager implements DiscreteManager<Hotel, Long, Long[]> {
     /**
      * Get all hotels approximately within 50KM of a given location.
      *
-     * @param centerLon double longitude of center of query
      * @param centerLat double latitude of center of query
+     * @param centerLon double longitude of center of query
      * @return List<Hotel> all hotels in the approximately in the search area.
      */
-    public List<Hotel> getHotelsInArea (double centerLon, double centerLat){
-        return getHotelsInArea(centerLon, centerLat, 50.0);
+    public List<Hotel> getHotelsInArea (double centerLat, double centerLon){
+        return getHotelsInArea(centerLat, centerLon, 50.0);
     }
 
     /**
      * Get all hotels approximately in the radius around a given location.
      *
-     * @param centerLon double longitude of center of query
      * @param centerLat double latitude of center of query
+     * @param centerLon double longitude of center of query
      * @param distanceKM double radius of search area in kilometers
      * @return List<Hotel> all hotels in the approximately in the search area.
      */
-    public List<Hotel> getHotelsInArea (double centerLon, double centerLat, double distanceKM){
+    public List<Hotel> getHotelsInArea (double centerLat, double centerLon, double distanceKM){
         double centerLonCos = Math.cos(centerLon * Math.PI / 180);
         double centerLonSin = Math.sin(centerLon * Math.PI / 180);
         double centerLatCos = Math.cos(centerLat * Math.PI / 180);
