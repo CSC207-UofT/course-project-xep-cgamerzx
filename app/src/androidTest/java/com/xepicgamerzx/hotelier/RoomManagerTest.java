@@ -41,7 +41,9 @@ public class RoomManagerTest {
     private HotelManager hotelManager;
     private RoomManager roomManager;
     private BedManager bedManager;
-    private Hotel testHotel;
+    private Hotel testHotel1;
+    private Hotel testHotel2;
+
 
     @BeforeClass
     public static void createBoilerInfo() {
@@ -53,7 +55,7 @@ public class RoomManagerTest {
                 "Toronto",
                 "ON",
                 43.6532,
-                79.3832);
+                -79.3832);
 
         addresses.add(address_1);
     }
@@ -72,10 +74,10 @@ public class RoomManagerTest {
         for (int i = 1; i <= numHotels; i++) {
             rooms.add(roomManager.createRoom(zoneId, startDate, endDate, capacity, price.multiply(BigDecimal.valueOf(i))));
         }
-
         String name = "RoomManager Test Hotel 1";
         int starClass = 5;
-        testHotel = hotelManager.createHotel(name, addresses.get(0), starClass, rooms);
+        testHotel1 = hotelManager.createHotel(name, addresses.get(0), starClass, rooms);
+        testHotel2 = hotelManager.createHotel("RoomManager Test Hotel 2", addresses.get(0), 3);
     }
 
     @Test
@@ -95,7 +97,7 @@ public class RoomManagerTest {
 
     @Test
     public void testGetNumberOfRooms() {
-        int num = roomManager.getNumberOfRooms(testHotel);
+        int num = roomManager.getNumberOfRooms(testHotel1);
 
         assertEquals(num, numHotels);
     }
@@ -104,13 +106,37 @@ public class RoomManagerTest {
     public void testPriceRange() {
         BigDecimal max = price.multiply(BigDecimal.valueOf(numHotels)).setScale(2, RoundingMode.UP);
 
-        List<BigDecimal> priceRange = roomManager.getPriceRange(testHotel);
+        List<BigDecimal> priceRange = roomManager.getPriceRange(testHotel1);
         List<BigDecimal> expectedPriceRange = new ArrayList<>(List.of(price, max));
 
         assertEquals(priceRange, expectedPriceRange);
     }
 
+    @Test
+    public void testGetAvailableRooms(){
+        roomManager.createRoom(zoneId, 0, 5, capacity, price.multiply(BigDecimal.valueOf(100000)));
+        roomManager.createRoom(zoneId, 0, 4, capacity, price.multiply(BigDecimal.valueOf(100000)));
+        roomManager.createRoom(zoneId, 2, 3, capacity, price.multiply(BigDecimal.valueOf(100000)));
 
+        assert(roomManager.getAvailableRooms(2, 3).size() == 3);
+        assert(roomManager.getAvailableRooms(2, 5).size() == 1);
+    }
+
+    @Test
+    public void testGetAvailableRoomsWithHotel(){
+        HotelRoom room1 = roomManager.createRoom(zoneId, 0, 5, capacity, price.multiply(BigDecimal.valueOf(100000)));
+        HotelRoom room2 =roomManager.createRoom(zoneId, 0, 4, capacity, price.multiply(BigDecimal.valueOf(100000)));
+        HotelRoom room3 =roomManager.createRoom(zoneId, 2, 3, capacity, price.multiply(BigDecimal.valueOf(100000)));
+
+        roomManager.setHotelID(testHotel1, room1);
+        roomManager.setHotelID(testHotel2, room2);
+        roomManager.setHotelID(testHotel1, room3);
+
+        assert(roomManager.getAvailableRooms(2, 3, testHotel1).size() == 2);
+        assert(roomManager.getAvailableRooms(2, 3, testHotel2).size() == 1);
+        assert(roomManager.getAvailableRooms(2, 5, testHotel2).size() == 0);
+        assert(roomManager.getAvailableRooms(2, 5, testHotel1).size() == 1);
+    }
 
     @After
     public void closeDb() {

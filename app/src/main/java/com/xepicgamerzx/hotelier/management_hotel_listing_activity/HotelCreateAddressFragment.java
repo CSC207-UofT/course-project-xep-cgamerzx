@@ -1,14 +1,13 @@
 package com.xepicgamerzx.hotelier.management_hotel_listing_activity;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.Toast;
+
+import androidx.fragment.app.Fragment;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
@@ -75,8 +74,8 @@ public class HotelCreateAddressFragment extends Fragment {
                             streetNum.getText().toString(),
                             city.getText().toString(),
                             province.getText().toString(),
-                            Double.parseDouble(longLat.getText().toString().split(",")[1]),
-                            Double.parseDouble(longLat.getText().toString().split(",")[0])
+                            Double.parseDouble(longLat.getText().toString().split(",")[0]),
+                            Double.parseDouble(longLat.getText().toString().split(",")[1])
                     );
                     System.out.println(activity.address);
 

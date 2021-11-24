@@ -10,7 +10,6 @@ import com.xepicgamerzx.hotelier.objects.hotel_objects.Address;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.Hotel;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelRoom;
 import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
-import com.xepicgamerzx.hotelier.storage.dao.HotelAmenitiesCrossDao;
 import com.xepicgamerzx.hotelier.storage.dao.HotelDao;
 
 import java.util.ArrayList;
@@ -24,22 +23,17 @@ public class HotelManager implements DiscreteManager<Hotel, Long, Long[]> {
 
     private final HotelierDatabase db;
     private final HotelDao hotelDao;
-    private final HotelAmenitiesCrossDao hotelAmenitiesCrossDao;
     private final RoomManager roomManager;
 
     private HotelManager(Application application) {
         db = HotelierDatabase.getDatabase(application);
         hotelDao = db.hotelDao();
-        hotelAmenitiesCrossDao = db.hotelAmenitiesCrossDao();
-
         roomManager = RoomManager.getManager(application);
     }
 
     private HotelManager(HotelierDatabase dbInstance) {
         db = dbInstance;
         hotelDao = db.hotelDao();
-        hotelAmenitiesCrossDao = db.hotelAmenitiesCrossDao();
-
         roomManager = RoomManager.getManager(dbInstance);
     }
 
@@ -139,6 +133,7 @@ public class HotelManager implements DiscreteManager<Hotel, Long, Long[]> {
         return hotelDao.getAll();
     }
 
+    @Deprecated // Use getHotelsInArea
     public List<Hotel> getHotelsByLatLong(double destinationLat, double destinationLong) {
         List<Hotel> hotels = hotelDao.getAll();
         List<Hotel> filteredHotels = new ArrayList<>();
@@ -158,6 +153,7 @@ public class HotelManager implements DiscreteManager<Hotel, Long, Long[]> {
         return filteredHotels;
     }
 
+    @Deprecated // This really shouldn't be in hotel manager or should be private
     public static float getDistanceMetres(double lat1, double lng1, double lat2, double lng2) {
         Location location1 = new Location("location1");
         location1.setLongitude(lng1);
@@ -167,9 +163,36 @@ public class HotelManager implements DiscreteManager<Hotel, Long, Long[]> {
         location2.setLongitude(lng2);
         location2.setLatitude(lat2);
 
-        float dist = location1.distanceTo(location2);
+        return location1.distanceTo(location2);
+    }
 
-        return dist;
+    /**
+     * Get all hotels approximately within 50KM of a given location.
+     *
+     * @param centerLat double latitude of center of query
+     * @param centerLon double longitude of center of query
+     * @return List<Hotel> all hotels in the approximately in the search area.
+     */
+    public List<Hotel> getHotelsInArea (double centerLat, double centerLon){
+        return getHotelsInArea(centerLat, centerLon, 50.0);
+    }
+
+    /**
+     * Get all hotels approximately in the radius around a given location.
+     *
+     * @param centerLat double latitude of center of query
+     * @param centerLon double longitude of center of query
+     * @param distanceKM double radius of search area in kilometers
+     * @return List<Hotel> all hotels in the approximately in the search area.
+     */
+    public List<Hotel> getHotelsInArea (double centerLat, double centerLon, double distanceKM){
+        double centerLonCos = Math.cos(centerLon * Math.PI / 180);
+        double centerLonSin = Math.sin(centerLon * Math.PI / 180);
+        double centerLatCos = Math.cos(centerLat * Math.PI / 180);
+        double centerLatSin = Math.sin(centerLat * Math.PI / 180);
+        double cosDistance = Math.cos(distanceKM / 6371);
+
+        return  hotelDao.getHotelsInArea(centerLonCos, centerLonSin, centerLatCos, centerLatSin, cosDistance);
     }
 
     /**

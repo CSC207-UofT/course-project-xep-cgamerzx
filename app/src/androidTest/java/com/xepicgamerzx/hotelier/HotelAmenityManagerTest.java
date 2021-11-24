@@ -56,7 +56,7 @@ public class HotelAmenityManagerTest {
                 "Toronto",
                 "ON",
                 43.6532,
-                79.3832);
+                -79.3832);
 
         addresses.add(address_1);
     }

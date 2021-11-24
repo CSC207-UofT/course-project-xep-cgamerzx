@@ -126,8 +126,8 @@ public class ReadDummyData {
                 String.valueOf(streetNum),
                 city,
                 province,
-                longitude,
-                latitude
+                latitude,
+                longitude
         );
     }
 }
