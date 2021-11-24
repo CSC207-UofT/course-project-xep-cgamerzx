@@ -6,7 +6,6 @@ import com.xepicgamerzx.hotelier.objects.hotel_objects.Bed;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.BedSizeEnum;
 import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
 import com.xepicgamerzx.hotelier.storage.dao.BedDao;
-import com.xepicgamerzx.hotelier.storage.dao.BedRoomCrossDao;
 
 import java.util.List;
 
@@ -18,18 +17,15 @@ public class BedManager implements UniqueManager<Bed, BedSizeEnum> {
 
     private final HotelierDatabase db;
     private final BedDao bedDao;
-    private final BedRoomCrossDao bedRoomCrossDao;
 
     private BedManager(Application application) {
         db = HotelierDatabase.getDatabase(application);
         bedDao = db.bedDao();
-        bedRoomCrossDao = db.bedRoomCrossDao();
     }
 
     private BedManager(HotelierDatabase dbInstance) {
         db = dbInstance;
         bedDao = db.bedDao();
-        bedRoomCrossDao = db.bedRoomCrossDao();
     }
 
     public static BedManager getManager(Application application) {
