@@ -142,16 +142,4 @@ public class RoomAmenitiesCrossManager implements CrossManager<RoomAmenitiesCros
     public Void insert(RoomAmenitiesCrossRef... roomAmenitiesCrossRef) {
         return roomAmenitiesCrossDao.insert(roomAmenitiesCrossRef);
     }
-
-    /**
-     * Adds RoomAmenity object to HotelRoom.
-     *
-     * @param hotelRoom   HotelRoom to which we are adding RoomAmenity.
-     * @param roomAmenity RoomAmenity that we are adding to HotelRoom.
-     */
-    @Deprecated // Use createRelationship
-    public void addAmenityToRoom(HotelRoom hotelRoom, RoomAmenity roomAmenity) {
-        RoomAmenitiesCrossRef roomAmenitiesCrossRef = new RoomAmenitiesCrossRef(hotelRoom, roomAmenity);
-        roomAmenitiesCrossDao.insert(roomAmenitiesCrossRef);
-    }
 }

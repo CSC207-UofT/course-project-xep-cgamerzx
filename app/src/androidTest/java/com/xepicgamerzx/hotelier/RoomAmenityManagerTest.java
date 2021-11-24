@@ -49,7 +49,15 @@ public class RoomAmenityManagerTest {
     public static void createBoilerInfo() {
         addresses = new ArrayList<>();
 
-        Address address_1 = new AddressBuilder().setStreetName("Testing Lane").setPostalCode("M5T2Y7").setStreetNumber("123").setCity("Toronto").setProvince("ON").setLatitude(43.6532).setLongitude(-79.3832).build();
+        Address address_1 = new AddressBuilder()
+                .setStreetName("Testing Lane")
+                .setPostalCode("M5T2Y7")
+                .setStreetNumber("123")
+                .setCity("Toronto")
+                .setProvince("ON")
+                .setLatitude(43.6532)
+                .setLongitude(-79.3832)
+                .build();
 
         addresses.add(address_1);
     }
@@ -96,8 +104,8 @@ public class RoomAmenityManagerTest {
 
         HotelRoom room = roomManager.getAll().get(1);
 
-        roomAmenitiesCrossManager.addAmenityToRoom(room, amenity1);
-        roomAmenitiesCrossManager.addAmenityToRoom(room, amenity2);
+        roomAmenitiesCrossManager.createRelationship(room, amenity1);
+        roomAmenitiesCrossManager.createRelationship(room, amenity2);
 
         List <RoomAmenity> actual = roomAmenitiesCrossManager.getRelated(room);
         List <RoomAmenity> expected = Arrays.asList(amenity1, amenity2);
