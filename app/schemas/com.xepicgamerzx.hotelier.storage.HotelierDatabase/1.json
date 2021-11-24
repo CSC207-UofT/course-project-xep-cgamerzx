@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "25389bbdbbfe76f10504c3caee29a471",
+    "identityHash": "ccd47e340c53dcec3b98fb09fe642bef",
     "entities": [
       {
         "tableName": "Hotel",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`hotelID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT, `starClass` INTEGER NOT NULL, `postalCode` TEXT, `streetName` TEXT, `streetNumber` TEXT, `city` TEXT, `province` TEXT, `longitude` REAL, `latitude` REAL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`hotelID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT, `starClass` INTEGER NOT NULL, `postalCode` TEXT, `streetName` TEXT, `streetNumber` TEXT, `city` TEXT, `province` TEXT, `longitude` REAL, `latitude` REAL, `lonCos` REAL, `lonSin` REAL, `latCos` REAL, `latSin` REAL)",
         "fields": [
           {
             "fieldPath": "hotelID",
@@ -65,6 +65,30 @@
           {
             "fieldPath": "address.latitude",
             "columnName": "latitude",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "address.lonCos",
+            "columnName": "lonCos",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "address.lonSin",
+            "columnName": "lonSin",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "address.latCos",
+            "columnName": "latCos",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "address.latSin",
+            "columnName": "latSin",
             "affinity": "REAL",
             "notNull": false
           }
@@ -310,12 +334,50 @@
           }
         ],
         "foreignKeys": []
+      },
+      {
+        "tableName": "users",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `userId` TEXT, `password` TEXT, `email` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "userName",
+            "columnName": "userId",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "password",
+            "columnName": "password",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "email",
+            "columnName": "email",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '25389bbdbbfe76f10504c3caee29a471')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'ccd47e340c53dcec3b98fb09fe642bef')"
     ]
   }
 }
