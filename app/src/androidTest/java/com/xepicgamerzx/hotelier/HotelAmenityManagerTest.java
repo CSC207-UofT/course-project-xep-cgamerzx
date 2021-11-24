@@ -9,6 +9,7 @@ import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import com.xepicgamerzx.hotelier.objects.hotel_objects.Address;
+import com.xepicgamerzx.hotelier.objects.hotel_objects.AddressBuilder;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelAmenity;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.Hotel;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelRoom;
@@ -50,13 +51,15 @@ public class HotelAmenityManagerTest {
     public static void createBoilerInfo() {
         addresses = new ArrayList<>();
 
-        Address address_1 = new Address("Testing Lane",
-                "M5T2Y7",
-                "123",
-                "Toronto",
-                "ON",
-                43.6532,
-                -79.3832);
+        Address address_1 = new AddressBuilder()
+                .setStreetName("Testing Lane")
+                .setPostalCode("M5T2Y7")
+                .setStreetNumber("123")
+                .setCity("Toronto")
+                .setProvince("ON")
+                .setLatitude(43.6532)
+                .setLongitude(-79.3832)
+                .build();
 
         addresses.add(address_1);
     }
@@ -102,8 +105,8 @@ public class HotelAmenityManagerTest {
         HotelAmenity amenity1 = hotelAmenityManager.create("Laundry");
         HotelAmenity amenity2 = hotelAmenityManager.create(HotelAmenitiesEnum.GYM);
 
-        hotelAmenitiesCrossManager.addAmenityToHotel(testHotel, amenity1);
-        hotelAmenitiesCrossManager.addAmenityToHotel(testHotel, amenity2);
+        hotelAmenitiesCrossManager.createRelationship(testHotel, amenity1);
+        hotelAmenitiesCrossManager.createRelationship(testHotel, amenity2);
 
         List<HotelAmenity> actual = hotelAmenitiesCrossManager.getRelated(testHotel);
         List<HotelAmenity> expected = Arrays.asList(amenity2, amenity1);

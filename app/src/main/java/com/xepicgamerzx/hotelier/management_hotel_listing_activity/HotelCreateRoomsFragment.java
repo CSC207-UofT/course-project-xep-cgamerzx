@@ -1,15 +1,14 @@
 package com.xepicgamerzx.hotelier.management_hotel_listing_activity;
 
 import android.os.Bundle;
-
-import androidx.core.util.Pair;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.Toast;
+
+import androidx.core.util.Pair;
+import androidx.fragment.app.Fragment;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.chip.Chip;
@@ -18,9 +17,9 @@ import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.google.android.material.textfield.TextInputEditText;
 import com.xepicgamerzx.hotelier.R;
+import com.xepicgamerzx.hotelier.objects.UnixEpochDateConverter;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.Bed;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelRoom;
-import com.xepicgamerzx.hotelier.objects.UnixEpochDateConverter;
 
 import java.math.BigDecimal;
 import java.time.ZoneId;
@@ -74,7 +73,7 @@ public class HotelCreateRoomsFragment extends Fragment {
                 HotelCreatorActivity activity = (HotelCreatorActivity) getActivity();
 
                 String stringErrorMess = validateRoomInputs();
-                if(!stringErrorMess.equals("")){
+                if (!stringErrorMess.equals("")) {
                     Toast.makeText(getContext(), stringErrorMess, Toast.LENGTH_SHORT).show();
                 } else {
                     HotelRoom room = activity.roomManager.createRoom(
@@ -88,7 +87,7 @@ public class HotelCreateRoomsFragment extends Fragment {
                     Bed bed = activity.bedManager.create(bedType);
                     activity.roomBedsCrossManager.createRelationship(room, bed, Integer.parseInt(totalBeds.getText().toString()));
 
-                    activity.text += "\n" + room.toString();
+                    activity.text += "\n" + room;
                     activity.isRoomsMade = true;
                     activity.addRoomsBtn.setText("Add another room");
 
@@ -102,7 +101,7 @@ public class HotelCreateRoomsFragment extends Fragment {
             public void onCheckedChanged(ChipGroup group, int checkedId) {
                 Chip chip = v.findViewById(checkedId);
 
-                if (chip != null ) {
+                if (chip != null) {
                     bedType = chip.getText().toString();
                     isBedTypeSelected = true;
                 } else {
@@ -126,7 +125,7 @@ public class HotelCreateRoomsFragment extends Fragment {
 
                 // Converts to normal date
                 UnixEpochDateConverter epoch = new UnixEpochDateConverter();
-                String dates = epoch.epochToReadable(startDate, endDate);
+                String dates = UnixEpochDateConverter.epochToReadable(startDate, endDate);
                 schedule.setText(dates);
             }
         });
@@ -148,7 +147,7 @@ public class HotelCreateRoomsFragment extends Fragment {
                 pricePerNight.getText().toString().matches("\\d+"))) {
             s = "Input invalid, enter an integer";
         }
-        if(startDate == null || endDate == null || !(isBedTypeSelected)) {
+        if (startDate == null || endDate == null || !(isBedTypeSelected)) {
             s = "Enter all fields";
         }
 

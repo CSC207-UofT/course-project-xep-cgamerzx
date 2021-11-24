@@ -14,7 +14,7 @@ import java.util.List;
  * Data access object for Hotel
  */
 @Dao
-public abstract class HotelDao implements BaseDao<List<Long>, Hotel>{
+public abstract class HotelDao implements BaseDao<List<Long>, Hotel> {
     /**
      * Get all Hotel in Hotel table.
      *
@@ -29,7 +29,7 @@ public abstract class HotelDao implements BaseDao<List<Long>, Hotel>{
      * @param hotelID long ID of hotel amenity.
      * @return List<Hotel> list of all hotel with IDs that match hotelID.
      */
-    @Query("SELECT * FROM Hotel WHERE hotelID IN (:hotelID)")
+    @Query("SELECT * FROM Hotel WHERE hotelId IN (:hotelID)")
     public abstract List<Hotel> getIdMatch(Long... hotelID);
 
     /**
@@ -57,7 +57,7 @@ public abstract class HotelDao implements BaseDao<List<Long>, Hotel>{
      * @param centerLonSin double latitude boundary
      * @param centerLatCos double longitude boundary
      * @param centerLatSin double longitude boundary
-     * @param distanceCos double cosine radius search area
+     * @param distanceCos  double cosine radius search area
      * @return List<Hotel> list of all hotel within the defined latitude and longitude areas
      */
     @Query("SELECT * FROM Hotel WHERE :centerLatSin * latSin + :centerLatCos * latCos * (lonCos* :centerLonCos + lonSin * :centerLonSin) > :distanceCos")

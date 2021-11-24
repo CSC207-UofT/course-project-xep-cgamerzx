@@ -84,7 +84,7 @@ public class HotelViewAdapter extends RecyclerView.Adapter<HotelViewAdapter.Hote
                 @Override
                 public void onClick(View v) {
                     HashMap<String, Object> data = new HashMap<>();
-                    if(userStartDate != 0 && userEndDate != 0) {
+                    if (userStartDate != 0 && userEndDate != 0) {
                         data.put("userStartDate", userStartDate);
                         data.put("userEndDate", userEndDate);
                     }

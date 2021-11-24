@@ -1,13 +1,12 @@
 package com.xepicgamerzx.hotelier.customer_activities.maps_fragment;
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -30,7 +29,7 @@ public class MapsFragment extends Fragment {
 
         Bundle bundle = getArguments();
 
-        if(bundle!=null){
+        if (bundle != null) {
             longitude = bundle.getDouble("longitude");
             latitude = bundle.getDouble("latitude");
             System.out.println(longitude);
@@ -45,10 +44,10 @@ public class MapsFragment extends Fragment {
         supportMapFragment.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(@NonNull GoogleMap googleMap) {
-                if(latitude != 0  && longitude != 0) {
+                if (latitude != 0 && longitude != 0) {
                     LatLng hotelCoord = new LatLng(latitude, longitude);
                     googleMap.addMarker(new MarkerOptions().position(hotelCoord));
-                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom (
+                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
                             hotelCoord, 15
                     ));
                 }
@@ -66,7 +65,7 @@ public class MapsFragment extends Fragment {
 
                         googleMap.clear();
 
-                        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom (
+                        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
                                 latLng, 10
                         ));
 

@@ -13,7 +13,7 @@ import java.util.List;
  * Data access object for HotelAmenity
  */
 @Dao
-public abstract class HotelAmenityDao implements BaseDao<Void, HotelAmenity>{
+public abstract class HotelAmenityDao implements BaseDao<Void, HotelAmenity> {
     /**
      * Get all HotelAmenity in HotelAmenity table.
      *

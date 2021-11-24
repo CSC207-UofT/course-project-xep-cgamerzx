@@ -1,7 +1,6 @@
 package com.xepicgamerzx.hotelier.objects.OldObjects;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -32,7 +31,7 @@ public class OldRoom implements Serializable {
      *                          //* @param amenities The amenities that this room has
      */
     public OldRoom(long startAvailability, long endAvailability, int capacity,
-                List<BedOld> beds, long price) {
+                   List<BedOld> beds, long price) {
         this.startAvailability = startAvailability;
         this.endAvailability = endAvailability;
         this.capacity = capacity;
@@ -40,6 +39,7 @@ public class OldRoom implements Serializable {
         this.price = price;
         // this.roomAmenities = amenities;  * commenting out for now
     }
+
     public OldRoom(long startAvailability, long endAvailability, int capacity, long price) {
         this.startAvailability = startAvailability;
         this.endAvailability = endAvailability;

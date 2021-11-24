@@ -16,7 +16,7 @@ public abstract class UniqueEntity {
     }
 
     @NonNull
-    public String getUniqueId(){
+    public String getUniqueId() {
         return uniqueId;
     }
 

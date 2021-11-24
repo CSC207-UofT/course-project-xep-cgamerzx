@@ -38,7 +38,8 @@ public class CustomerHotelRoomsAdapter extends RecyclerView.Adapter<CustomerHote
     }
 
     @Override
-    public int getItemCount() {return hotelRoomsModel.size();
+    public int getItemCount() {
+        return hotelRoomsModel.size();
     }
 
     class CustomerHotelRoomsHolder extends RecyclerView.ViewHolder {
@@ -64,10 +65,10 @@ public class CustomerHotelRoomsAdapter extends RecyclerView.Adapter<CustomerHote
             //bedsInRoom.setText(hotelRoom.getBedsInRoomCount());
             //bedSizeInRoom.setText(hotelRoom.getRelated().toString());
 
-            bedsInRoom.setText("Beds: " + String.valueOf(hotelRoomModel.getBedsCount()));
+            bedsInRoom.setText("Beds: " + hotelRoomModel.getBedsCount());
             bedSizesInRoom.setText("Sizes: " + hotelRoomModel.getBedTypes());
-            hotelRoomCapacity.setText("Capacity: " + String.valueOf(hotelRoomModel.getCapacity()));
-            hotelRoomPrice.setText("$" + String.valueOf(hotelRoomModel.getPrice()));
+            hotelRoomCapacity.setText("Capacity: " + hotelRoomModel.getCapacity());
+            hotelRoomPrice.setText("$" + hotelRoomModel.getPrice());
             roomSchedule.setText("Schedule: " + hotelRoomModel.getRoomAvailability());
 
             hotelRoomsLayout.setOnClickListener(new View.OnClickListener() {

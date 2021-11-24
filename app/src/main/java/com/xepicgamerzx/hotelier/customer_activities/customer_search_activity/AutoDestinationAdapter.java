@@ -18,11 +18,59 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AutoDestinationAdapter extends ArrayAdapter<DestinationItem> implements Filterable {
-    private List<DestinationItem> destinationsListFull;
-    private OnSearchClick searchCallback;
-
     PlacesAPI placeApi = new PlacesAPI();
     Context context;
+    private List<DestinationItem> destinationsListFull;
+    private final OnSearchClick searchCallback;
+    // Search filter logic
+    private final Filter destinationFilter = new Filter() {
+        /**
+         *
+         * @param constraint Text being typed in
+         * @return
+         */
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            FilterResults filterResults = new FilterResults();
+            List<DestinationItem> suggestions = new ArrayList<>();
+
+            if (constraint != null) {
+                destinationsListFull = placeApi.autoComplete(constraint.toString());
+
+                suggestions.addAll(destinationsListFull);
+            }
+            filterResults.values = suggestions;
+            filterResults.count = suggestions.size();
+
+            return filterResults;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            clear();
+            addAll((List) results.values);
+
+            if (results != null && results.count > 0) {
+                notifyDataSetChanged();
+            } else {
+                notifyDataSetInvalidated();
+            }
+        }
+
+        /**
+         *
+         * @param resultValue the string that is placed in the search bar when selected.
+         * @return
+         */
+        @Override
+        public CharSequence convertResultToString(Object resultValue) {
+            DestinationItem destinationItem = ((DestinationItem) resultValue);
+            // Sends to SearchActivity
+            searchCallback.onSearch(destinationItem);
+
+            return ((DestinationItem) resultValue).getCityStateCountry();
+        }
+    };
 
     public AutoDestinationAdapter(@NonNull Context context, OnSearchClick listener) {
         super(context, 0);
@@ -53,54 +101,4 @@ public class AutoDestinationAdapter extends ArrayAdapter<DestinationItem> implem
 
         return convertView;
     }
-
-    // Search filter logic
-    private Filter destinationFilter = new Filter() {
-        /**
-         *
-         * @param constraint Text being typed in
-         * @return
-         */
-        @Override
-        protected FilterResults performFiltering(CharSequence constraint) {
-            FilterResults filterResults = new FilterResults();
-            List<DestinationItem> suggestions = new ArrayList<>();
-
-            if (constraint != null) {
-                destinationsListFull = placeApi.autoComplete(constraint.toString());
-
-                suggestions.addAll(destinationsListFull);
-            }
-            filterResults.values = suggestions;
-            filterResults.count = suggestions.size();
-
-            return filterResults;
-        }
-
-        @Override
-        protected void publishResults(CharSequence constraint, FilterResults results) {
-            clear();
-            addAll((List) results.values);
-
-            if(results != null && results.count > 0) {
-                notifyDataSetChanged();
-            } else {
-                notifyDataSetInvalidated();
-            }
-        }
-
-        /**
-         *
-         * @param resultValue the string that is placed in the search bar when selected.
-         * @return
-         */
-        @Override
-        public CharSequence convertResultToString(Object resultValue) {
-            DestinationItem destinationItem = ((DestinationItem) resultValue);
-            // Sends to SearchActivity
-            searchCallback.onSearch(destinationItem);
-
-            return ((DestinationItem) resultValue).getCityStateCountry();
-        }
-    };
 }

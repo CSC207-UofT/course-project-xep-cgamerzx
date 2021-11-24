@@ -10,8 +10,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.xepicgamerzx.hotelier.R;
-import com.xepicgamerzx.hotelier.storage.dao.UserDao;
 import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
+import com.xepicgamerzx.hotelier.storage.dao.UserDao;
 import com.xepicgamerzx.hotelier.storage.user.model.User;
 
 public class RegisterActivity extends AppCompatActivity {
@@ -37,7 +37,7 @@ public class RegisterActivity extends AppCompatActivity {
                         password.getText().toString(),
                         email.getText().toString());
 
-                if(validateInput(user)) {
+                if (validateInput(user)) {
                     // Insert to db
                     HotelierDatabase hotelierDatabase = HotelierDatabase.getDatabase(getApplicationContext());
                     UserDao userDao = hotelierDatabase.userDao();
@@ -65,10 +65,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private Boolean validateInput(User user) {
-        if(user.getUserName().isEmpty() ||
-                user.getEmail().isEmpty() || user.getPassword().isEmpty()) {
-            return false;
-        }
-        return true;
+        return !user.getUserName().isEmpty() &&
+                !user.getEmail().isEmpty() && !user.getPassword().isEmpty();
     }
 }

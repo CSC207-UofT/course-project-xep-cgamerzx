@@ -7,12 +7,12 @@ import java.math.BigDecimal;
 
 public class CustomerHotelRoomsModel implements Serializable {
     //private int bedsInRoomCount;
-    private int bedsCount;
-    private String bedTypes;
-    private int capacity;
-    private BigDecimal price;
-    private HotelRoom hotelRoom;
-    private String roomAvailability;
+    private final int bedsCount;
+    private final String bedTypes;
+    private final int capacity;
+    private final BigDecimal price;
+    private final HotelRoom hotelRoom;
+    private final String roomAvailability;
 
     public CustomerHotelRoomsModel(//int bedsInRoomCount,
                                    int bedCount, String bedTypes, int capacity, BigDecimal price, String roomAvail, HotelRoom hotelRoom) {

@@ -53,6 +53,19 @@ public class HotelManager implements DiscreteManager<Hotel, Long, Long[]> {
         return INSTANCE;
     }
 
+    @Deprecated // This really shouldn't be in hotel manager or should be private
+    public static float getDistanceMetres(double lat1, double lng1, double lat2, double lng2) {
+        Location location1 = new Location("location1");
+        location1.setLongitude(lng1);
+        location1.setLatitude(lat1);
+
+        Location location2 = new Location("location1");
+        location2.setLongitude(lng2);
+        location2.setLatitude(lat2);
+
+        return location1.distanceTo(location2);
+    }
+
     /**
      * Creates hotel object and inserts it to the database. (No rooms)
      *
@@ -100,7 +113,6 @@ public class HotelManager implements DiscreteManager<Hotel, Long, Long[]> {
         return hotelDao.insert(hotel).toArray(new Long[0]);
     }
 
-
     /**
      * Updates Hotel object(s) in the database.
      *
@@ -110,7 +122,6 @@ public class HotelManager implements DiscreteManager<Hotel, Long, Long[]> {
     public void update(Hotel... hotel) {
         hotelDao.update(hotel);
     }
-
 
     /**
      * Get hotels with matching hotel IDs.
@@ -138,7 +149,7 @@ public class HotelManager implements DiscreteManager<Hotel, Long, Long[]> {
         List<Hotel> hotels = hotelDao.getAll();
         List<Hotel> filteredHotels = new ArrayList<>();
 
-        for(Hotel hotel : hotels) {
+        for (Hotel hotel : hotels) {
             double hotelLat = hotel.getAddress().getLatitude();
             double hotelLong = hotel.getAddress().getLongitude();
             System.out.println(hotelLat + " " + hotelLong + " " + destinationLat + " " + destinationLong);
@@ -146,24 +157,11 @@ public class HotelManager implements DiscreteManager<Hotel, Long, Long[]> {
             System.out.println("Distance to hotel" + distanceToHotel);
 
             // DEFAULT THRESHOLD, 50km?
-            if(distanceToHotel <= 50000) {
+            if (distanceToHotel <= 50000) {
                 filteredHotels.add(hotel);
             }
         }
         return filteredHotels;
-    }
-
-    @Deprecated // This really shouldn't be in hotel manager or should be private
-    public static float getDistanceMetres(double lat1, double lng1, double lat2, double lng2) {
-        Location location1 = new Location("location1");
-        location1.setLongitude(lng1);
-        location1.setLatitude(lat1);
-
-        Location location2= new Location("location1");
-        location2.setLongitude(lng2);
-        location2.setLatitude(lat2);
-
-        return location1.distanceTo(location2);
     }
 
     /**
@@ -173,26 +171,26 @@ public class HotelManager implements DiscreteManager<Hotel, Long, Long[]> {
      * @param centerLon double longitude of center of query
      * @return List<Hotel> all hotels in the approximately in the search area.
      */
-    public List<Hotel> getHotelsInArea (double centerLat, double centerLon){
+    public List<Hotel> getHotelsInArea(double centerLat, double centerLon) {
         return getHotelsInArea(centerLat, centerLon, 50.0);
     }
 
     /**
      * Get all hotels approximately in the radius around a given location.
      *
-     * @param centerLat double latitude of center of query
-     * @param centerLon double longitude of center of query
+     * @param centerLat  double latitude of center of query
+     * @param centerLon  double longitude of center of query
      * @param distanceKM double radius of search area in kilometers
      * @return List<Hotel> all hotels in the approximately in the search area.
      */
-    public List<Hotel> getHotelsInArea (double centerLat, double centerLon, double distanceKM){
+    public List<Hotel> getHotelsInArea(double centerLat, double centerLon, double distanceKM) {
         double centerLonCos = Math.cos(centerLon * Math.PI / 180);
         double centerLonSin = Math.sin(centerLon * Math.PI / 180);
         double centerLatCos = Math.cos(centerLat * Math.PI / 180);
         double centerLatSin = Math.sin(centerLat * Math.PI / 180);
         double cosDistance = Math.cos(distanceKM / 6371);
 
-        return  hotelDao.getHotelsInArea(centerLonCos, centerLonSin, centerLatCos, centerLatSin, cosDistance);
+        return hotelDao.getHotelsInArea(centerLonCos, centerLonSin, centerLatCos, centerLatSin, cosDistance);
     }
 
     /**

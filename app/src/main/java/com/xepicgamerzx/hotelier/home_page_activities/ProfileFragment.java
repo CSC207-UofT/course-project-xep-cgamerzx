@@ -2,9 +2,6 @@ package com.xepicgamerzx.hotelier.home_page_activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,12 +9,14 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.fragment.app.Fragment;
+
 import com.xepicgamerzx.hotelier.R;
 import com.xepicgamerzx.hotelier.management_hotel_listing_activity.HotelCreatorActivity;
+import com.xepicgamerzx.hotelier.storage.user.model.User;
 import com.xepicgamerzx.hotelier.user_activities.LoginActivity;
 import com.xepicgamerzx.hotelier.user_activities.RegisterActivity;
 import com.xepicgamerzx.hotelier.user_activities.UserManager;
-import com.xepicgamerzx.hotelier.storage.user.model.User;
 
 public class ProfileFragment extends Fragment {
     Button registerBtn;

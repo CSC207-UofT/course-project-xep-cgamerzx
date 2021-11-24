@@ -1,13 +1,13 @@
 package com.xepicgamerzx.hotelier.management_hotel_listing_activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
@@ -16,8 +16,8 @@ import com.xepicgamerzx.hotelier.objects.hotel_objects.Address;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelRoom;
 import com.xepicgamerzx.hotelier.storage.hotel_managers.BedManager;
 import com.xepicgamerzx.hotelier.storage.hotel_managers.HotelManager;
-import com.xepicgamerzx.hotelier.storage.hotel_reference_managers.RoomBedsCrossManager;
 import com.xepicgamerzx.hotelier.storage.hotel_managers.RoomManager;
+import com.xepicgamerzx.hotelier.storage.hotel_reference_managers.RoomBedsCrossManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,15 +37,12 @@ public class HotelCreatorActivity extends AppCompatActivity {
     MaterialButton submitBtn;
     MaterialButton hotelDetails;
     ImageButton backBtn;
-
-    private AlertDialog.Builder dialogBuilder;
-    private AlertDialog dialog;
-
     boolean isRoomsMade = false;
     boolean isAddressMade = false;
     boolean isHotelNameMade = false;
-
     String text = "Hotel Details:";
+    private AlertDialog.Builder dialogBuilder;
+    private AlertDialog dialog;
     // Amentities
 
     @Override
@@ -129,10 +126,7 @@ public class HotelCreatorActivity extends AppCompatActivity {
             isHotelNameMade = true;
         }
 
-        if(isAddressMade && isHotelNameMade && isRoomsMade) {
-            return true;
-        }
-        return false;
+        return isAddressMade && isHotelNameMade && isRoomsMade;
     }
 
     public void createHotelInfoDialog() {

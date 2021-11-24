@@ -11,8 +11,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.textfield.TextInputEditText;
 import com.xepicgamerzx.hotelier.R;
 import com.xepicgamerzx.hotelier.home_page_activities.MainActivity;
-import com.xepicgamerzx.hotelier.storage.dao.UserDao;
 import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
+import com.xepicgamerzx.hotelier.storage.dao.UserDao;
 import com.xepicgamerzx.hotelier.storage.user.model.User;
 
 public class LoginActivity extends AppCompatActivity {
@@ -46,7 +46,7 @@ public class LoginActivity extends AppCompatActivity {
                         public void run() {
                             User user = userDao.login(userIdText, passwordText);
 
-                            if(user == null) {
+                            if (user == null) {
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {

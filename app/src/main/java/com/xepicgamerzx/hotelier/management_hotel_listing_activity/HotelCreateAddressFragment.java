@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.xepicgamerzx.hotelier.R;
-import com.xepicgamerzx.hotelier.objects.hotel_objects.Address;
+import com.xepicgamerzx.hotelier.objects.hotel_objects.AddressBuilder;
 
 public class HotelCreateAddressFragment extends Fragment {
 
@@ -68,15 +68,15 @@ public class HotelCreateAddressFragment extends Fragment {
                 if (!validatedMessage.equals("")) {
                     Toast.makeText(getContext(), validatedMessage, Toast.LENGTH_SHORT).show();
                 } else {
-                    activity.address = new Address(
-                            streetName.getText().toString(),
-                            postalCode.getText().toString(),
-                            streetNum.getText().toString(),
-                            city.getText().toString(),
-                            province.getText().toString(),
-                            Double.parseDouble(longLat.getText().toString().split(",")[0]),
-                            Double.parseDouble(longLat.getText().toString().split(",")[1])
-                    );
+                    activity.address = new AddressBuilder()
+                            .setStreetName(streetName.getText().toString())
+                            .setPostalCode(postalCode.getText().toString())
+                            .setStreetNumber(streetNum.getText().toString())
+                            .setCity(city.getText().toString())
+                            .setProvince(province.getText().toString())
+                            .setLatitude(Double.parseDouble(longLat.getText().toString().split(",")[0]))
+                            .setLongitude(Double.parseDouble(longLat.getText().toString().split(",")[1]))
+                            .build();
                     System.out.println(activity.address);
 
                     activity.text += "\n" + activity.address.toString();
@@ -96,7 +96,7 @@ public class HotelCreateAddressFragment extends Fragment {
 
     public String validateInput() {
         String s = "";
-        if( !(streetNum.getText().toString().matches("\\d+")) ||
+        if (!(streetNum.getText().toString().matches("\\d+")) ||
                 postalCode.getText().toString().equals("") ||
                 streetName.getText().toString().equals("") ||
                 city.getText().toString().equals("") ||

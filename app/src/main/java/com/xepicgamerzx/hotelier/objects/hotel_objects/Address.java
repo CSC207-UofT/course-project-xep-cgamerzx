@@ -1,7 +1,6 @@
 package com.xepicgamerzx.hotelier.objects.hotel_objects;
 
 import androidx.annotation.NonNull;
-import androidx.room.Ignore;
 
 import java.io.Serializable;
 
@@ -22,39 +21,18 @@ public class Address implements Serializable {
     /**
      * Create a new address
      *
-     * @param streetName String name of street
-     * @param postalCode String postal code
+     * @param streetName   String name of street
+     * @param postalCode   String postal code
      * @param streetNumber String street number
-     * @param city String city name
-     * @param province String province/state name
-     * @param latitude double latitude
-     * @param longitude double longitude
-     */
-    @Ignore
-    public Address(String streetName, String postalCode, String streetNumber, String city,
-                   String province,double latitude, double longitude) {
-        this(postalCode, streetName, streetNumber, city, province, longitude, latitude,
-                Math.cos(latitude * Math.PI / 180),
-                Math.sin(latitude * Math.PI / 180),
-                Math.cos(longitude * Math.PI / 180),
-                Math.sin(longitude * Math.PI / 180));
-    }
-
-    /**
-     * Create a new address
-     *
-     * @param streetName String name of street
-     * @param postalCode String postal code
-     * @param streetNumber String street number
-     * @param city String city name
-     * @param province String province/state name
-     * @param latitude double latitude
-     * @param longitude double longitude
-     * @param latCos double cosine representation of latitude
-     * @param latSin double sine representation of latitude
-     * @param lonCos double cosine representation of longitude
-     * @param lonSin double sine representation of longitude
-     */
+     * @param city         String city name
+     * @param province     String province/state name
+     * @param latitude     double latitude
+     * @param longitude    double longitude
+     * @param latCos       double cosine representation of latitude
+     * @param latSin       double sine representation of latitude
+     * @param lonCos       double cosine representation of longitude
+     * @param lonSin       double sine representation of longitude
+     */ // Needs to be public for database reasons
     public Address(String postalCode, String streetName, String streetNumber, String city, String province, double latitude, double longitude, double latCos, double latSin, double lonCos, double lonSin) {
         this.postalCode = postalCode;
         this.streetName = streetName;

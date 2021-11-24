@@ -45,9 +45,9 @@ public class CustomerHotelRoomsActivity extends AppCompatActivity {
 
             descNameText.setText(hotel.getName());
             hotelAddress.setText("Address: " + hotel.getAddress().getFullStreet());
-            hotelRating.setText("Rating: " + String.valueOf(hotel.getStarClass()) + " Stars");
+            hotelRating.setText("Rating: " + hotel.getStarClass() + " Stars");
 
-            if(hotelData.containsKey("userStartDate") && hotelData.containsKey("userEndDate")) {
+            if (hotelData.containsKey("userStartDate") && hotelData.containsKey("userEndDate")) {
                 long userStartDate = (long) hotelData.get("userStartDate");
                 long userEndDate = (long) hotelData.get("userEndDate");
                 List<HotelRoom> hotelRooms = roomManager.getRoomsInHotelByDate(hotel, userStartDate, userEndDate); // Filtered
@@ -56,7 +56,7 @@ public class CustomerHotelRoomsActivity extends AppCompatActivity {
                 roomsRecyclerView.setAdapter(hotelRoomsAdapter);
 
             } else {
-                List<HotelRoom> hotelRooms = roomManager.getHotelRoomsInHotel(hotel.hotelID); // Not filtered
+                List<HotelRoom> hotelRooms = roomManager.getHotelRoomsInHotel(hotel.hotelId); // Not filtered
                 roomViewModel = HotelRoomModelManager.getHotelViewModelList(hotelRooms, getApplication());
                 final CustomerHotelRoomsAdapter hotelRoomsAdapter = new CustomerHotelRoomsAdapter(roomViewModel);
                 roomsRecyclerView.setAdapter(hotelRoomsAdapter);

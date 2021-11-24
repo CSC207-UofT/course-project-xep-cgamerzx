@@ -10,7 +10,7 @@ import java.util.List;
  * @param <R> Insert return type.
  */
 @SuppressWarnings("unchecked")
-public interface DiscreteManager <T, I, R> extends Manager<T, R> {
+public interface DiscreteManager<T, I, R> extends Manager<T, R> {
     /**
      * Gets objects with matching primary key IDs.
      *

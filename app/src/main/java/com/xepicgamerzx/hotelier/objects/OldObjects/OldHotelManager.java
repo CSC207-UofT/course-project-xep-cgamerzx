@@ -10,11 +10,13 @@ public class OldHotelManager implements IDataBase {
     public HotelOld createHotel(String name, AddressOld address, HashMap<String, OldRoom> rooms) {
         return new HotelOld(name, address, rooms);
     }
-    public void setHotels(List<HotelOld> hotels) {
-        this.hotelsList = hotels;
-    }
+
     public List<HotelOld> getHotels() {
         return this.hotelsList;
+    }
+
+    public void setHotels(List<HotelOld> hotels) {
+        this.hotelsList = hotels;
     }
 
     @Override

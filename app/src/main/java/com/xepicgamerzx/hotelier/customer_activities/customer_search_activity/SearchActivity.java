@@ -1,8 +1,5 @@
 package com.xepicgamerzx.hotelier.customer_activities.customer_search_activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.util.Pair;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -11,11 +8,14 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.util.Pair;
+
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
-import com.xepicgamerzx.hotelier.home_page_activities.MainActivity;
 import com.xepicgamerzx.hotelier.R;
 import com.xepicgamerzx.hotelier.customer_activities.customer_hotels_activity.HotelViewActivity;
+import com.xepicgamerzx.hotelier.home_page_activities.MainActivity;
 import com.xepicgamerzx.hotelier.objects.UnixEpochDateConverter;
 
 import java.util.HashMap;
@@ -96,7 +96,7 @@ public class SearchActivity extends AppCompatActivity implements OnSearchClick {
                 Thread thread = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        HashMap<String, Object> searchData= new HashMap<>();
+                        HashMap<String, Object> searchData = new HashMap<>();
                         searchData.put("guests", numGuests.getText().toString());
 
                         PlacesAPI placesAPI = new PlacesAPI();
@@ -131,7 +131,7 @@ public class SearchActivity extends AppCompatActivity implements OnSearchClick {
     }
 
     public void minusGuests() {
-        if(this.numberOfGuests != 1) {
+        if (this.numberOfGuests != 1) {
             this.numberOfGuests -= 1;
         }
     }

@@ -2,12 +2,12 @@ package com.xepicgamerzx.hotelier.storage.hotel_managers;
 
 import android.app.Application;
 
-import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelRoom;
 import com.xepicgamerzx.hotelier.objects.cross_reference_objects.RoomAmenitiesEnum;
+import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelRoom;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.RoomAmenity;
+import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
 import com.xepicgamerzx.hotelier.storage.dao.RoomAmenitiesCrossDao;
 import com.xepicgamerzx.hotelier.storage.dao.RoomAmenityDao;
-import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
 
 import java.util.List;
 
@@ -131,8 +131,8 @@ public class RoomAmenityManager implements UniqueManager<RoomAmenity, RoomAmenit
      * @return List<HotelAmenitiesRoomCrossRef> associated with the room.
      */
     @Deprecated // Move to room amenity cross manager
-    public List<RoomAmenity> getAmenitiesInRoom(HotelRoom hotelRoom){
-        List<String> ids = roomAmenitiesCrossDao.getWith(hotelRoom.roomID);
+    public List<RoomAmenity> getAmenitiesInRoom(HotelRoom hotelRoom) {
+        List<String> ids = roomAmenitiesCrossDao.getWith(hotelRoom.roomId);
         return get(ids.toArray(new String[0]));
     }
 }

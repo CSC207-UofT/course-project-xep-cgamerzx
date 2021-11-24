@@ -10,8 +10,8 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.xepicgamerzx.hotelier.R;
-import com.xepicgamerzx.hotelier.read_dummy_data.ReadDummyData;
 import com.xepicgamerzx.hotelier.databinding.ActivityMainBinding;
+import com.xepicgamerzx.hotelier.read_dummy_data.ReadDummyData;
 import com.xepicgamerzx.hotelier.storage.hotel_managers.HotelManager;
 
 import org.json.JSONException;

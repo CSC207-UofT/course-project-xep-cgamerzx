@@ -2,12 +2,12 @@ package com.xepicgamerzx.hotelier.storage.hotel_reference_managers;
 
 import android.app.Application;
 
-import com.xepicgamerzx.hotelier.objects.hotel_objects.Hotel;
 import com.xepicgamerzx.hotelier.objects.cross_reference_objects.HotelAmenitiesCrossRef;
+import com.xepicgamerzx.hotelier.objects.hotel_objects.Hotel;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelAmenity;
-import com.xepicgamerzx.hotelier.storage.hotel_managers.HotelAmenityManager;
 import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
 import com.xepicgamerzx.hotelier.storage.dao.HotelAmenitiesCrossDao;
+import com.xepicgamerzx.hotelier.storage.hotel_managers.HotelAmenityManager;
 import com.xepicgamerzx.hotelier.storage.hotel_managers.HotelManager;
 
 import java.util.List;
@@ -44,16 +44,16 @@ public class HotelAmenitiesCrossManager implements CrossManager<HotelAmenitiesCr
     /**
      * Create and insert relationship between Hotel and HotelAmenity into HotelAmenitiesCrossRef database.
      *
-     * @param hotel Hotel being assigned to hotelAmenity.
-     * @param hotelAmenity    HotelAmenity being assigned to Hotel.
+     * @param hotel        Hotel being assigned to hotelAmenity.
+     * @param hotelAmenity HotelAmenity being assigned to Hotel.
      * @return HotelAmenitiesCrossRef created.
      */
-     @Override
-     public HotelAmenitiesCrossRef createRelationship(Hotel hotel, HotelAmenity hotelAmenity) {
-         HotelAmenitiesCrossRef crossRef = new HotelAmenitiesCrossRef(hotel, hotelAmenity);
-         insert(crossRef);
-         return crossRef;
-     }
+    @Override
+    public HotelAmenitiesCrossRef createRelationship(Hotel hotel, HotelAmenity hotelAmenity) {
+        HotelAmenitiesCrossRef crossRef = new HotelAmenitiesCrossRef(hotel, hotelAmenity);
+        insert(crossRef);
+        return crossRef;
+    }
 
     /**
      * Get all Hotel associated with HotelAmenity.
@@ -75,7 +75,7 @@ public class HotelAmenitiesCrossManager implements CrossManager<HotelAmenitiesCr
      */
     @Override
     public List<HotelAmenity> getRelated(Hotel hotel) {
-        List<String> ids = hotelAmenitiesCrossDao.getWith(hotel.hotelID);
+        List<String> ids = hotelAmenitiesCrossDao.getWith(hotel.hotelId);
         return hotelAmenityManager.get(ids.toArray(new String[0]));
     }
 
@@ -98,7 +98,7 @@ public class HotelAmenitiesCrossManager implements CrossManager<HotelAmenitiesCr
      */
     @Override
     public List<HotelAmenitiesCrossRef> getRelatedCross(Hotel hotel) {
-        return hotelAmenitiesCrossDao.getCrossWith(hotel.hotelID);
+        return hotelAmenitiesCrossDao.getCrossWith(hotel.hotelId);
     }
 
     /**
@@ -138,16 +138,5 @@ public class HotelAmenitiesCrossManager implements CrossManager<HotelAmenitiesCr
     @Override
     public Void insert(HotelAmenitiesCrossRef... hotelAmenitiesCrossRef) {
         return hotelAmenitiesCrossDao.insert(hotelAmenitiesCrossRef);
-    }
-
-    /**
-     * Adds HotelAmenity object to Hotel.
-     *
-     * @param hotel Hotel to which we are adding HotelAmenity.
-     * @param hotelAmenity HotelAmenity that we are adding to Hotel.
-     */
-    public void addAmenityToHotel(Hotel hotel, HotelAmenity hotelAmenity) {
-        HotelAmenitiesCrossRef hotelAmenitiesCrossRef = new HotelAmenitiesCrossRef(hotel, hotelAmenity);
-        hotelAmenitiesCrossDao.insert(hotelAmenitiesCrossRef);
     }
 }

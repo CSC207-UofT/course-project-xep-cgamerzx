@@ -2,18 +2,18 @@ package com.xepicgamerzx.hotelier.storage.hotel_reference_managers;
 
 import android.app.Application;
 
-import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelRoom;
 import com.xepicgamerzx.hotelier.objects.cross_reference_objects.RoomAmenitiesCrossRef;
+import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelRoom;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.RoomAmenity;
+import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
 import com.xepicgamerzx.hotelier.storage.dao.RoomAmenitiesCrossDao;
 import com.xepicgamerzx.hotelier.storage.hotel_managers.RoomAmenityManager;
 import com.xepicgamerzx.hotelier.storage.hotel_managers.RoomManager;
-import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
 
 import java.util.List;
 
 /**
- *  A class to manage all the RoomAmenitiesCrossRefs in the database.
+ * A class to manage all the RoomAmenitiesCrossRefs in the database.
  */
 public class RoomAmenitiesCrossManager implements CrossManager<RoomAmenitiesCrossRef, HotelRoom, RoomAmenity> {
     private static volatile RoomAmenitiesCrossManager INSTANCE;
@@ -47,8 +47,8 @@ public class RoomAmenitiesCrossManager implements CrossManager<RoomAmenitiesCros
     /**
      * Create and insert relationship between hotelRoom and roomAmenity into RoomAmenitiesCrossRef database.
      *
-     * @param hotelRoom HotelRoom being assigned to roomAmenity.
-     * @param roomAmenity    RoomAmenity being assigned to HotelRoom.
+     * @param hotelRoom   HotelRoom being assigned to roomAmenity.
+     * @param roomAmenity RoomAmenity being assigned to HotelRoom.
      * @return RoomAmenitiesCrossRef created.
      */
     @Override
@@ -78,7 +78,7 @@ public class RoomAmenitiesCrossManager implements CrossManager<RoomAmenitiesCros
      */
     @Override
     public List<RoomAmenity> getRelated(HotelRoom hotelRoom) {
-        List<String> ids = roomAmenitiesCrossDao.getWith(hotelRoom.roomID);
+        List<String> ids = roomAmenitiesCrossDao.getWith(hotelRoom.roomId);
         return roomAmenityManager.get(ids.toArray(new String[0]));
     }
 
@@ -101,7 +101,7 @@ public class RoomAmenitiesCrossManager implements CrossManager<RoomAmenitiesCros
      */
     @Override
     public List<RoomAmenitiesCrossRef> getRelatedCross(HotelRoom hotelRoom) {
-        return roomAmenitiesCrossDao.getCrossWith(hotelRoom.roomID);
+        return roomAmenitiesCrossDao.getCrossWith(hotelRoom.roomId);
     }
 
     /**
@@ -141,17 +141,5 @@ public class RoomAmenitiesCrossManager implements CrossManager<RoomAmenitiesCros
     @Override
     public Void insert(RoomAmenitiesCrossRef... roomAmenitiesCrossRef) {
         return roomAmenitiesCrossDao.insert(roomAmenitiesCrossRef);
-    }
-
-    /**
-     * Adds RoomAmenity object to HotelRoom.
-     *
-     * @param hotelRoom HotelRoom to which we are adding RoomAmenity.
-     * @param roomAmenity RoomAmenity that we are adding to HotelRoom.
-     */
-    @Deprecated // Use createRelationship
-    public void addAmenityToRoom(HotelRoom hotelRoom, RoomAmenity roomAmenity) {
-        RoomAmenitiesCrossRef roomAmenitiesCrossRef = new RoomAmenitiesCrossRef(hotelRoom, roomAmenity);
-        roomAmenitiesCrossDao.insert(roomAmenitiesCrossRef);
     }
 }

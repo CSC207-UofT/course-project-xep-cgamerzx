@@ -11,7 +11,7 @@ import java.util.List;
  * Data access object for RoomAmenitiesCrossRef.
  */
 @Dao
-public abstract class RoomAmenitiesCrossDao implements BaseDao<Void, RoomAmenitiesCrossRef>{
+public abstract class RoomAmenitiesCrossDao implements BaseDao<Void, RoomAmenitiesCrossRef> {
     /**
      * Get all RoomAmenitiesCrossRef in RoomAmenitiesCrossRef table.
      *
@@ -26,7 +26,7 @@ public abstract class RoomAmenitiesCrossDao implements BaseDao<Void, RoomAmeniti
      * @param roomAmenityID String amenityID referring to unique ID of room amenity.
      * @return List<Long> room IDs related to roomAmenityID.
      */
-    @Query("SELECT roomID FROM RoomAmenitiesCrossRef WHERE uniqueId =:roomAmenityID")
+    @Query("SELECT roomId FROM RoomAmenitiesCrossRef WHERE uniqueId =:roomAmenityID")
     public abstract List<Long> getWith(String roomAmenityID);
 
     /**
@@ -35,7 +35,7 @@ public abstract class RoomAmenitiesCrossDao implements BaseDao<Void, RoomAmeniti
      * @param roomID long roomID referring to the ID of the room.
      * @return List<String> unique room amenity IDs related to roomID.
      */
-    @Query("SELECT uniqueId FROM RoomAmenitiesCrossRef WHERE roomID =:roomID")
+    @Query("SELECT uniqueId FROM RoomAmenitiesCrossRef WHERE roomId =:roomID")
     public abstract List<String> getWith(long roomID);
 
     /**
@@ -44,7 +44,7 @@ public abstract class RoomAmenitiesCrossDao implements BaseDao<Void, RoomAmeniti
      * @param roomID long room ID.
      * @return List<RoomAmenitiesCrossRef> room room amenity cross refs related to roomID.
      */
-    @Query("SELECT * FROM RoomAmenitiesCrossRef WHERE roomID =:roomID")
+    @Query("SELECT * FROM RoomAmenitiesCrossRef WHERE roomId =:roomID")
     public abstract List<RoomAmenitiesCrossRef> getCrossWith(long roomID);
 
     /**
@@ -54,5 +54,5 @@ public abstract class RoomAmenitiesCrossDao implements BaseDao<Void, RoomAmeniti
      * @return List<RoomAmenitiesCrossRef> room room amenity cross refs related to roomAmenityID.
      */
     @Query("SELECT * FROM RoomAmenitiesCrossRef WHERE uniqueId =:roomAmenityID")
-    public abstract List<RoomAmenitiesCrossRef> getCrossWith (String roomAmenityID);
+    public abstract List<RoomAmenitiesCrossRef> getCrossWith(String roomAmenityID);
 }

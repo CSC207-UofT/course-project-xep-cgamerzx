@@ -2,13 +2,13 @@ package com.xepicgamerzx.hotelier.storage.hotel_reference_managers;
 
 import android.app.Application;
 
+import com.xepicgamerzx.hotelier.objects.cross_reference_objects.RoomBedsCrossRef;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.Bed;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelRoom;
-import com.xepicgamerzx.hotelier.objects.cross_reference_objects.RoomBedsCrossRef;
+import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
 import com.xepicgamerzx.hotelier.storage.dao.BedRoomCrossDao;
 import com.xepicgamerzx.hotelier.storage.hotel_managers.BedManager;
 import com.xepicgamerzx.hotelier.storage.hotel_managers.RoomManager;
-import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
 
 import java.util.HashMap;
 import java.util.List;
@@ -45,7 +45,7 @@ public class RoomBedsCrossManager implements CrossManager<RoomBedsCrossRef, Hote
      * Create and insert relationship between HotelRoom and Bed into RoomBedsCrossRef database.
      *
      * @param hotelRoom HotelRoom being assigned to uniqueEntity.
-     * @param bed    Bed being assigned to nonUniqueEntity.
+     * @param bed       Bed being assigned to nonUniqueEntity.
      * @return RoomBedsCrossRef created.
      */
     @Override
@@ -57,8 +57,8 @@ public class RoomBedsCrossManager implements CrossManager<RoomBedsCrossRef, Hote
      * Create and insert relationship between HotelRoom and Bed into RoomBedsCrossRef database.
      *
      * @param hotelRoom HotelRoom being assigned to uniqueEntity.
-     * @param bed    Bed being assigned to nonUniqueEntity.
-     * @param bedCount int number of beds associated with hotelRoom.
+     * @param bed       Bed being assigned to nonUniqueEntity.
+     * @param bedCount  int number of beds associated with hotelRoom.
      * @return RoomBedsCrossRef created.
      */
     public RoomBedsCrossRef createRelationship(HotelRoom hotelRoom, Bed bed, int bedCount) {
@@ -82,7 +82,7 @@ public class RoomBedsCrossManager implements CrossManager<RoomBedsCrossRef, Hote
     /**
      * Get all HotelRoom associated with at least count number of Beds.
      *
-     * @param bed Bed key to search with.
+     * @param bed   Bed key to search with.
      * @param count int minimum number of beds to be associated with the HotelRoom.
      * @return ListHotelRoom associated with UniqueEntity.
      */
@@ -99,7 +99,7 @@ public class RoomBedsCrossManager implements CrossManager<RoomBedsCrossRef, Hote
      */
     @Override
     public List<Bed> getRelated(HotelRoom hotelRoom) {
-        List<String> ids = bedRoomCrossDao.getWith(hotelRoom.roomID);
+        List<String> ids = bedRoomCrossDao.getWith(hotelRoom.roomId);
         return bedManager.get(ids.toArray(new String[0]));
     }
 
@@ -122,7 +122,7 @@ public class RoomBedsCrossManager implements CrossManager<RoomBedsCrossRef, Hote
      */
     @Override
     public List<RoomBedsCrossRef> getRelatedCross(HotelRoom hotelRoom) {
-        return bedRoomCrossDao.getCrossWith(hotelRoom.roomID);
+        return bedRoomCrossDao.getCrossWith(hotelRoom.roomId);
     }
 
     /**
@@ -170,10 +170,10 @@ public class RoomBedsCrossManager implements CrossManager<RoomBedsCrossRef, Hote
      * @param hotelRoom HotelRoom associated with beds.
      * @return HashMap<Bed, Integer> of beds in the room and the associated count.
      */
-    public HashMap<Bed, Integer> getBedsInRoomCount(HotelRoom hotelRoom){
+    public HashMap<Bed, Integer> getBedsInRoomCount(HotelRoom hotelRoom) {
         List<RoomBedsCrossRef> ids = getRelatedCross(hotelRoom);
         HashMap<Bed, Integer> bedCount = new HashMap<>();
-        for (RoomBedsCrossRef crossRef : ids){
+        for (RoomBedsCrossRef crossRef : ids) {
             bedCount.put(bedManager.get(crossRef.uniqueId).get(0), crossRef.getBedCount());
         }
         return bedCount;

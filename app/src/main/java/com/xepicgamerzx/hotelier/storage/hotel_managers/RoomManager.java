@@ -101,7 +101,7 @@ public class RoomManager implements DiscreteManager<HotelRoom, Long, Long[]> {
      * @param hotelRoom HotelRoom to change the hotelID of.
      */
     public void setHotelID(Hotel hotel, HotelRoom hotelRoom) {
-        hotelRoom.setHotelID(hotel.hotelID);
+        hotelRoom.setHotelId(hotel.hotelId);
         update(hotelRoom);
     }
 
@@ -117,7 +117,7 @@ public class RoomManager implements DiscreteManager<HotelRoom, Long, Long[]> {
 
     @Deprecated // Use getAvailableRoomsInHotel
     public List<HotelRoom> getRoomsInHotelByDate(Hotel hotel, long userStartAvail, long userEndAvail) {
-        List<HotelRoom> hotelRooms = roomDao.getInHotel(hotel.hotelID);
+        List<HotelRoom> hotelRooms = roomDao.getInHotel(hotel.hotelId);
         List<HotelRoom> filteredRooms = new ArrayList<>();
         long userStart = TimeUnit.MILLISECONDS.toDays(userStartAvail);
         long userEnd = TimeUnit.MILLISECONDS.toDays(userEndAvail);
@@ -139,23 +139,23 @@ public class RoomManager implements DiscreteManager<HotelRoom, Long, Long[]> {
      * Get all HotelRooms in a hotel that are are available within the given timeframe.
      *
      * @param startTime long UnixEpoch time start of period
-     * @param endTime long UnixEpoch time end of period
-     @param hotel Hotel associated with hotel rooms.
+     * @param endTime   long UnixEpoch time end of period
+     * @param hotel     Hotel associated with hotel rooms.
      * @return List<HotelRoom> list of all hotel rooms associated with hotelID available within the given timeframe.
      */
-    public List<HotelRoom> getAvailableRooms(long startTime, long endTime, Hotel hotel){
-        return getAvailableRooms(startTime, endTime, hotel.hotelID);
+    public List<HotelRoom> getAvailableRooms(long startTime, long endTime, Hotel hotel) {
+        return getAvailableRooms(startTime, endTime, hotel.hotelId);
     }
 
     /**
      * Get all HotelRooms in a hotel that are are available within the given timeframe.
      *
      * @param startTime long UnixEpoch time start of period
-     * @param endTime long UnixEpoch time end of period
-     * @param hotelID Hotel associated with hotel rooms.
+     * @param endTime   long UnixEpoch time end of period
+     * @param hotelID   Hotel associated with hotel rooms.
      * @return List<HotelRoom> list of all hotel rooms associated with hotelID available within the given timeframe.
      */
-    public List<HotelRoom> getAvailableRooms(long startTime, long endTime, long hotelID){
+    public List<HotelRoom> getAvailableRooms(long startTime, long endTime, long hotelID) {
         return roomDao.getAvailableRooms(startTime, endTime, hotelID);
     }
 
@@ -163,15 +163,15 @@ public class RoomManager implements DiscreteManager<HotelRoom, Long, Long[]> {
      * Get all HotelRooms that are are available within the given timeframe.
      *
      * @param startTime long UnixEpoch time start of period
-     * @param endTime long UnixEpoch time end of period
+     * @param endTime   long UnixEpoch time end of period
      * @return List<HotelRoom> list of all hotel rooms available within the given timeframe.
      */
-    public List<HotelRoom> getAvailableRooms(long startTime, long endTime){
+    public List<HotelRoom> getAvailableRooms(long startTime, long endTime) {
         return roomDao.getAvailableRooms(startTime, endTime);
     }
 
-    public boolean isUserScheduleInHotel (Hotel hotel, long userStartAvail, long userEndAvail) {
-        List<HotelRoom> hotelRooms = roomDao.getInHotel(hotel.hotelID);
+    public boolean isUserScheduleInHotel(Hotel hotel, long userStartAvail, long userEndAvail) {
+        List<HotelRoom> hotelRooms = roomDao.getInHotel(hotel.hotelId);
         long userStart = TimeUnit.MILLISECONDS.toDays(userStartAvail);
         long userEnd = TimeUnit.MILLISECONDS.toDays(userEndAvail);
 
@@ -197,7 +197,7 @@ public class RoomManager implements DiscreteManager<HotelRoom, Long, Long[]> {
     }
 
     public int getNumberOfRooms(Hotel hotel) {
-        return getNumberOfRooms(hotel.hotelID);
+        return getNumberOfRooms(hotel.hotelId);
     }
 
     /**
@@ -225,7 +225,7 @@ public class RoomManager implements DiscreteManager<HotelRoom, Long, Long[]> {
      * @return List<BigDecimal> min and max price of all the hotel rooms associated with the Hotel.
      */
     public List<BigDecimal> getPriceRange(Hotel hotel) {
-        List<HotelRoom> hotelRooms = getHotelRoomsInHotel(hotel.hotelID);
+        List<HotelRoom> hotelRooms = getHotelRoomsInHotel(hotel.hotelId);
         return getPriceRange(hotelRooms);
     }
 
