@@ -11,7 +11,7 @@ import java.util.List;
  * Data access object for BedRoomCrossRefs
  */
 @Dao
-public abstract class BedRoomCrossDao implements BaseDao<Void, RoomBedsCrossRef>{
+public abstract class BedRoomCrossDao implements BaseDao<Void, RoomBedsCrossRef> {
     /**
      * Get all RoomBedsCrossRef in RoomBedsCrossRef table.
      *
@@ -36,7 +36,7 @@ public abstract class BedRoomCrossDao implements BaseDao<Void, RoomBedsCrossRef>
      * @param count int minimum number of beds in cross ref.
      * @return List<Long> room IDs related to count number of bedID.
      */
-    @Query("SELECT roomID FROM RoomBedsCrossRef WHERE uniqueId =:bedID AND bedCount >= :count" )
+    @Query("SELECT roomID FROM RoomBedsCrossRef WHERE uniqueId =:bedID AND bedCount >= :count")
     public abstract List<Long> getWith(String bedID, int count);
 
     /**
@@ -64,5 +64,5 @@ public abstract class BedRoomCrossDao implements BaseDao<Void, RoomBedsCrossRef>
      * @return List<RoomBedsCrossRefs> room bed cross refs related to bedID.
      */
     @Query("SELECT * FROM RoomBedsCrossRef WHERE uniqueId =:bedID")
-    public abstract List<RoomBedsCrossRef> getCrossWith (String bedID);
+    public abstract List<RoomBedsCrossRef> getCrossWith(String bedID);
 }

@@ -139,11 +139,11 @@ public class RoomManager implements DiscreteManager<HotelRoom, Long, Long[]> {
      * Get all HotelRooms in a hotel that are are available within the given timeframe.
      *
      * @param startTime long UnixEpoch time start of period
-     * @param endTime long UnixEpoch time end of period
-     @param hotel Hotel associated with hotel rooms.
+     * @param endTime   long UnixEpoch time end of period
+     * @param hotel     Hotel associated with hotel rooms.
      * @return List<HotelRoom> list of all hotel rooms associated with hotelID available within the given timeframe.
      */
-    public List<HotelRoom> getAvailableRooms(long startTime, long endTime, Hotel hotel){
+    public List<HotelRoom> getAvailableRooms(long startTime, long endTime, Hotel hotel) {
         return getAvailableRooms(startTime, endTime, hotel.hotelID);
     }
 
@@ -151,11 +151,11 @@ public class RoomManager implements DiscreteManager<HotelRoom, Long, Long[]> {
      * Get all HotelRooms in a hotel that are are available within the given timeframe.
      *
      * @param startTime long UnixEpoch time start of period
-     * @param endTime long UnixEpoch time end of period
-     * @param hotelID Hotel associated with hotel rooms.
+     * @param endTime   long UnixEpoch time end of period
+     * @param hotelID   Hotel associated with hotel rooms.
      * @return List<HotelRoom> list of all hotel rooms associated with hotelID available within the given timeframe.
      */
-    public List<HotelRoom> getAvailableRooms(long startTime, long endTime, long hotelID){
+    public List<HotelRoom> getAvailableRooms(long startTime, long endTime, long hotelID) {
         return roomDao.getAvailableRooms(startTime, endTime, hotelID);
     }
 
@@ -163,14 +163,14 @@ public class RoomManager implements DiscreteManager<HotelRoom, Long, Long[]> {
      * Get all HotelRooms that are are available within the given timeframe.
      *
      * @param startTime long UnixEpoch time start of period
-     * @param endTime long UnixEpoch time end of period
+     * @param endTime   long UnixEpoch time end of period
      * @return List<HotelRoom> list of all hotel rooms available within the given timeframe.
      */
-    public List<HotelRoom> getAvailableRooms(long startTime, long endTime){
+    public List<HotelRoom> getAvailableRooms(long startTime, long endTime) {
         return roomDao.getAvailableRooms(startTime, endTime);
     }
 
-    public boolean isUserScheduleInHotel (Hotel hotel, long userStartAvail, long userEndAvail) {
+    public boolean isUserScheduleInHotel(Hotel hotel, long userStartAvail, long userEndAvail) {
         List<HotelRoom> hotelRooms = roomDao.getInHotel(hotel.hotelID);
         long userStart = TimeUnit.MILLISECONDS.toDays(userStartAvail);
         long userEnd = TimeUnit.MILLISECONDS.toDays(userEndAvail);

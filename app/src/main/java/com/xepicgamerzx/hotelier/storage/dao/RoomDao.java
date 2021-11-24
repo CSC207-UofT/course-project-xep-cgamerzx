@@ -13,7 +13,7 @@ import java.util.List;
  * Data access object for Room.
  */
 @Dao
-public abstract class RoomDao implements BaseDao<List<Long>, HotelRoom>{
+public abstract class RoomDao implements BaseDao<List<Long>, HotelRoom> {
     /**
      * Get all HotelRoom in HotelRoom table.
      *
@@ -53,7 +53,7 @@ public abstract class RoomDao implements BaseDao<List<Long>, HotelRoom>{
      * Get all HotelRooms that are are available within the given timeframe.
      *
      * @param startTime long UnixEpoch time start of period
-     * @param endTime long UnixEpoch time end of period
+     * @param endTime   long UnixEpoch time end of period
      * @return List<HotelRoom> list of all hotel rooms available within the given timeframe.
      */
     @Query("SELECT * FROM HOTELROOM WHERE startAvailability <= :startTime AND endAvailability >= :endTime")
@@ -62,10 +62,11 @@ public abstract class RoomDao implements BaseDao<List<Long>, HotelRoom>{
     /**
      * Get all HotelRooms in a hotel that are are available within the given timeframe.
      *
-     * @param hotelID long ID of hotel associated with hotel rooms.
+     * @param hotelID   long ID of hotel associated with hotel rooms.
      * @param startTime long UnixEpoch time start of period
-     * @param endTime long UnixEpoch time end of period
+     * @param endTime   long UnixEpoch time end of period
      * @return List<HotelRoom> list of all hotel rooms associated with hotelID available within the given timeframe.
      */
     @Query("SELECT * FROM HOTELROOM WHERE startAvailability <= :startTime AND endAvailability >= :endTime AND hotelID = :hotelID")
-    public abstract List<HotelRoom> getAvailableRooms(long startTime, long endTime, long hotelID);}
+    public abstract List<HotelRoom> getAvailableRooms(long startTime, long endTime, long hotelID);
+}

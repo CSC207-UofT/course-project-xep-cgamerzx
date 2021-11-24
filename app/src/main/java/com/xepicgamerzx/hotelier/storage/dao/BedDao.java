@@ -13,7 +13,7 @@ import java.util.List;
  * Data access object for Beds
  */
 @Dao
-public abstract class BedDao implements BaseDao<Void, Bed>{
+public abstract class BedDao implements BaseDao<Void, Bed> {
     /**
      * Get all beds in Bed table.
      *

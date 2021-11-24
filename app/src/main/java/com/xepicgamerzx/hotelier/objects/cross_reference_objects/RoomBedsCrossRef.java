@@ -11,13 +11,13 @@ public class RoomBedsCrossRef extends CrossRef {
     public long roomID;
     private int bedCount;
 
-    public RoomBedsCrossRef(long roomID, @NonNull String uniqueId, int bedCount){
+    public RoomBedsCrossRef(long roomID, @NonNull String uniqueId, int bedCount) {
         this.roomID = roomID;
         this.uniqueId = uniqueId;
         setBedCount(bedCount);
     }
 
-    public RoomBedsCrossRef(HotelRoom hotelRoom, Bed bed, int bedCount){
+    public RoomBedsCrossRef(HotelRoom hotelRoom, Bed bed, int bedCount) {
         this(hotelRoom.roomID, bed.getUniqueId(), bedCount);
     }
 

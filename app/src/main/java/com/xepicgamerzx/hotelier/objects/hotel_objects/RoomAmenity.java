@@ -7,11 +7,11 @@ import com.xepicgamerzx.hotelier.objects.cross_reference_objects.RoomAmenitiesEn
 
 @Entity
 public class RoomAmenity extends UniqueEntity {
-    public RoomAmenity (@NonNull String uniqueId){
+    public RoomAmenity(@NonNull String uniqueId) {
         super(uniqueId);
     }
 
-    public RoomAmenity (RoomAmenitiesEnum roomAmenityID){
+    public RoomAmenity(RoomAmenitiesEnum roomAmenityID) {
         super(roomAmenityID.toString());
     }
 }

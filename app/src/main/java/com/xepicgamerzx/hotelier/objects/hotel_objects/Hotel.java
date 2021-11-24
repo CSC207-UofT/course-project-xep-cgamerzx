@@ -24,8 +24,8 @@ public class Hotel extends NonUniqueEntity implements Serializable {
     /**
      * Create a new Hotel
      *
-     * @param name    the name of this hotel
-     * @param address the address of this hotel
+     * @param name      the name of this hotel
+     * @param address   the address of this hotel
      * @param starClass amount of stars this hotel is
      */
     public Hotel(String name, Address address, int starClass) {

@@ -24,23 +24,23 @@ public class PlacesAPI {
             sb.append("input=" + input);
             sb.append("&key=AIzaSyDgbO256UmNGH74yVSq9NsRD4MyXltqGwQ");
             URL url = new URL(sb.toString());
-            connection=(HttpURLConnection)url.openConnection();
+            connection = (HttpURLConnection) url.openConnection();
             InputStreamReader inputStreamReader = new InputStreamReader(connection.getInputStream());
 
             int read;
             char[] buff = new char[1024];
 
-            while((read=inputStreamReader.read(buff))!=-1){
+            while ((read = inputStreamReader.read(buff)) != -1) {
                 jsonResult.append(buff, 0, read);
             }
 
-        } catch(MalformedURLException e) {
+        } catch (MalformedURLException e) {
             e.printStackTrace();
 
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
-            if(connection!=null) {
+            if (connection != null) {
                 connection.disconnect();
             }
         }
@@ -49,7 +49,7 @@ public class PlacesAPI {
             JSONObject jsonObject = new JSONObject(jsonResult.toString());
             JSONArray predictions = jsonObject.getJSONArray("predictions");
 
-            for (int i=0; i<predictions.length(); i++) {
+            for (int i = 0; i < predictions.length(); i++) {
 //                System.out.println(predictions.getJSONObject(i).getString("place_id"));
                 // You can also get things like latitude, longitude using place_id on another api call...
                 arrayList.add(new DestinationItem(predictions.getJSONObject(i).getString("description"),
@@ -71,23 +71,23 @@ public class PlacesAPI {
 
         try {
             URL url = new URL(req);
-            connection=(HttpURLConnection) url.openConnection();
+            connection = (HttpURLConnection) url.openConnection();
             InputStreamReader is = new InputStreamReader(connection.getInputStream());
 
             int read;
             char[] buff = new char[1024];
 
-            while((read = is.read(buff)) != -1){
+            while ((read = is.read(buff)) != -1) {
                 jsonResult.append(buff, 0, read);
             }
 
-        } catch(MalformedURLException e) {
+        } catch (MalformedURLException e) {
             e.printStackTrace();
 
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
-            if(connection!=null) {
+            if (connection != null) {
                 connection.disconnect();
             }
         }

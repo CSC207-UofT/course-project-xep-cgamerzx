@@ -97,9 +97,9 @@ package com.xepicgamerzx.hotelier.objects.OldObjects;
 //    }
 //
 //}
+
 import java.io.Serializable;
 import java.util.HashMap;
-import java.util.List;
 
 public class HotelOld implements Serializable {
     private String name;

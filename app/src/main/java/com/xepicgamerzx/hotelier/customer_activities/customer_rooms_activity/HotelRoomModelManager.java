@@ -2,9 +2,9 @@ package com.xepicgamerzx.hotelier.customer_activities.customer_rooms_activity;
 
 import android.app.Application;
 
+import com.xepicgamerzx.hotelier.objects.UnixEpochDateConverter;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.Bed;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelRoom;
-import com.xepicgamerzx.hotelier.objects.UnixEpochDateConverter;
 import com.xepicgamerzx.hotelier.storage.hotel_reference_managers.RoomBedsCrossManager;
 
 import java.util.ArrayList;
@@ -24,7 +24,7 @@ public class HotelRoomModelManager {
             );
             List<Bed> beds = roomBedsCrossManager.getRelated(hotelRoom);
 
-            for(Bed bed : beds) {
+            for (Bed bed : beds) {
                 // unique id is the bed type/size.
                 bedTypes += bed.getUniqueId().toUpperCase(Locale.ROOT) + ", ";
             }

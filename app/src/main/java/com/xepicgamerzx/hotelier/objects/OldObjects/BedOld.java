@@ -4,8 +4,8 @@ import java.io.Serializable;
 
 public class BedOld implements Serializable {
 
-    private String size;
     public OldRoom room;
+    private String size;
 
     public BedOld() {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
@@ -25,6 +25,14 @@ public class BedOld implements Serializable {
         return size;
     }
 
+    public OldRoom getRoom() {
+        if (this.room != null) {
+            return this.room;
+        }
+
+        return null;
+    }
+
     /**
      * Gives a Bed a reference to the Room it is in.
      *
@@ -32,13 +40,5 @@ public class BedOld implements Serializable {
      */
     public void setRoom(OldRoom room) {
         this.room = room;
-    }
-
-    public OldRoom getRoom() {
-        if (this.room != null) {
-            return this.room;
-        }
-
-        return null;
     }
 }

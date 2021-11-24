@@ -4,12 +4,13 @@ import android.app.Application;
 import android.content.Context;
 
 import com.xepicgamerzx.hotelier.objects.hotel_objects.Address;
+import com.xepicgamerzx.hotelier.objects.hotel_objects.AddressBuilder;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.Bed;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelRoom;
 import com.xepicgamerzx.hotelier.storage.hotel_managers.BedManager;
 import com.xepicgamerzx.hotelier.storage.hotel_managers.HotelManager;
-import com.xepicgamerzx.hotelier.storage.hotel_reference_managers.RoomBedsCrossManager;
 import com.xepicgamerzx.hotelier.storage.hotel_managers.RoomManager;
+import com.xepicgamerzx.hotelier.storage.hotel_reference_managers.RoomBedsCrossManager;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -18,6 +19,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
+import java.nio.charset.StandardCharsets;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +46,7 @@ public class ReadDummyData {
 
             is.close();
 
-            json = new String(buffer, "UTF-8");
+            json = new String(buffer, StandardCharsets.UTF_8);
 
 
         } catch (IOException ex) {
@@ -120,14 +122,6 @@ public class ReadDummyData {
         double longitude = address_i.getDouble("longitude");
         double latitude = address_i.getDouble("latitude");
 
-        return new Address(
-                streetName,
-                postalCode,
-                String.valueOf(streetNum),
-                city,
-                province,
-                latitude,
-                longitude
-        );
+        return new AddressBuilder().setStreetName(streetName).setPostalCode(postalCode).setStreetNumber(String.valueOf(streetNum)).setCity(city).setProvince(province).setLatitude(latitude).setLongitude(longitude).build();
     }
 }

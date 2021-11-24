@@ -5,11 +5,11 @@ import androidx.room.Entity;
 
 @Entity
 public class HotelAmenity extends UniqueEntity {
-    public HotelAmenity (@NonNull String uniqueId){
+    public HotelAmenity(@NonNull String uniqueId) {
         super(uniqueId);
     }
 
-    public HotelAmenity (@NonNull HotelAmenitiesEnum hotelAmenity){
+    public HotelAmenity(@NonNull HotelAmenitiesEnum hotelAmenity) {
         super(hotelAmenity.toString());
     }
 }

@@ -1,18 +1,18 @@
 package com.xepicgamerzx.hotelier.customer_activities.customer_hotels_activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.xepicgamerzx.hotelier.R;
 import com.xepicgamerzx.hotelier.customer_activities.customer_search_activity.SearchActivity;
-import com.xepicgamerzx.hotelier.objects.hotel_objects.Hotel;
 import com.xepicgamerzx.hotelier.objects.UnixEpochDateConverter;
+import com.xepicgamerzx.hotelier.objects.hotel_objects.Hotel;
 import com.xepicgamerzx.hotelier.storage.hotel_managers.HotelManager;
 import com.xepicgamerzx.hotelier.storage.hotel_managers.RoomManager;
 
@@ -44,7 +44,7 @@ public class HotelViewActivity extends AppCompatActivity {
         Intent intent = getIntent();
 
         // BELOW IS SOME MESSY CODE, WILL CLEAN LATER BUT WHATS IMPORTANT IS THAT IT WORKS FOR NOW.
-        if(intent.getExtras() != null) {
+        if (intent.getExtras() != null) {
             HashMap<String, Object> map = (HashMap<String, Object>) intent.getSerializableExtra("SearchData");
             String guests = (String) map.get("guests");
             long userStartDate = 0;
@@ -53,7 +53,7 @@ public class HotelViewActivity extends AppCompatActivity {
             List<HotelViewModel> hotelsView = hotelManager.generateHotelModel(hotels);
             userGuests.setText(guests + " Guests");
 
-            if(map.size() == 1) {
+            if (map.size() == 1) {
                 final HotelViewAdapter hotelsAdapter = new HotelViewAdapter(hotelsView);
                 hotelsRecyclerView.setAdapter(hotelsAdapter);
             } else if (map.size() == 3) {
@@ -61,7 +61,7 @@ public class HotelViewActivity extends AppCompatActivity {
                     userStartDate = (long) map.get("startDate");
                     userEndDate = (long) map.get("endDate");
                     UnixEpochDateConverter date = new UnixEpochDateConverter();
-                    userSchedule.setText(date.epochToReadable(userStartDate, userEndDate));
+                    userSchedule.setText(UnixEpochDateConverter.epochToReadable(userStartDate, userEndDate));
 
                     List<HotelViewModel> filterHotelsByUserSchedule = new ArrayList<>();
                     for (HotelViewModel hotelModel : hotelsView) {

@@ -4,8 +4,8 @@ import java.io.Serializable;
 
 public class AddressOld implements Serializable {
 
-    private String streetName;
     public String postalCode;
+    private String streetName;
     private String streetNumber;
     private String city;
     private String province;
@@ -23,7 +23,7 @@ public class AddressOld implements Serializable {
      * @param postalCode The postal code
      */
     public AddressOld(String streetName, String postalCode, String streetNumber, String city,
-                   String province, double longitude, double latitude) {
+                      String province, double longitude, double latitude) {
         this.streetName = streetName;
         this.postalCode = postalCode;
         this.streetNumber = streetNumber;

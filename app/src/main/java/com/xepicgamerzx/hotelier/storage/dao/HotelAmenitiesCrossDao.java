@@ -11,7 +11,7 @@ import java.util.List;
  * Data access object for HotelAmenitiesCrossRef
  */
 @Dao
-public abstract class HotelAmenitiesCrossDao implements BaseDao<Void, HotelAmenitiesCrossRef>{
+public abstract class HotelAmenitiesCrossDao implements BaseDao<Void, HotelAmenitiesCrossRef> {
     /**
      * Get all RoomBedsCrossRef in RoomBedsCrossRef table.
      *
@@ -54,5 +54,5 @@ public abstract class HotelAmenitiesCrossDao implements BaseDao<Void, HotelAmeni
      * @return List<HotelAmenitiesCrossRef> cross refs related to amenityID
      */
     @Query("SELECT * FROM HotelAmenitiesCrossRef WHERE uniqueId =:amenityID")
-    public abstract List<HotelAmenitiesCrossRef> getCrossWith (String amenityID);
+    public abstract List<HotelAmenitiesCrossRef> getCrossWith(String amenityID);
 }

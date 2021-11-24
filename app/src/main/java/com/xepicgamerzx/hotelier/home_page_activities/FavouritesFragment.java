@@ -1,12 +1,11 @@
 package com.xepicgamerzx.hotelier.home_page_activities;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.fragment.app.Fragment;
 
 import com.xepicgamerzx.hotelier.R;
 

@@ -45,9 +45,9 @@ public class CustomerHotelRoomsActivity extends AppCompatActivity {
 
             descNameText.setText(hotel.getName());
             hotelAddress.setText("Address: " + hotel.getAddress().getFullStreet());
-            hotelRating.setText("Rating: " + String.valueOf(hotel.getStarClass()) + " Stars");
+            hotelRating.setText("Rating: " + hotel.getStarClass() + " Stars");
 
-            if(hotelData.containsKey("userStartDate") && hotelData.containsKey("userEndDate")) {
+            if (hotelData.containsKey("userStartDate") && hotelData.containsKey("userEndDate")) {
                 long userStartDate = (long) hotelData.get("userStartDate");
                 long userEndDate = (long) hotelData.get("userEndDate");
                 List<HotelRoom> hotelRooms = roomManager.getRoomsInHotelByDate(hotel, userStartDate, userEndDate); // Filtered

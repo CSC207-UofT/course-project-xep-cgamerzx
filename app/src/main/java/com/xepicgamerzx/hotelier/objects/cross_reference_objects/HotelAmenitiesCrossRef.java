@@ -3,21 +3,21 @@ package com.xepicgamerzx.hotelier.objects.cross_reference_objects;
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 
-import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelAmenity;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.Hotel;
+import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelAmenity;
 
 @Entity(primaryKeys = {"hotelID", "uniqueId"}, inheritSuperIndices = true)
 public class HotelAmenitiesCrossRef extends CrossRef {
-        public long hotelID;
+    public long hotelID;
 
-        public HotelAmenitiesCrossRef(long hotelID, @NonNull String uniqueId){
-            this.hotelID = hotelID;
-            this.uniqueId = uniqueId;
-        }
+    public HotelAmenitiesCrossRef(long hotelID, @NonNull String uniqueId) {
+        this.hotelID = hotelID;
+        this.uniqueId = uniqueId;
+    }
 
-        public HotelAmenitiesCrossRef(Hotel hotel, HotelAmenity hotelAmenity){
-            this(hotel.hotelID, hotelAmenity.getUniqueId());
-        }
+    public HotelAmenitiesCrossRef(Hotel hotel, HotelAmenity hotelAmenity) {
+        this(hotel.hotelID, hotelAmenity.getUniqueId());
+    }
 
     @Override
     public boolean equals(Object o) {

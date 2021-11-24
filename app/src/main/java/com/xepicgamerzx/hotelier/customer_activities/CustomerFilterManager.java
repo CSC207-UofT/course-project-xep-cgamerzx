@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class CustomerFilterManager {
 
 
-/*    *//**
+    /*    *//**
      * Returns the hotels sorted by minimum price.
      *
      * @param hotels List of Hotels to be sorted

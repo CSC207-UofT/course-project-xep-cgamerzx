@@ -12,7 +12,7 @@ import androidx.room.Update;
  * @param <T> Entity being handled by the DAO.
  */
 @SuppressWarnings("unchecked")
-public interface BaseDao <Q, T>{
+public interface BaseDao<Q, T> {
     /**
      * Insert entity into their corresponding table in the database. Replace on conflict.
      *

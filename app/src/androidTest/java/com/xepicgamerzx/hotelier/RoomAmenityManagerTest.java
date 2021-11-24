@@ -9,6 +9,7 @@ import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import com.xepicgamerzx.hotelier.objects.hotel_objects.Address;
+import com.xepicgamerzx.hotelier.objects.hotel_objects.AddressBuilder;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelRoom;
 import com.xepicgamerzx.hotelier.objects.cross_reference_objects.RoomAmenitiesEnum;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.RoomAmenity;
@@ -48,13 +49,7 @@ public class RoomAmenityManagerTest {
     public static void createBoilerInfo() {
         addresses = new ArrayList<>();
 
-        Address address_1 = new Address("Testing Lane",
-                "M5T2Y7",
-                "123",
-                "Toronto",
-                "ON",
-                43.6532,
-                -79.3832);
+        Address address_1 = new AddressBuilder().setStreetName("Testing Lane").setPostalCode("M5T2Y7").setStreetNumber("123").setCity("Toronto").setProvince("ON").setLatitude(43.6532).setLongitude(-79.3832).build();
 
         addresses.add(address_1);
     }

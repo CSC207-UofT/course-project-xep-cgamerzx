@@ -19,7 +19,7 @@ public interface CrossManager<T extends CrossRef, N extends NonUniqueEntity, U e
      * Create and insert relationship between <N> and <U> into <T> database.
      *
      * @param nonUniqueEntity <N> being assigned to uniqueEntity.
-     * @param uniqueEntity <U> being assigned to nonUniqueEntity.
+     * @param uniqueEntity    <U> being assigned to nonUniqueEntity.
      * @return <T> crossRef created.
      */
     T createRelationship(N nonUniqueEntity, U uniqueEntity);

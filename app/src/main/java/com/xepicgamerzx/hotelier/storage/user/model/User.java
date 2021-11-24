@@ -6,19 +6,19 @@ import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
 
-@Entity(tableName="users")
+@Entity(tableName = "users")
 public class User implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
     private int id;
 
-    @ColumnInfo(name="userId")
+    @ColumnInfo(name = "userId")
     private String userName;
-    @ColumnInfo(name="password")
+    @ColumnInfo(name = "password")
     private String password;
-    @ColumnInfo(name="email")
+    @ColumnInfo(name = "email")
     private String email;
-    
+
     public User(String userName, String password, String email) {
         this.userName = userName;
         this.password = password;

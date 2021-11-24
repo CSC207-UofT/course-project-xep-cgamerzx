@@ -13,7 +13,7 @@ import java.util.List;
  * Data access object for RoomAmenity.
  */
 @Dao
-public abstract class RoomAmenityDao implements BaseDao<Void, RoomAmenity>{
+public abstract class RoomAmenityDao implements BaseDao<Void, RoomAmenity> {
     /**
      * Get all RoomAmenity in RoomAmenity table.
      *
