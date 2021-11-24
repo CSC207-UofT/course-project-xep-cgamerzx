@@ -8,7 +8,6 @@ import androidx.annotation.NonNull;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.Hotel;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelRoom;
 import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
-import com.xepicgamerzx.hotelier.storage.dao.RoomAmenitiesCrossDao;
 import com.xepicgamerzx.hotelier.storage.dao.RoomDao;
 
 import java.math.BigDecimal;
@@ -24,18 +23,15 @@ public class RoomManager implements DiscreteManager<HotelRoom, Long, Long[]> {
 
     private final HotelierDatabase db;
     private final RoomDao roomDao;
-    private final RoomAmenitiesCrossDao roomAmenitiesCrossDao;
 
     private RoomManager(Application application) {
         db = HotelierDatabase.getDatabase(application);
         roomDao = db.roomDao();
-        roomAmenitiesCrossDao = db.roomAmenitiesCrossDao();
     }
 
     private RoomManager(HotelierDatabase dbInstance) {
         db = dbInstance;
         roomDao = db.roomDao();
-        roomAmenitiesCrossDao = db.roomAmenitiesCrossDao();
     }
 
     public static RoomManager getManager(Application application) {
@@ -119,6 +115,7 @@ public class RoomManager implements DiscreteManager<HotelRoom, Long, Long[]> {
         return roomDao.getAll();
     }
 
+    @Deprecated // Use getAvailableRoomsInHotel
     public List<HotelRoom> getRoomsInHotelByDate(Hotel hotel, long userStartAvail, long userEndAvail) {
         List<HotelRoom> hotelRooms = roomDao.getInHotel(hotel.hotelID);
         List<HotelRoom> filteredRooms = new ArrayList<>();
@@ -136,6 +133,41 @@ public class RoomManager implements DiscreteManager<HotelRoom, Long, Long[]> {
         }
 
         return filteredRooms;
+    }
+
+    /**
+     * Get all HotelRooms in a hotel that are are available within the given timeframe.
+     *
+     * @param hotel Hotel associated with hotel rooms.
+     * @param startTime long UnixEpoch time start of period
+     * @param endTime long UnixEpoch time end of period
+     * @return List<HotelRoom> list of all hotel rooms associated with hotelID available within the given timeframe.
+     */
+    public List<HotelRoom> getAvailableRoomsInHotel(Hotel hotel, long startTime, long endTime){
+        return getAvailableRoomsInHotel(hotel.hotelID, startTime, endTime);
+    }
+
+    /**
+     * Get all HotelRooms in a hotel that are are available within the given timeframe.
+     *
+     * @param hotelID Hotel associated with hotel rooms.
+     * @param startTime long UnixEpoch time start of period
+     * @param endTime long UnixEpoch time end of period
+     * @return List<HotelRoom> list of all hotel rooms associated with hotelID available within the given timeframe.
+     */
+    public List<HotelRoom> getAvailableRoomsInHotel(long hotelID, long startTime, long endTime){
+        return roomDao.getAvailableRoomsInHotel(hotelID, startTime, endTime);
+    }
+
+    /**
+     * Get all HotelRooms that are are available within the given timeframe.
+     *
+     * @param startTime long UnixEpoch time start of period
+     * @param endTime long UnixEpoch time end of period
+     * @return List<HotelRoom> list of all hotel rooms available within the given timeframe.
+     */
+    public List<HotelRoom> getAvailableRooms(long startTime, long endTime){
+        return roomDao.getAvailableRooms(startTime, endTime);
     }
 
     public boolean isUserScheduleInHotel (Hotel hotel, long userStartAvail, long userEndAvail) {

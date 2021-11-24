@@ -38,7 +38,7 @@ public abstract class RoomDao implements BaseDao<List<Long>, HotelRoom>{
      * @return List<HotelRoom> list of all hotel rooms associated with hotelID.
      */
     @Query("SELECT * FROM HotelRoom WHERE hotelID =:hotelID")
-    public abstract List<HotelRoom> getInHotel(Long hotelID);
+    public abstract List<HotelRoom> getInHotel(long hotelID);
 
     /**
      * Get all rooms associated with any bed.
@@ -48,4 +48,24 @@ public abstract class RoomDao implements BaseDao<List<Long>, HotelRoom>{
     @Transaction
     @Query("SELECT * FROM HotelRoom")
     public abstract List<RoomWithBeds> getRoomsWithBed();
-}
+
+    /**
+     * Get all HotelRooms that are are available within the given timeframe.
+     *
+     * @param startTime long UnixEpoch time start of period
+     * @param endTime long UnixEpoch time end of period
+     * @return List<HotelRoom> list of all hotel rooms available within the given timeframe.
+     */
+    @Query("SELECT * FROM HOTELROOM WHERE startAvailability <= :startTime AND endAvailability >= :endTime")
+    public abstract List<HotelRoom> getAvailableRooms(long startTime, long endTime);
+
+    /**
+     * Get all HotelRooms in a hotel that are are available within the given timeframe.
+     *
+     * @param hotelID long ID of hotel associated with hotel rooms.
+     * @param startTime long UnixEpoch time start of period
+     * @param endTime long UnixEpoch time end of period
+     * @return List<HotelRoom> list of all hotel rooms associated with hotelID available within the given timeframe.
+     */
+    @Query("SELECT * FROM HOTELROOM WHERE startAvailability <= :startTime AND endAvailability >= :endTime AND hotelID = :hotelID")
+    public abstract List<HotelRoom> getAvailableRoomsInHotel(long hotelID, long startTime, long endTime);}
