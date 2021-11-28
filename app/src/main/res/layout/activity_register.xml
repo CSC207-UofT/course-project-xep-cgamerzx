@@ -54,7 +54,8 @@
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:inputType="text"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -92,7 +93,8 @@
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:inputType="text"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -130,7 +132,8 @@
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:inputType="text"/>
 
     </com.google.android.material.textfield.TextInputLayout>
     <RelativeLayout

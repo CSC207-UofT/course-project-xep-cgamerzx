@@ -20,8 +20,6 @@ public class User implements Serializable {
     private String password;
     @ColumnInfo(name = "email")
     private String email;
-    /*@ColumnInfo(name = "favourites")
-    private List<Hotel> favourites;*/
 
     public User(String userName, String password, String email) {
         this.userName = userName;

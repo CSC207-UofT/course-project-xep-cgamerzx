@@ -60,7 +60,7 @@ public class RegisterActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Fill all fields", Toast.LENGTH_SHORT).show();
                 } else if(!validatePassword(user)) {
                     Toast.makeText(getApplicationContext(), "Please make a stronger password" +
-                            " (at least 1 of each: uppercase, lowercase, number, special character (!@#$%^&*()_+.))", Toast.LENGTH_SHORT).show();
+                            " (at least 6 characters long with at least 1 of each: uppercase, lowercase, number, special character (!@#$%^&*()_+.))", Toast.LENGTH_SHORT).show();
                 } else{
                     Toast.makeText(getApplicationContext(), "Fill all fields", Toast.LENGTH_SHORT).show();
                 }
@@ -82,7 +82,7 @@ public class RegisterActivity extends AppCompatActivity {
      * @return Whether the password matches the regex
      */
     private Boolean validatePassword(User user) {
-        return user.getPassword().matches("^(?=(.*[a-z].*[a-z]))(?=(.*[A-Z]))(?=(.*[0-9]))(?=(.*[!@#$%^&*()_+.])).{6,}$");
+        return user.getPassword().matches("^(?=(.*[a-z]))(?=(.*[A-Z]))(?=(.*[0-9]))(?=(.*[!@#$%^&*()_+.])).{6,}$");
     }
 
 }
