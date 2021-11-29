@@ -13,10 +13,12 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.xepicgamerzx.hotelier.R;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.Address;
+import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelAmenity;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelRoom;
 import com.xepicgamerzx.hotelier.storage.hotel_managers.BedManager;
 import com.xepicgamerzx.hotelier.storage.hotel_managers.HotelManager;
 import com.xepicgamerzx.hotelier.storage.hotel_managers.RoomManager;
+import com.xepicgamerzx.hotelier.storage.hotel_reference_managers.HotelAmenitiesCrossManager;
 import com.xepicgamerzx.hotelier.storage.hotel_reference_managers.RoomBedsCrossManager;
 
 import java.util.ArrayList;
@@ -27,13 +29,16 @@ public class HotelCreatorActivity extends AppCompatActivity {
     RoomManager roomManager;
     BedManager bedManager;
     RoomBedsCrossManager roomBedsCrossManager;
+    HotelAmenitiesCrossManager hotelAmenitiesCrossManager;
 
     Address address;
     List<HotelRoom> hotelRooms = new ArrayList<>();
+    List<HotelAmenity> hotelAmenities = new ArrayList<>();
 
     TextInputEditText hotelName;
     MaterialButton addAddressBtn;
     MaterialButton addRoomsBtn;
+    MaterialButton addAmenitiesBtn;
     MaterialButton submitBtn;
     MaterialButton hotelDetails;
     ImageButton backBtn;
@@ -57,6 +62,7 @@ public class HotelCreatorActivity extends AppCompatActivity {
         hotelName = findViewById(R.id.hotelNameInput);
         addAddressBtn = findViewById(R.id.addAddressBtn);
         addRoomsBtn = findViewById(R.id.addRoomsBtn);
+        addAmenitiesBtn = findViewById(R.id.hotelAmentitiesBtn);
         submitBtn = findViewById(R.id.saveHotelBtn);
         backBtn = findViewById(R.id.backBtn);
         hotelDetails = findViewById(R.id.hotelDetails);
@@ -105,6 +111,16 @@ public class HotelCreatorActivity extends AppCompatActivity {
             }
         });
 
+        addAmenitiesBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getSupportFragmentManager().beginTransaction()
+                        .add(R.id.hotelCreator, HotelCreateAmenitiesFragment.class, null)
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
+
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -119,6 +135,7 @@ public class HotelCreatorActivity extends AppCompatActivity {
         roomManager = RoomManager.getManager(getApplication());
         bedManager = BedManager.getManager(getApplication());
         roomBedsCrossManager = RoomBedsCrossManager.getManager(getApplication());
+        hotelAmenitiesCrossManager = HotelAmenitiesCrossManager.getManager(getApplication());
     }
 
     public boolean validateHotel() {
