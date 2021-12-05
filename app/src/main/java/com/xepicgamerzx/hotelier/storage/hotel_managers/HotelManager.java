@@ -12,6 +12,7 @@ import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelAmenity;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelRoom;
 import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
 import com.xepicgamerzx.hotelier.storage.dao.HotelDao;
+import com.xepicgamerzx.hotelier.storage.user.model.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -130,6 +131,24 @@ public class HotelManager implements Manager<Hotel, Long[]> {
         return hotel;
     }
 
+
+    /**
+     * Gets favourite hotels of the user the Hotel database.
+     *
+     * @return List of the Hotels in the Hotel database.
+     */
+    public List<Hotel> getFavourites(User user) {  //this might break clean architecture idk
+        List<Hotel> hotels = hotelDao.getAll();
+        List<Hotel> favourites = new ArrayList<>();
+        for (Hotel hotel : hotels) {
+            if (user.getFavHotelIds().contains(hotel.hotelId)){
+                favourites.add(hotel);
+            }
+        }
+
+        return favourites;
+
+    }
 
     @Deprecated // Use getHotelsInArea
     public List<Hotel> getHotelsByLatLong(double destinationLat, double destinationLong) {

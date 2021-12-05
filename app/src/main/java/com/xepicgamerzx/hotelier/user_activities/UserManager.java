@@ -25,7 +25,7 @@ public class UserManager implements com.xepicgamerzx.hotelier.storage.hotel_mana
         userDao = db.userDao();
     }
 
-    private UserManager(HotelierDatabase dbInstance) {
+    public UserManager(HotelierDatabase dbInstance) {
         db = dbInstance;
         userDao = db.userDao();
     }
