@@ -11,7 +11,7 @@ import java.util.List;
  * Data access object for users.
  */
 @Dao
-public abstract class UserDao implements BaseDao<List<Long>, User> {
+public abstract class UserDao implements BaseDao<Void, User> {
     /**
      * TODO
      *
@@ -38,4 +38,10 @@ public abstract class UserDao implements BaseDao<List<Long>, User> {
      */
     @Query("SELECT * FROM users WHERE id IN (:userId)")
     public abstract List<User> getIdMatch(Long... userId);
+
+    /**
+     * Delete all Users from User table.
+     */
+    @Query("DELETE FROM Users")
+    public abstract void deleteAll();
 }

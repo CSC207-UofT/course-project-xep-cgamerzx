@@ -55,4 +55,10 @@ public abstract class HotelAmenitiesCrossDao implements BaseDao<Void, HotelAmeni
      */
     @Query("SELECT * FROM HotelAmenitiesCrossRef WHERE uniqueId =:amenityID")
     public abstract List<HotelAmenitiesCrossRef> getCrossWith(String amenityID);
+
+    /**
+     * Delete all HotelAmenitiesCrossRef from HotelAmenitiesCrossRef table.
+     */
+    @Query("DELETE FROM HotelAmenitiesCrossRef")
+    public abstract void deleteAll();
 }
