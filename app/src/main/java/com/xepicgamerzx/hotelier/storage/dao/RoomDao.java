@@ -60,13 +60,91 @@ public abstract class RoomDao implements BaseDao<List<Long>, HotelRoom> {
     public abstract List<HotelRoom> getAvailableRooms(long startTime, long endTime);
 
     /**
+     * Get all HotelRooms that are are available within the given timeframe.
+     *
+     * @param startTime   long UnixEpoch time start of period
+     * @param endTime     long UnixEpoch time end of period
+     * @param minCapacity int minCapacity of room
+     * @return List<HotelRoom> list of all hotel rooms available within the given timeframe.
+     */
+    @Query("SELECT * FROM HOTELROOM WHERE startAvailability <= :startTime AND endAvailability >= :endTime AND capacity >= :minCapacity")
+    public abstract List<HotelRoom> getAvailableRooms(long startTime, long endTime, int minCapacity);
+
+    /**
      * Get all HotelRooms in a hotel that are are available within the given timeframe.
      *
-     * @param hotelID   long ID of hotel associated with hotel rooms.
+     * @param hotelID   long ID(s) of hotel associated with hotel rooms.
      * @param startTime long UnixEpoch time start of period
      * @param endTime   long UnixEpoch time end of period
      * @return List<HotelRoom> list of all hotel rooms associated with hotelID available within the given timeframe.
      */
+    @Query("SELECT * FROM HOTELROOM WHERE startAvailability <= :startTime AND endAvailability >= :endTime AND hotelId in (:hotelID)")
+    public abstract List<HotelRoom> getAvailableRooms(long startTime, long endTime, long... hotelID);
+
+    /**
+     * Get all HotelRooms in a hotel that are are available within the given timeframe.
+     *
+     * @param hotelID     long ID(s) of hotel associated with hotel rooms.
+     * @param startTime   long UnixEpoch time start of period
+     * @param endTime     long UnixEpoch time end of period
+     * @param minCapacity int minCapacity of room
+     * @return List<HotelRoom> list of all hotel rooms associated with hotelID available within the given timeframe.
+     */
+    @Query("SELECT * FROM HOTELROOM WHERE startAvailability <= :startTime AND endAvailability >= :endTime AND hotelId in (:hotelID) AND capacity >= :minCapacity")
+    public abstract List<HotelRoom> getAvailableRooms(long startTime, long endTime, int minCapacity, long... hotelID);
+
+    /**
+     * Get all hotelIds in a hotel that are are available within the given timeframe.
+     *
+     * @param hotelID     long ID(s) of hotel associated with hotel rooms.
+     * @param startTime   long UnixEpoch time start of period
+     * @param endTime     long UnixEpoch time end of period
+     * @param minCapacity int minCapacity of room
+     * @return List<HotelRoom> list of all hotel rooms associated with hotelID available within the given timeframe.
+     */
+    @Query("SELECT hotelId FROM HOTELROOM WHERE startAvailability <= :startTime AND endAvailability >= :endTime AND hotelId in (:hotelID) AND capacity >= :minCapacity")
+    public abstract List<Long> getAvailableHotelIds(long startTime, long endTime, int minCapacity, long... hotelID);
+
+    /**
+     * Get all hotelIds in a hotel that are are available within the given timeframe.
+     *
+     * @param hotelID     long ID(s) of hotel associated with hotel rooms.
+     * @param minCapacity int minCapacity of room
+     * @return List<HotelRoom> list of all hotel rooms associated with hotelID available within the given timeframe.
+     */
+    @Query("SELECT hotelId FROM HOTELROOM WHERE  hotelId in (:hotelID) AND capacity >= :minCapacity")
+    public abstract List<Long> getAvailableHotelIds(int minCapacity, long... hotelID);
+
+    /**
+     * Get all hotelIds in a hotel that are are available within the given timeframe.
+     *
+     * @param minCapacity int minCapacity of room
+     * @return List<HotelRoom> list of all hotel rooms associated with hotelID available within the given timeframe.
+     */
+    @Query("SELECT hotelId FROM HOTELROOM WHERE capacity >= :minCapacity")
+    public abstract List<Long> getAvailableHotelIds(int minCapacity);
+
+    /**
+     * Get all hotelIds in a hotel that are are available within the given timeframe.
+     *
+     * @param hotelID   long ID(s) of hotel associated with hotel rooms.
+     * @param startTime long UnixEpoch time start of period
+     * @param endTime   long UnixEpoch time end of period
+     * @return List<HotelRoom> list of all hotel rooms associated with hotelID available within the given timeframe.
+     */
+    @Query("SELECT hotelId FROM HOTELROOM WHERE startAvailability <= :startTime AND endAvailability >= :endTime AND hotelId in (:hotelID)")
+    public abstract List<Long> getAvailableHotelIds(long startTime, long endTime, long... hotelID);
+
+    /**
+     * Get all hotelIds in a hotel that are are available within the given timeframe.
+     *
+     * @param startTime long UnixEpoch time start of period
+     * @param endTime   long UnixEpoch time end of period
+     * @return List<HotelRoom> list of all hotel rooms associated with hotelID available within the given timeframe.
+     */
+    @Query("SELECT hotelId FROM HOTELROOM WHERE startAvailability <= :startTime AND endAvailability >= :endTime")
+    public abstract List<Long> getAvailableHotelIds(long startTime, long endTime);
+  
     @Query("SELECT * FROM HOTELROOM WHERE startAvailability <= :startTime AND endAvailability >= :endTime AND hotelId = :hotelID")
     public abstract List<HotelRoom> getAvailableRooms(long startTime, long endTime, long hotelID);
 

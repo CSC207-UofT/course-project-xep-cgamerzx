@@ -2,9 +2,11 @@ package com.xepicgamerzx.hotelier.customer_activities.customer_hotels_activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,7 +17,7 @@ import com.xepicgamerzx.hotelier.objects.hotel_objects.Hotel;
 import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
 import com.xepicgamerzx.hotelier.storage.Manage;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
@@ -43,71 +45,87 @@ public class HotelViewActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        // BELOW IS SOME MESSY CODE, WILL CLEAN LATER BUT WHATS IMPORTANT IS THAT IT WORKS FOR NOW.
         if (intent.getExtras() != null) {
             HashMap<String, Object> map = (HashMap<String, Object>) intent.getSerializableExtra("SearchData");
+            List<Hotel> hotels;
+            List<HotelViewModel> hotelsView;
+            HotelViewAdapter hotelsAdapter;
+
             String guests = (String) map.get("guests");
-            long userStartDate = 0;
-            long userEndDate = 0;
-            List<Hotel> hotels = hotelierDatabase.hotelDao().getAll();
-            List<HotelViewModel> hotelsView = manage.hotelManager.generateHotelModel(hotels);
-            userGuests.setText(guests + " Guests");
+            String str = guests + R.string._guests;
+            userGuests.setText(str);
+            int minCapacity = (guests != null) ? Integer.parseInt(guests) : 1;
 
-            if (map.size() == 1) {
-                final HotelViewAdapter hotelsAdapter = new HotelViewAdapter(hotelsView);
-                hotelsRecyclerView.setAdapter(hotelsAdapter);
-            } else if (map.size() == 3) {
-                if (map.containsKey("startDate") && map.containsKey("endDate")) {
-                    userStartDate = (long) map.get("startDate");
-                    userEndDate = (long) map.get("endDate");
-                    UnixEpochDateConverter date = new UnixEpochDateConverter();
-                    userSchedule.setText(UnixEpochDateConverter.epochToReadable(userStartDate, userEndDate));
+            switch (map.size()) {
+                case 1:
+                    // Capacity only
+                    List<Long> hotelIds = hotelierDatabase.roomDao().getAvailableHotelIds(minCapacity);
+                    hotels = hotelIdsToHotel(hotelIds);
+                    hotelsView = manage.hotelManager.generateHotelModel(hotels);
+                    hotelsAdapter = new HotelViewAdapter(hotelsView);
+                    break;
+                case 3:
+                    // Schedule and Capacity only
+                case 4:
+                    // Location and Capacity only
+                case 6:
+                    // Location and schedule and Capacity
+                    hotels = filterByLocation(userCity, map);
+                    hotelsAdapter = filterBySchedule(userSchedule, map, minCapacity, hotels);
+                    break;
+                default:
+                    Log.e("Hotel View Activity", "Unexpected number of parameters for search. Defaulting to all.");
+                    hotels = hotelierDatabase.hotelDao().getAll();
+                    hotelsView = manage.hotelManager.generateHotelModel(hotels);
+                    hotelsAdapter = new HotelViewAdapter(hotelsView);
+            }
+            hotelsRecyclerView.setAdapter(hotelsAdapter);
+        }
+        backBtn.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(), SearchActivity.class)));
+    }
 
-                    List<HotelViewModel> filterHotelsByUserSchedule = new ArrayList<>();
-                    for (HotelViewModel hotelModel : hotelsView) {
-                        if (manage.roomManager.isUserScheduleInHotel(hotelModel.getHotel(), userStartDate, userEndDate)) {
-                            filterHotelsByUserSchedule.add(hotelModel);
-                        }
-                    }
-                    final HotelViewAdapter hotelsAdapter = new HotelViewAdapter(filterHotelsByUserSchedule, userStartDate, userEndDate);
-                    hotelsRecyclerView.setAdapter(hotelsAdapter);
-                }
-            } else {
-                String city = (String) map.get("city");
-                userCity.setText(city);
-                double longitude;
-                double latitude;
-                latitude = (double) map.get("lat");
-                longitude = (double) map.get("long");
+    private List<Hotel> filterByLocation(TextView userCity, HashMap<String, Object> map) {
+        if (map.containsKey("city") && map.containsKey("lat") && map.containsKey("long")) {
+            String city = (String) map.get("city");
+            userCity.setText(city);
+            Double latitude = (Double) map.get("lat");
+            Double longitude = (Double) map.get("long");
+            if (latitude != null && longitude != null)
+                return manage.hotelManager.getHotelsInArea(latitude, longitude);
+        }
+        Log.i("Hotel View Activity", "Can't sort by location.");
+        return hotelierDatabase.hotelDao().getAll();
+    }
 
-                if (map.containsKey("startDate") && map.containsKey("endDate")) {
-                    // Send to adapter
-                    userStartDate = (long) map.get("startDate");
-                    userEndDate = (long) map.get("endDate");
-                    userSchedule.setText(UnixEpochDateConverter.epochToReadable(userStartDate, userEndDate));
-                }
+    @NonNull
+    private HotelViewAdapter filterBySchedule(TextView userSchedule, HashMap<String, Object> map, int minCapacity, List<Hotel> hotels) {
+        long[] arr = new long[hotels.size()];
+        Arrays.setAll(arr, index -> hotels.get(index).hotelId);
 
-                List<Hotel> filterHotels = manage.hotelManager.getHotelsInArea(latitude, longitude);
-                List<HotelViewModel> filteredHotelsByCity = manage.hotelManager.generateHotelModel(filterHotels);
+        if (map.containsKey("startDate") && map.containsKey("endDate")) {
+            Long startDate = (Long) map.get("startDate");
+            Long endDate = (Long) map.get("endDate");
+            if (endDate != null && startDate != null) {
+                userSchedule.setText(UnixEpochDateConverter.epochToReadable(startDate, endDate));
 
-                // Giving recycler view only hotels in user destination, and if the user entered a schedule, sending the schedule to adapter.
-                if (userStartDate != 0 && userEndDate != 0) {
-                    List<HotelViewModel> filterHotelsByScheduleAndCity = new ArrayList<>();
-                    for (HotelViewModel hotelViewModel : filteredHotelsByCity) {
-                        if (manage.roomManager.isUserScheduleInHotel(hotelViewModel.getHotel(), userStartDate, userEndDate)) {
-                            filterHotelsByScheduleAndCity.add(hotelViewModel);
-                        }
-                    }
-                    final HotelViewAdapter hotelsAdapter = new HotelViewAdapter(filterHotelsByScheduleAndCity, userStartDate, userEndDate);
-                    hotelsRecyclerView.setAdapter(hotelsAdapter);
-                } else {
-                    final HotelViewAdapter hotelsAdapter = new HotelViewAdapter(filteredHotelsByCity);
-                    hotelsRecyclerView.setAdapter(hotelsAdapter);
-                }
+                List<Long> hotelIds = hotelierDatabase.roomDao().getAvailableHotelIds(startDate, endDate, minCapacity, arr);
+                List<Hotel> filteredHotels = hotelIdsToHotel(hotelIds);
+                List<HotelViewModel> hotelsView = manage.hotelManager.generateHotelModel(filteredHotels);
+                return new HotelViewAdapter(hotelsView, startDate, endDate);
             }
         }
+        Log.i("Hotel View Activity", "Can't sort by schedule.");
+        List<Long> hotelIds = hotelierDatabase.roomDao().getAvailableHotelIds(minCapacity, arr);
+        List<Hotel> filteredHotels = hotelIdsToHotel(hotelIds);
+        List<HotelViewModel> hotelsView = manage.hotelManager.generateHotelModel(filteredHotels);
+        return new HotelViewAdapter(hotelsView);
+    }
 
-        backBtn.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(), SearchActivity.class)));
+    private List<Hotel> hotelIdsToHotel(List<Long> hotelIds) {
+        Long[] filteredHotelIds = new Long[hotelIds.size()];
+        Arrays.setAll(filteredHotelIds, hotelIds::get);
+
+        return hotelierDatabase.hotelDao().getIdMatch(filteredHotelIds);
     }
 
     @Override
