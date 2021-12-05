@@ -9,7 +9,6 @@ import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
 import com.xepicgamerzx.hotelier.storage.dao.BedDao;
 import com.xepicgamerzx.hotelier.storage.dao.RoomBedsCrossDao;
 import com.xepicgamerzx.hotelier.storage.dao.RoomDao;
-import com.xepicgamerzx.hotelier.storage.hotel_managers.BedManager;
 
 import java.util.HashMap;
 import java.util.List;
@@ -20,14 +19,11 @@ public class RoomBedsCrossManager implements CrossManager<RoomBedsCrossRef, Hote
     private final RoomBedsCrossDao roomBedsCrossDao;
     private final RoomDao roomDao;
     private final BedDao bedDao;
-    private final BedManager bedManager;
-
 
     private RoomBedsCrossManager(HotelierDatabase dbInstance) {
         roomBedsCrossDao = dbInstance.bedRoomCrossDao();
         roomDao = dbInstance.roomDao();
         bedDao = dbInstance.bedDao();
-        bedManager = BedManager.getManager(dbInstance);
     }
 
     public static RoomBedsCrossManager getManager(Application application) {

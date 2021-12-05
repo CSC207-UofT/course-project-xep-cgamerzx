@@ -2,7 +2,7 @@ package com.xepicgamerzx.hotelier.objects.OldObjects;
 
 import java.util.HashMap;
 import java.util.List;
-
+@Deprecated
 public class OldHotelManager implements IDataBase {
     private IDataBase db;
     private List<HotelOld> hotelsList;

@@ -6,10 +6,9 @@ import android.content.Context;
 import com.xepicgamerzx.hotelier.storage.FileReadWrite;
 import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
 import com.xepicgamerzx.hotelier.storage.dao.UserDao;
-import com.xepicgamerzx.hotelier.storage.hotel_managers.DiscreteManager;
 import com.xepicgamerzx.hotelier.storage.user.model.User;
 
-public class UserManager implements DiscreteManager<User, Long, Long[]> {
+public class UserManager implements com.xepicgamerzx.hotelier.storage.hotel_managers.Manager<User, Long[]> {
     private static volatile UserManager INSTANCE;
 
     private final HotelierDatabase db;

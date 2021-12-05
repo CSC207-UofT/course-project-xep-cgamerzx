@@ -100,7 +100,7 @@ package com.xepicgamerzx.hotelier.objects.OldObjects;
 
 import java.io.Serializable;
 import java.util.HashMap;
-
+@Deprecated
 public class HotelOld implements Serializable {
     private String name;
     private AddressOld address;
