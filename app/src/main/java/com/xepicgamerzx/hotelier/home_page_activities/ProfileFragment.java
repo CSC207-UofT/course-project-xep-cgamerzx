@@ -26,7 +26,7 @@ public class ProfileFragment extends Fragment {
     RelativeLayout signedInContent;
     TextView userNameTxt;
     Button listHotel;
-
+    UserManager um = UserManager.getManager(HotelierDatabase.getDatabase(getContext()));
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -44,60 +44,66 @@ public class ProfileFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_profile, container, false);
         registerBtn = v.findViewById(R.id.toRegisterActivBtn);
         login = v.findViewById(R.id.toLoginActivBtn);
-
         signOut = v.findViewById(R.id.signOutBtn);
         signOut.setVisibility(View.INVISIBLE);
-
         signedInContent = v.findViewById(R.id.signedInContent);
         userNameTxt = v.findViewById(R.id.userIdTxt);
-
         listHotel = v.findViewById(R.id.listHotelBtn);
+        listHotel.setOnClickListener(v1 -> startActivity(new Intent(getActivity(), HotelCreatorActivity.class)));
 
-        UserManager um = UserManager.getManager(HotelierDatabase.getDatabase(getContext()));
-        User user = um.user;
+        callAllListeners();
 
-        // If a user is signed in ...
-        if (user != null) {
-            login.setVisibility(View.INVISIBLE);
-            signOut.setVisibility(View.VISIBLE);
+        return v;
+    }
 
-            signedInContent.setVisibility(View.VISIBLE);
-            userNameTxt.setText(user.getUserName());
-        }
+    public void callAllListeners() {
+        loginListener();
+        registerClickListener();
+        signOutClickListener();
+        setProfileVisibility();
+    }
 
-
-        listHotel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getActivity(), HotelCreatorActivity.class));
-            }
-        });
-
+    public void loginListener () {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getActivity(), LoginActivity.class));
             }
         });
+    }
 
+    public void registerClickListener() {
         registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getActivity(), RegisterActivity.class));
             }
         });
+    }
 
+    public void signOutClickListener() {
         signOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 um.signOut();
-                login.setVisibility(View.VISIBLE);
-                signOut.setVisibility(View.INVISIBLE);
-                signedInContent.setVisibility(View.GONE);
+                setProfileVisibility();
             }
         });
+    }
 
+    public void setProfileVisibility() {
+        User user = um.getUser();
 
-        return v;
+        // If a user is signed in ...
+        if (user != null) {
+            login.setVisibility(View.INVISIBLE);
+            signOut.setVisibility(View.VISIBLE);
+            signedInContent.setVisibility(View.VISIBLE);
+            userNameTxt.setText(user.getUserName());
+        } else {
+            login.setVisibility(View.VISIBLE);
+            signOut.setVisibility(View.INVISIBLE);
+            signedInContent.setVisibility(View.GONE);
+        }
     }
 }

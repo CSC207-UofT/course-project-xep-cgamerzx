@@ -17,6 +17,7 @@ import com.xepicgamerzx.hotelier.home_page_activities.MainActivity;
 import com.xepicgamerzx.hotelier.objects.UnixEpochDateConverter;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Objects;
 
 public class SearchActivity extends AppCompatActivity implements OnSearchClick {
@@ -28,6 +29,7 @@ public class SearchActivity extends AppCompatActivity implements OnSearchClick {
     Button dateSelection, searchBtn;
     AutoCompleteTextView editText;
     AutoDestinationAdapter adapter;
+    private java.util.Locale Locale;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +81,7 @@ public class SearchActivity extends AppCompatActivity implements OnSearchClick {
 
         if (destinationItem != null) {
             coords = placesAPI.getLocation(destinationItem.getPlaceId());
-            lat = coords.get("latitude");
+            lat = coords.get("latitude"); // I try doing containsKey, and the nullpointerexception still occurs.
             lng = coords.get("longitude");
             destination = destinationItem.getCityStateCountry();
         }
@@ -116,12 +118,12 @@ public class SearchActivity extends AppCompatActivity implements OnSearchClick {
     public void editGuestsListeners() {
         addGuestBtn.setOnClickListener(v -> {
             addGuests();
-            numGuests.setText(Integer.toString(numberOfGuests));
+            numGuests.setText(String.format(Locale, "%d", numberOfGuests));
         });
 
         minusGuestBtn.setOnClickListener(v -> {
             minusGuests();
-            numGuests.setText(Integer.toString(numberOfGuests));
+            numGuests.setText(String.format(Locale, "%d", numberOfGuests));
         });
     }
 

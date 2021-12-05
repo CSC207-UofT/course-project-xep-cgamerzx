@@ -1,5 +1,6 @@
 package com.xepicgamerzx.hotelier.home_page_activities;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -18,6 +19,7 @@ import com.xepicgamerzx.hotelier.customer_activities.customer_search_activity.Se
 import com.xepicgamerzx.hotelier.objects.hotel_objects.Hotel;
 import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
 import com.xepicgamerzx.hotelier.storage.Manage;
+import com.xepicgamerzx.hotelier.storage.hotel_managers.HotelManager;
 import com.xepicgamerzx.hotelier.storage.user.model.User;
 import com.xepicgamerzx.hotelier.user_activities.UserManager;
 
@@ -28,44 +30,14 @@ import java.util.Objects;
 
 public class DashboardFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-    TextView nameField;
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    HotelierDatabase hotelierDatabase;
+    TextView nameField, recentSearches;
+    TextInputEditText search;
+    Manage manage;
+    RecyclerView hotelsRecyclerView;
 
     public DashboardFragment() {
         // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment DashboardFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static DashboardFragment newInstance(String param1, String param2) {
-        DashboardFragment fragment = new DashboardFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -73,35 +45,42 @@ public class DashboardFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_dashboard, container, false);
-
-        TextInputEditText search = v.findViewById(R.id.searchToFragment);
+        hotelierDatabase = HotelierDatabase.getDatabase(requireActivity().getApplication());
+        recentSearches = v.findViewById(R.id.recentSearches);
+        search = v.findViewById(R.id.searchToFragment);
         nameField = v.findViewById(R.id.welcomeField);
+        hotelsRecyclerView = v.findViewById(R.id.newListingsView);
+        search.setOnClickListener(v1 -> startActivity(new Intent(getActivity(), SearchActivity.class)));
 
-        Manage manage = Manage.getManager(requireActivity().getApplication());
-        HotelierDatabase hotelierDatabase = HotelierDatabase.getDatabase(requireActivity().getApplication());
+        checkForUser();
+        setHomePageHotels();
 
-        RecyclerView hotelsRecyclerView = v.findViewById(R.id.newListingsView);
+        return v;
+    }
 
-        List<Hotel> hotels = hotelierDatabase.hotelDao().getAll();
-        List<HotelViewModel> hotelsView = manage.hotelManager.generateHotelModel(hotels);
-        Collections.reverse(hotelsView); // Reversing for "Newest listings"
 
-        final HotelViewAdapter hotelsAdapter = new HotelViewAdapter(hotelsView);
-        hotelsRecyclerView.setAdapter(hotelsAdapter);
-
-        // UserManager um = UserManager.getManager(requireActivity().getApplication());
-        HotelierDatabase hotelierDb = HotelierDatabase.getDatabase(getContext());
-        UserManager userManager = UserManager.getManager(hotelierDb);
-        User user = userManager.user;
+    @SuppressLint("SetTextI18n")
+    public void checkForUser() {
+        UserManager userManager = UserManager.getManager(hotelierDatabase);
+        User user = userManager.getUser();
 
         // Add if empty, no user, go sign in.
         if (user != null) {
             nameField.setText("Welcome back " + user.getUserName());
+            recentSearches.setVisibility(View.VISIBLE);
+        } else {
+            recentSearches.setVisibility(View.GONE);
+            nameField.setText("Register today.");
         }
+    }
 
-
-        search.setOnClickListener(v1 -> startActivity(new Intent(getActivity(), SearchActivity.class)));
-        return v;
+    public void setHomePageHotels() {
+        manage = Manage.getManager(requireActivity().getApplication());
+        List<Hotel> hotels = manage.hotelManager.getAllHotels();
+        List<HotelViewModel> hotelsView = manage.hotelManager.generateHotelModel(hotels);
+        Collections.reverse(hotelsView); // Reversing for "Newest listings"
+        final HotelViewAdapter hotelsAdapter = new HotelViewAdapter(hotelsView);
+        hotelsRecyclerView.setAdapter(hotelsAdapter);
     }
 
     public TextView getNameField() {

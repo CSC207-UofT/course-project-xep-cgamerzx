@@ -55,6 +55,10 @@ public class HotelManager implements Manager<Hotel, Long[]> {
         return INSTANCE;
     }
 
+    public List<Hotel> getAllHotels () {
+        return hotelDao.getAll();
+    }
+
     @Deprecated // This really shouldn't be in hotel manager or should be private
     public static float getDistanceMetres(double lat1, double lng1, double lat2, double lng2) {
         Location location1 = new Location("location1");

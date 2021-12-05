@@ -1,5 +1,6 @@
 package com.xepicgamerzx.hotelier.customer_activities.customer_rooms_activity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
@@ -22,49 +23,62 @@ import java.util.Objects;
 public class CustomerHotelRoomsActivity extends AppCompatActivity {
 
     HashMap<String, Object> hotelData = new HashMap<>();
+    TextView descNameText, hotelAddress, hotelRating;
+    RoomManager roomManager;
 
+    @SuppressWarnings("unchecked")
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer_rooms);
         Objects.requireNonNull(getSupportActionBar()).hide();
 
-        RoomManager roomManager = RoomManager.getManager(getApplication());
-        TextView descNameText = findViewById(R.id.hotelNameDesc);
-        TextView hotelAddress = findViewById(R.id.addressTxt);
-        TextView hotelRating = findViewById(R.id.ratingTxt);
+        roomManager = RoomManager.getManager(getApplication());
+        descNameText = findViewById(R.id.hotelNameDesc);
+        hotelAddress = findViewById(R.id.addressTxt);
+        hotelRating = findViewById(R.id.ratingTxt);
 
         // Intent coming from hotelViewAdapter
         Intent intent = getIntent();
+
         if (intent.getExtras() != null) {
             hotelData = (HashMap<String, Object>) intent.getSerializableExtra("HotelData"); // Gives the hotel object
             HotelViewModel hotelModel = (HotelViewModel) hotelData.get("Hotel");
             Hotel hotel = Objects.requireNonNull(hotelModel).getHotel();
-            List<CustomerHotelRoomsModel> roomViewModel;
             RecyclerView roomsRecyclerView = findViewById(R.id.roomsRecyclerView);
-
-            descNameText.setText(hotel.getName());
-            hotelAddress.setText("Address: " + hotel.getAddress().getFullStreet());
-            hotelRating.setText("Rating: " + hotel.getStarClass() + " Stars");
+            setRoomViewText(hotel);
 
             if (hotelData.containsKey("userStartDate") && hotelData.containsKey("userEndDate")) {
                 long userStartDate = (long) hotelData.get("userStartDate");
                 long userEndDate = (long) hotelData.get("userEndDate");
-                List<HotelRoom> hotelRooms = roomManager.getRoomsInHotelByDate(hotel, userStartDate, userEndDate); // Filtered
-                roomViewModel = HotelRoomModelManager.getHotelViewModelList(hotelRooms, getApplication());
-                final CustomerHotelRoomsAdapter hotelRoomsAdapter = new CustomerHotelRoomsAdapter(roomViewModel);
-                roomsRecyclerView.setAdapter(hotelRoomsAdapter);
-
+                roomsRecyclerView.setAdapter(getAdapterRoomsBySchedule(hotel, userStartDate, userEndDate));
             } else {
-                List<HotelRoom> hotelRooms = roomManager.getHotelRoomsInHotel(hotel.hotelId); // Not filtered
-                roomViewModel = HotelRoomModelManager.getHotelViewModelList(hotelRooms, getApplication());
-                final CustomerHotelRoomsAdapter hotelRoomsAdapter = new CustomerHotelRoomsAdapter(roomViewModel);
-                roomsRecyclerView.setAdapter(hotelRoomsAdapter);
+                roomsRecyclerView.setAdapter(getAdapterAllRooms(hotel));
             }
-
             sendCoordToMapFragment(hotel.getAddress().getLatitude(), hotel.getAddress().getLongitude());
         }
+    }
+
+    public CustomerHotelRoomsAdapter getAdapterRoomsBySchedule(Hotel hotel, long userStartDate, long userEndDate) {
+        List<HotelRoom> hotelRooms = roomManager.getRoomsInHotelByDate(hotel, userStartDate, userEndDate); // Filtered
+        List<CustomerHotelRoomsModel> roomViewModel = HotelRoomModelManager.getHotelViewModelList(hotelRooms, getApplication());
+
+        return new CustomerHotelRoomsAdapter(roomViewModel);
+    }
+
+    public CustomerHotelRoomsAdapter getAdapterAllRooms(Hotel hotel) {
+        List<HotelRoom> hotelRooms = roomManager.getHotelRoomsInHotel(hotel.hotelId); // Not filtered
+        List<CustomerHotelRoomsModel> roomViewModel = HotelRoomModelManager.getHotelViewModelList(hotelRooms, getApplication());
+
+        return new CustomerHotelRoomsAdapter(roomViewModel);
+    }
+
+    @SuppressLint("SetTextI18n")
+    public void setRoomViewText(Hotel hotel) {
+        descNameText.setText(hotel.getName());
+        hotelAddress.setText("Address: " + hotel.getAddress().getFullStreet());
+        hotelRating.setText("Rating: " + hotel.getStarClass() + " Stars");
     }
 
     public void sendCoordToMapFragment(double latitude, double longitude) {

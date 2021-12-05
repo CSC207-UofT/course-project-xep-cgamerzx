@@ -15,9 +15,8 @@ public class UserManager implements com.xepicgamerzx.hotelier.storage.hotel_mana
     private static volatile UserManager INSTANCE;
     private final HotelierDatabase db;
     private final UserDao userDao;
-    public static User user;
+    public User user;
 
-    @Deprecated
     FileReadWrite<User> fw = new FileReadWrite<>();
 
     private UserManager(Application application) {
@@ -46,6 +45,10 @@ public class UserManager implements com.xepicgamerzx.hotelier.storage.hotel_mana
         return INSTANCE;
     }
 
+    public User getUser() {
+        return user;
+    }
+
     public void registerUser(User user) {
         userDao.insert(user);
     }
@@ -67,7 +70,9 @@ public class UserManager implements com.xepicgamerzx.hotelier.storage.hotel_mana
 
     public void setLastLoggedInUser() {
         List<User> users = userDao.getAll();
-        user = users.get(users.size() - 1);
+        if (users.size() != 0) {
+            user = users.get(users.size() - 1);
+        }
     }
 
     public void signOut() {
@@ -110,7 +115,7 @@ public class UserManager implements com.xepicgamerzx.hotelier.storage.hotel_mana
     }
 
     @Deprecated
-    public void signOut(Context context) {
+    public void signOutLocally(Context context) {
         fw.writeData(null, "file.dat", context);
     }
 

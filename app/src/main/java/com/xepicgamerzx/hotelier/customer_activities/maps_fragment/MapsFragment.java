@@ -25,20 +25,21 @@ public class MapsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_maps, container, false);
-
         Bundle bundle = getArguments();
-
         if (bundle != null) {
             longitude = bundle.getDouble("longitude");
             latitude = bundle.getDouble("latitude");
-            System.out.println(longitude);
-            System.out.println(latitude);
         }
-
         // Initialize map fragment
         SupportMapFragment supportMapFragment = (SupportMapFragment)
                 getChildFragmentManager().findFragmentById(R.id.googleMaps);
 
+        setMap(supportMapFragment, latitude, longitude);
+
+        return v;
+    }
+
+    public void setMap(SupportMapFragment supportMapFragment, double latitude, double longitude) {
         // Async map
         Objects.requireNonNull(supportMapFragment).getMapAsync(googleMap -> {
             if (latitude != 0 && longitude != 0) {
@@ -67,7 +68,5 @@ public class MapsFragment extends Fragment {
                 googleMap.addMarker(markerOptions);
             });
         });
-
-        return v;
     }
 }

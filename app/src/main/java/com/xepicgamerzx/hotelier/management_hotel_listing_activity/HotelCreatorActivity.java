@@ -23,12 +23,9 @@ import java.util.Objects;
 
 public class HotelCreatorActivity extends AppCompatActivity {
     Manage manage;
-
-
     Address address;
     List<HotelRoom> hotelRooms = new ArrayList<>();
     List<HotelAmenity> hotelAmenities = new ArrayList<>();
-
     TextInputEditText hotelName;
     MaterialButton addAddressBtn;
     MaterialButton addRoomsBtn;
