@@ -70,13 +70,18 @@ public class User implements Serializable {
         this.favHotelIds = favHotelIds;
     }
 
-    public void addHotel(Long hotelId){
+    public void addFavHotel(Long hotelId){
         favHotelIds.add(hotelId);
     }
 
-    public void addHotel(Hotel hotel){
-        addHotel(hotel.hotelId);
+    public void addFavHotel(Hotel hotel){
+        addFavHotel(hotel.hotelId);
     }
+
+    public void removeFavHotel(Long hotelId) {favHotelIds.remove(hotelId);}
+
+    public void removeFavHotel(Hotel hotel) {removeFavHotel(hotel.hotelId);}
+
 
     @Override
     public boolean equals(Object o) {
