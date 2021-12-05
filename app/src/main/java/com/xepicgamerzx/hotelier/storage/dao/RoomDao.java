@@ -69,4 +69,10 @@ public abstract class RoomDao implements BaseDao<List<Long>, HotelRoom> {
      */
     @Query("SELECT * FROM HOTELROOM WHERE startAvailability <= :startTime AND endAvailability >= :endTime AND hotelId = :hotelID")
     public abstract List<HotelRoom> getAvailableRooms(long startTime, long endTime, long hotelID);
+
+    /**
+     * Delete all HotelRooms in HotelRoom table
+     */
+    @Query("DELETE FROM HotelRoom")
+    public abstract void deleteAll();
 }

@@ -39,4 +39,10 @@ public abstract class BedDao implements BaseDao<Void, Bed> {
     @Transaction
     @Query("SELECT * FROM Bed")
     public abstract List<BedWithRooms> getBedsWithRoom();
+
+    /**
+     * Delete all Beds in Bed table.
+     */
+    @Query("DELETE FROM Bed")
+    public abstract void deleteAll();
 }
