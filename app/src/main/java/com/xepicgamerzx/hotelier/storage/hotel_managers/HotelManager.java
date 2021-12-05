@@ -1,7 +1,6 @@
 package com.xepicgamerzx.hotelier.storage.hotel_managers;
 
 import android.app.Application;
-import android.location.Location;
 
 import androidx.annotation.NonNull;
 
@@ -53,19 +52,6 @@ public class HotelManager implements Manager<Hotel, Long[]> {
         }
 
         return INSTANCE;
-    }
-
-    @Deprecated // This really shouldn't be in hotel manager or should be private
-    public static float getDistanceMetres(double lat1, double lng1, double lat2, double lng2) {
-        Location location1 = new Location("location1");
-        location1.setLongitude(lng1);
-        location1.setLatitude(lat1);
-
-        Location location2 = new Location("location1");
-        location2.setLongitude(lng2);
-        location2.setLatitude(lat2);
-
-        return location1.distanceTo(location2);
     }
 
     /**
@@ -131,26 +117,6 @@ public class HotelManager implements Manager<Hotel, Long[]> {
     }
 
 
-    @Deprecated // Use getHotelsInArea
-    public List<Hotel> getHotelsByLatLong(double destinationLat, double destinationLong) {
-        List<Hotel> hotels = hotelDao.getAll();
-        List<Hotel> filteredHotels = new ArrayList<>();
-
-        for (Hotel hotel : hotels) {
-            double hotelLat = hotel.getAddress().getLatitude();
-            double hotelLong = hotel.getAddress().getLongitude();
-            System.out.println(hotelLat + " " + hotelLong + " " + destinationLat + " " + destinationLong);
-            float distanceToHotel = getDistanceMetres(hotelLat, hotelLong, destinationLat, destinationLong);
-            System.out.println("Distance to hotel" + distanceToHotel);
-
-            // DEFAULT THRESHOLD, 50km?
-            if (distanceToHotel <= 50000) {
-                filteredHotels.add(hotel);
-            }
-        }
-        return filteredHotels;
-    }
-
     /**
      * Get all hotels approximately within 50KM of a given location.
      *
@@ -178,6 +144,35 @@ public class HotelManager implements Manager<Hotel, Long[]> {
         double cosDistance = Math.cos(distanceKM / 6371);
 
         return hotelDao.getHotelsInArea(centerLonCos, centerLonSin, centerLatCos, centerLatSin, cosDistance);
+    }
+
+    /**
+     * Get all hotels approximately within 50KM of a given location.
+     *
+     * @param centerLat double latitude of center of query
+     * @param centerLon double longitude of center of query
+     * @return List<Long> all hotels in the approximately in the search area.
+     */
+    public List<Long> getHotelIdsInArea(double centerLat, double centerLon) {
+        return getHotelIdsInArea(centerLat, centerLon, 50.0);
+    }
+
+    /**
+     * Get all hotels approximately in the radius around a given location.
+     *
+     * @param centerLat  double latitude of center of query
+     * @param centerLon  double longitude of center of query
+     * @param distanceKM double radius of search area in kilometers
+     * @return List<Long> all hotels in the approximately in the search area.
+     */
+    public List<Long> getHotelIdsInArea(double centerLat, double centerLon, double distanceKM) {
+        double centerLonCos = Math.cos(centerLon * Math.PI / 180);
+        double centerLonSin = Math.sin(centerLon * Math.PI / 180);
+        double centerLatCos = Math.cos(centerLat * Math.PI / 180);
+        double centerLatSin = Math.sin(centerLat * Math.PI / 180);
+        double cosDistance = Math.cos(distanceKM / 6371);
+
+        return hotelDao.getHotelIdsInArea(centerLonCos, centerLonSin, centerLatCos, centerLatSin, cosDistance);
     }
 
     /**
