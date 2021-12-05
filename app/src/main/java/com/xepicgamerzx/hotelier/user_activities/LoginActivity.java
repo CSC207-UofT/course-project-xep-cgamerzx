@@ -40,13 +40,13 @@ public class LoginActivity extends AppCompatActivity {
                 } else {
                     // Perform query
                     HotelierDatabase hotelierDatabase = HotelierDatabase.getDatabase(getApplicationContext());
-                    UserDao userDao = hotelierDatabase.userDao();
+                    UserManager userManager = UserManager.getManager(hotelierDatabase);
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
-                            User user = userDao.login(userIdText, passwordText);
+                            userManager.login(userIdText, passwordText);
 
-                            if (user == null) {
+                            if (userManager.user == null) {
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
@@ -54,7 +54,7 @@ public class LoginActivity extends AppCompatActivity {
                                     }
                                 });
                             } else {
-                                userManager.saveUser(user, getApplicationContext());
+                                userManager.saveUser(userManager.user, getApplicationContext());
                                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
                             }
                         }

@@ -45,14 +45,17 @@ public class HotelViewActivity extends AppCompatActivity {
 
         // BELOW IS SOME MESSY CODE, WILL CLEAN LATER BUT WHATS IMPORTANT IS THAT IT WORKS FOR NOW.
         if (intent.getExtras() != null) {
+
             HashMap<String, Object> map = (HashMap<String, Object>) intent.getSerializableExtra("SearchData");
             String guests = (String) map.get("guests");
             long userStartDate = 0;
             long userEndDate = 0;
             List<Hotel> hotels = hotelierDatabase.hotelDao().getAll();
             List<HotelViewModel> hotelsView = manage.hotelManager.generateHotelModel(hotels);
+
             userGuests.setText(guests + " Guests");
 
+            System.out.println(map);
             if (map.size() == 1) {
                 final HotelViewAdapter hotelsAdapter = new HotelViewAdapter(hotelsView);
                 hotelsRecyclerView.setAdapter(hotelsAdapter);
