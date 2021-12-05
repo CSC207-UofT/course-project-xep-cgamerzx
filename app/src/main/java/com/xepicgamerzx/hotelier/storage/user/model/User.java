@@ -70,17 +70,21 @@ public class User implements Serializable {
         this.favHotelIds = favHotelIds;
     }
 
-    public void addFavHotel(Long hotelId){
+    public void addFavHotel(Long hotelId) {
         favHotelIds.add(hotelId);
     }
 
-    public void addFavHotel(Hotel hotel){
+    public void addFavHotel(Hotel hotel) {
         addFavHotel(hotel.hotelId);
     }
 
-    public void removeFavHotel(Long hotelId) {favHotelIds.remove(hotelId);}
+    public void removeFavHotel(Long hotelId) {
+        favHotelIds.remove(hotelId);
+    }
 
-    public void removeFavHotel(Hotel hotel) {removeFavHotel(hotel.hotelId);}
+    public void removeFavHotel(Hotel hotel) {
+        removeFavHotel(hotel.hotelId);
+    }
 
 
     @Override

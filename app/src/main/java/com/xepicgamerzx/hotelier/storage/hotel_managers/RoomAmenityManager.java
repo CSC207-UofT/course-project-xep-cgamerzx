@@ -48,7 +48,6 @@ public class RoomAmenityManager implements UniqueManager<RoomAmenity, RoomAmenit
     }
 
 
-
     /**
      * Closes the manager instance if it is open.
      */

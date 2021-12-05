@@ -23,6 +23,7 @@ import com.xepicgamerzx.hotelier.user_activities.UserManager;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 
 public class DashboardFragment extends Fragment {
@@ -107,7 +108,6 @@ public class DashboardFragment extends Fragment {
 
     public TextView getNameField() {
         View v = getView();
-        TextView nameField = v.findViewById(R.id.welcomeField);
-        return nameField;
+        return Objects.requireNonNull(v).findViewById(R.id.welcomeField);
     }
 }

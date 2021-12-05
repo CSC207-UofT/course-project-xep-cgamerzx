@@ -35,6 +35,19 @@ public class Converters {
     }
 
     @TypeConverter
+    public static ArrayList<Long> fromStringToArrayList(String value) {
+        Type listType = new TypeToken<ArrayList<String>>() {
+        }.getType();
+        return new Gson().fromJson(String.valueOf(value), listType);
+    }
+
+    @TypeConverter
+    public static String fromArrayListToString(ArrayList<Long> list) {
+        Gson gson = new Gson();
+        return gson.toJson(list);
+    }
+
+    @TypeConverter
     public BigDecimal fromLongToBig(Long value) {
         return value == null ? null : new BigDecimal(value)
                 .divide(new BigDecimal(100), 2, RoundingMode.UNNECESSARY);
@@ -47,17 +60,5 @@ public class Converters {
         } else {
             return bigDecimal.multiply(new BigDecimal(100)).longValue();
         }
-    }
-
-    @TypeConverter
-    public static ArrayList<Long> fromStringToArrayList(String value) {
-        Type listType = new TypeToken<ArrayList<String>>() {}.getType();
-        return new Gson().fromJson(String.valueOf(value), listType);
-    }
-
-    @TypeConverter
-    public static String fromArrayListToString(ArrayList<Long> list) {
-        Gson gson = new Gson();
-        return gson.toJson(list);
     }
 }

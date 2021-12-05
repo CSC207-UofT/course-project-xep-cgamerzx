@@ -10,19 +10,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.xepicgamerzx.hotelier.R;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.ArrayList;
 
 public class HotelCreateAmenitiesFragment extends Fragment {
 
     List<String> amenitiesList = Arrays.asList("Indoor Pool", "Outdoor Pool", "Gym", "Laundry",
-            "Business Services", "Wedding Services", "Coneference Space", "Smoke Free Property",
+            "Business Services", "Wedding Services", "Conference Space", "Smoke Free Property",
             "Bar", "Complementary Breakfast", "24/7 Front Desk", "Parking Included", "Restaurant",
             "Spa", "Elevator", "ATM/Banking Services", "Front Desk Safe");
 
 
-    public HotelCreateAmenitiesFragment(){
+    public HotelCreateAmenitiesFragment() {
         // Required empty public constructor
     }
 

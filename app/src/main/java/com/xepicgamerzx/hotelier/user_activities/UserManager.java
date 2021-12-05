@@ -13,6 +13,10 @@ public class UserManager implements com.xepicgamerzx.hotelier.storage.hotel_mana
 
     private final HotelierDatabase db;
     private final UserDao userDao;
+    public
+
+    @Deprecated
+    FileReadWrite<User> fw = new FileReadWrite<>();
 
     private UserManager(Application application) {
         db = HotelierDatabase.getDatabase(application);
@@ -40,26 +44,24 @@ public class UserManager implements com.xepicgamerzx.hotelier.storage.hotel_mana
         return INSTANCE;
     }
 
-    public
-
-    @Deprecated
-    FileReadWrite<User> fw = new FileReadWrite<>();
     @Deprecated
     public void saveUser(User user, Context context) {
         fw.writeData(user, "file.dat", context);
     }
+
     @Deprecated
     public User getUser(Context context) {
         // error when no file.dat, how to fix?
-        try{
-        if (fw.readData("file.dat", context) != null) {
-            return fw.readData("file.dat", context);
-        }}
-        catch (java.lang.ClassCastException e){
+        try {
+            if (fw.readData("file.dat", context) != null) {
+                return fw.readData("file.dat", context);
+            }
+        } catch (java.lang.ClassCastException e) {
             return null;
         }
         return null;
     }
+
     @Deprecated
     public void signOut(Context context) {
         fw.writeData(null, "file.dat", context);

@@ -18,10 +18,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AutoDestinationAdapter extends ArrayAdapter<DestinationItem> implements Filterable {
+    private final OnSearchClick searchCallback;
     PlacesAPI placeApi = new PlacesAPI();
     Context context;
     private List<DestinationItem> destinationsListFull;
-    private final OnSearchClick searchCallback;
     // Search filter logic
     private final Filter destinationFilter = new Filter() {
         /**

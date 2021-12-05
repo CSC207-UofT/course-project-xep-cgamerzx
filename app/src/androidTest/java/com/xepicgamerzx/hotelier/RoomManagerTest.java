@@ -12,9 +12,9 @@ import com.xepicgamerzx.hotelier.objects.hotel_objects.Address;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.AddressBuilder;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.Hotel;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelRoom;
+import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
 import com.xepicgamerzx.hotelier.storage.hotel_managers.BedManager;
 import com.xepicgamerzx.hotelier.storage.hotel_managers.HotelManager;
-import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
 import com.xepicgamerzx.hotelier.storage.hotel_managers.RoomManager;
 
 import org.junit.After;
@@ -108,29 +108,29 @@ public class RoomManagerTest {
     }
 
     @Test
-    public void testGetAvailableRooms(){
+    public void testGetAvailableRooms() {
         roomManager.createRoom(zoneId, 0, 5, capacity, price.multiply(BigDecimal.valueOf(100000)));
         roomManager.createRoom(zoneId, 0, 4, capacity, price.multiply(BigDecimal.valueOf(100000)));
         roomManager.createRoom(zoneId, 2, 3, capacity, price.multiply(BigDecimal.valueOf(100000)));
 
-        assert(roomManager.getAvailableRooms(2, 3).size() == 3);
-        assert(roomManager.getAvailableRooms(2, 5).size() == 1);
+        assert (roomManager.getAvailableRooms(2, 3).size() == 3);
+        assert (roomManager.getAvailableRooms(2, 5).size() == 1);
     }
 
     @Test
-    public void testGetAvailableRoomsWithHotel(){
+    public void testGetAvailableRoomsWithHotel() {
         HotelRoom room1 = roomManager.createRoom(zoneId, 0, 5, capacity, price.multiply(BigDecimal.valueOf(100000)));
-        HotelRoom room2 =roomManager.createRoom(zoneId, 0, 4, capacity, price.multiply(BigDecimal.valueOf(100000)));
-        HotelRoom room3 =roomManager.createRoom(zoneId, 2, 3, capacity, price.multiply(BigDecimal.valueOf(100000)));
+        HotelRoom room2 = roomManager.createRoom(zoneId, 0, 4, capacity, price.multiply(BigDecimal.valueOf(100000)));
+        HotelRoom room3 = roomManager.createRoom(zoneId, 2, 3, capacity, price.multiply(BigDecimal.valueOf(100000)));
 
         roomManager.setHotelID(testHotel1, room1);
         roomManager.setHotelID(testHotel2, room2);
         roomManager.setHotelID(testHotel1, room3);
 
-        assert(roomManager.getAvailableRooms(2, 3, testHotel1).size() == 2);
-        assert(roomManager.getAvailableRooms(2, 3, testHotel2).size() == 1);
-        assert(roomManager.getAvailableRooms(2, 5, testHotel2).size() == 0);
-        assert(roomManager.getAvailableRooms(2, 5, testHotel1).size() == 1);
+        assert (roomManager.getAvailableRooms(2, 3, testHotel1).size() == 2);
+        assert (roomManager.getAvailableRooms(2, 3, testHotel2).size() == 1);
+        assert (roomManager.getAvailableRooms(2, 5, testHotel2).size() == 0);
+        assert (roomManager.getAvailableRooms(2, 5, testHotel1).size() == 1);
     }
 
     @After

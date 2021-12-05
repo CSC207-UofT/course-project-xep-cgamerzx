@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item android:id="@+id/dashboardFragment"
-        android:title="Home"
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/dashboardFragment"
         android:icon="@drawable/ic_home"
-        />
+        android:title="Home" />
 
-    <item android:id="@+id/favouritesFragment"
-        android:title="Favourites"
+    <item
+        android:id="@+id/favouritesFragment"
         android:icon="@drawable/ic_favorite_border"
-        />
+        android:title="Favourites" />
 
-    <item android:id="@+id/profileFragment"
-        android:title="User"
+    <item
+        android:id="@+id/profileFragment"
         android:icon="@drawable/ic_user"
-        />
+        android:title="User" />
 
 </menu>

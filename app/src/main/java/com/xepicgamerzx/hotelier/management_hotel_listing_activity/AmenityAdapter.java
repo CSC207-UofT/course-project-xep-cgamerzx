@@ -1,29 +1,22 @@
 package com.xepicgamerzx.hotelier.management_hotel_listing_activity;
 
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.xepicgamerzx.hotelier.R;
-import com.xepicgamerzx.hotelier.customer_activities.customer_rooms_activity.CustomerHotelRoomsActivity;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 public class AmenityAdapter extends RecyclerView.Adapter<AmenityAdapter.AmenityViewHolder> {
 
     ArrayList<String> arrayList;
 
-    public AmenityAdapter(ArrayList<String> arrayList){
+    public AmenityAdapter(ArrayList<String> arrayList) {
         this.arrayList = arrayList;
     }
 
@@ -45,7 +38,7 @@ public class AmenityAdapter extends RecyclerView.Adapter<AmenityAdapter.AmenityV
         return arrayList.size();
     }
 
-    public class AmenityViewHolder extends RecyclerView.ViewHolder {
+    public static class AmenityViewHolder extends RecyclerView.ViewHolder {
         public CheckBox tagText;
 
         public AmenityViewHolder(View view) {

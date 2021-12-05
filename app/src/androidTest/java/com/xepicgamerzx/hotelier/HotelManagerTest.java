@@ -12,8 +12,8 @@ import com.xepicgamerzx.hotelier.objects.hotel_objects.Address;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.AddressBuilder;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.Hotel;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelRoom;
-import com.xepicgamerzx.hotelier.storage.hotel_managers.HotelManager;
 import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
+import com.xepicgamerzx.hotelier.storage.hotel_managers.HotelManager;
 import com.xepicgamerzx.hotelier.storage.hotel_managers.RoomManager;
 
 import org.junit.After;
@@ -36,6 +36,15 @@ public class HotelManagerTest {
     private HotelManager hotelManager;
     private RoomManager roomManager;
 
+    @BeforeClass
+    public static void createBoilerInfo() {
+        addresses = new ArrayList<>();
+
+        Address address_1 = new AddressBuilder().setStreetName("Testing Lane").setPostalCode("M5T2Y7").setStreetNumber("123").setCity("Toronto").setProvince("ON").setLatitude(43.6532).setLongitude(-79.3832).build();
+
+        addresses.add(address_1);
+    }
+
     @Before
     public void createDb() {
         Context context = ApplicationProvider.getApplicationContext();
@@ -44,16 +53,6 @@ public class HotelManagerTest {
         hotelManager = HotelManager.getManager(db);
         roomManager = RoomManager.getManager(db);
     }
-
-    @BeforeClass
-    public static void createBoilerInfo(){
-        addresses = new ArrayList<>();
-
-        Address address_1 = new AddressBuilder().setStreetName("Testing Lane").setPostalCode("M5T2Y7").setStreetNumber("123").setCity("Toronto").setProvince("ON").setLatitude(43.6532).setLongitude(-79.3832).build();
-
-        addresses.add(address_1);
-    }
-
 
     @Test
     public void testNewStandaloneHotel() {
@@ -90,10 +89,10 @@ public class HotelManagerTest {
     }
 
     @Test
-    public void testGetHotelsInArea(){
+    public void testGetHotelsInArea() {
         double montrealLat = 45.5017;
         double montrealLon = -73.561668;
-        double approxDistanceBetweenMT =  550;
+        double approxDistanceBetweenMT = 550;
 
         String name = "Hilton";
         int starClass = 5;

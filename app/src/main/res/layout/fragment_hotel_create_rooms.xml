@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:elevation="999dp"
     android:background="@color/white"
     android:clickable="true"
+    android:elevation="999dp"
     tools:context=".management_hotel_listing_activity.HotelCreateRoomsFragment">
 
     <ImageButton
@@ -74,19 +74,19 @@
         app:startIconTint="@color/white">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/roomCapacity"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/roomCapacity"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:fontFamily="@font/inter_regular"
             android:hint="Capacity"
+            android:inputType="text"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
-            android:textSize="18sp"
-            android:inputType="text"/>
+            android:textSize="18sp" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -104,36 +104,37 @@
         app:boxCornerRadiusBottomStart="8dp"
         app:boxCornerRadiusTopEnd="8dp"
         app:boxCornerRadiusTopStart="8dp"
-        app:startIconDrawable="@drawable/ic_baseline_attach_money_24"
         app:hintEnabled="false"
+        app:startIconDrawable="@drawable/ic_baseline_attach_money_24"
         app:startIconTint="@color/white">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/pricePerNight"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/pricePerNight"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:fontFamily="@font/inter_regular"
             android:hint="Price per night"
+            android:inputType="text"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
-            android:textSize="18sp"
-            android:inputType="text"/>
+            android:textSize="18sp" />
 
     </com.google.android.material.textfield.TextInputLayout>
+
     <TextView
+        android:id="@+id/bedsLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Select a bed type and enter the total"
         android:layout_below="@id/priceLayout"
-        android:fontFamily="@font/inter_bold"
-        android:textColor="@color/black"
         android:layout_marginLeft="46dp"
         android:layout_marginTop="20dp"
-        android:id="@+id/bedsLabel"
+        android:fontFamily="@font/inter_bold"
+        android:text="Select a bed type and enter the total"
+        android:textColor="@color/black"
         android:textSize="16sp"
 
         />
@@ -156,6 +157,7 @@
         app:startIconTint="@color/white">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/totalBeds"
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:layout_alignParentStart="true"
@@ -163,12 +165,11 @@
             android:layout_centerHorizontal="true"
             android:fontFamily="@font/inter_regular"
             android:hint="Total beds"
-            android:id="@+id/totalBeds"
+            android:inputType="text"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
-            android:textSize="16sp"
-            android:inputType="text"/>
+            android:textSize="16sp" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -214,9 +215,9 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/saveRoomBtn"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_below="@id/chip_group_choice"
         android:layout_width="313dp"
         android:layout_height="65dp"
+        android:layout_below="@id/chip_group_choice"
         android:layout_marginStart="46dp"
         android:backgroundTint="@color/black"
         android:fontFamily="@font/inter_bold"

@@ -56,12 +56,12 @@ public class RegisterActivity extends AppCompatActivity {
 
                     startActivity(new Intent(getApplicationContext(), LoginActivity.class));
 
-                } else if(!validateInput(user)) {
+                } else if (!validateInput(user)) {
                     Toast.makeText(getApplicationContext(), "Fill all fields", Toast.LENGTH_SHORT).show();
-                } else if(!validatePassword(user)) {
+                } else if (!validatePassword(user)) {
                     Toast.makeText(getApplicationContext(), "Please make a stronger password" +
                             " (at least 6 characters long with at least 1 of each: uppercase, lowercase, number, special character (!@#$%^&*()_+.))", Toast.LENGTH_SHORT).show();
-                } else{
+                } else {
                     Toast.makeText(getApplicationContext(), "Fill all fields", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -78,6 +78,7 @@ public class RegisterActivity extends AppCompatActivity {
      * Check whether the password meets the requirement
      * (at least 6 characters in length with at least 1 lowercase letter, 1 uppercase letter,
      * 1 number, and 1 special character)
+     *
      * @param user
      * @return Whether the password matches the regex
      */

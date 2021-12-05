@@ -1,6 +1,7 @@
 package com.xepicgamerzx.hotelier.objects.OldObjects;
 
 import java.io.Serializable;
+
 @Deprecated
 public class AddressOld implements Serializable {
 

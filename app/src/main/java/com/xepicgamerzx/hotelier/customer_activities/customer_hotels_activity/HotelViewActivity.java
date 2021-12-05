@@ -87,7 +87,7 @@ public class HotelViewActivity extends AppCompatActivity {
                     userSchedule.setText(UnixEpochDateConverter.epochToReadable(userStartDate, userEndDate));
                 }
 
-                List<Hotel> filterHotels = manage.hotelManager.getHotelsByLatLong(latitude, longitude);
+                List<Hotel> filterHotels = manage.hotelManager.getHotelsInArea(latitude, longitude);
                 List<HotelViewModel> filteredHotelsByCity = manage.hotelManager.generateHotelModel(filterHotels);
 
                 // Giving recycler view only hotels in user destination, and if the user entered a schedule, sending the schedule to adapter.

@@ -8,16 +8,16 @@ import androidx.room.Room;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
+import com.xepicgamerzx.hotelier.objects.cross_reference_objects.RoomAmenitiesEnum;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.Address;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.AddressBuilder;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelRoom;
-import com.xepicgamerzx.hotelier.objects.cross_reference_objects.RoomAmenitiesEnum;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.RoomAmenity;
-import com.xepicgamerzx.hotelier.storage.hotel_managers.HotelManager;
 import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
-import com.xepicgamerzx.hotelier.storage.hotel_reference_managers.RoomAmenitiesCrossManager;
+import com.xepicgamerzx.hotelier.storage.hotel_managers.HotelManager;
 import com.xepicgamerzx.hotelier.storage.hotel_managers.RoomAmenityManager;
 import com.xepicgamerzx.hotelier.storage.hotel_managers.RoomManager;
+import com.xepicgamerzx.hotelier.storage.hotel_reference_managers.RoomAmenitiesCrossManager;
 
 import org.junit.After;
 import org.junit.Before;
@@ -35,15 +35,15 @@ import java.util.List;
 public class RoomAmenityManagerTest {
 
     private static ArrayList<Address> addresses;
+    private final ZoneId zoneId = ZoneId.systemDefault();
+    private final BigDecimal price = BigDecimal.valueOf(200.91);
+    private final long startDate = System.currentTimeMillis();
+    private final long endDate = startDate * 2;
     private HotelierDatabase db;
     private HotelManager hotelManager;
     private RoomManager roomManager;
     private RoomAmenityManager roomAmenityManager;
     private RoomAmenitiesCrossManager roomAmenitiesCrossManager;
-    private final ZoneId zoneId = ZoneId.systemDefault();
-    private final BigDecimal price = BigDecimal.valueOf(200.91);
-    private final long startDate = System.currentTimeMillis();
-    private final long endDate = startDate * 2;
 
     @BeforeClass
     public static void createBoilerInfo() {
@@ -107,8 +107,8 @@ public class RoomAmenityManagerTest {
         roomAmenitiesCrossManager.createRelationship(room, amenity1);
         roomAmenitiesCrossManager.createRelationship(room, amenity2);
 
-        List <RoomAmenity> actual = roomAmenitiesCrossManager.getRelated(room);
-        List <RoomAmenity> expected = Arrays.asList(amenity1, amenity2);
+        List<RoomAmenity> actual = roomAmenitiesCrossManager.getRelated(room);
+        List<RoomAmenity> expected = Arrays.asList(amenity1, amenity2);
 
         assertEquals(actual, expected);
     }

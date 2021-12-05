@@ -104,6 +104,7 @@ public class HotelManager implements Manager<Hotel, Long[]> {
     }
 
     // With amenities
+
     /**
      * Creates hotel object and inserts it to the database. Also associates a list of hotel rooms
      * with the hotel object and inserts these associations to the HotelRoom database.
@@ -128,7 +129,6 @@ public class HotelManager implements Manager<Hotel, Long[]> {
 
         return hotel;
     }
-
 
 
     @Deprecated // Use getHotelsInArea

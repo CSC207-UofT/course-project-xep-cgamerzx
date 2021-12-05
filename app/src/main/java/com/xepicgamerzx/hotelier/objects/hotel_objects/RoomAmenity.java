@@ -6,7 +6,7 @@ import androidx.room.Entity;
 import com.xepicgamerzx.hotelier.objects.cross_reference_objects.RoomAmenitiesEnum;
 
 @Entity
-public class RoomAmenity extends UniqueEntity implements Amenity{
+public class RoomAmenity extends UniqueEntity implements Amenity {
     public RoomAmenity(@NonNull String uniqueId) {
         super(uniqueId);
     }

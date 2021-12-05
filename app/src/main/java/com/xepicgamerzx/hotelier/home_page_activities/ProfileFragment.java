@@ -18,8 +18,6 @@ import com.xepicgamerzx.hotelier.user_activities.LoginActivity;
 import com.xepicgamerzx.hotelier.user_activities.RegisterActivity;
 import com.xepicgamerzx.hotelier.user_activities.UserManager;
 
-import java.util.Objects;
-
 public class ProfileFragment extends Fragment {
     Button registerBtn;
     Button login;

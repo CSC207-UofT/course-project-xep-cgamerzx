@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".home_page_activities.FavouritesFragment">
 
     <TextView
@@ -17,7 +16,6 @@
         android:text="Favourites"
         android:textColor="@android:color/black"
         android:textSize="54sp" />
-
 
 
 </RelativeLayout>
