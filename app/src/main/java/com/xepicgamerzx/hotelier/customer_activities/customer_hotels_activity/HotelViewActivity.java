@@ -47,39 +47,27 @@ public class HotelViewActivity extends AppCompatActivity {
 
         if (intent.getExtras() != null) {
             HashMap<String, Object> map = (HashMap<String, Object>) intent.getSerializableExtra("SearchData");
-            String guests = (String) map.get("guests");
             List<Hotel> hotels;
             List<HotelViewModel> hotelsView;
-            List<Long> hotelIds;
-            userGuests.setText(guests + " Guests");
             HotelViewAdapter hotelsAdapter;
+
+            String guests = (String) map.get("guests");
+            String str = guests + R.string._guests;
+            userGuests.setText(str);
             int minCapacity = (guests != null) ? Integer.parseInt(guests) : 1;
 
             switch (map.size()) {
                 case 1:
                     // Capacity only
-                    hotelIds = hotelierDatabase.roomDao().getAvailableHotelIds(minCapacity);
+                    List<Long> hotelIds = hotelierDatabase.roomDao().getAvailableHotelIds(minCapacity);
                     hotels = hotelIdsToHotel(hotelIds);
                     hotelsView = manage.hotelManager.generateHotelModel(hotels);
                     hotelsAdapter = new HotelViewAdapter(hotelsView);
                     break;
                 case 3:
                     // Schedule and Capacity only
-                    hotelIds = hotelierDatabase.roomDao().getAvailableHotelIds(minCapacity);
-                    hotels = hotelIdsToHotel(hotelIds);
-                    hotelsAdapter = filterBySchedule(userSchedule, map, minCapacity, hotels);
-                    break;
                 case 4:
                     // Location and Capacity only
-                    hotels = filterByLocation(userCity, map);
-                    long[] arr = new long[hotels.size()];
-                    Arrays.setAll(arr, index -> hotels.get(index).hotelId);
-
-                    hotelIds = hotelierDatabase.roomDao().getAvailableHotelIds(minCapacity, arr);
-                    List<Hotel> filteredHotels = hotelIdsToHotel(hotelIds);
-                    hotelsView = manage.hotelManager.generateHotelModel(filteredHotels);
-                    hotelsAdapter = new HotelViewAdapter(hotelsView);
-                    break;
                 case 6:
                     // Location and schedule and Capacity
                     hotels = filterByLocation(userCity, map);
@@ -105,7 +93,7 @@ public class HotelViewActivity extends AppCompatActivity {
             if (latitude != null && longitude != null)
                 return manage.hotelManager.getHotelsInArea(latitude, longitude);
         }
-        Log.e("Hotel View Activity", "Unexpected parameter types. Attempting to sort only by schedule.");
+        Log.i("Hotel View Activity", "Can't sort by location.");
         return hotelierDatabase.hotelDao().getAll();
     }
 
@@ -126,7 +114,7 @@ public class HotelViewActivity extends AppCompatActivity {
                 return new HotelViewAdapter(hotelsView, startDate, endDate);
             }
         }
-        Log.e("Hotel View Activity", "Unexpected parameter types. Can't sort by schedule.");
+        Log.i("Hotel View Activity", "Can't sort by schedule.");
         List<Long> hotelIds = hotelierDatabase.roomDao().getAvailableHotelIds(minCapacity, arr);
         List<Hotel> filteredHotels = hotelIdsToHotel(hotelIds);
         List<HotelViewModel> hotelsView = manage.hotelManager.generateHotelModel(filteredHotels);
