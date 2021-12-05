@@ -40,11 +40,11 @@ public class RegisterActivity extends AppCompatActivity {
                 if (validateInput(user) && validatePassword(user)) {
                     // Insert to db
                     HotelierDatabase hotelierDatabase = HotelierDatabase.getDatabase(getApplicationContext());
-                    UserDao userDao = hotelierDatabase.userDao();
+                    UserManager userManager = UserManager.getManager(hotelierDatabase);
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
-                            userDao.insert(user);
+                            userManager.registerUser(user);
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {

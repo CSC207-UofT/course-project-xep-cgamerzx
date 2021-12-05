@@ -3,17 +3,19 @@ package com.xepicgamerzx.hotelier.user_activities;
 import android.app.Application;
 import android.content.Context;
 
+import com.xepicgamerzx.hotelier.objects.hotel_objects.Hotel;
 import com.xepicgamerzx.hotelier.storage.FileReadWrite;
 import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
 import com.xepicgamerzx.hotelier.storage.dao.UserDao;
 import com.xepicgamerzx.hotelier.storage.user.model.User;
 
-public class UserManager implements com.xepicgamerzx.hotelier.storage.hotel_managers.Manager {
-    private static volatile UserManager INSTANCE;
+import java.util.ArrayList;
 
+public class UserManager implements com.xepicgamerzx.hotelier.storage.hotel_managers.Manager<User, Long[]> {
+    private static volatile UserManager INSTANCE;
     private final HotelierDatabase db;
     private final UserDao userDao;
-    public
+    public static User user;
 
     @Deprecated
     FileReadWrite<User> fw = new FileReadWrite<>();
@@ -42,6 +44,28 @@ public class UserManager implements com.xepicgamerzx.hotelier.storage.hotel_mana
         }
 
         return INSTANCE;
+    }
+
+    public void registerUser(User user) {
+        userDao.insert(user);
+    }
+
+    public void login(String userIdText, String passwordText) {
+        User user = userDao.login(userIdText, passwordText);
+        this.setUser(user);
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public ArrayList<Long> getUserFavourites() {
+        return this.user.getFavHotelIds();
+    }
+
+    public void updateUserFavourites(Long hotelID) {
+        user.addFavHotel(hotelID);
+        userDao.update(user);
     }
 
     @Deprecated

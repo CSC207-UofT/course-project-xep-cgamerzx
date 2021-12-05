@@ -65,7 +65,7 @@ public class AutoDestinationAdapter extends ArrayAdapter<DestinationItem> implem
         @Override
         public CharSequence convertResultToString(Object resultValue) {
             DestinationItem destinationItem = ((DestinationItem) resultValue);
-            // Sends to SearchActivity
+            // Sends the destination item to SearchActivity
             searchCallback.onSearch(destinationItem);
 
             return ((DestinationItem) resultValue).getCityStateCountry();

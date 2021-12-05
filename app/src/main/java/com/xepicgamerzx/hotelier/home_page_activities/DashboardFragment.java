@@ -85,13 +85,16 @@ public class DashboardFragment extends Fragment {
         final HotelViewAdapter hotelsAdapter = new HotelViewAdapter(hotelsView);
         hotelsRecyclerView.setAdapter(hotelsAdapter);
 
-        UserManager um = UserManager.getManager(requireActivity().getApplication());
+        // UserManager um = UserManager.getManager(requireActivity().getApplication());
+        HotelierDatabase hotelierDb = HotelierDatabase.getDatabase(getContext());
+        UserManager userManager = UserManager.getManager(hotelierDb);
+        User user = userManager.user;
 
         // Add if empty, no user, go sign in.
-        if (um.getUser(getContext()) != null) {
-            User user = um.getUser(getContext());
+        if (user != null) {
             nameField.setText("Welcome back " + user.getUserName());
         }
+
 
         search.setOnClickListener(v1 -> startActivity(new Intent(getActivity(), SearchActivity.class)));
         return v;
