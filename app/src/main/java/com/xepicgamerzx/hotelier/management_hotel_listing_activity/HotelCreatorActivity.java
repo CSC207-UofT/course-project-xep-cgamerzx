@@ -14,19 +14,13 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.xepicgamerzx.hotelier.R;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.Address;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelRoom;
-import com.xepicgamerzx.hotelier.storage.hotel_managers.BedManager;
-import com.xepicgamerzx.hotelier.storage.hotel_managers.HotelManager;
-import com.xepicgamerzx.hotelier.storage.hotel_managers.RoomManager;
-import com.xepicgamerzx.hotelier.storage.hotel_reference_managers.RoomBedsCrossManager;
+import com.xepicgamerzx.hotelier.storage.Manage;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class HotelCreatorActivity extends AppCompatActivity {
-    HotelManager hotelManager;
-    RoomManager roomManager;
-    BedManager bedManager;
-    RoomBedsCrossManager roomBedsCrossManager;
+    Manage manage;
 
     Address address;
     List<HotelRoom> hotelRooms = new ArrayList<>();
@@ -61,12 +55,7 @@ public class HotelCreatorActivity extends AppCompatActivity {
         backBtn = findViewById(R.id.backBtn);
         hotelDetails = findViewById(R.id.hotelDetails);
 
-        hotelDetails.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                createHotelInfoDialog();
-            }
-        });
+        hotelDetails.setOnClickListener(v -> createHotelInfoDialog());
 
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,7 +65,7 @@ public class HotelCreatorActivity extends AppCompatActivity {
                 String name = hotelName.getText().toString();
                 // Do amentities later.
                 if (validateHotel()) {
-                    hotelManager.createHotel(name, address, starClass, hotelRooms);
+                    manage.hotelManager.createHotel(name, address, starClass, hotelRooms);
                     onBackPressed();
                 } else {
                     Toast.makeText(getApplicationContext(), "Missing inputs, try again", Toast.LENGTH_SHORT).show();
@@ -115,10 +104,7 @@ public class HotelCreatorActivity extends AppCompatActivity {
 
     public void initializeDb() {
         //pretty sure something is causing an error
-        hotelManager = HotelManager.getManager(getApplication());
-        roomManager = RoomManager.getManager(getApplication());
-        bedManager = BedManager.getManager(getApplication());
-        roomBedsCrossManager = RoomBedsCrossManager.getManager(getApplication());
+        manage = Manage.getManager(getApplication());
     }
 
     public boolean validateHotel() {

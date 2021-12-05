@@ -13,8 +13,7 @@ import com.xepicgamerzx.hotelier.R;
 import com.xepicgamerzx.hotelier.customer_activities.customer_search_activity.SearchActivity;
 import com.xepicgamerzx.hotelier.objects.UnixEpochDateConverter;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.Hotel;
-import com.xepicgamerzx.hotelier.storage.hotel_managers.HotelManager;
-import com.xepicgamerzx.hotelier.storage.hotel_managers.RoomManager;
+import com.xepicgamerzx.hotelier.storage.Manage;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,8 +22,7 @@ import java.util.List;
 public class HotelViewActivity extends AppCompatActivity {
 
     ImageButton backBtn;
-    HotelManager hotelManager;
-    RoomManager roomManager;
+    Manage manage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +30,7 @@ public class HotelViewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_hotel_view);
         getSupportActionBar().hide();
 
-        hotelManager = HotelManager.getManager(getApplication());
-        roomManager = RoomManager.getManager(getApplication());
+        manage = Manage.getManager(getApplication());
 
         RecyclerView hotelsRecyclerView = findViewById(R.id.hotelsRecyclerView);
         backBtn = findViewById(R.id.backBtn);
@@ -49,8 +46,8 @@ public class HotelViewActivity extends AppCompatActivity {
             String guests = (String) map.get("guests");
             long userStartDate = 0;
             long userEndDate = 0;
-            List<Hotel> hotels = hotelManager.getAll();
-            List<HotelViewModel> hotelsView = hotelManager.generateHotelModel(hotels);
+            List<Hotel> hotels = manage.hotelManager.getAll();
+            List<HotelViewModel> hotelsView = manage.hotelManager.generateHotelModel(hotels);
             userGuests.setText(guests + " Guests");
 
             if (map.size() == 1) {
@@ -65,7 +62,7 @@ public class HotelViewActivity extends AppCompatActivity {
 
                     List<HotelViewModel> filterHotelsByUserSchedule = new ArrayList<>();
                     for (HotelViewModel hotelModel : hotelsView) {
-                        if (roomManager.isUserScheduleInHotel(hotelModel.getHotel(), userStartDate, userEndDate)) {
+                        if (manage.roomManager.isUserScheduleInHotel(hotelModel.getHotel(), userStartDate, userEndDate)) {
                             filterHotelsByUserSchedule.add(hotelModel);
                         }
                     }
@@ -87,14 +84,14 @@ public class HotelViewActivity extends AppCompatActivity {
                     userSchedule.setText(UnixEpochDateConverter.epochToReadable(userStartDate, userEndDate));
                 }
 
-                List<Hotel> filterHotels = hotelManager.getHotelsByLatLong(latitude, longitude);
-                List<HotelViewModel> filteredHotelsByCity = hotelManager.generateHotelModel(filterHotels);
+                List<Hotel> filterHotels = manage.hotelManager.getHotelsByLatLong(latitude, longitude);
+                List<HotelViewModel> filteredHotelsByCity = manage.hotelManager.generateHotelModel(filterHotels);
 
                 // Giving recycler view only hotels in user destination, and if the user entered a schedule, sending the schedule to adapter.
                 if (userStartDate != 0 && userEndDate != 0) {
                     List<HotelViewModel> filterHotelsByScheduleAndCity = new ArrayList<>();
                     for (HotelViewModel hotelViewModel : filteredHotelsByCity) {
-                        if (roomManager.isUserScheduleInHotel(hotelViewModel.getHotel(), userStartDate, userEndDate)) {
+                        if (manage.roomManager.isUserScheduleInHotel(hotelViewModel.getHotel(), userStartDate, userEndDate)) {
                             filterHotelsByScheduleAndCity.add(hotelViewModel);
                         }
                     }
