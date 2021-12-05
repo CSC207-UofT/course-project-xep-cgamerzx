@@ -65,12 +65,21 @@ public class UserManager implements com.xepicgamerzx.hotelier.storage.hotel_mana
         return users.get(users.size() - 1);
     }
 
+    public void setLastLoggedInUser() {
+        List<User> users = userDao.getAll();
+        user = users.get(users.size() - 1);
+    }
+
+    public void signOut() {
+        this.user = null;
+    }
+
     public void setUser(User user) {
         this.user = user;
     }
 
     public boolean isLoggedIn() {
-        return user == null;
+        return user != null;
     }
 
     public ArrayList<Long> getUserFavourites() {

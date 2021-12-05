@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 
 import com.xepicgamerzx.hotelier.R;
 import com.xepicgamerzx.hotelier.management_hotel_listing_activity.HotelCreatorActivity;
+import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
 import com.xepicgamerzx.hotelier.storage.user.model.User;
 import com.xepicgamerzx.hotelier.user_activities.LoginActivity;
 import com.xepicgamerzx.hotelier.user_activities.RegisterActivity;
@@ -52,9 +53,8 @@ public class ProfileFragment extends Fragment {
 
         listHotel = v.findViewById(R.id.listHotelBtn);
 
-        UserManager um = UserManager.getManager(requireActivity().getApplication());
-        // causes an error when no user, not fatal
-        User user = um.getUser(getContext());
+        UserManager um = UserManager.getManager(HotelierDatabase.getDatabase(getContext()));
+        User user = um.user;
 
         // If a user is signed in ...
         if (user != null) {
@@ -90,7 +90,7 @@ public class ProfileFragment extends Fragment {
         signOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                um.signOut(getContext());
+                um.signOut();
                 login.setVisibility(View.VISIBLE);
                 signOut.setVisibility(View.INVISIBLE);
                 signedInContent.setVisibility(View.GONE);
