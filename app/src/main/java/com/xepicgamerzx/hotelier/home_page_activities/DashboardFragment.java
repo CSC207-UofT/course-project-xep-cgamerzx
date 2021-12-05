@@ -97,12 +97,7 @@ public class DashboardFragment extends Fragment {
             nameField.setText("Welcome back " + user.getUserName());
         }
 
-        search.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getActivity(), SearchActivity.class));
-            }
-        });
+        search.setOnClickListener(v1 -> startActivity(new Intent(getActivity(), SearchActivity.class)));
         return v;
     }
 

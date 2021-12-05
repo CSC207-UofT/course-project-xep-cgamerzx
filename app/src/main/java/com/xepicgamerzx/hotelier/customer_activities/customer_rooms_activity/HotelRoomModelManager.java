@@ -18,7 +18,7 @@ public class HotelRoomModelManager {
         RoomBedsCrossManager roomBedsCrossManager = RoomBedsCrossManager.getManager(application);
 
         for (HotelRoom hotelRoom : hotelRooms) {
-            String bedTypes = "";
+            StringBuilder bedTypes = new StringBuilder();
             String availability = UnixEpochDateConverter.epochToReadable(
                     hotelRoom.getStartAvailability(), hotelRoom.getEndAvailability()
             );
@@ -26,12 +26,12 @@ public class HotelRoomModelManager {
 
             for (Bed bed : beds) {
                 // unique id is the bed type/size.
-                bedTypes += bed.getUniqueId().toUpperCase(Locale.ROOT) + ", ";
+                bedTypes.append(bed.getUniqueId().toUpperCase(Locale.ROOT)).append(", ");
             }
 
             hotelRoomsView.add(new CustomerHotelRoomsModel(
                     beds.size(),
-                    bedTypes,
+                    bedTypes.toString(),
                     hotelRoom.getCapacity(),
                     hotelRoom.getPrice(),
                     availability,

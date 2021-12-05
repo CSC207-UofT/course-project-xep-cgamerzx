@@ -2,7 +2,6 @@ package com.xepicgamerzx.hotelier.customer_activities.customer_hotels_activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -19,6 +18,7 @@ import com.xepicgamerzx.hotelier.storage.Manage;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 public class HotelViewActivity extends AppCompatActivity {
 
@@ -30,7 +30,7 @@ public class HotelViewActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hotel_view);
-        getSupportActionBar().hide();
+        Objects.requireNonNull(getSupportActionBar()).hide();
 
         manage = Manage.getManager(getApplication());
         hotelierDatabase = HotelierDatabase.getDatabase(getApplication());
@@ -107,12 +107,7 @@ public class HotelViewActivity extends AppCompatActivity {
             }
         }
 
-        backBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), SearchActivity.class));
-            }
-        });
+        backBtn.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(), SearchActivity.class)));
     }
 
     @Override
