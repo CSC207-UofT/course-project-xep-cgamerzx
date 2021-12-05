@@ -36,7 +36,6 @@ public class AutoDestinationAdapter extends ArrayAdapter<DestinationItem> implem
 
             if (constraint != null) {
                 destinationsListFull = placeApi.autoComplete(constraint.toString());
-
                 suggestions.addAll(destinationsListFull);
             }
             filterResults.values = suggestions;

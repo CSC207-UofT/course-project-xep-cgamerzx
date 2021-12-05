@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import com.xepicgamerzx.hotelier.customer_activities.customer_search_activity.DestinationItem;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.Hotel;
 
 import java.io.Serializable;
@@ -21,13 +22,28 @@ public class User implements Serializable {
     private String password;
     @ColumnInfo(name = "email")
     private String email;
+    @ColumnInfo(name="userType")
+    private String userType;
 
+    @ColumnInfo(name = "favHotels")
     private ArrayList<Long> favHotelIds = new ArrayList<>();
+
+    // Uh i want this to be string not long.
+    @ColumnInfo(name = "recentSearches")
+    private ArrayList<Long> recentSearches = new ArrayList<>();
 
     public User(String userName, String password, String email) {
         this.userName = userName;
         this.password = password;
         this.email = email;
+    }
+
+    public String getUserType() {
+        return userType;
+    }
+
+    public void setUserType(String userType) {
+        this.userType = userType;
     }
 
     public int getId() {
@@ -84,6 +100,22 @@ public class User implements Serializable {
 
     public void removeFavHotel(Hotel hotel) {
         removeFavHotel(hotel.hotelId);
+    }
+
+    public ArrayList<Long> getRecentSearches() {
+        return recentSearches;
+    }
+
+    public void setRecentSearches(ArrayList<Long> recentSearches) {
+        this.recentSearches = recentSearches;
+    }
+
+    public void addRecentSearches(Long destinationItem) {
+        recentSearches.add(null);
+    }
+
+    public void removeRecentSearches(Long destinationItem) {
+        recentSearches.remove(null);
     }
 
 
