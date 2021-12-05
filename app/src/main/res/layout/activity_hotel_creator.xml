@@ -5,6 +5,7 @@
     android:id="@+id/hotelCreator"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background_default"
     tools:context=".management_hotel_listing_activity.HotelCreatorActivity">
 
     <ImageButton

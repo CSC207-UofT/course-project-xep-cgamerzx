@@ -37,10 +37,10 @@ public class HotelCreateAmenitiesFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_hotel_create_amenities, container, false);
 
-        AmenityAdapter adapter = new AmenityAdapter((ArrayList<String>) amenitiesList);
+        //AmenityAdapter adapter = new AmenityAdapter((ArrayList<String>) amenitiesList);
 
-        RecyclerView listView = v.findViewById(R.id.newListingsView);
-        listView.setAdapter(adapter);
+        //RecyclerView listView = v.findViewById(R.id.newListingsView);
+        //listView.setAdapter(adapter);
 
         return v;
     }
