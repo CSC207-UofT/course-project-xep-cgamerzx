@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
         HotelierDatabase hotelierDatabase = HotelierDatabase.getDatabase(getApplication());
         UserManager um = UserManager.getManager(hotelierDatabase);
-        um.setLastLoggedInUser();
+//        um.setLastLoggedInUser();
 
 
         // LOADING DUMMY DATA ON FIRST TIME LOADING APP, CAN PROBABLY USE AN API LATER
