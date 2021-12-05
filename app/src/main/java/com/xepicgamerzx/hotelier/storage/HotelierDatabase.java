@@ -19,6 +19,7 @@ import com.xepicgamerzx.hotelier.storage.dao.BedDao;
 import com.xepicgamerzx.hotelier.storage.dao.HotelAmenitiesCrossDao;
 import com.xepicgamerzx.hotelier.storage.dao.HotelAmenityDao;
 import com.xepicgamerzx.hotelier.storage.dao.HotelDao;
+import com.xepicgamerzx.hotelier.storage.dao.HotelRoomMapDao;
 import com.xepicgamerzx.hotelier.storage.dao.RoomAmenitiesCrossDao;
 import com.xepicgamerzx.hotelier.storage.dao.RoomAmenityDao;
 import com.xepicgamerzx.hotelier.storage.dao.RoomBedsCrossDao;
@@ -66,4 +67,6 @@ public abstract class HotelierDatabase extends RoomDatabase {
     public abstract RoomAmenitiesCrossDao roomAmenitiesCrossDao();
 
     public abstract UserDao userDao();
+
+    public abstract HotelRoomMapDao hotelRoomMapDao();
 }
