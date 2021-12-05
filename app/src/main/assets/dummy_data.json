@@ -1,0 +1,302 @@
+{
+  "Hotels": [
+    {
+      "Name": "DoubleTree",
+      "Rating": 5,
+      "Address": [
+        {
+          "streetNum": 108,
+          "streetName": "Chestnut St",
+          "city": "Toronto",
+          "province": "ON",
+          "postalCode": "M5G1R3",
+          "latitude": 43.65469,
+          "longitude": -79.38608
+        }
+      ],
+      "Rooms": [
+        {
+          "startDate": 1637039718000,
+          "endDate": 1637730918000,
+          "beds": [
+            {
+              "total": 2,
+              "type": "double"
+            }
+          ],
+          "capacity": 4,
+          "pricePerNight": 125
+        }
+      ]
+    },
+    {
+      "Name": "Chelsea Hotel",
+      "Rating": 5,
+      "Address": [
+        {
+          "streetNum": 33,
+          "streetName": "Gerrard St W",
+          "city": "Toronto",
+          "province": "ON",
+          "postalCode": "M5G1Z4",
+          "latitude": 43.658451,
+          "longitude": -79.383034
+        }
+      ],
+      "Rooms": [
+        {
+          "startDate": 1636943557000,
+          "endDate": 1640572357000,
+          "beds": [
+            {
+              "total": 1,
+              "type": "double"
+            }
+          ],
+          "capacity": 2,
+          "pricePerNight": 150
+        },
+        {
+          "startDate": 1636943557000,
+          "endDate": 1639103557000,
+          "beds": [
+            {
+              "total": 1,
+              "type": "double"
+            },
+            {
+              "total": 1,
+              "type": "king"
+            }
+          ],
+          "capacity": 5,
+          "pricePerNight": 200
+        }
+      ]
+    },
+    {
+      "Name": "Hilton Garden Inn Times Square",
+      "Rating": 5,
+      "Address": [
+        {
+          "streetNum": 790,
+          "streetName": "Eighth Ave",
+          "city": "New York",
+          "province": "NY",
+          "postalCode": "10019",
+          "latitude": 40.76125,
+          "longitude": -73.98653
+        }
+      ],
+      "Rooms": [
+        {
+          "startDate": 1636943557000,
+          "endDate": 1637721157000,
+          "beds": [
+            {
+              "total": 2,
+              "type": "double"
+            }
+          ],
+          "capacity": 4,
+          "pricePerNight": 80
+        },
+        {
+          "startDate": 1636943557000,
+          "endDate": 1648089157000,
+          "beds": [
+            {
+              "total": 1,
+              "type": "double"
+            },
+            {
+              "total": 1,
+              "type": "king"
+            },
+            {
+              "total": 1,
+              "type": "queen"
+            }
+          ],
+          "capacity": 6,
+          "pricePerNight": 300
+        }
+      ]
+    },
+    {
+      "Name": "Fairmont Chateau Laurier",
+      "Rating": 5,
+      "Address": [
+        {
+          "streetNum": 1,
+          "streetName": "Rideau St",
+          "city": "Ottawa",
+          "province": "ON",
+          "postalCode": "K1N8S7",
+          "latitude": 45.425671,
+          "longitude": -75.695236
+        }
+      ],
+      "Rooms": [
+        {
+          "startDate": 1636943557000,
+          "endDate": 1637721157000,
+          "beds": [
+            {
+              "total": 2,
+              "type": "double"
+            }
+          ],
+          "capacity": 4,
+          "pricePerNight": 80
+        },
+        {
+          "startDate": 1636943557000,
+          "endDate": 1637721157000,
+          "beds": [
+            {
+              "total": 2,
+              "type": "double"
+            }
+          ],
+          "capacity": 4,
+          "pricePerNight": 80
+        },
+        {
+          "startDate": 1636943557000,
+          "endDate": 1637721157000,
+          "beds": [
+            {
+              "total": 2,
+              "type": "double"
+            }
+          ],
+          "capacity": 4,
+          "pricePerNight": 80
+        },
+        {
+          "startDate": 1636943557000,
+          "endDate": 1648089157000,
+          "beds": [
+            {
+              "total": 1,
+              "type": "double"
+            },
+            {
+              "total": 1,
+              "type": "king"
+            }
+          ],
+          "capacity": 2,
+          "pricePerNight": 300
+        }
+      ]
+    },
+    {
+      "Name": "Fairmont Hotel Vancouver",
+      "Rating": 5,
+      "Address": [
+        {
+          "streetNum": 900,
+          "streetName": "W Georgia St",
+          "city": "Vancouver",
+          "province": "BC",
+          "postalCode": "V6C2W6",
+          "latitude": 49.283720,
+          "longitude": -123.121110
+        }
+      ],
+      "Rooms": [
+        {
+          "startDate": 1636943557000,
+          "endDate": 1637721157000,
+          "beds": [
+            {
+              "total": 2,
+              "type": "double"
+            }
+          ],
+          "capacity": 4,
+          "pricePerNight": 120
+        },
+        {
+          "startDate": 1636943557000,
+          "endDate": 1637721157000,
+          "beds": [
+            {
+              "total": 2,
+              "type": "double"
+            }
+          ],
+          "capacity": 4,
+          "pricePerNight": 105
+        },
+        {
+          "startDate": 1636943557000,
+          "endDate": 1637721157000,
+          "beds": [
+            {
+              "total": 2,
+              "type": "double"
+            }
+          ],
+          "capacity": 4,
+          "pricePerNight": 90
+        }
+      ]
+    },
+    {
+      "Name": "Sofitel Chicago Magnificent Mile",
+      "Rating": 5,
+      "Address": [
+        {
+          "streetNum": 20,
+          "streetName": "E Chestnut St",
+          "city": "Chicago",
+          "province": "IL",
+          "postalCode": "60611",
+          "latitude": 41.8986213,
+          "longitude": -87.6273149
+        }
+      ],
+      "Rooms": [
+        {
+          "startDate": 1636943557000,
+          "endDate": 1637721157000,
+          "beds": [
+            {
+              "total": 2,
+              "type": "double"
+            }
+          ],
+          "capacity": 4,
+          "pricePerNight": 140
+        },
+        {
+          "startDate": 1636943557000,
+          "endDate": 1637721157000,
+          "beds": [
+            {
+              "total": 2,
+              "type": "double"
+            }
+          ],
+          "capacity": 4,
+          "pricePerNight": 125
+        },
+        {
+          "startDate": 1636943557000,
+          "endDate": 1637721157000,
+          "beds": [
+            {
+              "total": 2,
+              "type": "double"
+            }
+          ],
+          "capacity": 4,
+          "pricePerNight": 75
+        }
+      ]
+    }
+  ]
+}

@@ -100,3 +100,4 @@ fabric.properties
 # Anythign local
 **/local**
 local.properties
+/.idea/deploymentTargetDropDown.xml

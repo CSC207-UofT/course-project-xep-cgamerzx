@@ -10,7 +10,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
-
+@Deprecated
 public class FileReadWrite<T> implements Serializable {
     /**
      * Generic object write data into file.

@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".home_page_activities.DashboardFragment"
+    android:id="@+id/dashboardFrag">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/textLogo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="46dp"
+            android:layout_marginTop="34dp"
+            android:fontFamily="@font/inter_bold"
+            android:text="Hotelier"
+            android:textColor="@android:color/black"
+            android:textSize="64sp" />
+
+        <TextView
+            android:id="@+id/welcomeField"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="46dp"
+            android:layout_marginTop="240dp"
+            android:fontFamily="@font/inter_regular"
+            android:layout_marginEnd="46dp"
+            android:text=""
+            android:textColor="@android:color/black"
+            android:textSize="34sp" />
+
+        <TextView
+            android:id="@+id/recentSearches"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/welcomeField"
+            android:layout_marginStart="46dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/inter_light"
+            android:text="Recent searches"
+            android:textColor="@android:color/black"
+            android:textSize="28sp" />
+
+        <!--    add some searches recycler view ... -->
+
+        <TextView
+            android:id="@+id/newListings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="46dp"
+            android:layout_below="@id/recentSearches"
+            android:fontFamily="@font/inter_light"
+            android:layout_marginTop="50dp"
+            android:text="Check out new listings"
+            android:layout_alignParentStart="true"
+            android:textColor="@android:color/black"
+            android:textSize="28sp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/newListings"
+            android:layout_marginTop="10dp"
+            android:id="@+id/newListingsView"
+            android:orientation="vertical"
+            android:layout_centerInParent="true"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+
+            />
+
+        <TextView
+            android:id="@+id/subText"
+            android:layout_width="279dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textLogo"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="46dp"
+            android:layout_marginEnd="86dp"
+            android:fontFamily="@font/inter_regular"
+            android:text="Find a hotel by location."
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/homeSearch"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="313dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/subText"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="46dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="52dp"
+            android:textColorHint="@color/white"
+            app:boxBackgroundColor="@color/background_secondary"
+            app:boxCornerRadiusBottomEnd="8dp"
+            app:boxCornerRadiusBottomStart="8dp"
+            app:boxCornerRadiusTopEnd="8dp"
+            app:boxCornerRadiusTopStart="8dp"
+            app:hintEnabled="false"
+            app:startIconDrawable="@drawable/ic_search_logo"
+            app:startIconTint="@color/white">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/searchToFragment"
+                android:editable="false"
+                android:focusableInTouchMode="false"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:fontFamily="@font/inter_regular"
+                android:hint="Search"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                android:textSize="18sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+    </RelativeLayout>
+
+</ScrollView>
