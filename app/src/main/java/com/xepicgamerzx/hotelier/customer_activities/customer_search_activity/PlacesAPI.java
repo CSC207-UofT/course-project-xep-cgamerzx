@@ -20,10 +20,9 @@ public class PlacesAPI {
         StringBuilder jsonResult = new StringBuilder();
 
         try {
-            StringBuilder sb = new StringBuilder("https://maps.googleapis.com/maps/api/place/autocomplete/json?");
-            sb.append("input=" + input);
-            sb.append("&key=AIzaSyDgbO256UmNGH74yVSq9NsRD4MyXltqGwQ");
-            URL url = new URL(sb.toString());
+            String sb = "https://maps.googleapis.com/maps/api/place/autocomplete/json?" + "input=" + input +
+                    "&key=AIzaSyDgbO256UmNGH74yVSq9NsRD4MyXltqGwQ";
+            URL url = new URL(sb);
             connection = (HttpURLConnection) url.openConnection();
             InputStreamReader inputStreamReader = new InputStreamReader(connection.getInputStream());
 

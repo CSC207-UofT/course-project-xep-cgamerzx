@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".home_page_activities.ProfileFragment">
 
     <TextView
@@ -70,9 +69,9 @@
         android:textColor="@color/black" />
 
     <RelativeLayout
+        android:id="@+id/signedInContent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/signedInContent"
         android:layout_below="@id/profileTxt"
         android:visibility="gone">
 
@@ -86,50 +85,46 @@
             android:fontFamily="@font/inter_regular"
             android:text="Username"
             android:textColor="@android:color/black"
-            android:textSize="34sp"
-            />
+            android:textSize="34sp" />
 
         <Button
             android:id="@+id/editUserBtn"
             android:layout_width="285dp"
             android:layout_height="65dp"
-            android:backgroundTint="@color/hotel_row_background"
             android:layout_below="@id/userIdTxt"
             android:layout_marginLeft="46dp"
-            android:text="Edit user"
-            android:fontFamily="@font/inter_regular"
             android:layout_marginTop="10dp"
-            android:textColor="@color/black"
+            android:backgroundTint="@color/hotel_row_background"
+            android:fontFamily="@font/inter_regular"
             android:gravity="left|center_vertical"
-            />
+            android:text="Edit user"
+            android:textColor="@color/black" />
 
         <Button
             android:id="@+id/managerStatus"
             android:layout_width="285dp"
             android:layout_height="65dp"
-            android:backgroundTint="@color/hotel_row_background"
             android:layout_below="@id/editUserBtn"
             android:layout_marginLeft="46dp"
-            android:text="Status: manager"
-            android:fontFamily="@font/inter_regular"
-            android:textColor="@color/black"
             android:layout_marginTop="10dp"
+            android:backgroundTint="@color/hotel_row_background"
+            android:fontFamily="@font/inter_regular"
             android:gravity="left|center_vertical"
-            />
+            android:text="Status: manager"
+            android:textColor="@color/black" />
 
         <Button
             android:id="@+id/listHotelBtn"
             android:layout_width="285dp"
             android:layout_height="65dp"
-            android:backgroundTint="@color/hotel_row_background"
             android:layout_below="@id/managerStatus"
             android:layout_marginLeft="46dp"
-            android:text="List a hotel"
             android:layout_marginTop="10dp"
+            android:backgroundTint="@color/hotel_row_background"
             android:fontFamily="@font/inter_regular"
-            android:textColor="@color/black"
             android:gravity="left|center_vertical"
-            />
+            android:text="List a hotel"
+            android:textColor="@color/black" />
 
     </RelativeLayout>
 

@@ -16,13 +16,14 @@ import com.xepicgamerzx.hotelier.customer_activities.customer_hotels_activity.Ho
 import com.xepicgamerzx.hotelier.customer_activities.customer_hotels_activity.HotelViewModel;
 import com.xepicgamerzx.hotelier.customer_activities.customer_search_activity.SearchActivity;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.Hotel;
-import com.xepicgamerzx.hotelier.storage.hotel_managers.HotelManager;
-import com.xepicgamerzx.hotelier.storage.hotel_managers.RoomManager;
+import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
+import com.xepicgamerzx.hotelier.storage.Manage;
 import com.xepicgamerzx.hotelier.storage.user.model.User;
 import com.xepicgamerzx.hotelier.user_activities.UserManager;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 
 public class DashboardFragment extends Fragment {
@@ -76,19 +77,19 @@ public class DashboardFragment extends Fragment {
         TextInputEditText search = v.findViewById(R.id.searchToFragment);
         nameField = v.findViewById(R.id.welcomeField);
 
-        HotelManager hotelManager = HotelManager.getManager(getActivity().getApplication());
-        RoomManager roomManager = RoomManager.getManager(getActivity().getApplication());
+        Manage manage = Manage.getManager(requireActivity().getApplication());
+        HotelierDatabase hotelierDatabase = HotelierDatabase.getDatabase(requireActivity().getApplication());
 
         RecyclerView hotelsRecyclerView = v.findViewById(R.id.newListingsView);
 
-        List<Hotel> hotels = hotelManager.getAll();
-        List<HotelViewModel> hotelsView = hotelManager.generateHotelModel(hotels);
+        List<Hotel> hotels = hotelierDatabase.hotelDao().getAll();
+        List<HotelViewModel> hotelsView = manage.hotelManager.generateHotelModel(hotels);
         Collections.reverse(hotelsView); // Reversing for "Newest listings"
 
         final HotelViewAdapter hotelsAdapter = new HotelViewAdapter(hotelsView);
         hotelsRecyclerView.setAdapter(hotelsAdapter);
 
-        UserManager um = new UserManager();
+        UserManager um = UserManager.getManager(requireActivity().getApplication());
 
         // Add if empty, no user, go sign in.
         if (um.getUser(getContext()) != null) {
@@ -96,18 +97,12 @@ public class DashboardFragment extends Fragment {
             nameField.setText("Welcome back " + user.getUserName());
         }
 
-        search.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getActivity(), SearchActivity.class));
-            }
-        });
+        search.setOnClickListener(v1 -> startActivity(new Intent(getActivity(), SearchActivity.class)));
         return v;
     }
 
     public TextView getNameField() {
         View v = getView();
-        TextView nameField = v.findViewById(R.id.welcomeField);
-        return nameField;
+        return Objects.requireNonNull(v).findViewById(R.id.welcomeField);
     }
 }

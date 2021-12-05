@@ -2,7 +2,6 @@ package com.xepicgamerzx.hotelier.customer_activities.customer_hotels_activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -13,24 +12,28 @@ import com.xepicgamerzx.hotelier.R;
 import com.xepicgamerzx.hotelier.customer_activities.customer_search_activity.SearchActivity;
 import com.xepicgamerzx.hotelier.objects.UnixEpochDateConverter;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.Hotel;
+import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
 import com.xepicgamerzx.hotelier.storage.Manage;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 public class HotelViewActivity extends AppCompatActivity {
 
     ImageButton backBtn;
     Manage manage;
+    HotelierDatabase hotelierDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hotel_view);
-        getSupportActionBar().hide();
+        Objects.requireNonNull(getSupportActionBar()).hide();
 
         manage = Manage.getManager(getApplication());
+        hotelierDatabase = HotelierDatabase.getDatabase(getApplication());
 
         RecyclerView hotelsRecyclerView = findViewById(R.id.hotelsRecyclerView);
         backBtn = findViewById(R.id.backBtn);
@@ -46,7 +49,7 @@ public class HotelViewActivity extends AppCompatActivity {
             String guests = (String) map.get("guests");
             long userStartDate = 0;
             long userEndDate = 0;
-            List<Hotel> hotels = manage.hotelManager.getAll();
+            List<Hotel> hotels = hotelierDatabase.hotelDao().getAll();
             List<HotelViewModel> hotelsView = manage.hotelManager.generateHotelModel(hotels);
             userGuests.setText(guests + " Guests");
 
@@ -84,7 +87,7 @@ public class HotelViewActivity extends AppCompatActivity {
                     userSchedule.setText(UnixEpochDateConverter.epochToReadable(userStartDate, userEndDate));
                 }
 
-                List<Hotel> filterHotels = manage.hotelManager.getHotelsByLatLong(latitude, longitude);
+                List<Hotel> filterHotels = manage.hotelManager.getHotelsInArea(latitude, longitude);
                 List<HotelViewModel> filteredHotelsByCity = manage.hotelManager.generateHotelModel(filterHotels);
 
                 // Giving recycler view only hotels in user destination, and if the user entered a schedule, sending the schedule to adapter.
@@ -104,12 +107,7 @@ public class HotelViewActivity extends AppCompatActivity {
             }
         }
 
-        backBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), SearchActivity.class));
-            }
-        });
+        backBtn.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(), SearchActivity.class)));
     }
 
     @Override

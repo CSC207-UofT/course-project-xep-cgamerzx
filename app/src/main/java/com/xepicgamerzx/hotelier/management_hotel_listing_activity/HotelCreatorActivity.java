@@ -13,21 +13,26 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.xepicgamerzx.hotelier.R;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.Address;
+import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelAmenity;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelRoom;
 import com.xepicgamerzx.hotelier.storage.Manage;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class HotelCreatorActivity extends AppCompatActivity {
     Manage manage;
 
+
     Address address;
     List<HotelRoom> hotelRooms = new ArrayList<>();
+    List<HotelAmenity> hotelAmenities = new ArrayList<>();
 
     TextInputEditText hotelName;
     MaterialButton addAddressBtn;
     MaterialButton addRoomsBtn;
+    MaterialButton addAmenitiesBtn;
     MaterialButton submitBtn;
     MaterialButton hotelDetails;
     ImageButton backBtn;
@@ -37,13 +42,13 @@ public class HotelCreatorActivity extends AppCompatActivity {
     String text = "Hotel Details:";
     private AlertDialog.Builder dialogBuilder;
     private AlertDialog dialog;
-    // Amentities
+    // Amenities
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hotel_creator);
-        getSupportActionBar().hide();
+        Objects.requireNonNull(getSupportActionBar()).hide();
 
         // Initializing db
         initializeDb();
@@ -51,55 +56,43 @@ public class HotelCreatorActivity extends AppCompatActivity {
         hotelName = findViewById(R.id.hotelNameInput);
         addAddressBtn = findViewById(R.id.addAddressBtn);
         addRoomsBtn = findViewById(R.id.addRoomsBtn);
+        addAmenitiesBtn = findViewById(R.id.hotelAmentitiesBtn);
         submitBtn = findViewById(R.id.saveHotelBtn);
         backBtn = findViewById(R.id.backBtn);
         hotelDetails = findViewById(R.id.hotelDetails);
 
         hotelDetails.setOnClickListener(v -> createHotelInfoDialog());
 
-        submitBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // add star input later
-                int starClass = 5;
-                String name = hotelName.getText().toString();
-                // Do amentities later.
-                if (validateHotel()) {
-                    manage.hotelManager.createHotel(name, address, starClass, hotelRooms);
-                    onBackPressed();
-                } else {
-                    Toast.makeText(getApplicationContext(), "Missing inputs, try again", Toast.LENGTH_SHORT).show();
-                }
-
+        submitBtn.setOnClickListener(v -> {
+            // add star input later
+            int starClass = 5;
+            String name = Objects.requireNonNull(hotelName.getText()).toString();
+            // Do amenities later.
+            if (validateHotel()) {
+                manage.hotelManager.createHotel(name, address, starClass, hotelRooms);
+                onBackPressed();
+            } else {
+                Toast.makeText(getApplicationContext(), "Missing inputs, try again", Toast.LENGTH_SHORT).show();
             }
+
         });
 
-        addAddressBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getSupportFragmentManager().beginTransaction()
-                        .add(R.id.hotelCreator, HotelCreateAddressFragment.class, null)
-                        .addToBackStack(null)
-                        .commit();
-            }
-        });
+        addAddressBtn.setOnClickListener(v -> getSupportFragmentManager().beginTransaction()
+                .add(R.id.hotelCreator, HotelCreateAddressFragment.class, null)
+                .addToBackStack(null)
+                .commit());
 
-        addRoomsBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getSupportFragmentManager().beginTransaction()
-                        .add(R.id.hotelCreator, HotelCreateRoomsFragment.class, null)
-                        .addToBackStack(null)
-                        .commit();
-            }
-        });
+        addRoomsBtn.setOnClickListener(v -> getSupportFragmentManager().beginTransaction()
+                .add(R.id.hotelCreator, HotelCreateRoomsFragment.class, null)
+                .addToBackStack(null)
+                .commit());
 
-        backBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                HotelCreatorActivity.super.onBackPressed();
-            }
-        });
+        addAmenitiesBtn.setOnClickListener(v -> getSupportFragmentManager().beginTransaction()
+                .add(R.id.hotelCreator, HotelCreateAmenitiesFragment.class, null)
+                .addToBackStack(null)
+                .commit());
+
+        backBtn.setOnClickListener(v -> HotelCreatorActivity.super.onBackPressed());
     }
 
     public void initializeDb() {
@@ -108,7 +101,7 @@ public class HotelCreatorActivity extends AppCompatActivity {
     }
 
     public boolean validateHotel() {
-        if (!hotelName.getText().toString().equals("")) {
+        if (!Objects.requireNonNull(hotelName.getText()).toString().equals("")) {
             isHotelNameMade = true;
         }
 

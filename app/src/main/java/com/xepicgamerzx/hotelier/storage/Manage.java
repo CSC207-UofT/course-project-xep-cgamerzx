@@ -24,7 +24,7 @@ public final class Manage {
     public volatile RoomAmenitiesCrossManager roomAmenitiesCrossManager;
     public volatile RoomBedsCrossManager roomBedsCrossManager;
 
-    private Manage (Application application){
+    private Manage(Application application) {
         bedManager = BedManager.getManager(application);
         hotelAmenityManager = HotelAmenityManager.getManager(application);
         roomAmenityManager = RoomAmenityManager.getManager(application);
@@ -36,7 +36,7 @@ public final class Manage {
         roomBedsCrossManager = RoomBedsCrossManager.getManager(application);
     }
 
-    private Manage(HotelierDatabase dbInstance){
+    private Manage(HotelierDatabase dbInstance) {
         bedManager = BedManager.getManager(dbInstance);
         hotelAmenityManager = HotelAmenityManager.getManager(dbInstance);
         roomAmenityManager = RoomAmenityManager.getManager(dbInstance);

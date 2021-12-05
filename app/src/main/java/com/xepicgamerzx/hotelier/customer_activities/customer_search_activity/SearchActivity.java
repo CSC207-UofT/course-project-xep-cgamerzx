@@ -2,7 +2,6 @@ package com.xepicgamerzx.hotelier.customer_activities.customer_search_activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -12,13 +11,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.util.Pair;
 
 import com.google.android.material.datepicker.MaterialDatePicker;
-import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.xepicgamerzx.hotelier.R;
 import com.xepicgamerzx.hotelier.customer_activities.customer_hotels_activity.HotelViewActivity;
 import com.xepicgamerzx.hotelier.home_page_activities.MainActivity;
 import com.xepicgamerzx.hotelier.objects.UnixEpochDateConverter;
 
 import java.util.HashMap;
+import java.util.Objects;
 
 public class SearchActivity extends AppCompatActivity implements OnSearchClick {
 
@@ -31,7 +30,7 @@ public class SearchActivity extends AppCompatActivity implements OnSearchClick {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-        getSupportActionBar().hide();
+        Objects.requireNonNull(getSupportActionBar()).hide();
 
         AutoCompleteTextView editText = findViewById(R.id.selectDestination);
         AutoDestinationAdapter adapter = new AutoDestinationAdapter(getApplicationContext(), this);
@@ -49,80 +48,55 @@ public class SearchActivity extends AppCompatActivity implements OnSearchClick {
         final MaterialDatePicker<Pair<Long, Long>> materialDatePicker = builder.build();
 
         // Listeners
-        backBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), MainActivity.class));
-            }
+        backBtn.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(), MainActivity.class)));
+
+        addGuestBtn.setOnClickListener(v -> {
+            addGuests();
+            numGuests.setText(Integer.toString(numberOfGuests));
         });
 
-        addGuestBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addGuests();
-                numGuests.setText(Integer.toString(numberOfGuests));
-            }
+        minusGuestBtn.setOnClickListener(v -> {
+            minusGuests();
+            numGuests.setText(Integer.toString(numberOfGuests));
         });
 
-        minusGuestBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                minusGuests();
-                numGuests.setText(Integer.toString(numberOfGuests));
-            }
+        dateSelection.setOnClickListener(v -> materialDatePicker.show(getSupportFragmentManager(), "DATE_RANGE_PICKER"));
+
+        materialDatePicker.addOnPositiveButtonClickListener(selection -> {
+            startDate = selection.first;
+            endDate = selection.second;
+
+            String dates = UnixEpochDateConverter.epochToReadable(startDate, endDate);
+            dateSelection.setText(dates);
         });
 
-        dateSelection.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                materialDatePicker.show(getSupportFragmentManager(), "DATE_RANGE_PICKER");
-            }
-        });
+        searchBtn.setOnClickListener(v -> {
+            Thread thread = new Thread(() -> {
+                HashMap<String, Object> searchData = new HashMap<>();
+                searchData.put("guests", numGuests.getText().toString());
 
-        materialDatePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener<Pair<Long, Long>>() {
-            @Override
-            public void onPositiveButtonClick(Pair<Long, Long> selection) {
-                startDate = selection.first;
-                endDate = selection.second;
+                PlacesAPI placesAPI = new PlacesAPI();
+                if (destinationItem != null && startDate != null && endDate != null) {
+                    HashMap<String, Double> coords = placesAPI.getLocation(destinationItem.getPlaceId());
+                    searchData.put("city", destinationItem.getCityStateCountry());
+                    searchData.put("long", coords.get("longitude"));
+                    searchData.put("lat", coords.get("latitude"));
+                    searchData.put("startDate", startDate);
+                    searchData.put("endDate", endDate);
+                } else if (destinationItem == null && (startDate != null && endDate != null)) {
+                    searchData.put("startDate", startDate);
+                    searchData.put("endDate", endDate);
+                } else if (destinationItem != null && (startDate == null && endDate == null)) {
+                    // User enters destination, but no schedule
+                    HashMap<String, Double> coords = placesAPI.getLocation(destinationItem.getPlaceId());
+                    searchData.put("city", destinationItem.getCityStateCountry());
+                    searchData.put("long", coords.get("longitude"));
+                    searchData.put("lat", coords.get("latitude"));
+                }
+                startActivity(new Intent(getApplicationContext(), HotelViewActivity.class).putExtra("SearchData", searchData));
+            });
+            thread.start();
 
-                String dates = UnixEpochDateConverter.epochToReadable(startDate, endDate);
-                dateSelection.setText(dates);
-            }
-        });
-
-        searchBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Thread thread = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        HashMap<String, Object> searchData = new HashMap<>();
-                        searchData.put("guests", numGuests.getText().toString());
-
-                        PlacesAPI placesAPI = new PlacesAPI();
-                        if (destinationItem != null && startDate != null && endDate != null) {
-                            HashMap<String, Double> coords = placesAPI.getLocation(destinationItem.getPlaceId());
-                            searchData.put("city", destinationItem.getCityStateCountry());
-                            searchData.put("long", coords.get("longitude"));
-                            searchData.put("lat", coords.get("latitude"));
-                            searchData.put("startDate", startDate);
-                            searchData.put("endDate", endDate);
-                        } else if (destinationItem == null && (startDate != null && endDate != null)) {
-                            searchData.put("startDate", startDate);
-                            searchData.put("endDate", endDate);
-                        } else if (destinationItem != null && (startDate == null && endDate == null)) {
-                            // User enters destination, but no schedule
-                            HashMap<String, Double> coords = placesAPI.getLocation(destinationItem.getPlaceId());
-                            searchData.put("city", destinationItem.getCityStateCountry());
-                            searchData.put("long", coords.get("longitude"));
-                            searchData.put("lat", coords.get("latitude"));
-                        }
-                        startActivity(new Intent(getApplicationContext(), HotelViewActivity.class).putExtra("SearchData", searchData));
-                    }
-                });
-                thread.start();
-
-            }
         });
     }
 

@@ -42,7 +42,7 @@ public class CustomerHotelRoomsAdapter extends RecyclerView.Adapter<CustomerHote
         return hotelRoomsModel.size();
     }
 
-    class CustomerHotelRoomsHolder extends RecyclerView.ViewHolder {
+    static class CustomerHotelRoomsHolder extends RecyclerView.ViewHolder {
 
         CardView hotelRoomsLayout;
         TextView bedsInRoom;
@@ -71,12 +71,9 @@ public class CustomerHotelRoomsAdapter extends RecyclerView.Adapter<CustomerHote
             hotelRoomPrice.setText("$" + hotelRoomModel.getPrice());
             roomSchedule.setText("Schedule: " + hotelRoomModel.getRoomAvailability());
 
-            hotelRoomsLayout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    System.out.println("hi");
-                    //v.getContext().startActivity(new Intent(v.getContext(), CustomerHotelRoomsActivity.class).putExtra("Hotel Room", hotelRoom));
-                }
+            hotelRoomsLayout.setOnClickListener(v -> {
+                System.out.println("hi");
+                //v.getContext().startActivity(new Intent(v.getContext(), CustomerHotelRoomsActivity.class).putExtra("Hotel Room", hotelRoom));
             });
 
         }

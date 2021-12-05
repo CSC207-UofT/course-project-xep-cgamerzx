@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Locale;
 
+@Deprecated
 public class OldRoom implements Serializable {
 
     private long startAvailability;
