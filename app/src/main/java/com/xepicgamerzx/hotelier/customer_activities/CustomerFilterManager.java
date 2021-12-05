@@ -5,6 +5,7 @@ import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelRoom;
 
 import java.util.ArrayList;
 
+@Deprecated
 public class CustomerFilterManager {
 
 

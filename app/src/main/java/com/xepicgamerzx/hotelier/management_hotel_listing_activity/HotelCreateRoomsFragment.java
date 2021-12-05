@@ -76,7 +76,7 @@ public class HotelCreateRoomsFragment extends Fragment {
                 if (!stringErrorMess.equals("")) {
                     Toast.makeText(getContext(), stringErrorMess, Toast.LENGTH_SHORT).show();
                 } else {
-                    HotelRoom room = activity.roomManager.createRoom(
+                    HotelRoom room = activity.manage.roomManager.createRoom(
                             zoneId, startDate, endDate,
                             Integer.parseInt(capacity.getText().toString()),
                             BigDecimal.valueOf(Long.parseLong(pricePerNight.getText().toString()))
@@ -84,8 +84,8 @@ public class HotelCreateRoomsFragment extends Fragment {
 
                     // The parent activity is HotelCreator (where these variables can be found)
                     activity.hotelRooms.add(room);
-                    Bed bed = activity.bedManager.create(bedType);
-                    activity.roomBedsCrossManager.createRelationship(room, bed, Integer.parseInt(totalBeds.getText().toString()));
+                    Bed bed = activity.manage.bedManager.create(bedType);
+                    activity.manage.roomBedsCrossManager.createRelationship(room, bed, Integer.parseInt(totalBeds.getText().toString()));
 
                     activity.text += "\n" + room;
                     activity.isRoomsMade = true;
