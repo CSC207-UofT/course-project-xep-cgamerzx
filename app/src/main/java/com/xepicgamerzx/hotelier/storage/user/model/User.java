@@ -3,10 +3,11 @@ package com.xepicgamerzx.hotelier.storage.user.model;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+
 import com.xepicgamerzx.hotelier.objects.hotel_objects.Hotel;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.ArrayList;
 
 @Entity(tableName = "users")
 public class User implements Serializable {
@@ -20,6 +21,8 @@ public class User implements Serializable {
     private String password;
     @ColumnInfo(name = "email")
     private String email;
+
+    private ArrayList<Long> favHotelIds = new ArrayList<>();
 
     public User(String userName, String password, String email) {
         this.userName = userName;
@@ -59,5 +62,46 @@ public class User implements Serializable {
         this.email = email;
     }
 
+    public ArrayList<Long> getFavHotelIds() {
+        return favHotelIds;
+    }
 
+    public void setFavHotelIds(ArrayList<Long> favHotelIds) {
+        this.favHotelIds = favHotelIds;
+    }
+
+    public void addHotel(Long hotelId){
+        favHotelIds.add(hotelId);
+    }
+
+    public void addHotel(Hotel hotel){
+        addHotel(hotel.hotelId);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        User user = (User) o;
+
+        if (getId() != user.getId()) return false;
+        if (getUserName() != null ? !getUserName().equals(user.getUserName()) : user.getUserName() != null)
+            return false;
+        if (getPassword() != null ? !getPassword().equals(user.getPassword()) : user.getPassword() != null)
+            return false;
+        if (getEmail() != null ? !getEmail().equals(user.getEmail()) : user.getEmail() != null)
+            return false;
+        return getFavHotelIds() != null ? getFavHotelIds().equals(user.getFavHotelIds()) : user.getFavHotelIds() == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getId();
+        result = 31 * result + (getUserName() != null ? getUserName().hashCode() : 0);
+        result = 31 * result + (getPassword() != null ? getPassword().hashCode() : 0);
+        result = 31 * result + (getEmail() != null ? getEmail().hashCode() : 0);
+        result = 31 * result + (getFavHotelIds() != null ? getFavHotelIds().hashCode() : 0);
+        return result;
+    }
 }
