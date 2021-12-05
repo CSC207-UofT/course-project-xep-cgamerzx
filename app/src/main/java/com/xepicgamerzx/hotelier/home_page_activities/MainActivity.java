@@ -12,7 +12,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.xepicgamerzx.hotelier.R;
 import com.xepicgamerzx.hotelier.databinding.ActivityMainBinding;
 import com.xepicgamerzx.hotelier.read_dummy_data.ReadDummyData;
-import com.xepicgamerzx.hotelier.storage.hotel_managers.HotelManager;
+import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
 
 import org.json.JSONException;
 
@@ -30,9 +30,9 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        HotelManager hotelManager = HotelManager.getManager(getApplication());
+        HotelierDatabase hotelierDatabase = HotelierDatabase.getDatabase(getApplication());
         // LOADING DUMMY DATA ON FIRST TIME LOADING APP, CAN PROBABLY USE AN API LATER
-        if (hotelManager.getAll().isEmpty()) {
+        if (hotelierDatabase.hotelDao().getAll().isEmpty()) {
             ReadDummyData readDummyData = new ReadDummyData(getApplication());
             try {
                 readDummyData.readData(getApplicationContext());

@@ -80,7 +80,7 @@ public class RoomBedsCrossManagerTest {
         bedManager.create(BedSizeEnum.KING);
         bedManager.create("Queen");
 
-        Bed bed = bedManager.get(BedSizeEnum.KING.toString()).get(0);
+        Bed bed = db.bedDao().getIdMatch(BedSizeEnum.KING.toString()).get(0);
 
         assertEquals(bed.getUniqueId(), BedSizeEnum.KING.getLabel());
     }
@@ -90,7 +90,7 @@ public class RoomBedsCrossManagerTest {
         Bed bedK = bedManager.create(BedSizeEnum.KING);
         Bed bedT = bedManager.create("Test Bed Type");
 
-        List<HotelRoom> rooms = roomManager.getAll();
+        List<HotelRoom> rooms = db.roomDao().getAll();
         roomBedsCrossManager.createRelationship(rooms.get(1), bedK,  3);
         roomBedsCrossManager.createRelationship(rooms.get(1), bedT,  2);
         roomBedsCrossManager.createRelationship(rooms.get(0), bedT, 1);
@@ -113,7 +113,7 @@ public class RoomBedsCrossManagerTest {
         int t1Count = 2;
         int t0Count = 1;
 
-        List<HotelRoom> rooms = roomManager.getAll();
+        List<HotelRoom> rooms = db.roomDao().getAll();
         roomBedsCrossManager.createRelationship(rooms.get(1), bedK,  k1Count);
         roomBedsCrossManager.createRelationship(rooms.get(1), bedT,  t1Count);
         roomBedsCrossManager.createRelationship(rooms.get(0), bedT, t0Count);
@@ -132,7 +132,7 @@ public class RoomBedsCrossManagerTest {
         int t1Count = 2;
         int t0Count = 1;
 
-        List<HotelRoom> rooms = roomManager.getAll();
+        List<HotelRoom> rooms = db.roomDao().getAll();
         roomBedsCrossManager.createRelationship(rooms.get(1), bedK,  k1Count);
         roomBedsCrossManager.createRelationship(rooms.get(1), bedT,  t1Count);
         roomBedsCrossManager.createRelationship(rooms.get(0), bedT, t0Count);

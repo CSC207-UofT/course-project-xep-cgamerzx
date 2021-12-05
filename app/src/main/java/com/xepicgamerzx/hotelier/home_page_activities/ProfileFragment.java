@@ -18,6 +18,8 @@ import com.xepicgamerzx.hotelier.user_activities.LoginActivity;
 import com.xepicgamerzx.hotelier.user_activities.RegisterActivity;
 import com.xepicgamerzx.hotelier.user_activities.UserManager;
 
+import java.util.Objects;
+
 public class ProfileFragment extends Fragment {
     Button registerBtn;
     Button login;
@@ -52,7 +54,7 @@ public class ProfileFragment extends Fragment {
 
         listHotel = v.findViewById(R.id.listHotelBtn);
 
-        UserManager um = UserManager.getManager(getActivity().getApplication());
+        UserManager um = UserManager.getManager(requireActivity().getApplication());
         // causes an error when no user, not fatal
         User user = um.getUser(getContext());
 

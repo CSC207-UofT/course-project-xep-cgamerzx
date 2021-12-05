@@ -7,8 +7,6 @@ import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelAmenity;
 import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
 import com.xepicgamerzx.hotelier.storage.dao.HotelAmenityDao;
 
-import java.util.List;
-
 /**
  * A class to manage all the HotelAmenities in the database.
  */
@@ -43,57 +41,6 @@ public class HotelAmenityManager implements UniqueManager<HotelAmenity, HotelAme
     }
 
     /**
-     * Gets all instances of HotelAmenity in the database.
-     *
-     * @return List<HotelAmenity> saved in the database.
-     */
-    @Override
-    public List<HotelAmenity> getAll() {
-        return hotelAmenityDao.getAll();
-    }
-
-    /**
-     * Updates HotelAmenity object(s) in the database.
-     *
-     * @param hotelAmenities HotelAmenity object(s) to be updated in the database.
-     */
-    @Override
-    public void update(HotelAmenity... hotelAmenities) {
-        hotelAmenityDao.update(hotelAmenities);
-    }
-
-    /**
-     * Closes the manager instance if it is open.
-     */
-    @Override
-    public void close() {
-        INSTANCE = null;
-    }
-
-    /**
-     * Inserts HotelAmenity objects to their database.
-     *
-     * @param object HotelAmenity object(s) to be inserted into the database.
-     * @return null.
-     */
-    @Override
-    public Void insert(HotelAmenity... object) {
-        hotelAmenityDao.insert(object);
-        return null;
-    }
-
-    /**
-     * Gets objects with matching primary key IDs.
-     *
-     * @param ID String ID(s) acting as primary key to be searched for.
-     * @return List<HotelAmenity> of objects with primary keys that match ID(s).
-     */
-    @Override
-    public List<HotelAmenity> get(String... ID) {
-        return hotelAmenityDao.getIdMatch(ID);
-    }
-
-    /**
      * Creates, inserts, and returns HotelAmenity object.
      *
      * @param amenity String name of the amenity to be created.
@@ -102,7 +49,7 @@ public class HotelAmenityManager implements UniqueManager<HotelAmenity, HotelAme
     @Override
     public HotelAmenity create(String amenity) {
         HotelAmenity hotelAmenity = new HotelAmenity(amenity);
-        insert(hotelAmenity);
+        hotelAmenityDao.insert(hotelAmenity);
         return hotelAmenity;
     }
 
@@ -115,7 +62,15 @@ public class HotelAmenityManager implements UniqueManager<HotelAmenity, HotelAme
     @Override
     public HotelAmenity create(HotelAmenitiesEnum amenity) {
         HotelAmenity hotelAmenity = new HotelAmenity(amenity.toString());
-        insert(hotelAmenity);
+        hotelAmenityDao.insert(hotelAmenity);
         return hotelAmenity;
+    }
+
+    /**
+     * Closes the manager if already open.
+     */
+    @Override
+    public void close() {
+        INSTANCE = null;
     }
 }

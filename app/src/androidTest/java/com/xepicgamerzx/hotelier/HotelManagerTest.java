@@ -62,7 +62,7 @@ public class HotelManagerTest {
 
         hotelManager.createHotel(name, addresses.get(0), starClass);
 
-        List<Hotel> hotels = hotelManager.getAll();
+        List<Hotel> hotels = db.hotelDao().getAll();
         Hotel hotel = hotels.get(0);
         Address hotel_address = hotel.getAddress();
 

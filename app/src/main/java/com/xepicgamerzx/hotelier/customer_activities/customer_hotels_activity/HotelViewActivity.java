@@ -13,6 +13,7 @@ import com.xepicgamerzx.hotelier.R;
 import com.xepicgamerzx.hotelier.customer_activities.customer_search_activity.SearchActivity;
 import com.xepicgamerzx.hotelier.objects.UnixEpochDateConverter;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.Hotel;
+import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
 import com.xepicgamerzx.hotelier.storage.Manage;
 
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ public class HotelViewActivity extends AppCompatActivity {
 
     ImageButton backBtn;
     Manage manage;
+    HotelierDatabase hotelierDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +33,7 @@ public class HotelViewActivity extends AppCompatActivity {
         getSupportActionBar().hide();
 
         manage = Manage.getManager(getApplication());
+        hotelierDatabase = HotelierDatabase.getDatabase(getApplication());
 
         RecyclerView hotelsRecyclerView = findViewById(R.id.hotelsRecyclerView);
         backBtn = findViewById(R.id.backBtn);
@@ -46,7 +49,7 @@ public class HotelViewActivity extends AppCompatActivity {
             String guests = (String) map.get("guests");
             long userStartDate = 0;
             long userEndDate = 0;
-            List<Hotel> hotels = manage.hotelManager.getAll();
+            List<Hotel> hotels = hotelierDatabase.hotelDao().getAll();
             List<HotelViewModel> hotelsView = manage.hotelManager.generateHotelModel(hotels);
             userGuests.setText(guests + " Guests");
 

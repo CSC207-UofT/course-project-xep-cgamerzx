@@ -85,7 +85,7 @@ public class RoomManagerTest {
 
         HotelRoom room = roomManager.createRoom(zoneId, startDate, endDate, capacity, price);
 
-        HotelRoom dbRoom = roomManager.get(room.roomId).get(0);
+        HotelRoom dbRoom = db.roomDao().getIdMatch(room.roomId).get(0);
 
         assertEquals(dbRoom, room);
     }

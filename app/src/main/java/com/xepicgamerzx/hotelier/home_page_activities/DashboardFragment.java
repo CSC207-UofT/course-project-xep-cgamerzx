@@ -16,6 +16,7 @@ import com.xepicgamerzx.hotelier.customer_activities.customer_hotels_activity.Ho
 import com.xepicgamerzx.hotelier.customer_activities.customer_hotels_activity.HotelViewModel;
 import com.xepicgamerzx.hotelier.customer_activities.customer_search_activity.SearchActivity;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.Hotel;
+import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
 import com.xepicgamerzx.hotelier.storage.Manage;
 import com.xepicgamerzx.hotelier.storage.user.model.User;
 import com.xepicgamerzx.hotelier.user_activities.UserManager;
@@ -75,18 +76,19 @@ public class DashboardFragment extends Fragment {
         TextInputEditText search = v.findViewById(R.id.searchToFragment);
         nameField = v.findViewById(R.id.welcomeField);
 
-        Manage manage = Manage.getManager(getActivity().getApplication());
+        Manage manage = Manage.getManager(requireActivity().getApplication());
+        HotelierDatabase hotelierDatabase = HotelierDatabase.getDatabase(requireActivity().getApplication());
 
         RecyclerView hotelsRecyclerView = v.findViewById(R.id.newListingsView);
 
-        List<Hotel> hotels = manage.hotelManager.getAll();
+        List<Hotel> hotels = hotelierDatabase.hotelDao().getAll();
         List<HotelViewModel> hotelsView = manage.hotelManager.generateHotelModel(hotels);
         Collections.reverse(hotelsView); // Reversing for "Newest listings"
 
         final HotelViewAdapter hotelsAdapter = new HotelViewAdapter(hotelsView);
         hotelsRecyclerView.setAdapter(hotelsAdapter);
 
-        UserManager um = UserManager.getManager(getActivity().getApplication());
+        UserManager um = UserManager.getManager(requireActivity().getApplication());
 
         // Add if empty, no user, go sign in.
         if (um.getUser(getContext()) != null) {

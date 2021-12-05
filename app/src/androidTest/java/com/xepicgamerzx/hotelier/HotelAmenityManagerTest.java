@@ -92,8 +92,8 @@ public class HotelAmenityManagerTest {
         hotelAmenityManager.create("Laundry");
         hotelAmenityManager.create(HotelAmenitiesEnum.GYM);
 
-        HotelAmenity amenity1 = hotelAmenityManager.get("Laundry").get(0);
-        HotelAmenity amenity2 = hotelAmenityManager.get(HotelAmenitiesEnum.GYM.toString()).get(0);
+        HotelAmenity amenity1 = db.hotelAmenityDao().getIdMatch("Laundry").get(0);
+        HotelAmenity amenity2 = db.hotelAmenityDao().getIdMatch(HotelAmenitiesEnum.GYM.toString()).get(0);
 
         assertEquals(amenity1.getUniqueId(), HotelAmenitiesEnum.LAUNDRY.getLabel());
         assertEquals(amenity2.getUniqueId(), HotelAmenitiesEnum.GYM.getLabel());

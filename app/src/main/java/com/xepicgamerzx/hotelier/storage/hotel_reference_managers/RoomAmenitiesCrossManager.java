@@ -7,8 +7,8 @@ import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelRoom;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.RoomAmenity;
 import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
 import com.xepicgamerzx.hotelier.storage.dao.RoomAmenitiesCrossDao;
-import com.xepicgamerzx.hotelier.storage.hotel_managers.RoomAmenityManager;
-import com.xepicgamerzx.hotelier.storage.hotel_managers.RoomManager;
+import com.xepicgamerzx.hotelier.storage.dao.RoomAmenityDao;
+import com.xepicgamerzx.hotelier.storage.dao.RoomDao;
 
 import java.util.List;
 
@@ -19,14 +19,14 @@ public class RoomAmenitiesCrossManager implements CrossManager<RoomAmenitiesCros
     private static volatile RoomAmenitiesCrossManager INSTANCE;
 
     private final RoomAmenitiesCrossDao roomAmenitiesCrossDao;
-    private final RoomManager roomManager;
-    private final RoomAmenityManager roomAmenityManager;
+    private final RoomDao roomDao;
+    private final RoomAmenityDao roomAmenityDao;
 
 
     private RoomAmenitiesCrossManager(HotelierDatabase dbInstance) {
         roomAmenitiesCrossDao = dbInstance.roomAmenitiesCrossDao();
-        roomAmenityManager = RoomAmenityManager.getManager(dbInstance);
-        roomManager = RoomManager.getManager(dbInstance);
+        roomDao = dbInstance.roomDao();
+        roomAmenityDao = dbInstance.roomAmenityDao();
     }
 
     public static RoomAmenitiesCrossManager getManager(Application application) {
@@ -54,7 +54,7 @@ public class RoomAmenitiesCrossManager implements CrossManager<RoomAmenitiesCros
     @Override
     public RoomAmenitiesCrossRef createRelationship(HotelRoom hotelRoom, RoomAmenity roomAmenity) {
         RoomAmenitiesCrossRef crossRef = new RoomAmenitiesCrossRef(hotelRoom, roomAmenity);
-        insert(crossRef);
+        roomAmenitiesCrossDao.insert(crossRef);
         return crossRef;
     }
 
@@ -67,7 +67,7 @@ public class RoomAmenitiesCrossManager implements CrossManager<RoomAmenitiesCros
     @Override
     public List<HotelRoom> getRelated(RoomAmenity roomAmenity) {
         List<Long> ids = roomAmenitiesCrossDao.getWith(roomAmenity.getUniqueId());
-        return roomManager.get(ids.toArray(new Long[0]));
+        return roomDao.getIdMatch(ids.toArray(new Long[0]));
     }
 
     /**
@@ -79,7 +79,7 @@ public class RoomAmenitiesCrossManager implements CrossManager<RoomAmenitiesCros
     @Override
     public List<RoomAmenity> getRelated(HotelRoom hotelRoom) {
         List<String> ids = roomAmenitiesCrossDao.getWith(hotelRoom.roomId);
-        return roomAmenityManager.get(ids.toArray(new String[0]));
+        return roomAmenityDao.getIdMatch(ids.toArray(new String[0]));
     }
 
     /**
@@ -105,41 +105,10 @@ public class RoomAmenitiesCrossManager implements CrossManager<RoomAmenitiesCros
     }
 
     /**
-     * Gets all instances of RoomAmenitiesCrossRef in the database.
-     *
-     * @return List<RoomAmenitiesCrossRef> saved in the database.
-     */
-    @Override
-    public List<RoomAmenitiesCrossRef> getAll() {
-        return roomAmenitiesCrossDao.getAll();
-    }
-
-    /**
-     * Updates RoomAmenitiesCrossRef roomAmenitiesCrossRef(s) in the database.
-     *
-     * @param roomAmenitiesCrossRef <RoomAmenitiesCrossRef> roomAmenitiesCrossRef(s) to be updated in the database.
-     */
-    @Override
-    public void update(RoomAmenitiesCrossRef... roomAmenitiesCrossRef) {
-        roomAmenitiesCrossDao.update(roomAmenitiesCrossRef);
-    }
-
-    /**
      * Closes the manager instance if it is open.
      */
     @Override
     public void close() {
         INSTANCE = null;
-    }
-
-    /**
-     * Inserts RoomAmenitiesCrossRef objects to their database.
-     *
-     * @param roomAmenitiesCrossRef RoomAmenitiesCrossRef(s) to be inserted into the database.
-     * @return null.
-     */
-    @Override
-    public Void insert(RoomAmenitiesCrossRef... roomAmenitiesCrossRef) {
-        return roomAmenitiesCrossDao.insert(roomAmenitiesCrossRef);
     }
 }

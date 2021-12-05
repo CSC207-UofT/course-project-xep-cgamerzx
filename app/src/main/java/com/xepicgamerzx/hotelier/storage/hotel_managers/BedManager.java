@@ -7,8 +7,6 @@ import com.xepicgamerzx.hotelier.objects.hotel_objects.BedSizeEnum;
 import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
 import com.xepicgamerzx.hotelier.storage.dao.BedDao;
 
-import java.util.List;
-
 /**
  * A class to manage all the Beds in the database.
  */
@@ -51,7 +49,7 @@ public class BedManager implements UniqueManager<Bed, BedSizeEnum> {
     @Override
     public Bed create(String bedSize) {
         Bed bed = new Bed(bedSize);
-        insert(bed);
+        bedDao.insert(bed);
         return bed;
     }
 
@@ -64,52 +62,8 @@ public class BedManager implements UniqueManager<Bed, BedSizeEnum> {
     @Override
     public Bed create(BedSizeEnum bedSizeEnum) {
         Bed bed = new Bed(bedSizeEnum.toString());
-        insert(bed);
-        return bed;
-    }
-
-    /**
-     * Inserts the beds(s) to the Hotel database.
-     *
-     * @param bed Bed object(s) to be saved.
-     * @return null
-     */
-    @Override
-    public Void insert(Bed... bed) {
         bedDao.insert(bed);
-        return null;
-    }
-
-    /**
-     * Updates Bed object(s) in the database.
-     *
-     * @param bed Bed object(s) to be updated in the database.
-     */
-    @Override
-    public void update(Bed... bed) {
-        bedDao.update(bed);
-    }
-
-    /**
-     * Get beds with matching bed IDs.
-     *
-     * @param bedID String bedIDs to be used as search keys.
-     * @return List of Beds with matching bedIDs.
-     */
-    @Override
-    public List<Bed> get(String... bedID) {
-        return bedDao.getIdMatch(bedID);
-    }
-
-
-    /**
-     * Gets all beds in the Bed database.
-     *
-     * @return List of the Beds in the Bed database.
-     */
-    @Override
-    public List<Bed> getAll() {
-        return bedDao.getAll();
+        return bed;
     }
 
     /**

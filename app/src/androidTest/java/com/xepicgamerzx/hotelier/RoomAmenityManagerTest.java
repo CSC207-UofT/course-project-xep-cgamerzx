@@ -90,8 +90,8 @@ public class RoomAmenityManagerTest {
         roomAmenityManager.create("Patio");
         roomAmenityManager.create(RoomAmenitiesEnum.WIFI);
 
-        RoomAmenity amenity1 = roomAmenityManager.get("Patio").get(0);
-        RoomAmenity amenity2 = roomAmenityManager.get(RoomAmenitiesEnum.WIFI.toString()).get(0);
+        RoomAmenity amenity1 = db.roomAmenityDao().getIdMatch("Patio").get(0);
+        RoomAmenity amenity2 = db.roomAmenityDao().getIdMatch(RoomAmenitiesEnum.WIFI.toString()).get(0);
 
         assertEquals(amenity1.getUniqueId(), RoomAmenitiesEnum.PATIO.getLabel());
         assertEquals(amenity2.getUniqueId(), RoomAmenitiesEnum.WIFI.getLabel());
@@ -102,7 +102,7 @@ public class RoomAmenityManagerTest {
         RoomAmenity amenity1 = roomAmenityManager.create("Patio");
         RoomAmenity amenity2 = roomAmenityManager.create(RoomAmenitiesEnum.WIFI);
 
-        HotelRoom room = roomManager.getAll().get(1);
+        HotelRoom room = db.roomDao().getAll().get(1);
 
         roomAmenitiesCrossManager.createRelationship(room, amenity1);
         roomAmenitiesCrossManager.createRelationship(room, amenity2);
