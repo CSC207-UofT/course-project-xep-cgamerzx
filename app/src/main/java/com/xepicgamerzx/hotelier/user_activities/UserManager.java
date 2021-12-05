@@ -3,13 +3,13 @@ package com.xepicgamerzx.hotelier.user_activities;
 import android.app.Application;
 import android.content.Context;
 
-import com.xepicgamerzx.hotelier.objects.hotel_objects.Hotel;
 import com.xepicgamerzx.hotelier.storage.FileReadWrite;
 import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
 import com.xepicgamerzx.hotelier.storage.dao.UserDao;
 import com.xepicgamerzx.hotelier.storage.user.model.User;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class UserManager implements com.xepicgamerzx.hotelier.storage.hotel_managers.Manager<User, Long[]> {
     private static volatile UserManager INSTANCE;
@@ -55,8 +55,22 @@ public class UserManager implements com.xepicgamerzx.hotelier.storage.hotel_mana
         this.setUser(user);
     }
 
+    public List<User> getAllUsers() {
+        System.out.println(userDao.getAll());
+        return userDao.getAll();
+    }
+
+    public User getLastLoggedInUser() {
+        List<User> users = userDao.getAll();
+        return users.get(users.size() - 1);
+    }
+
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public boolean isLoggedIn() {
+        return user == null;
     }
 
     public ArrayList<Long> getUserFavourites() {

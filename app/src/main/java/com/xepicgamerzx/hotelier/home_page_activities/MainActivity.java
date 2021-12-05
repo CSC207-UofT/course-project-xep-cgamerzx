@@ -13,6 +13,7 @@ import com.xepicgamerzx.hotelier.R;
 import com.xepicgamerzx.hotelier.databinding.ActivityMainBinding;
 import com.xepicgamerzx.hotelier.read_dummy_data.ReadDummyData;
 import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
+import com.xepicgamerzx.hotelier.user_activities.UserManager;
 
 import org.json.JSONException;
 
@@ -23,7 +24,6 @@ public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
     private BottomNavigationView navView;
-
     private TextView username;
 
     @Override
@@ -33,6 +33,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         HotelierDatabase hotelierDatabase = HotelierDatabase.getDatabase(getApplication());
+        UserManager um = UserManager.getManager(hotelierDatabase);
+        um.getAllUsers();
+
+
         // LOADING DUMMY DATA ON FIRST TIME LOADING APP, CAN PROBABLY USE AN API LATER
         if (hotelierDatabase.hotelDao().getAll().isEmpty()) {
             ReadDummyData readDummyData = new ReadDummyData(getApplication());
