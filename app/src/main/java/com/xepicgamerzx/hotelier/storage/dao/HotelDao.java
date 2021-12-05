@@ -62,4 +62,10 @@ public abstract class HotelDao implements BaseDao<List<Long>, Hotel> {
      */
     @Query("SELECT * FROM Hotel WHERE :centerLatSin * latSin + :centerLatCos * latCos * (lonCos* :centerLonCos + lonSin * :centerLonSin) > :distanceCos")
     public abstract List<Hotel> getHotelsInArea(double centerLonCos, double centerLonSin, double centerLatCos, double centerLatSin, double distanceCos);
+
+    /**
+     * Delete all Hotels from a Hotel table.
+     */
+    @Query("DELETE FROM Hotel")
+    public abstract void deleteAll();
 }

@@ -65,4 +65,10 @@ public abstract class BedRoomCrossDao implements BaseDao<Void, RoomBedsCrossRef>
      */
     @Query("SELECT * FROM RoomBedsCrossRef WHERE uniqueId =:bedID")
     public abstract List<RoomBedsCrossRef> getCrossWith(String bedID);
+
+    /**
+     * Delete all RoomBedsCrossRef in RoomBedsCrossRef table.
+     */
+    @Query("DELETE FROM RoomBedsCrossRef")
+    public abstract void deleteAll();
 }

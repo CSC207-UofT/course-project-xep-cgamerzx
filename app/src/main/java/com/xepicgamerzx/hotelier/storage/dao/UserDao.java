@@ -22,4 +22,9 @@ public abstract class UserDao implements BaseDao<Void, User> {
 
     // TODO - Add a userFavourites column, so when a user clicks favourite on something, it gets saved.
 
+    /**
+     * Delete all Users from User table.
+     */
+    @Query("DELETE FROM Users")
+    public abstract void deleteAll();
 }

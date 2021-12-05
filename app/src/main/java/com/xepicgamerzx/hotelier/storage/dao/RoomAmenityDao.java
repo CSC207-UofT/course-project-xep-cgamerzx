@@ -39,4 +39,10 @@ public abstract class RoomAmenityDao implements BaseDao<Void, RoomAmenity> {
     @Transaction
     @Query("SELECT * FROM RoomAmenity")
     public abstract List<AmenityWithRooms> getRoomAmenitiesWithRooms();
+
+    /**
+     * Delete all RoomAmenities in RoomAmenity table.
+     */
+    @Query("DELETE FROM RoomAmenity")
+    public abstract void deleteAll();
 }

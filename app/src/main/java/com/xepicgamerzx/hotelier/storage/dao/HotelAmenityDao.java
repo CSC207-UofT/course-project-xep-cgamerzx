@@ -39,4 +39,11 @@ public abstract class HotelAmenityDao implements BaseDao<Void, HotelAmenity> {
     @Transaction
     @Query("SELECT * FROM HotelAmenity")
     public abstract List<AmenityWithHotels> getHotelAmenitiesWithHotels();
+
+    /**
+     * Delete all HotelAmenity in HotelAmenity table.
+     */
+    @Query("DELETE FROM HotelAmenity")
+    public abstract void deleteAll();
+
 }
