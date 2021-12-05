@@ -92,7 +92,7 @@ public class DashboardFragment extends Fragment {
         // UserManager um = UserManager.getManager(requireActivity().getApplication());
         HotelierDatabase hotelierDb = HotelierDatabase.getDatabase(getContext());
         UserManager userManager = UserManager.getManager(hotelierDb);
-        User user = userManager.user;
+        User user = userManager.getLastLoggedInUser();
 
         // Add if empty, no user, go sign in.
         if (user != null) {
