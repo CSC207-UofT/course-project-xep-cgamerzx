@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import com.xepicgamerzx.hotelier.customer_activities.customer_hotels_activity.HotelViewModel;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.Address;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.Hotel;
+import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelAmenity;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelRoom;
 import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
 import com.xepicgamerzx.hotelier.storage.dao.HotelDao;
@@ -24,6 +25,7 @@ public class HotelManager implements DiscreteManager<Hotel, Long, Long[]> {
     private final HotelierDatabase db;
     private final HotelDao hotelDao;
     private final RoomManager roomManager;
+    //private final HotelAmenityManager amenityManager;
 
     private HotelManager(Application application) {
         db = HotelierDatabase.getDatabase(application);
@@ -98,6 +100,32 @@ public class HotelManager implements DiscreteManager<Hotel, Long, Long[]> {
         for (HotelRoom hotelRoom : hotelRooms) {
             roomManager.setHotelID(hotel, hotelRoom);
         }
+
+        return hotel;
+    }
+
+    // With amenities
+    /**
+     * Creates hotel object and inserts it to the database. Also associates a list of hotel rooms
+     * with the hotel object and inserts these associations to the HotelRoom database.
+     *
+     * @param name       String name of the hotel.
+     * @param address    Address object associated with the hotel.
+     * @param starClass  Int star class of the hotel
+     * @param hotelRooms List of HotelRooms to be associated with the Hotel object.
+     * @return Hotel object created.
+     */
+    @NonNull
+    public Hotel createHotel(String name, Address address, int starClass, List<HotelRoom> hotelRooms, List<HotelAmenity> hotelAmenities) {
+        Hotel hotel = createHotel(name, address, starClass);
+
+        for (HotelRoom hotelRoom : hotelRooms) {
+            roomManager.setHotelID(hotel, hotelRoom);
+        }
+
+        /*for (HotelAmenity hotelAmenity : hotelAmenities) {
+            amenityManager
+        }*/
 
         return hotel;
     }

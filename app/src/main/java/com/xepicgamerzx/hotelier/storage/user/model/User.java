@@ -3,8 +3,10 @@ package com.xepicgamerzx.hotelier.storage.user.model;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+import com.xepicgamerzx.hotelier.objects.hotel_objects.Hotel;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Entity(tableName = "users")
 public class User implements Serializable {

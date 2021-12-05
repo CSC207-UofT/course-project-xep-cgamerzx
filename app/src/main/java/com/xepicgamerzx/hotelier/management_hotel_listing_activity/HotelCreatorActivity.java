@@ -13,8 +13,10 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.xepicgamerzx.hotelier.R;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.Address;
+import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelAmenity;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelRoom;
 import com.xepicgamerzx.hotelier.storage.Manage;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,12 +24,15 @@ import java.util.List;
 public class HotelCreatorActivity extends AppCompatActivity {
     Manage manage;
 
+
     Address address;
     List<HotelRoom> hotelRooms = new ArrayList<>();
+    List<HotelAmenity> hotelAmenities = new ArrayList<>();
 
     TextInputEditText hotelName;
     MaterialButton addAddressBtn;
     MaterialButton addRoomsBtn;
+    MaterialButton addAmenitiesBtn;
     MaterialButton submitBtn;
     MaterialButton hotelDetails;
     ImageButton backBtn;
@@ -51,6 +56,7 @@ public class HotelCreatorActivity extends AppCompatActivity {
         hotelName = findViewById(R.id.hotelNameInput);
         addAddressBtn = findViewById(R.id.addAddressBtn);
         addRoomsBtn = findViewById(R.id.addRoomsBtn);
+        addAmenitiesBtn = findViewById(R.id.hotelAmentitiesBtn);
         submitBtn = findViewById(R.id.saveHotelBtn);
         backBtn = findViewById(R.id.backBtn);
         hotelDetails = findViewById(R.id.hotelDetails);
@@ -89,6 +95,16 @@ public class HotelCreatorActivity extends AppCompatActivity {
             public void onClick(View v) {
                 getSupportFragmentManager().beginTransaction()
                         .add(R.id.hotelCreator, HotelCreateRoomsFragment.class, null)
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
+
+        addAmenitiesBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getSupportFragmentManager().beginTransaction()
+                        .add(R.id.hotelCreator, HotelCreateAmenitiesFragment.class, null)
                         .addToBackStack(null)
                         .commit();
             }

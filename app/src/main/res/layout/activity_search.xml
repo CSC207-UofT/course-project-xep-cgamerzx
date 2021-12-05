@@ -71,6 +71,7 @@
             android:textSize="18sp"
             android:completionThreshold="1"
             android:popupBackground="@color/background_secondary"
+            android:inputType="text"
             />
 
     </com.google.android.material.textfield.TextInputLayout>
