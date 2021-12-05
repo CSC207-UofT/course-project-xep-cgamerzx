@@ -2,6 +2,7 @@ package com.xepicgamerzx.hotelier.objects.OldObjects;
 
 import java.io.Serializable;
 
+@Deprecated
 public class BedOld implements Serializable {
 
     public OldRoom room;

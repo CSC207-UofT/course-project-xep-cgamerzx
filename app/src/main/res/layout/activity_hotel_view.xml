@@ -20,34 +20,33 @@
             android:id="@+id/backBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_baseline_arrow_back_24"
             android:background="?android:selectableItemBackground"
+            android:src="@drawable/ic_baseline_arrow_back_24"
             app:tint="@color/black"
-            tools:ignore="SpeakableTextPresentCheck"
-            />
+            tools:ignore="SpeakableTextPresentCheck" />
 
 
         <TextView
+            android:id="@+id/userCityText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_toEndOf="@+id/backBtn"
             android:fontFamily="@font/inter_regular"
             android:gravity="center_vertical"
-            android:id="@+id/userCityText"
             android:text=""
             android:textColor="@color/black" />
 
         <TextView
+            android:id="@+id/userSchedule"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/userSchedule"
-            android:text=""
-            android:fontFamily="@font/inter_regular"
-            android:textColor="@color/black"
             android:layout_below="@id/backBtn"
             android:layout_marginLeft="5dp"
-            android:layout_marginTop="5dp"/>
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/inter_regular"
+            android:text=""
+            android:textColor="@color/black" />
 
         <TextView
             android:id="@+id/userGuests"

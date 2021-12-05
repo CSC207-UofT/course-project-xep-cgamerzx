@@ -17,6 +17,7 @@ import com.xepicgamerzx.hotelier.storage.hotel_managers.RoomManager;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 public class CustomerHotelRoomsActivity extends AppCompatActivity {
 
@@ -27,7 +28,7 @@ public class CustomerHotelRoomsActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer_rooms);
-        getSupportActionBar().hide();
+        Objects.requireNonNull(getSupportActionBar()).hide();
 
         RoomManager roomManager = RoomManager.getManager(getApplication());
         TextView descNameText = findViewById(R.id.hotelNameDesc);
@@ -39,7 +40,7 @@ public class CustomerHotelRoomsActivity extends AppCompatActivity {
         if (intent.getExtras() != null) {
             hotelData = (HashMap<String, Object>) intent.getSerializableExtra("HotelData"); // Gives the hotel object
             HotelViewModel hotelModel = (HotelViewModel) hotelData.get("Hotel");
-            Hotel hotel = hotelModel.getHotel();
+            Hotel hotel = Objects.requireNonNull(hotelModel).getHotel();
             List<CustomerHotelRoomsModel> roomViewModel;
             RecyclerView roomsRecyclerView = findViewById(R.id.roomsRecyclerView);
 

@@ -29,12 +29,12 @@ public class DatabaseTest {
 
     @Test
     public void testDummy() {
-        assert(true);
+        assert (true);
     }
 
 
     @After
-    public void closeDb(){
+    public void closeDb() {
         db.close();
     }
 }

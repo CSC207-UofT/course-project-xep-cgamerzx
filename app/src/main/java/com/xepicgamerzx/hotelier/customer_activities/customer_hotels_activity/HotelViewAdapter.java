@@ -80,17 +80,14 @@ public class HotelViewAdapter extends RecyclerView.Adapter<HotelViewAdapter.Hote
             totalRooms.setText(String.valueOf(hotel.getNumberOfRooms()));
             // img .set
 
-            hotelLayout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    HashMap<String, Object> data = new HashMap<>();
-                    if (userStartDate != 0 && userEndDate != 0) {
-                        data.put("userStartDate", userStartDate);
-                        data.put("userEndDate", userEndDate);
-                    }
-                    data.put("Hotel", hotel);
-                    v.getContext().startActivity(new Intent(v.getContext(), CustomerHotelRoomsActivity.class).putExtra("HotelData", data));
+            hotelLayout.setOnClickListener(v -> {
+                HashMap<String, Object> data = new HashMap<>();
+                if (userStartDate != 0 && userEndDate != 0) {
+                    data.put("userStartDate", userStartDate);
+                    data.put("userEndDate", userEndDate);
                 }
+                data.put("Hotel", hotel);
+                v.getContext().startActivity(new Intent(v.getContext(), CustomerHotelRoomsActivity.class).putExtra("HotelData", data));
             });
 
         }

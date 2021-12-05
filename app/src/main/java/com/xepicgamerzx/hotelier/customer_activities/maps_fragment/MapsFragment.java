@@ -5,16 +5,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.xepicgamerzx.hotelier.R;
+
+import java.util.Objects;
 
 
 public class MapsFragment extends Fragment {
@@ -41,38 +40,32 @@ public class MapsFragment extends Fragment {
                 getChildFragmentManager().findFragmentById(R.id.googleMaps);
 
         // Async map
-        supportMapFragment.getMapAsync(new OnMapReadyCallback() {
-            @Override
-            public void onMapReady(@NonNull GoogleMap googleMap) {
-                if (latitude != 0 && longitude != 0) {
-                    LatLng hotelCoord = new LatLng(latitude, longitude);
-                    googleMap.addMarker(new MarkerOptions().position(hotelCoord));
-                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
-                            hotelCoord, 15
-                    ));
-                }
-
-                googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-                    @Override
-                    public void onMapClick(@NonNull LatLng latLng) {
-                        // When the map is clicked,
-                        MarkerOptions markerOptions = new MarkerOptions();
-
-                        // Set position
-                        markerOptions.position(latLng);
-
-                        markerOptions.title(latLng.latitude + " : " + latLng.longitude);
-
-                        googleMap.clear();
-
-                        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
-                                latLng, 10
-                        ));
-
-                        googleMap.addMarker(markerOptions);
-                    }
-                });
+        Objects.requireNonNull(supportMapFragment).getMapAsync(googleMap -> {
+            if (latitude != 0 && longitude != 0) {
+                LatLng hotelCoord = new LatLng(latitude, longitude);
+                googleMap.addMarker(new MarkerOptions().position(hotelCoord));
+                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
+                        hotelCoord, 15
+                ));
             }
+
+            googleMap.setOnMapClickListener(latLng -> {
+                // When the map is clicked,
+                MarkerOptions markerOptions = new MarkerOptions();
+
+                // Set position
+                markerOptions.position(latLng);
+
+                markerOptions.title(latLng.latitude + " : " + latLng.longitude);
+
+                googleMap.clear();
+
+                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
+                        latLng, 10
+                ));
+
+                googleMap.addMarker(markerOptions);
+            });
         });
 
         return v;

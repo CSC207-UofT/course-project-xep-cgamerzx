@@ -11,7 +11,7 @@ import java.util.List;
  * Data access object for BedRoomCrossRefs
  */
 @Dao
-public abstract class BedRoomCrossDao implements BaseDao<Void, RoomBedsCrossRef> {
+public abstract class RoomBedsCrossDao implements BaseDao<Void, RoomBedsCrossRef> {
     /**
      * Get all RoomBedsCrossRef in RoomBedsCrossRef table.
      *

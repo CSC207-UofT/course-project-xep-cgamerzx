@@ -37,7 +37,7 @@ public class RegisterActivity extends AppCompatActivity {
                         password.getText().toString(),
                         email.getText().toString());
 
-                if (validateInput(user)) {
+                if (validateInput(user) && validatePassword(user)) {
                     // Insert to db
                     HotelierDatabase hotelierDatabase = HotelierDatabase.getDatabase(getApplicationContext());
                     UserDao userDao = hotelierDatabase.userDao();
@@ -56,6 +56,11 @@ public class RegisterActivity extends AppCompatActivity {
 
                     startActivity(new Intent(getApplicationContext(), LoginActivity.class));
 
+                } else if (!validateInput(user)) {
+                    Toast.makeText(getApplicationContext(), "Fill all fields", Toast.LENGTH_SHORT).show();
+                } else if (!validatePassword(user)) {
+                    Toast.makeText(getApplicationContext(), "Please make a stronger password" +
+                            " (at least 6 characters long with at least 1 of each: uppercase, lowercase, number, special character (!@#$%^&*()_+.))", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(getApplicationContext(), "Fill all fields", Toast.LENGTH_SHORT).show();
                 }
@@ -68,4 +73,17 @@ public class RegisterActivity extends AppCompatActivity {
         return !user.getUserName().isEmpty() &&
                 !user.getEmail().isEmpty() && !user.getPassword().isEmpty();
     }
+
+    /**
+     * Check whether the password meets the requirement
+     * (at least 6 characters in length with at least 1 lowercase letter, 1 uppercase letter,
+     * 1 number, and 1 special character)
+     *
+     * @param user
+     * @return Whether the password matches the regex
+     */
+    private Boolean validatePassword(User user) {
+        return user.getPassword().matches("^(?=(.*[a-z]))(?=(.*[A-Z]))(?=(.*[0-9]))(?=(.*[!@#$%^&*()_+.])).{6,}$");
+    }
+
 }

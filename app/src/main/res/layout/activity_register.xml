@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".user_activities.RegisterActivity"
-    android:background="@color/white">
+    android:background="@color/white"
+    tools:context=".user_activities.RegisterActivity">
 
     <TextView
         android:id="@+id/signInTxt"
@@ -37,10 +37,10 @@
         app:boxCornerRadiusBottomStart="8dp"
         app:boxCornerRadiusTopEnd="8dp"
         app:boxCornerRadiusTopStart="8dp"
-        app:hintEnabled="false"
-        app:endIconMode="custom"
         app:endIconDrawable="@drawable/ic_user"
-        app:endIconTint="@color/white">
+        app:endIconMode="custom"
+        app:endIconTint="@color/white"
+        app:hintEnabled="false">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/usernameInput"
@@ -51,6 +51,7 @@
             android:layout_centerHorizontal="true"
             android:fontFamily="@font/inter_regular"
             android:hint="Username"
+            android:inputType="text"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
@@ -89,6 +90,7 @@
             android:layout_centerHorizontal="true"
             android:fontFamily="@font/inter_regular"
             android:hint="Password"
+            android:inputType="text"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
@@ -113,10 +115,10 @@
         app:boxCornerRadiusBottomStart="8dp"
         app:boxCornerRadiusTopEnd="8dp"
         app:boxCornerRadiusTopStart="8dp"
-        app:hintEnabled="false"
-        app:endIconMode="custom"
         app:endIconDrawable="@drawable/ic_baseline_email_24"
-        app:endIconTint="@color/white">
+        app:endIconMode="custom"
+        app:endIconTint="@color/white"
+        app:hintEnabled="false">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/emailInput"
@@ -127,12 +129,14 @@
             android:layout_centerHorizontal="true"
             android:fontFamily="@font/inter_regular"
             android:hint="Email"
+            android:inputType="text"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
             android:textSize="18sp" />
 
     </com.google.android.material.textfield.TextInputLayout>
+
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">

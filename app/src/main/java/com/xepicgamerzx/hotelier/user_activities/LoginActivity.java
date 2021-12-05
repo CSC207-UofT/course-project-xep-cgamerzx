@@ -18,7 +18,7 @@ import com.xepicgamerzx.hotelier.storage.user.model.User;
 public class LoginActivity extends AppCompatActivity {
     TextInputEditText userId, password;
     Button loginBtn;
-    UserManager userManager = new UserManager();
+    UserManager userManager = UserManager.getManager(getApplication());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

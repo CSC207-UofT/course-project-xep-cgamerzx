@@ -6,11 +6,11 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 public class HotelViewModel implements Serializable {
-    boolean isSelected = false;
     private final String name;
     private final String address;
     private final BigDecimal priceRange;
     private final int numberOfRooms;
+    boolean isSelected = false;
     private Hotel hotel;
 //    private String image;
 
