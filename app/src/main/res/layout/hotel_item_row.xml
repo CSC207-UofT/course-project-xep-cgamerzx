@@ -98,6 +98,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginTop="-8dp"
             android:layout_marginRight="3dp"
+            android:backgroundTint="@color/hotel_row_background"
             android:src="@drawable/ic_favorite_border" />
     </RelativeLayout>
 

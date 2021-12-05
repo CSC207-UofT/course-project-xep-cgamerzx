@@ -1,6 +1,7 @@
 package com.xepicgamerzx.hotelier.home_page_activities;
 
 import android.os.Bundle;
+import android.view.Window;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,8 +33,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        // Loading data on the first app launch.
-        loadData();
+        hotelierDatabase = HotelierDatabase.getDatabase(getApplicationContext());
+        loadData(); // Loading data on the first app launch.
         setRecentLogin();
 
         // Setting up navigation view.
@@ -41,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentContainer);
         NavController navController = Objects.requireNonNull(navHostFragment).getNavController();
         NavigationUI.setupWithNavController(navView, navController);
+
 
     }
 
