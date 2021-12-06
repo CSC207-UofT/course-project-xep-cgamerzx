@@ -118,8 +118,9 @@ In order to check if a commit had any issues, we utilized Github actions by crea
 #### Unit Tests
 We used unit tests extensively throughout our project, including for portions that require an application instance such as for database related methods. Using unit tests and test-driven development in general was great for helping with identifying if changes resulted in something breaking. If something did break, this often indicated potential violations of SOLID design. Other times, tests not acting as expected acted as indication that we needed to implement equals and hashcode functions manually. In conjunction with Github actions, they were also a good indicator of the status of a branch in terms of what needs to be worked on and whenever or not it would be safe to merge the branch.
 
-### Group Member Contributions for Phase 2
-Howard: 
+### Group Member Significant Contributions/Pull Requests
+Howard: {[#17](https://github.com/CSC207-UofT/course-project-xep-cgamerzx/pull/17)} {[#61](https://github.com/CSC207-UofT/course-project-xep-cgamerzx/pull/61)} Migration of our presistence library to Android Room as well as general work on the backend. Android Room handles all if not all of our data persistence, and plays a major role in data filtering as well.
+
 Rafee:
 Megan: 
 Veronica: 
