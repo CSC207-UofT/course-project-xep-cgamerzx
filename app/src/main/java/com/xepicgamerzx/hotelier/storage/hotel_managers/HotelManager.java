@@ -196,34 +196,26 @@ public class HotelManager implements Manager {
     /**
      * Generates a list of HotelViewModel's with specifics
      */
-    public List<HotelViewModel> generateHotelModel(Set<Hotel> hotels) {
+    public List<HotelViewModel> generateHotelModel(Map<Hotel, List<HotelRoom>> hotelListMap) {
         List<HotelViewModel> hotelsView = new ArrayList<>();
 
-        for (Hotel hotel : hotels) {
-            hotelsView.add(new HotelViewModel(
-                    hotel.getName(),
-                    hotel.getAddress().getFullStreet(),
-                    roomManager.getPriceRange(hotel).get(0),
-                    roomManager.getNumberOfRooms(hotel),
-                    hotel
-            ));
-        }
+        hotelListMap.forEach((hotel, rooms) ->
+                hotelsView.add(new HotelViewModel(
+                hotel.getName(),
+                hotel.getAddress().getFullStreet(),
+                roomManager.getPriceRange(hotel).get(0),
+                roomManager.getNumberOfRooms(hotel),
+                hotel,rooms
+        )));
+
         return hotelsView;
     }
 
     /**
      * Generates a list of HotelViewModel's with specifics
      */
-    public List<HotelViewModel> generateHotelModel(List<Hotel> hotels) {
-        Set<Hotel> hotelSet = new HashSet<>(hotels);
-        return generateHotelModel(hotelSet);
-    }
-
-    /**
-     * Generates a list of HotelViewModel's with specifics
-     */
     public List<HotelViewModel> generateHotelModel() {
-        return generateHotelModel(db.hotelDao().getAll());
+        return generateHotelModel(db.hotelRoomMapDao().getAll());
     }
 
     /**
@@ -257,7 +249,7 @@ public class HotelManager implements Manager {
                     centerLatCos, centerLatSin,
                     cosDistance,
                     startTime, endTime);
-            return generateHotelModel(hotelListMap.keySet());
+            return generateHotelModel(hotelListMap);
         } else {
             Log.e("Hotel Manager", "Failed to generate location data");
             return generateHotelModel(capacity, startTime, endTime);
@@ -293,7 +285,7 @@ public class HotelManager implements Manager {
                     centerLonCos, centerLonSin,
                     centerLatCos, centerLatSin,
                     cosDistance);
-            return generateHotelModel(hotelListMap.keySet());
+            return generateHotelModel(hotelListMap);
         } else {
             Log.e("Hotel Manager", "Failed to generate location data");
             return generateHotelModel(capacity);
@@ -310,7 +302,7 @@ public class HotelManager implements Manager {
      */
     public List<HotelViewModel> generateHotelModel(int capacity, long startTime, long endTime) {
         Map<Hotel, List<HotelRoom>> hotelListMap = db.hotelRoomMapDao().getAvailableRooms(startTime, endTime, capacity);
-        return generateHotelModel(hotelListMap.keySet());
+        return generateHotelModel(hotelListMap);
     }
 
     /**
@@ -321,7 +313,7 @@ public class HotelManager implements Manager {
      */
     public List<HotelViewModel> generateHotelModel(int capacity) {
         Map<Hotel, List<HotelRoom>> hotelListMap = db.hotelRoomMapDao().getAvailableRooms(capacity);
-        return generateHotelModel(hotelListMap.keySet());
+        return generateHotelModel(hotelListMap);
     }
 
     /**

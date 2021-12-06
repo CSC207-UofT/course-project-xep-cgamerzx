@@ -13,6 +13,15 @@ import java.util.Map;
 @Dao
 public abstract class HotelRoomMapDao {
     /**
+     * Get all hotels with their rooms
+     *
+     * @return Map<Hotel, List<HotelRoom>> map of matching hotels and rooms
+     */
+    @MapInfo(keyColumn = "hotelId")
+    @Query("SELECT * FROM HotelRoom JOIN Hotel ON HOTELROOM.hotelId = Hotel.hotelId")
+    public abstract Map<Hotel, List<HotelRoom>> getAll();
+
+    /**
      * Get all hotels with their rooms within a schedule, min capacity and given hotel Ids
      *
      * @param startTime long start time
