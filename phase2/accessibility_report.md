@@ -7,6 +7,7 @@
 * We have paid a lot of attention to how our app's design looks so we can make it appealing to all users.
 * In our app, we have two types of users: Manager and Customer. The only difference between the two types is whether or not they are able to add a hotel listing. 
 * Our app is currently only offered in English. In the future, support for multiple languages could be implemented.
+* UI elements, including images, have underlying content descriptions, which provides information to Android accessibility services, particularly text to speech services. 
 
 ### Flexibility in Use
 
@@ -18,16 +19,18 @@
 
 * All instructions when accessing app features, such as registering as a user, use simple vocabulary and are as straightforward as possible.
 * All users should be able to use our app despite their skill level. 
+* Related functions are grouped together within the user interface creating an intuitive workflow.
 
 ### Perceptible Information
 
-* Our app has a simple, minimalistic design with only essential data displayed. Most of the information is shown as text. 
+* Our app has a simple, minimalistic design with only essential data displayed. Most of the information is shown as text and cues are not solely reliant on colors. 
 * The text is easy to read as it is in a legible font and has a distinct contrast against the background.
+* Individual UI elements like text boxes are large and have a high contrast compared to the background, making them stand out.
 
 ### Tolerance for Error
 
 * Our app generates helpful error messages when the user gives it invalid inputs. For example, when a user is registering an account and does not choose a strong enough password, the error message that pops up tells them.
-* Our app also allows for error recovery. Furthering the example made earlier, the message would include instructions for a stronger password so the user is able to recognise the error and recover from it. 
+* Our app also allows for error recovery. Furthering the example made earlier, the message would include instructions for a stronger password so the user is able to recognise the error and recover from it.
 
 ### Low Physical Effort
 
@@ -38,6 +41,7 @@
 
 * This principle is not very applicable to our app as all its features can be done on the screen of a phone. So, there is no real requirement for space.
 * As long as the user has an area where they can use their device, they should be able to use our app.
+* App interface elements scale with the user's screen size, resolution, and ascpect ratio, ensuring screen space utilization is maximized such that the app is agnostic towards the user's display specifications.
 
 ## Marketing the program
 
