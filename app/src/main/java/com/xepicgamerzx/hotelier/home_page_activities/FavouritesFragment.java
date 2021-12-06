@@ -1,24 +1,19 @@
 package com.xepicgamerzx.hotelier.home_page_activities;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.xepicgamerzx.hotelier.R;
 import com.xepicgamerzx.hotelier.customer_activities.customer_hotels_activity.HotelViewAdapter;
 import com.xepicgamerzx.hotelier.customer_activities.customer_hotels_activity.HotelViewModel;
-import com.xepicgamerzx.hotelier.objects.hotel_objects.Hotel;
 import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
 import com.xepicgamerzx.hotelier.storage.Manage;
-import com.xepicgamerzx.hotelier.storage.user.model.User;
 import com.xepicgamerzx.hotelier.storage.user.UserManager;
 
 import java.util.Collections;
@@ -51,7 +46,7 @@ public class FavouritesFragment extends Fragment implements OnFavouriteClickList
 
     public void setAllFields(View v) {
         hotelsRecyclerView = v.findViewById(R.id.favouritesView);
-        manage = Manage.getManager(getActivity().getApplication());
+        manage = Manage.getManager(requireActivity().getApplication());
         hotelierDatabase = HotelierDatabase.getDatabase(v.getContext());
         userManager = UserManager.getManager(hotelierDatabase);
         userManager.setLastLoggedInUser(v.getContext());
@@ -69,8 +64,7 @@ public class FavouritesFragment extends Fragment implements OnFavouriteClickList
     }
 
     public void setRecyclerView() {
-        List<Hotel> hotels = manage.hotelManager.getFavouriteHotels(userManager.getUser());
-        hotelsView = manage.hotelManager.generateHotelModel(hotels);
+        hotelsView = manage.hotelManager.generateHotelModel();
         Collections.reverse(hotelsView); // Reversing for newest favourites at the top
         hotelsAdapter = new HotelViewAdapter(hotelsView, this);
         hotelsRecyclerView.setAdapter(hotelsAdapter);
