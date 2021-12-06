@@ -219,7 +219,7 @@ public class HotelManager implements Manager {
                         .setAddress(hotel.getAddress()
                                 .getFullStreet())
                         .setPriceRange(roomManager.getPriceRange(hotel).get(0))
-                        .setNumberOfRooms(roomManager.getNumberOfRooms(hotel))
+                        .setNumberOfRooms(rooms.size())
                         .setHotel(hotel).setRooms(rooms)
                         .createHotelViewModel()));
         return hotelsView;

@@ -57,7 +57,7 @@ public abstract class HotelRoomMapDao {
      * @return Map<Hotel, List<HotelRoom>> map of matching hotels and rooms
      */
     @MapInfo(keyColumn = "hotelId")
-    @Query("SELECT * FROM HOTELROOM JOIN Hotel WHERE capacity >= :minCapacity")
+    @Query("SELECT * FROM HOTELROOM JOIN Hotel ON HOTELROOM.hotelId = Hotel.hotelId WHERE capacity >= :minCapacity")
     public abstract Map<Hotel, List<HotelRoom>> getAvailableRooms(int minCapacity);
 
     /**
@@ -68,7 +68,7 @@ public abstract class HotelRoomMapDao {
      * @return Map<Hotel, List<HotelRoom>> map of matching hotels and rooms
      */
     @MapInfo(keyColumn = "hotelId")
-    @Query("SELECT * FROM HotelRoom JOIN Hotel WHERE capacity >= :minCapacity " +
+    @Query("SELECT * FROM HotelRoom JOIN Hotel ON HOTELROOM.hotelId = Hotel.hotelId WHERE capacity >= :minCapacity " +
             "AND HOTELROOM.hotelId IN (:hotelID)")
     public abstract Map<Hotel, List<HotelRoom>> getAvailableRooms(int minCapacity, long... hotelID);
 
