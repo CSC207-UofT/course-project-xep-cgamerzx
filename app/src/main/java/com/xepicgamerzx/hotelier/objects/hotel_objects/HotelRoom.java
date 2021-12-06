@@ -6,6 +6,7 @@ import androidx.room.PrimaryKey;
 
 import com.xepicgamerzx.hotelier.objects.UnixEpochDateConverter;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.ZoneId;
@@ -13,7 +14,7 @@ import java.util.Locale;
 import java.util.Objects;
 
 @Entity
-public class HotelRoom extends NonUniqueEntity {
+public class HotelRoom extends NonUniqueEntity implements Serializable {
     @PrimaryKey(autoGenerate = true)
     public long roomId;
 

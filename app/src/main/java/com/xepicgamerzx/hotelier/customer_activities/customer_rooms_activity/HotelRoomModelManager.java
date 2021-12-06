@@ -2,9 +2,13 @@ package com.xepicgamerzx.hotelier.customer_activities.customer_rooms_activity;
 
 import android.app.Application;
 
+import androidx.annotation.Nullable;
+
+import com.xepicgamerzx.hotelier.customer_activities.customer_hotels_activity.HotelViewModel;
 import com.xepicgamerzx.hotelier.objects.UnixEpochDateConverter;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.Bed;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelRoom;
+import com.xepicgamerzx.hotelier.storage.Manage;
 import com.xepicgamerzx.hotelier.storage.hotel_reference_managers.RoomBedsCrossManager;
 
 import java.util.ArrayList;
@@ -12,7 +16,6 @@ import java.util.List;
 import java.util.Locale;
 
 public class HotelRoomModelManager {
-
     public static List<CustomerHotelRoomsModel> getHotelViewModelList(List<HotelRoom> hotelRooms, Application application) {
         List<CustomerHotelRoomsModel> hotelRoomsView = new ArrayList<>();
         RoomBedsCrossManager roomBedsCrossManager = RoomBedsCrossManager.getManager(application);
@@ -40,6 +43,19 @@ public class HotelRoomModelManager {
         }
 
         return hotelRoomsView;
+    }
+
+    public static CustomerHotelRoomsAdapter getAdapterRooms(HotelViewModel hotelViewModel, Application application, @Nullable Long userStartDate, @Nullable Long userEndDate){
+        List<HotelRoom> rooms;
+
+        if (hotelViewModel.getRooms() != null){
+            rooms = hotelViewModel.getRooms();
+        } else if (userStartDate != null && userEndDate != null){
+            rooms = Manage.getManager(application).roomManager.getAvailableRooms(userStartDate, userEndDate, hotelViewModel.getHotel());
+        } else{
+            rooms = Manage.getManager(application).roomManager.getHotelRoomsInHotel(hotelViewModel.getHotel().hotelId);
+        }
+        return new CustomerHotelRoomsAdapter(getHotelViewModelList(rooms, application));
     }
 
 }

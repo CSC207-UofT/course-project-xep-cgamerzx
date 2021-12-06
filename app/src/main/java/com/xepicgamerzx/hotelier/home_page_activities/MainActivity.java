@@ -1,7 +1,6 @@
 package com.xepicgamerzx.hotelier.home_page_activities;
 
 import android.os.Bundle;
-import android.view.Window;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;

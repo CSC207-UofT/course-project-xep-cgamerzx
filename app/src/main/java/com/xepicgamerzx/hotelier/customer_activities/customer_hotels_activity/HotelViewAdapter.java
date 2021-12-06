@@ -6,19 +6,16 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.xepicgamerzx.hotelier.R;
 import com.xepicgamerzx.hotelier.customer_activities.customer_rooms_activity.CustomerHotelRoomsActivity;
-import com.xepicgamerzx.hotelier.home_page_activities.FavouritesFragment;
 import com.xepicgamerzx.hotelier.home_page_activities.OnFavouriteClickListener;
 import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
 import com.xepicgamerzx.hotelier.storage.user.UserManager;
@@ -105,22 +102,19 @@ public class HotelViewAdapter extends RecyclerView.Adapter<HotelViewAdapter.Hote
          * Clicking again removes it.
          */
         public void favouritesButtonListener(HotelViewModel hotel) {
-            favouritesBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    HotelierDatabase hotelierDatabase = HotelierDatabase.getDatabase(v.getContext());
-                    UserManager userManager = UserManager.getManager(hotelierDatabase);
-                    if (userManager.isLoggedIn()){
-                        userManager.updateUserFavourites(String.valueOf(hotel.getHotel().hotelId));
-                        if (onFavouriteClickListener != null) {
-                            int pos = getAdapterPosition();
-                            if(pos != RecyclerView.NO_POSITION) {
-                                onFavouriteClickListener.onFavouriteClick(pos);
-                            }
+            favouritesBtn.setOnClickListener(v -> {
+                HotelierDatabase hotelierDatabase = HotelierDatabase.getDatabase(v.getContext());
+                UserManager userManager = UserManager.getManager(hotelierDatabase);
+                if (userManager.isLoggedIn()){
+                    userManager.updateUserFavourites(String.valueOf(hotel.getHotel().hotelId));
+                    if (onFavouriteClickListener != null) {
+                        int pos = getAbsoluteAdapterPosition();
+                        if(pos != RecyclerView.NO_POSITION) {
+                            onFavouriteClickListener.onFavouriteClick(pos);
                         }
-                    } else {
-                        System.out.println("Please Sign In");
                     }
+                } else {
+                    System.out.println("Please Sign In");
                 }
             });
         }
