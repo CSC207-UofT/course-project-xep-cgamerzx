@@ -25,7 +25,7 @@ public class User implements Serializable {
     @ColumnInfo(name="userType")
     private String userType;
 
-    private ArrayList<Long> favHotelIds = new ArrayList<>();
+    private ArrayList<String> favHotelIds = new ArrayList<>();
     private ArrayList<String> recentSearches = new ArrayList<>();
 
     public User(String userName, String password, String email) {
@@ -74,31 +74,31 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    public ArrayList<Long> getFavHotelIds() {
+    public ArrayList<String> getFavHotelIds() {
         return favHotelIds;
     }
 
-    public void setFavHotelIds(ArrayList<Long> favHotelIds) {
+    public void setFavHotelIds(ArrayList<String> favHotelIds) {
         this.favHotelIds = favHotelIds;
     }
 
-    public void addFavHotel(Long hotelId) {
-        String hotelID = String.valueOf(hotelId);
-        if (!favHotelIds.contains(hotelID)) {
+    public void addFavHotel(String hotelId) {
+        // Need to compare strings for some reason, look into this, but low prio for now.
+        if (!favHotelIds.contains(hotelId)) {
             favHotelIds.add(hotelId);
         }
     }
 
     public void addFavHotel(Hotel hotel) {
-        addFavHotel(hotel.hotelId);
+        addFavHotel(String.valueOf(hotel.hotelId));
     }
 
-    public void removeFavHotel(Long hotelId) {
+    public void removeFavHotel(String hotelId) {
         favHotelIds.remove(hotelId);
     }
 
     public void removeFavHotel(Hotel hotel) {
-        removeFavHotel(hotel.hotelId);
+        removeFavHotel(String.valueOf(hotel.hotelId));
     }
 
     public ArrayList<String> getRecentSearches() {

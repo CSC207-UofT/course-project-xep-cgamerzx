@@ -194,10 +194,18 @@ public class HotelManager implements Manager {
         return null;
     }
 
-    public List<Hotel> getFavourites(User user) {
+    public List<Hotel> getFavouriteHotels(User user) {
         ArrayList<Hotel> favourites = new ArrayList<>();
-        System.out.println(user.getFavHotelIds());
+        List<Hotel> hotels = hotelDao.getAll();
 
+        List<String> favHotelIds = user.getFavHotelIds();
+        System.out.println(favHotelIds);
+
+        for (Hotel hotel : hotels) {
+            if (favHotelIds.contains(String.valueOf(hotel.hotelId))) {
+                favourites.add(hotel);
+            }
+        }
         return favourites;
     }
     /**

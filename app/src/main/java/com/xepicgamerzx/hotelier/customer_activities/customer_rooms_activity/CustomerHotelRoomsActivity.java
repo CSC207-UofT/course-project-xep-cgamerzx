@@ -43,6 +43,7 @@ public class CustomerHotelRoomsActivity extends AppCompatActivity {
         Intent intent = getIntent();
 
         if (intent.getExtras() != null) {
+            System.out.println("HI");
             hotelData = (HashMap<String, Object>) intent.getSerializableExtra("HotelData"); // Gives the hotel object
             HotelViewModel hotelModel = (HotelViewModel) hotelData.get("Hotel");
             Hotel hotel = Objects.requireNonNull(hotelModel).getHotel();
