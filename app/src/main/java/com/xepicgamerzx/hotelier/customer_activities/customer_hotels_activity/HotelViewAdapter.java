@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,6 +16,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.xepicgamerzx.hotelier.R;
 import com.xepicgamerzx.hotelier.customer_activities.customer_rooms_activity.CustomerHotelRoomsActivity;
+import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
+import com.xepicgamerzx.hotelier.storage.user.model.User;
+import com.xepicgamerzx.hotelier.user_activities.UserManager;
 
 import java.util.HashMap;
 import java.util.List;
@@ -63,6 +68,8 @@ public class HotelViewAdapter extends RecyclerView.Adapter<HotelViewAdapter.Hote
         TextView totalRooms;
         TextView hotelPrice;
 
+        ImageButton favouritesBtn;
+
         public HotelViewHolder(@NonNull View itemView) {
             super(itemView);
             hotelLayout = itemView.findViewById(R.id.layoutHotel);
@@ -71,6 +78,19 @@ public class HotelViewAdapter extends RecyclerView.Adapter<HotelViewAdapter.Hote
             hotelAddress = itemView.findViewById(R.id.hotelRowAddress);
             totalRooms = itemView.findViewById(R.id.hotelRowRoomsTotal);
             hotelPrice = itemView.findViewById(R.id.hotelRowPrice);
+            favouritesBtn = itemView.findViewById(R.id.favouritesBtn);
+
+            favouritesBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    HotelierDatabase hotelierDatabase = HotelierDatabase.getDatabase(v.getContext());
+                    UserManager userManager = UserManager.getManager(hotelierDatabase);
+
+                    if (userManager.isLoggedIn()) {
+                        System.out.println(userManager.getUserFavourites());
+                    }
+                }
+            });
         }
 
         public void bindHotel(HotelViewModel hotel) {

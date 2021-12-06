@@ -8,14 +8,15 @@ import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
 import com.xepicgamerzx.hotelier.storage.dao.UserDao;
 import com.xepicgamerzx.hotelier.storage.user.model.User;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class UserManager implements com.xepicgamerzx.hotelier.storage.hotel_managers.Manager<User, Long[]> {
     private static volatile UserManager INSTANCE;
-
     private final HotelierDatabase db;
     private final UserDao userDao;
-    public
+    public User user;
 
-    @Deprecated
     FileReadWrite<User> fw = new FileReadWrite<>();
 
     private UserManager(Application application) {
@@ -44,6 +45,57 @@ public class UserManager implements com.xepicgamerzx.hotelier.storage.hotel_mana
         return INSTANCE;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void registerUser(User user) {
+        userDao.insert(user);
+    }
+
+    public void login(String userIdText, String passwordText) {
+        User user = userDao.login(userIdText, passwordText);
+        this.setUser(user);
+    }
+
+    public List<User> getAllUsers() {
+        System.out.println(userDao.getAll());
+        return userDao.getAll();
+    }
+
+    public User getLastLoggedInUser() {
+        List<User> users = userDao.getAll();
+        return users.get(users.size() - 1);
+    }
+
+    public void setLastLoggedInUser() {
+        List<User> users = userDao.getAll();
+        if (users.size() != 0) {
+            user = users.get(users.size() - 1);
+        }
+    }
+
+    public void signOut() {
+        this.user = null;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public boolean isLoggedIn() {
+        return user != null;
+    }
+
+    public ArrayList<Long> getUserFavourites() {
+        return this.user.getFavHotelIds();
+    }
+
+    public void updateUserFavourites(Long hotelID) {
+        user.addFavHotel(hotelID);
+        userDao.update(user);
+    }
+
     @Deprecated
     public void saveUser(User user, Context context) {
         fw.writeData(user, "file.dat", context);
@@ -63,7 +115,7 @@ public class UserManager implements com.xepicgamerzx.hotelier.storage.hotel_mana
     }
 
     @Deprecated
-    public void signOut(Context context) {
+    public void signOutLocally(Context context) {
         fw.writeData(null, "file.dat", context);
     }
 

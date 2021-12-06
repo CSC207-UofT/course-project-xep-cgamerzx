@@ -91,12 +91,14 @@
             android:textSize="10dp" />
 
         <ImageButton
+            android:id="@+id/favouritesBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/hotelRowAddress"
             android:layout_alignParentRight="true"
             android:layout_marginTop="-8dp"
             android:layout_marginRight="3dp"
+            android:backgroundTint="@color/hotel_row_background"
             android:src="@drawable/ic_favorite_border" />
     </RelativeLayout>
 
