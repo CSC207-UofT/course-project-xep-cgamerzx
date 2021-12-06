@@ -1,6 +1,7 @@
 package com.xepicgamerzx.hotelier.customer_activities.customer_hotels_activity;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.xepicgamerzx.hotelier.objects.hotel_objects.Hotel;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelRoom;
@@ -17,7 +18,8 @@ public class HotelViewModel implements Serializable {
     private final int numberOfRooms;
     boolean isSelected = false;
     private Hotel hotel;
-    private List<HotelRoom> rooms;
+    @Nullable
+    private final List<HotelRoom> rooms;
 
     public HotelViewModel(String name, String address, BigDecimal priceRange, int numberOfRooms, Hotel hotel, List<HotelRoom> rooms) {
         this.name = name;
@@ -48,6 +50,12 @@ public class HotelViewModel implements Serializable {
     public Hotel getHotel() {
         return hotel;
     }
+
+    public String getHotelName() {return hotel.getName();}
+
+    public String getHotelFullStreet() {return hotel.getAddress().getFullStreet();}
+
+    public int getHotelStar() {return hotel.getStarClass();}
 
     public void setHotel(Hotel hotel) {
         this.hotel = hotel;
