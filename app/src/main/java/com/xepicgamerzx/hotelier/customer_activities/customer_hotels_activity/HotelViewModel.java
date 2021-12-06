@@ -21,7 +21,7 @@ public class HotelViewModel implements Serializable {
     @Nullable
     private final List<HotelRoom> rooms;
 
-    public HotelViewModel(String name, String address, BigDecimal priceRange, int numberOfRooms, Hotel hotel, List<HotelRoom> rooms) {
+    public HotelViewModel(@NonNull String name, String address, BigDecimal priceRange, int numberOfRooms, Hotel hotel, @Nullable List<HotelRoom> rooms) {
         this.name = name;
         this.address = address;
         this.priceRange = priceRange;
@@ -39,6 +39,7 @@ public class HotelViewModel implements Serializable {
         return address;
     }
 
+    @NonNull
     public String getName() {
         return name;
     }
@@ -61,6 +62,7 @@ public class HotelViewModel implements Serializable {
         this.hotel = hotel;
     }
 
+    @Nullable
     public List<HotelRoom> getRooms() {return rooms;}
 
     @Override
