@@ -21,7 +21,7 @@ import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
 import com.xepicgamerzx.hotelier.storage.Manage;
 import com.xepicgamerzx.hotelier.storage.hotel_managers.HotelManager;
 import com.xepicgamerzx.hotelier.storage.user.model.User;
-import com.xepicgamerzx.hotelier.user_activities.UserManager;
+import com.xepicgamerzx.hotelier.storage.user.UserManager;
 
 import java.util.Collections;
 import java.util.List;

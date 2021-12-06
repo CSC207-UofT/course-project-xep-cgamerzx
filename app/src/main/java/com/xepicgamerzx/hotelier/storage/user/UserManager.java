@@ -1,4 +1,4 @@
-package com.xepicgamerzx.hotelier.user_activities;
+package com.xepicgamerzx.hotelier.storage.user;
 
 import android.app.Application;
 import android.content.Context;
@@ -88,7 +88,7 @@ public class UserManager implements com.xepicgamerzx.hotelier.storage.hotel_mana
     }
 
     public ArrayList<Long> getUserFavourites() {
-        return this.user.getFavHotelIds();
+        return user.getFavHotelIds();
     }
 
     public void updateUserFavourites(Long hotelID) {

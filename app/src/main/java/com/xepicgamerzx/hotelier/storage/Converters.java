@@ -35,6 +35,20 @@ public class Converters {
     }
 
     @TypeConverter
+    public static ArrayList<String> fromString(String value) {
+        Type listType = new TypeToken<ArrayList<String>>() {}.getType();
+        return new Gson().fromJson(value, listType);
+    }
+
+    @TypeConverter
+    public static String fromArrayList(ArrayList<String> list) {
+        Gson gson = new Gson();
+        String json = gson.toJson(list);
+        return json;
+    }
+
+    // FOR LONG TYPE ARRAYLIST (NOT SURE IF THIS WORKS CORRECTLY, SINCE IT WAS RETURNING STRINGS)
+    @TypeConverter
     public static ArrayList<Long> fromStringToArrayList(String value) {
         Type listType = new TypeToken<ArrayList<String>>() {
         }.getType();
