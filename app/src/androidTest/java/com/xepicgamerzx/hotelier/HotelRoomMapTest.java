@@ -83,9 +83,9 @@ public class HotelRoomMapTest {
         roomManager.setHotelID(testHotel2, room2);
         roomManager.setHotelID(testHotel1, room3);
 
-        Map<Hotel, List<HotelRoom>> map1 = db.hotelRoomMapDao().getAvailableRooms(2, 3, testHotel1.hotelId);
-        Map<Hotel, List<HotelRoom>> map2 = db.hotelRoomMapDao().getAvailableRooms(2, 3, testHotel1.hotelId, testHotel2.hotelId);
-        Map<Hotel, List<HotelRoom>> map3 = db.hotelRoomMapDao().getAvailableRooms(0, 3, testHotel1.hotelId, testHotel2.hotelId);
+        Map<Hotel, List<HotelRoom>> map1 = db.hotelRoomMapDao().getAvailableRooms(2L, 3, 1, testHotel1.hotelId);
+        Map<Hotel, List<HotelRoom>> map2 = db.hotelRoomMapDao().getAvailableRooms(2L, 3, 1, testHotel1.hotelId, testHotel2.hotelId);
+        Map<Hotel, List<HotelRoom>> map3 = db.hotelRoomMapDao().getAvailableRooms(0L, 3, 1, testHotel1.hotelId, testHotel2.hotelId);
 
 
         assert (Objects.requireNonNull(map1.get(testHotel1)).size() == 2);
