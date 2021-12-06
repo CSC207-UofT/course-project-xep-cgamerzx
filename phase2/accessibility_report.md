@@ -6,8 +6,9 @@
 
 * We have paid a lot of attention to how our app's design looks so we can make it appealing to all users.
 * In our app, we have two types of users: Manager and Customer. The only difference between the two types is whether or not they are able to add a hotel listing. 
-* Our app is currently only offered in English. In the future, support for multiple languages could be implemented.
-* UI elements, including images, have underlying content descriptions which provides information to Android accessibility services, particularly text to speech services. 
+* Our app is currently only offered in English. In the future, support for multiple languages could be implemented easily thanks to our use of string resources.
+* UI elements, including images, have underlying content descriptions which provides information to Android accessibility services, particularly text to speech services.
+* UI element positions are defined using keywords agnostic towards left or right locales such as "start" or "end".
 
 ### Flexibility in Use
 
