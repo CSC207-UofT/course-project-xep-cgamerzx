@@ -80,17 +80,21 @@ public class FavouritesFragment extends Fragment {
         Manage manage = Manage.getManager(getActivity().getApplication());
         RecyclerView hotelsRecyclerView = v.findViewById(R.id.favouritesView);
 
-        User user = UserManager.user;
-
         HotelierDatabase hotelierDatabase = HotelierDatabase.getDatabase(v.getContext());
         UserManager userManager = UserManager.getManager(hotelierDatabase);
+        userManager.setLastLoggedInUser();
+        User user = UserManager.user;
+
         if (userManager.isLoggedIn()){
+            System.out.println("Logged in");
             List<Hotel> hotels = manage.hotelManager.getFavourites(user);
+            System.out.println(hotels);
             List<HotelViewModel> hotelsView = manage.hotelManager.generateHotelModel(hotels);
             Collections.reverse(hotelsView); // Reversing for newest favourites at the top
-
             final HotelViewAdapter hotelsAdapter = new HotelViewAdapter(hotelsView);
             hotelsRecyclerView.setAdapter(hotelsAdapter);
+        } else {
+            System.out.println("Not logged in.");
         }
 
         return v;

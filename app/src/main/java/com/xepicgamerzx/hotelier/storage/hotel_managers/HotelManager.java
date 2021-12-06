@@ -14,6 +14,7 @@ import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
 import com.xepicgamerzx.hotelier.storage.dao.HotelDao;
 import com.xepicgamerzx.hotelier.storage.user.model.User;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -140,12 +141,22 @@ public class HotelManager implements Manager<Hotel, Long[]> {
     public List<Hotel> getFavourites(User user) {  //this might break clean architecture idk
         List<Hotel> hotels = hotelDao.getAll();
         List<Hotel> favourites = new ArrayList<>();
-        for (Hotel hotel : hotels) {
-            if (user.getFavHotelIds().contains(hotel.hotelId)){
-                favourites.add(hotel);
-            }
-        }
 
+        for (Hotel hotel : hotels) {
+            System.out.println(user.getFavHotelIds());
+            System.out.println(hotel.hotelId);
+            System.out.println(user.getFavHotelIds());
+
+            List<?> favs = user.getFavHotelIds();
+            for (int i=0; i < favs.size(); i++) {
+                System.out.println(favs.get(i).getClass().getName());
+
+            }
+//            if (user.getFavHotelIds().contains(hotel.hotelId)){
+//                favourites.add(hotel);
+//            }
+        }
+        System.out.println(favourites);
         return favourites;
 
     }
