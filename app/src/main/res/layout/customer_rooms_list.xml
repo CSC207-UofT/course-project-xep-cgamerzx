@@ -17,10 +17,10 @@
             android:id="@+id/roomBeds"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
             android:layout_marginTop="15dp"
             android:fontFamily="@font/inter_regular"
-            android:text="Beds:"
+            android:text="@string/beds"
             android:textColor="@color/black" />
 
         <TextView
@@ -33,7 +33,7 @@
             android:layout_marginRight="15dp"
             android:layout_toStartOf="@id/roomPricetxt"
             android:fontFamily="@font/inter_regular"
-            android:text="Bed Size:"
+            android:text="@string/bed_size"
             android:textColor="@color/black" />
 
         <TextView
@@ -41,9 +41,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/roomBedSize"
-            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
             android:fontFamily="@font/inter_regular"
-            android:text="Capacity:"
+            android:text="@string/capacity"
             android:textColor="@color/black" />
 
         <TextView
@@ -51,22 +51,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/roomCapacity"
-            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
             android:fontFamily="@font/inter_regular"
-            android:text="Availability:"
+            android:text="@string/availability"
             android:textColor="@color/black" />
 
         <TextView
             android:id="@+id/roomPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:layout_marginTop="15dp"
-            android:layout_marginRight="15dp"
+            android:layout_marginEnd="15dp"
             android:layout_toEndOf="@id/roomBeds"
             android:fontFamily="@font/inter_regular"
-            android:gravity="right"
-            android:text="$0"
+            android:gravity="end"
+            android:text="@string/_0"
             android:textColor="@color/black"
             android:textSize="18sp" />
 
@@ -75,13 +75,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/roomPrice"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="15dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="15dp"
             android:fontFamily="@font/inter_regular"
-            android:gravity="right"
-            android:text="per night"
+            android:gravity="end"
+            android:text="@string/per_night"
             android:textColor="@color/black"
-            android:textSize="12dp" />
+            android:textSize="12sp" />
 
     </RelativeLayout>
 

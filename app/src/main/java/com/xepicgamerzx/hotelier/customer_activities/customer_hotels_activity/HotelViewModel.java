@@ -18,7 +18,6 @@ public class HotelViewModel implements Serializable {
     boolean isSelected = false;
     private Hotel hotel;
     private List<HotelRoom> rooms;
-//    private String image;
 
     public HotelViewModel(String name, String address, BigDecimal priceRange, int numberOfRooms, Hotel hotel, List<HotelRoom> rooms) {
         this.name = name;

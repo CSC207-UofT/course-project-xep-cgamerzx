@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.xepicgamerzx.hotelier.R;
+import com.xepicgamerzx.hotelier.customer_activities.customer_search_activity.api.PlacesAPI;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +37,6 @@ public class AutoDestinationAdapter extends ArrayAdapter<DestinationItem> implem
 
             if (constraint != null) {
                 destinationsListFull = placeApi.autoComplete(constraint.toString());
-
                 suggestions.addAll(destinationsListFull);
             }
             filterResults.values = suggestions;
@@ -65,7 +65,7 @@ public class AutoDestinationAdapter extends ArrayAdapter<DestinationItem> implem
         @Override
         public CharSequence convertResultToString(Object resultValue) {
             DestinationItem destinationItem = ((DestinationItem) resultValue);
-            // Sends to SearchActivity
+            // Sends the destination item to SearchActivity
             searchCallback.onSearch(destinationItem);
 
             return ((DestinationItem) resultValue).getCityStateCountry();

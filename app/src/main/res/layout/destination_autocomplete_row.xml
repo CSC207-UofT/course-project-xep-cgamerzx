@@ -12,7 +12,8 @@
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:src="@drawable/ic_location_svgrepo_com"
-        app:tint="@color/white" />
+        app:tint="@color/white"
+        android:contentDescription="@string/location" />
 
     <TextView
         android:id="@+id/cityStateCountry"
@@ -21,7 +22,8 @@
         android:layout_gravity="center_vertical"
         android:fontFamily="@font/inter_bold"
         android:paddingStart="8dp"
-        android:text="City, State, Country"
+        android:paddingEnd="8dp"
+        android:text="@string/city_state_country"
         android:textColor="@color/white" />
 
 </LinearLayout>

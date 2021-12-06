@@ -1,4 +1,6 @@
-package com.xepicgamerzx.hotelier.customer_activities.customer_search_activity;
+package com.xepicgamerzx.hotelier.customer_activities.customer_search_activity.api;
+
+import com.xepicgamerzx.hotelier.customer_activities.customer_search_activity.DestinationItem;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -49,7 +51,6 @@ public class PlacesAPI {
             JSONArray predictions = jsonObject.getJSONArray("predictions");
 
             for (int i = 0; i < predictions.length(); i++) {
-//                System.out.println(predictions.getJSONObject(i).getString("place_id"));
                 // You can also get things like latitude, longitude using place_id on another api call...
                 arrayList.add(new DestinationItem(predictions.getJSONObject(i).getString("description"),
                         predictions.getJSONObject(i).getString("place_id")));

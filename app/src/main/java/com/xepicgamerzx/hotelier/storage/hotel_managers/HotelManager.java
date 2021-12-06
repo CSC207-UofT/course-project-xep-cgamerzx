@@ -12,6 +12,7 @@ import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelAmenity;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelRoom;
 import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
 import com.xepicgamerzx.hotelier.storage.dao.HotelDao;
+import com.xepicgamerzx.hotelier.storage.user.model.User;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -193,6 +194,20 @@ public class HotelManager implements Manager {
         return null;
     }
 
+    public List<Hotel> getFavouriteHotels(User user) {
+        ArrayList<Hotel> favourites = new ArrayList<>();
+        List<Hotel> hotels = hotelDao.getAll();
+
+        List<String> favHotelIds = user.getFavHotelIds();
+        System.out.println(favHotelIds);
+
+        for (Hotel hotel : hotels) {
+            if (favHotelIds.contains(String.valueOf(hotel.hotelId))) {
+                favourites.add(hotel);
+            }
+        }
+        return favourites;
+    }
     /**
      * Generates a list of HotelViewModel's with specifics
      */
@@ -342,5 +357,10 @@ public class HotelManager implements Manager {
     @Override
     public void close() {
         INSTANCE = null;
+    }
+
+    public List<Hotel> getAllHotels() {
+        return hotelDao.getAll();
+
     }
 }

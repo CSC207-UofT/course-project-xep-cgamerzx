@@ -25,6 +25,10 @@ public class HotelViewActivity extends AppCompatActivity {
     Manage manage;
     HotelierDatabase hotelierDatabase;
 
+    /**
+     * The method that is run when the page loads.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,6 +100,9 @@ public class HotelViewActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * Logic for when a user clicks the back button on their android phone.
+     */
     @Override
     public void onBackPressed() {
         startActivity(new Intent(getApplicationContext(), SearchActivity.class));
