@@ -12,6 +12,7 @@ import com.xepicgamerzx.hotelier.R;
 import com.xepicgamerzx.hotelier.customer_activities.customer_hotels_activity.HotelViewAdapter;
 import com.xepicgamerzx.hotelier.customer_activities.customer_hotels_activity.HotelViewModel;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.Hotel;
+import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
 import com.xepicgamerzx.hotelier.storage.Manage;
 import com.xepicgamerzx.hotelier.storage.hotel_managers.HotelManager;
 import com.xepicgamerzx.hotelier.storage.user.model.User;
@@ -79,16 +80,18 @@ public class FavouritesFragment extends Fragment {
         Manage manage = Manage.getManager(getActivity().getApplication());
         RecyclerView hotelsRecyclerView = v.findViewById(R.id.favouritesView);
 
-        UserManager um = UserManager.getManager(getActivity().getApplication());
         User user = UserManager.user;
 
-        List<Hotel> hotels = manage.hotelManager.getFavourites(user);
-        List<HotelViewModel> hotelsView = manage.hotelManager.generateHotelModel(hotels);
-        Collections.reverse(hotelsView); // Reversing for newest favourites at the top
+        HotelierDatabase hotelierDatabase = HotelierDatabase.getDatabase(v.getContext());
+        UserManager userManager = UserManager.getManager(hotelierDatabase);
+        if (userManager.isLoggedIn()){
+            List<Hotel> hotels = manage.hotelManager.getFavourites(user);
+            List<HotelViewModel> hotelsView = manage.hotelManager.generateHotelModel(hotels);
+            Collections.reverse(hotelsView); // Reversing for newest favourites at the top
 
-        final HotelViewAdapter hotelsAdapter = new HotelViewAdapter(hotelsView);
-        hotelsRecyclerView.setAdapter(hotelsAdapter);
-
+            final HotelViewAdapter hotelsAdapter = new HotelViewAdapter(hotelsView);
+            hotelsRecyclerView.setAdapter(hotelsAdapter);
+        }
 
         return v;
 
