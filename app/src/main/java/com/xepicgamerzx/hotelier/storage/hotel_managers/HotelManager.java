@@ -23,7 +23,7 @@ import java.util.Set;
 /**
  * A class to manage all the hotels in the database.
  */
-public class HotelManager implements Manager<Hotel, Long[]> {
+public class HotelManager implements Manager {
     private static volatile HotelManager INSTANCE;
 
     private final HotelierDatabase db;
@@ -226,6 +226,16 @@ public class HotelManager implements Manager<Hotel, Long[]> {
         return generateHotelModel(db.hotelDao().getAll());
     }
 
+    /**
+     * Generate list of HotelView models based on min capacity, location, and schedule
+     *
+     * @param capacity int min capacity
+     * @param startTime long start time of schedule
+     * @param endTime long end time of schedule
+     * @param centerLat double location latitude
+     * @param centerLon double location longitude
+     * @return List<HotelViewModel> generated list of hotel view models
+     */
     public List<HotelViewModel> generateHotelModel(int capacity, long startTime, long endTime, double centerLat, double centerLon) {
         Map<String, Double> locationMap = convertLatLon(centerLat, centerLon, 50);
         Map<Hotel, List<HotelRoom>> hotelListMap;
@@ -255,6 +265,14 @@ public class HotelManager implements Manager<Hotel, Long[]> {
 
     }
 
+    /**
+     * Generate list of HotelView models based on min capacity and location
+     *
+     * @param capacity int min capacity
+     * @param centerLat double location latitude
+     * @param centerLon double location longitude
+     * @return List<HotelViewModel> generated list of hotel view models
+     */
     public List<HotelViewModel> generateHotelModel(int capacity, double centerLat, double centerLon) {
         Map<String, Double> locationMap = convertLatLon(centerLat, centerLon, 50);
         Map<Hotel, List<HotelRoom>> hotelListMap;
@@ -282,16 +300,38 @@ public class HotelManager implements Manager<Hotel, Long[]> {
         }
     }
 
+    /**
+     * Generate list of HotelView models based on min capacity and schedule
+     *
+     * @param capacity int min capacity
+     * @param startTime long start time of schedule
+     * @param endTime long end time of schedule
+     * @return List<HotelViewModel> generated list of hotel view models
+     */
     public List<HotelViewModel> generateHotelModel(int capacity, long startTime, long endTime) {
         Map<Hotel, List<HotelRoom>> hotelListMap = db.hotelRoomMapDao().getAvailableRooms(startTime, endTime, capacity);
         return generateHotelModel(hotelListMap.keySet());
     }
 
+    /**
+     * Generate list of HotelView models based on min capacity
+     *
+     * @param capacity Min capacity of rooms
+     * @return List<HotelViewModel> generated list of hotel view models
+     */
     public List<HotelViewModel> generateHotelModel(int capacity) {
         Map<Hotel, List<HotelRoom>> hotelListMap = db.hotelRoomMapDao().getAvailableRooms(capacity);
         return generateHotelModel(hotelListMap.keySet());
     }
 
+    /**
+     * Generate spherical coordinate locations based on cartesian coordinates
+     *
+     * @param centerLat double cartesian latitude
+     * @param centerLon double cartesian longitude
+     * @param distanceKM double distance in kilometers
+     * @return Map<String, Double> with centerLonCos, centerLonSin, centerLatCos, centerLatSin, cosDistance
+     */
     private Map<String, Double> convertLatLon(double centerLat, double centerLon, double distanceKM) {
         Map<String, Double> map = new HashMap<>();
 

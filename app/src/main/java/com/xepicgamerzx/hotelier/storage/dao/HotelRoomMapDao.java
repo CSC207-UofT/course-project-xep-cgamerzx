@@ -12,12 +12,29 @@ import java.util.Map;
 
 @Dao
 public abstract class HotelRoomMapDao {
+    /**
+     * Get all hotels with their rooms within a schedule, min capacity and given hotel Ids
+     *
+     * @param startTime long start time
+     * @param endTime long end time
+     * @param minCapacity int minCapacity of room
+     * @param hotelID long... hotel Ids
+     * @return Map<Hotel, List<HotelRoom>> map of matching hotels and rooms
+     */
     @MapInfo(keyColumn = "hotelId")
     @Query("SELECT * FROM HotelRoom JOIN Hotel ON HOTELROOM.hotelId = Hotel.hotelId" +
             " WHERE capacity >= :minCapacity AND " +
             "startAvailability <= :startTime AND endAvailability >= :endTime AND HOTELROOM.hotelId IN (:hotelID)")
     public abstract Map<Hotel, List<HotelRoom>> getAvailableRooms(long startTime, long endTime, int minCapacity, long... hotelID);
 
+    /**
+     * Get all hotels with their rooms within a schedule and min capacity
+     *
+     * @param startTime long start time
+     * @param endTime long end time
+     * @param minCapacity int minCapacity of room
+     * @return Map<Hotel, List<HotelRoom>> map of matching hotels and rooms
+     */
     @MapInfo(keyColumn = "hotelId")
     @Query("SELECT * FROM HOTELROOM JOIN Hotel ON HOTELROOM.hotelId = Hotel.hotelId" +
             " WHERE capacity >= :minCapacity AND " +
@@ -28,6 +45,7 @@ public abstract class HotelRoomMapDao {
      * Get all hotels within a defined min capacity
      *
      * @param minCapacity int minCapacity of room
+     * @return Map<Hotel, List<HotelRoom>> map of matching hotels and rooms
      */
     @MapInfo(keyColumn = "hotelId")
     @Query("SELECT * FROM HOTELROOM JOIN Hotel WHERE capacity >= :minCapacity")
@@ -38,6 +56,7 @@ public abstract class HotelRoomMapDao {
      *
      * @param minCapacity int minCapacity of room
      * @param hotelID long... hotel Ids
+     * @return Map<Hotel, List<HotelRoom>> map of matching hotels and rooms
      */
     @MapInfo(keyColumn = "hotelId")
     @Query("SELECT * FROM HotelRoom JOIN Hotel WHERE capacity >= :minCapacity " +
@@ -53,7 +72,7 @@ public abstract class HotelRoomMapDao {
      * @param centerLatCos double longitude boundary
      * @param centerLatSin double longitude boundary
      * @param distanceCos  double cosine radius search area
-     * @return List<Hotel> list of all hotel within the defined latitude and longitude areas
+     * @return Map<Hotel, List<HotelRoom>> map of matching hotels and rooms
      */
     @MapInfo(keyColumn = "hotelId")
     @Query("SELECT * FROM HotelRoom JOIN Hotel WHERE capacity >= :minCapacity" +
@@ -71,7 +90,7 @@ public abstract class HotelRoomMapDao {
      * @param distanceCos  double cosine radius search area
      * @param startTime long start time
      * @param endTime long end time
-     * @return List<Hotel> list of all hotel within the defined latitude and longitude areas
+     * @return Map<Hotel, List<HotelRoom>> map of matching hotels and rooms
      */
     @MapInfo(keyColumn = "hotelId")
     @Query("SELECT * FROM HotelRoom JOIN Hotel WHERE capacity >= :minCapacity" +
