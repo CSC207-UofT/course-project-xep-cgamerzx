@@ -24,7 +24,7 @@ public class UserManager implements com.xepicgamerzx.hotelier.storage.hotel_mana
         userDao = db.userDao();
     }
 
-    private UserManager(HotelierDatabase dbInstance) {
+    public UserManager(HotelierDatabase dbInstance) {
         db = dbInstance;
         userDao = db.userDao();
     }
@@ -92,7 +92,11 @@ public class UserManager implements com.xepicgamerzx.hotelier.storage.hotel_mana
     }
 
     public void updateUserFavourites(Long hotelID) {
-        user.addFavHotel(hotelID);
+        if (user.getFavHotelIds().contains(hotelID)) {
+            user.removeFavHotel(hotelID);
+        } else {
+            user.addFavHotel(hotelID);
+        }
         userDao.update(user);
     }
 

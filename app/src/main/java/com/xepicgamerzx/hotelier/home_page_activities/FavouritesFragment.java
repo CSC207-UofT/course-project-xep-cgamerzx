@@ -6,8 +6,21 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.xepicgamerzx.hotelier.R;
+import com.xepicgamerzx.hotelier.customer_activities.customer_hotels_activity.HotelViewAdapter;
+import com.xepicgamerzx.hotelier.customer_activities.customer_hotels_activity.HotelViewModel;
+import com.xepicgamerzx.hotelier.objects.hotel_objects.Hotel;
+import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
+import com.xepicgamerzx.hotelier.storage.Manage;
+import com.xepicgamerzx.hotelier.storage.hotel_managers.HotelManager;
+import com.xepicgamerzx.hotelier.storage.user.model.User;
+import com.xepicgamerzx.hotelier.user_activities.UserManager;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -15,6 +28,8 @@ import com.xepicgamerzx.hotelier.R;
  * create an instance of this fragment.
  */
 public class FavouritesFragment extends Fragment {
+
+    Manage manage;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -60,6 +75,30 @@ public class FavouritesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_favourites, container, false);
+        View v = inflater.inflate(R.layout.fragment_favourites, container, false);
+
+        Manage manage = Manage.getManager(getActivity().getApplication());
+        RecyclerView hotelsRecyclerView = v.findViewById(R.id.favouritesView);
+
+        HotelierDatabase hotelierDatabase = HotelierDatabase.getDatabase(v.getContext());
+        UserManager userManager = UserManager.getManager(hotelierDatabase);
+        userManager.setLastLoggedInUser();
+        User user = UserManager.user;
+
+        if (userManager.isLoggedIn()){
+            System.out.println("Logged in");
+            List<Hotel> hotels = manage.hotelManager.getFavourites(user);
+            System.out.println(hotels);
+            List<HotelViewModel> hotelsView = manage.hotelManager.generateHotelModel(hotels);
+            Collections.reverse(hotelsView); // Reversing for newest favourites at the top
+            final HotelViewAdapter hotelsAdapter = new HotelViewAdapter(hotelsView);
+            hotelsRecyclerView.setAdapter(hotelsAdapter);
+        } else {
+            System.out.println("Not logged in.");
+        }
+
+        return v;
+
+
     }
 }

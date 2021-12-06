@@ -110,6 +110,19 @@ public class HotelViewAdapter extends RecyclerView.Adapter<HotelViewAdapter.Hote
                 v.getContext().startActivity(new Intent(v.getContext(), CustomerHotelRoomsActivity.class).putExtra("HotelData", data));
             });
 
+            favouritesBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    HotelierDatabase hotelierDatabase = HotelierDatabase.getDatabase(v.getContext());
+                    UserManager userManager = UserManager.getManager(hotelierDatabase);
+                    if (userManager.isLoggedIn()){
+                        userManager.updateUserFavourites(hotel.getHotel().hotelId);
+                    } else {
+                        System.out.println("Please Sign In");
+                    }
+                }
+            });
+
         }
     }
 }
