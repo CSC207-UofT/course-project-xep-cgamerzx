@@ -13,11 +13,12 @@ import androidx.core.util.Pair;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.xepicgamerzx.hotelier.R;
 import com.xepicgamerzx.hotelier.customer_activities.customer_hotels_activity.HotelViewActivity;
+import com.xepicgamerzx.hotelier.customer_activities.customer_search_activity.api.PlacesAPI;
 import com.xepicgamerzx.hotelier.home_page_activities.MainActivity;
 import com.xepicgamerzx.hotelier.objects.UnixEpochDateConverter;
+import com.xepicgamerzx.hotelier.storage.user.UserManager;
 
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Objects;
 
 public class SearchActivity extends AppCompatActivity implements OnSearchClick {
@@ -30,6 +31,7 @@ public class SearchActivity extends AppCompatActivity implements OnSearchClick {
     AutoCompleteTextView editText;
     AutoDestinationAdapter adapter;
     private java.util.Locale Locale;
+    UserManager userManager = UserManager.getManager(getApplication());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,16 +39,7 @@ public class SearchActivity extends AppCompatActivity implements OnSearchClick {
         setContentView(R.layout.activity_search);
         Objects.requireNonNull(getSupportActionBar()).hide();
 
-        editText = findViewById(R.id.selectDestination);
-        adapter = new AutoDestinationAdapter(getApplicationContext(), this);
-        backBtn = findViewById(R.id.backBtn);
-        addGuestBtn = findViewById(R.id.btnAdd);
-        minusGuestBtn = findViewById(R.id.btnMinus);
-        numGuests = findViewById(R.id.textNumGuests);
-        dateSelection = findViewById(R.id.dateSelection);
-        searchBtn = findViewById(R.id.searchBtn);
-
-        editText.setAdapter(adapter);
+        setAllFields();
         callAllListeners();
     }
 
@@ -57,6 +50,19 @@ public class SearchActivity extends AppCompatActivity implements OnSearchClick {
         backOnClickListener();
     }
 
+
+    public void setAllFields() {
+        editText = findViewById(R.id.selectDestination);
+        adapter = new AutoDestinationAdapter(getApplicationContext(), this);
+        backBtn = findViewById(R.id.backBtn);
+        addGuestBtn = findViewById(R.id.btnAdd);
+        minusGuestBtn = findViewById(R.id.btnMinus);
+        numGuests = findViewById(R.id.textNumGuests);
+        dateSelection = findViewById(R.id.dateSelection);
+        searchBtn = findViewById(R.id.searchBtn);
+        editText.setAdapter(adapter);
+    }
+
     public void backOnClickListener() {
         backBtn.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(), MainActivity.class)));
     }
@@ -65,6 +71,7 @@ public class SearchActivity extends AppCompatActivity implements OnSearchClick {
         searchBtn.setOnClickListener(v -> {
             Thread thread = new Thread(() -> {
                 HashMap<String, Object> searchData = getUserSearchData();
+                addRecentSearches(searchData);
                 startActivity(new Intent(getApplicationContext(), HotelViewActivity.class).putExtra("SearchData", searchData));
             });
             thread.start();
@@ -72,22 +79,32 @@ public class SearchActivity extends AppCompatActivity implements OnSearchClick {
         });
     }
 
+    public void addRecentSearches(HashMap<String, Object> searchData) {
+        if (searchData.containsKey("city")) {
+            userManager.setLastLoggedInUser(getApplicationContext());
+            if (userManager.isLoggedIn()) {
+                userManager.addRecentSearches((String) searchData.get("city"));
+                System.out.println(userManager.getRecentSearches());
+            }
+        }
+    }
+
     public HashMap<String, Object> getUserSearchData() {
         HashMap<String, Object> searchData = new HashMap<>();
         HashMap<String, Double> coords;
-        double lng = 0, lat = 0;
+        Double lng = 0D, lat = 0D;
         String destination = null;
         PlacesAPI placesAPI = new PlacesAPI();
 
         if (destinationItem != null) {
             coords = placesAPI.getLocation(destinationItem.getPlaceId());
-            lat = coords.get("latitude"); // I try doing containsKey, and the nullpointerexception still occurs.
+            lat = coords.get("latitude");
             lng = coords.get("longitude");
             destination = destinationItem.getCityStateCountry();
         }
         String finalDestination = destination;
-        double finalLng = lng;
-        double finalLat = lat;
+        double finalLng = (lng != null) ? lng : 0;
+        double finalLat = (lat != null) ? lat : 0;
 
         searchData.put("guests", numGuests.getText().toString());
         searchData.computeIfAbsent("city", val -> finalDestination);

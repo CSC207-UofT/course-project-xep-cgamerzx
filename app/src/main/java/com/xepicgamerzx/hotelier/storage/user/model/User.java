@@ -110,11 +110,14 @@ public class User implements Serializable {
     }
 
     public void addRecentSearches(String destinationItem) {
-        recentSearches.add(null);
+        if (recentSearches.contains(destinationItem)) {
+            recentSearches.remove(destinationItem);
+        }
+        recentSearches.add(destinationItem);
     }
 
     public void removeRecentSearches(String destinationItem) {
-        recentSearches.remove(null);
+        recentSearches.remove(destinationItem);
     }
 
 

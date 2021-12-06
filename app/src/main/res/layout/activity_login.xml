@@ -17,7 +17,7 @@
         android:layout_marginStart="46dp"
         android:layout_marginTop="34dp"
         android:fontFamily="@font/inter_bold"
-        android:text="Sign In"
+        android:text="@string/sign_in"
         android:textColor="@android:color/black"
         android:textSize="64sp" />
 
@@ -51,7 +51,7 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:fontFamily="@font/inter_regular"
-            android:hint="Username"
+            android:hint="@string/username"
             android:inputType="text"
             android:textAllCaps="false"
             android:textColor="@color/white"
@@ -90,7 +90,7 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:fontFamily="@font/inter_regular"
-            android:hint="Password"
+            android:hint="@string/password"
             android:inputType="text"
             android:textAllCaps="false"
             android:textColor="@color/white"
@@ -107,10 +107,9 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="46dp"
-        android:layout_marginLeft="46dp"
         android:layout_marginTop="40dp"
         android:layout_marginEnd="52dp"
         android:backgroundTint="@color/black"
-        android:text="Sign in" />
+        android:text="@string/sign_in" />
 
 </RelativeLayout>

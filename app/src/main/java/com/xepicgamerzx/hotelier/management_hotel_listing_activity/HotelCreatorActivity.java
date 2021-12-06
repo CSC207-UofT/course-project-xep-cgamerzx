@@ -22,44 +22,37 @@ import java.util.List;
 import java.util.Objects;
 
 public class HotelCreatorActivity extends AppCompatActivity {
+    String text = "Hotel Details:";
     Manage manage;
     Address address;
     List<HotelRoom> hotelRooms = new ArrayList<>();
     List<HotelAmenity> hotelAmenities = new ArrayList<>();
     TextInputEditText hotelName;
-    MaterialButton addAddressBtn;
-    MaterialButton addRoomsBtn;
-    MaterialButton addAmenitiesBtn;
-    MaterialButton submitBtn;
-    MaterialButton hotelDetails;
+    MaterialButton addAddressBtn, addRoomsBtn, addAmenitiesBtn, submitBtn, hotelDetails;
     ImageButton backBtn;
-    boolean isRoomsMade = false;
-    boolean isAddressMade = false;
-    boolean isHotelNameMade = false;
-    String text = "Hotel Details:";
-    private AlertDialog.Builder dialogBuilder;
-    private AlertDialog dialog;
-    // Amenities
+    boolean isRoomsMade = false, isAddressMade = false, isHotelNameMade = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hotel_creator);
         Objects.requireNonNull(getSupportActionBar()).hide();
-
         // Initializing db
         initializeDb();
+        setCreationFields();
+        callAllListeners();
+    }
 
-        hotelName = findViewById(R.id.hotelNameInput);
-        addAddressBtn = findViewById(R.id.addAddressBtn);
-        addRoomsBtn = findViewById(R.id.addRoomsBtn);
-        addAmenitiesBtn = findViewById(R.id.hotelAmentitiesBtn);
-        submitBtn = findViewById(R.id.saveHotelBtn);
-        backBtn = findViewById(R.id.backBtn);
-        hotelDetails = findViewById(R.id.hotelDetails);
-
+    public void callAllListeners() {
         hotelDetails.setOnClickListener(v -> createHotelInfoDialog());
+        backBtn.setOnClickListener(v -> HotelCreatorActivity.super.onBackPressed());
+        submitListener();
+        addressClickListener();
+        roomsClickListener();
+        amenitiesClickListener();
+    }
 
+    public void submitListener() {
         submitBtn.setOnClickListener(v -> {
             // add star input later
             int starClass = 5;
@@ -73,24 +66,38 @@ public class HotelCreatorActivity extends AppCompatActivity {
             }
 
         });
+    }
 
-        addAddressBtn.setOnClickListener(v -> getSupportFragmentManager().beginTransaction()
-                .add(R.id.hotelCreator, HotelCreateAddressFragment.class, null)
-                .addToBackStack(null)
-                .commit());
-
-        addRoomsBtn.setOnClickListener(v -> getSupportFragmentManager().beginTransaction()
-                .add(R.id.hotelCreator, HotelCreateRoomsFragment.class, null)
-                .addToBackStack(null)
-                .commit());
-
+    public void amenitiesClickListener() {
         addAmenitiesBtn.setOnClickListener(v -> getSupportFragmentManager().beginTransaction()
                 .add(R.id.hotelCreator, HotelCreateAmenitiesFragment.class, null)
                 .addToBackStack(null)
                 .commit());
-
-        backBtn.setOnClickListener(v -> HotelCreatorActivity.super.onBackPressed());
     }
+
+    public void addressClickListener() {
+        addAddressBtn.setOnClickListener(v -> getSupportFragmentManager().beginTransaction()
+                .add(R.id.hotelCreator, HotelCreateAddressFragment.class, null)
+                .addToBackStack(null)
+                .commit());
+    }
+
+    public void roomsClickListener() {
+        addRoomsBtn.setOnClickListener(v -> getSupportFragmentManager().beginTransaction()
+                .add(R.id.hotelCreator, HotelCreateRoomsFragment.class, null)
+                .addToBackStack(null)
+                .commit());
+    }
+    public void setCreationFields() {
+        hotelName = findViewById(R.id.hotelNameInput);
+        addAddressBtn = findViewById(R.id.addAddressBtn);
+        addRoomsBtn = findViewById(R.id.addRoomsBtn);
+        addAmenitiesBtn = findViewById(R.id.hotelAmenitiesBtn);
+        submitBtn = findViewById(R.id.saveHotelBtn);
+        backBtn = findViewById(R.id.backBtn);
+        hotelDetails = findViewById(R.id.hotelDetails);
+    }
+
 
     public void initializeDb() {
         //pretty sure something is causing an error
@@ -106,7 +113,7 @@ public class HotelCreatorActivity extends AppCompatActivity {
     }
 
     public void createHotelInfoDialog() {
-        dialogBuilder = new AlertDialog.Builder(this);
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         final View hotelInfo = getLayoutInflater().inflate(R.layout.hotel_details_dialog, null);
 
         TextView hotelDetails = hotelInfo.findViewById(R.id.hotelDetailsTxt);
@@ -114,7 +121,7 @@ public class HotelCreatorActivity extends AppCompatActivity {
 
 
         dialogBuilder.setView(hotelInfo);
-        dialog = dialogBuilder.create();
+        AlertDialog dialog = dialogBuilder.create();
         dialog.show();
     }
 
