@@ -62,8 +62,7 @@
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
-            android:textSize="18sp"
-            android:inputType="text"/>
+            android:textSize="18sp" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -108,30 +107,46 @@
             android:gravity="left|center_vertical">
         </com.google.android.material.button.MaterialButton>
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/hotelAmentitiesBtn"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/hotelAmentities"
         android:layout_width="313dp"
-        android:layout_height="65dp"
+        android:layout_height="50dp"
         android:layout_below="@+id/addRoomsBtn"
-        android:textColorHint="@color/white"
-        android:text="Add amenities"
-        android:backgroundTint="@color/background_secondary"
-        app:boxStrokeColor="@color/white"
-        app:boxCornerRadiusBottomEnd="8dp"
-        app:boxCornerRadiusBottomStart="8dp"
-        app:boxCornerRadiusTopEnd="8dp"
-        app:boxCornerRadiusTopStart="8dp"
-        android:layout_marginTop="20dp"
         android:layout_marginStart="46dp"
-        android:fontFamily="@font/inter_regular"
-        android:textSize="18sp"
-        android:gravity="left|center_vertical" />
+        android:layout_marginTop="20dp"
+        app:cardBackgroundColor="@color/background_secondary"
+        app:cardCornerRadius="6dp"
+        app:cardElevation="10dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:id="@+id/amenitiesMenu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:fontFamily="@font/inter_regular"
+                android:hint="Add Amenities"
+                android:textColorHint="@color/white"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerInParent="true"
+                android:src="@drawable/ic_arrow_down24" />
+        </RelativeLayout>
+    </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/hotelDetails"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_below="@id/hotelAmentitiesBtn"
+        android:layout_below="@id/hotelAmentities"
         android:layout_width="313dp"
         android:layout_height="65dp"
         android:layout_marginStart="46dp"
