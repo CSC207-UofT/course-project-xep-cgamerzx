@@ -3,7 +3,6 @@ package com.xepicgamerzx.hotelier.storage.user;
 import android.app.Application;
 import android.content.Context;
 
-import com.xepicgamerzx.hotelier.customer_activities.customer_search_activity.DestinationItem;
 import com.xepicgamerzx.hotelier.storage.FileReadWrite;
 import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
 import com.xepicgamerzx.hotelier.storage.dao.UserDao;
@@ -12,7 +11,7 @@ import com.xepicgamerzx.hotelier.storage.user.model.User;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserManager implements com.xepicgamerzx.hotelier.storage.hotel_managers.Manager<User, Long[]> {
+public class UserManager implements com.xepicgamerzx.hotelier.storage.hotel_managers.Manager {
     private static volatile UserManager INSTANCE;
     private final HotelierDatabase db;
     private final UserDao userDao;
