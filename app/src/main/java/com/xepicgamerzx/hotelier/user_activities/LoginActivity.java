@@ -12,8 +12,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.xepicgamerzx.hotelier.R;
 import com.xepicgamerzx.hotelier.home_page_activities.MainActivity;
 import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
-import com.xepicgamerzx.hotelier.storage.dao.UserDao;
-import com.xepicgamerzx.hotelier.storage.user.model.User;
+import com.xepicgamerzx.hotelier.storage.user.UserManager;
 
 public class LoginActivity extends AppCompatActivity {
     TextInputEditText userId, password;

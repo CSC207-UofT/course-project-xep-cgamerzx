@@ -14,7 +14,7 @@ import com.xepicgamerzx.hotelier.R;
 import com.xepicgamerzx.hotelier.databinding.ActivityMainBinding;
 import com.xepicgamerzx.hotelier.read_dummy_data.ReadDummyData;
 import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
-import com.xepicgamerzx.hotelier.user_activities.UserManager;
+import com.xepicgamerzx.hotelier.storage.user.UserManager;
 
 import org.json.JSONException;
 

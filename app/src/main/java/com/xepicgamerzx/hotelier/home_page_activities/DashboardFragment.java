@@ -17,7 +17,7 @@ import com.xepicgamerzx.hotelier.customer_activities.customer_hotels_activity.Ho
 import com.xepicgamerzx.hotelier.customer_activities.customer_search_activity.SearchActivity;
 import com.xepicgamerzx.hotelier.storage.Manage;
 import com.xepicgamerzx.hotelier.storage.user.model.User;
-import com.xepicgamerzx.hotelier.user_activities.UserManager;
+import com.xepicgamerzx.hotelier.storage.user.UserManager;
 
 import java.util.Collections;
 import java.util.List;

@@ -25,12 +25,8 @@ public class User implements Serializable {
     @ColumnInfo(name="userType")
     private String userType;
 
-    @ColumnInfo(name = "favHotels")
     private ArrayList<Long> favHotelIds = new ArrayList<>();
-
-    // Uh i want this to be string not long.
-    @ColumnInfo(name = "recentSearches")
-    private ArrayList<Long> recentSearches = new ArrayList<>();
+    private ArrayList<String> recentSearches = new ArrayList<>();
 
     public User(String userName, String password, String email) {
         this.userName = userName;
@@ -87,7 +83,10 @@ public class User implements Serializable {
     }
 
     public void addFavHotel(Long hotelId) {
-        favHotelIds.add(hotelId);
+        String hotelID = String.valueOf(hotelId);
+        if (!favHotelIds.contains(hotelID)) {
+            favHotelIds.add(hotelId);
+        }
     }
 
     public void addFavHotel(Hotel hotel) {
@@ -102,19 +101,19 @@ public class User implements Serializable {
         removeFavHotel(hotel.hotelId);
     }
 
-    public ArrayList<Long> getRecentSearches() {
+    public ArrayList<String> getRecentSearches() {
         return recentSearches;
     }
 
-    public void setRecentSearches(ArrayList<Long> recentSearches) {
+    public void setRecentSearches(ArrayList<String> recentSearches) {
         this.recentSearches = recentSearches;
     }
 
-    public void addRecentSearches(Long destinationItem) {
+    public void addRecentSearches(String destinationItem) {
         recentSearches.add(null);
     }
 
-    public void removeRecentSearches(Long destinationItem) {
+    public void removeRecentSearches(String destinationItem) {
         recentSearches.remove(null);
     }
 

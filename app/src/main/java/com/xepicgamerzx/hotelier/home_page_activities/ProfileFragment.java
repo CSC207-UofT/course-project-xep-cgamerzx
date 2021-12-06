@@ -17,7 +17,7 @@ import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
 import com.xepicgamerzx.hotelier.storage.user.model.User;
 import com.xepicgamerzx.hotelier.user_activities.LoginActivity;
 import com.xepicgamerzx.hotelier.user_activities.RegisterActivity;
-import com.xepicgamerzx.hotelier.user_activities.UserManager;
+import com.xepicgamerzx.hotelier.storage.user.UserManager;
 
 public class ProfileFragment extends Fragment {
     Button registerBtn;
