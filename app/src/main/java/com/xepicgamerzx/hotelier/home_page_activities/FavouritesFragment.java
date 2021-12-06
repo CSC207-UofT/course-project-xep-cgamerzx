@@ -79,7 +79,6 @@ public class FavouritesFragment extends Fragment implements OnFavouriteClickList
      */
     @Override
     public void onFavouriteClick(int position) {
-
         hotelsView.remove(position);
         hotelsAdapter.notifyItemRemoved(position);
     }

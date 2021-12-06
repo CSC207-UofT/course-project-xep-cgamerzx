@@ -58,7 +58,7 @@ public class HotelViewActivity extends AppCompatActivity {
             Long endDate = (map.containsKey("endDate")) ? (Long) map.get("endDate") : null;
 
             String guests = (String) map.get("guests");
-            String str = guests + R.string._guests;
+            String str = guests.toString() + " Guests";
             userGuests.setText(str);
             int minCapacity = (guests != null) ? Integer.parseInt(guests) : 1;
 
@@ -84,7 +84,6 @@ public class HotelViewActivity extends AppCompatActivity {
                     // Location Only
                     String city = (String) map.get("city");
                     userCity.setText(city);
-
                     hotelsView = manage.hotelManager.generateHotelModel(minCapacity, latitude, longitude);
                     hotelsAdapter = new HotelViewAdapter(hotelsView);
                 } else {

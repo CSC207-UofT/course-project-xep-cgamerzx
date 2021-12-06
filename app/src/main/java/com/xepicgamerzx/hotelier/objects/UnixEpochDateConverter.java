@@ -46,7 +46,7 @@ public class UnixEpochDateConverter {
      * @param date2 Epoch date
      * @return String
      */
-    public String epochToLocal(long date1, long date2) {
+    public static String epochToLocal(long date1, long date2) {
         LocalDate sd = Instant.ofEpochMilli(date1)
                 .atZone(ZoneId.systemDefault()).toLocalDate();
         LocalDate ed = Instant.ofEpochMilli(date2)
