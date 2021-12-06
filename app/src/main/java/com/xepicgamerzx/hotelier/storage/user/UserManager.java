@@ -90,20 +90,22 @@ public class UserManager implements com.xepicgamerzx.hotelier.storage.hotel_mana
     }
 
     public ArrayList<String> getUserFavourites() {
+        System.out.println(user.getFavHotelIds());
         return user.getFavHotelIds();
     }
 
     public void updateUserFavourites(String hotelID) {
+        System.out.println(hotelID);
         if (user.getFavHotelIds().contains(hotelID)) {
             user.removeFavHotel(hotelID);
         } else {
             user.addFavHotel(hotelID);
         }
+
         userDao.update(user);
     }
 
     public void addRecentSearches(String destination) {
-
         user.addRecentSearches(destination);
         userDao.update(user);
     }

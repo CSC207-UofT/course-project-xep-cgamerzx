@@ -12,6 +12,7 @@ import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelAmenity;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelRoom;
 import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
 import com.xepicgamerzx.hotelier.storage.dao.HotelDao;
+import com.xepicgamerzx.hotelier.storage.user.UserManager;
 import com.xepicgamerzx.hotelier.storage.user.model.User;
 
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * A class to manage all the hotels in the database.
@@ -229,9 +231,26 @@ public class HotelManager implements Manager {
     /**
      * Generates a list of HotelViewModel's with specifics
      */
+    public List<HotelViewModel> generateHotelModel(List<String> hotelsIds) {
+        List<HotelViewModel> hotels = new ArrayList<>();
+
+        for (String strHotelId : hotelsIds) {
+            long hotelId = Long.parseLong(strHotelId);
+
+            hotels.add(generateHotelModel(db.hotelRoomMapDao().getHotelWithId(hotelId)).get(0));
+
+        }
+
+        return hotels;
+    }
+
+    /**
+     * Generates a list of HotelViewModel's for all hotels.
+     */
     public List<HotelViewModel> generateHotelModel() {
         return generateHotelModel(db.hotelRoomMapDao().getAll());
     }
+
 
     /**
      * Generate list of HotelView models based on min capacity, location, and schedule

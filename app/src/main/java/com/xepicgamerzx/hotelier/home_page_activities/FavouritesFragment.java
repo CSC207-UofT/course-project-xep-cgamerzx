@@ -64,7 +64,8 @@ public class FavouritesFragment extends Fragment implements OnFavouriteClickList
     }
 
     public void setRecyclerView() {
-        hotelsView = manage.hotelManager.generateHotelModel();
+        hotelsView = manage.hotelManager.generateHotelModel(userManager.getUserFavourites());
+        System.out.println(userManager.getUserFavourites());
         Collections.reverse(hotelsView); // Reversing for newest favourites at the top
         hotelsAdapter = new HotelViewAdapter(hotelsView, this);
         hotelsRecyclerView.setAdapter(hotelsAdapter);
