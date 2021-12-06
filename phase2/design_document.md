@@ -93,6 +93,11 @@ The signleton design pattern restricts a class such that only one instance of th
 
 The implementation of singleton for all managers is the same where each manager has a private constructor and the class has saves a private volatile instance of itself. To access the instance, one must use the public method getManager which either returns the instance already created, or creates a new instance using a passed app context or database instance. The database class works similarly, except it is an abstract class and thus has no constructor. It uses a database builder in order to create a database instance if one does not exist.
 
+Futhermore, in order to reduce the amount of managers that are juggled around in our controllers and presenters, we implemented a centralized singleton that handles the instances for all of the managers in one place.
+
+### Builder
+
+We implemented the builder design pattern specifically for our Address entity, in order to solve the issue of it having a large number of constructors. It did not make sense to break the address object down into further subobjects, so to make creation of Address objects easier it was appropriate to use the builder design pattern.
 
 ## Progress Report
 ### Open Questions
@@ -101,9 +106,6 @@ As discussed in [room persistence library](#room-persistence-librarydata-persist
 
 #### Fireauth Implementation
 Fireauth is a library that handles user authentication services. This includes custom user accounts as well as accounts linked to services such as Google accounts. It also syncs authentication details with the cloud. Currently our users systems store user credentials locally in an insecure manner. By potentially implementing Fireauth in the future, we can circumvent this and simply use user tokens as user identifiers for the app, and separate the authentication process to be handled solely by Fireauth for a more secure and easy to use process. 
-
-#### Design Pattern for Managers
-Currently managers are unified using abstractions such as interfaces, but to complete certain tasks, a number of managers need to be used at the same time. A design pattern may be able to help mitigate this somewhat and consolidate manager functions into a single object, simplifying complex actions.
 
 ### Things that have worked well
 #### Use of Github Features
@@ -116,16 +118,11 @@ In order to check if a commit had any issues, we utilized Github actions by crea
 #### Unit Tests
 We used unit tests extensively throughout our project, including for portions that require an application instance such as for database related methods. Using unit tests and test-driven development in general was great for helping with identifying if changes resulted in something breaking. If something did break, this often indicated potential violations of SOLID design. Other times, tests not acting as expected acted as indication that we needed to implement equals and hashcode functions manually. In conjunction with Github actions, they were also a good indicator of the status of a branch in terms of what needs to be worked on and whenever or not it would be safe to merge the branch.
 
-### Group Member Current and Future Responsibilities
-Howard: Worked on room library implementation, managers and the backend in general. Also worked on the design document. Will explore cloud syncing of persistent data for phase 2 as well as fireauth implementations.
-
-Rafee: Worked on frontend and backend. Created some methods in managers, and validated input for listing a hotel. Worked on the searching logic and hotel views as well. In the future, might work on some sort of online storage, enhancing the user system, and a booking system.
-
-Megan: I implemented HotelAmenitiesCrossManager and RoomAmenitiesCrossManager. I made boiler data and tests in HotelAmenityManagerTest, RoomAmenityManagerTest, UserTest, HotelManagerTest, RoomManagerTest and BedTest. I also added documentation and fixed warnings. I plan on working on implementing a better design pattern for our object managers.
-
-Veronica: Contributed to the making of the hotels dummy data. Worked on UI for rooms listing when a hotel has been selected. Will work on possibly adding a booking feature for hotel rooms so the user can book a room according to their schedule.
-
-Wei: Contributed to designing some of the UI for adding amenities when creating a hotel. In the future will possibly work implementing a design pattern for creating hotels.
-
-Thomas: Will work on implementing the favourite feature, as well as an autocomplete for searches and UX on the frontend.
+### Group Member Contributions for Phase 2
+Howard: 
+Rafee:
+Megan: 
+Veronica: 
+Wei: 
+Thomas:
 
