@@ -8,7 +8,7 @@ import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
 import com.xepicgamerzx.hotelier.storage.dao.UserDao;
 import com.xepicgamerzx.hotelier.storage.user.model.User;
 
-public class UserManager implements com.xepicgamerzx.hotelier.storage.hotel_managers.Manager<User, Long[]> {
+public class UserManager implements com.xepicgamerzx.hotelier.storage.hotel_managers.Manager {
     private static volatile UserManager INSTANCE;
 
     private final HotelierDatabase db;

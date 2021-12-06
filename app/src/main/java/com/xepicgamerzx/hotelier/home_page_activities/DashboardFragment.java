@@ -15,8 +15,6 @@ import com.xepicgamerzx.hotelier.R;
 import com.xepicgamerzx.hotelier.customer_activities.customer_hotels_activity.HotelViewAdapter;
 import com.xepicgamerzx.hotelier.customer_activities.customer_hotels_activity.HotelViewModel;
 import com.xepicgamerzx.hotelier.customer_activities.customer_search_activity.SearchActivity;
-import com.xepicgamerzx.hotelier.objects.hotel_objects.Hotel;
-import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
 import com.xepicgamerzx.hotelier.storage.Manage;
 import com.xepicgamerzx.hotelier.storage.user.model.User;
 import com.xepicgamerzx.hotelier.user_activities.UserManager;
@@ -78,12 +76,10 @@ public class DashboardFragment extends Fragment {
         nameField = v.findViewById(R.id.welcomeField);
 
         Manage manage = Manage.getManager(requireActivity().getApplication());
-        HotelierDatabase hotelierDatabase = HotelierDatabase.getDatabase(requireActivity().getApplication());
 
         RecyclerView hotelsRecyclerView = v.findViewById(R.id.newListingsView);
 
-        List<Hotel> hotels = hotelierDatabase.hotelDao().getAll();
-        List<HotelViewModel> hotelsView = manage.hotelManager.generateHotelModel(hotels);
+        List<HotelViewModel> hotelsView = manage.hotelManager.generateHotelModel();
         Collections.reverse(hotelsView); // Reversing for "Newest listings"
 
         final HotelViewAdapter hotelsAdapter = new HotelViewAdapter(hotelsView);

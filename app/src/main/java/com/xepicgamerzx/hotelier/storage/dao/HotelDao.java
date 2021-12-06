@@ -24,6 +24,14 @@ public abstract class HotelDao implements BaseDao<List<Long>, Hotel> {
     public abstract List<Hotel> getAll();
 
     /**
+     * Get all HotelIds in Hotel table.
+     *
+     * @return List<Long> list of all Hotel Ids in Hotel table.
+     */
+    @Query("SELECT hotelId FROM Hotel")
+    public abstract List<Long> getAllIds();
+
+    /**
      * Get Hotel with matching IDs in Hotel table.
      *
      * @param hotelID long ID of hotel amenity.

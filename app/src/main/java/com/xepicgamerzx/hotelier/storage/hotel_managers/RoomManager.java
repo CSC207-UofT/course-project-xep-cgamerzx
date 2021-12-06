@@ -18,7 +18,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-public class RoomManager implements Manager<HotelRoom, Long[]> {
+public class RoomManager implements Manager {
     private static volatile RoomManager INSTANCE;
 
     private final HotelierDatabase db;
