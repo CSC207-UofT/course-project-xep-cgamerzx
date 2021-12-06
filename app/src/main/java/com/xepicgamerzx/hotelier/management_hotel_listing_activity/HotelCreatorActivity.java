@@ -92,7 +92,7 @@ public class HotelCreatorActivity extends AppCompatActivity {
         hotelName = findViewById(R.id.hotelNameInput);
         addAddressBtn = findViewById(R.id.addAddressBtn);
         addRoomsBtn = findViewById(R.id.addRoomsBtn);
-        addAmenitiesBtn = findViewById(R.id.hotelAmentitiesBtn);
+        addAmenitiesBtn = findViewById(R.id.hotelAmenitiesBtn);
         submitBtn = findViewById(R.id.saveHotelBtn);
         backBtn = findViewById(R.id.backBtn);
         hotelDetails = findViewById(R.id.hotelDetails);

@@ -17,7 +17,7 @@
         android:layout_marginStart="46dp"
         android:layout_marginTop="34dp"
         android:fontFamily="@font/inter_bold"
-        android:text="Amenity name"
+        android:text="@string/amenity_name"
         android:textColor="@android:color/black"
         android:textSize="18sp" />
 

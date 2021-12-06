@@ -15,7 +15,7 @@
         android:layout_marginStart="46dp"
         android:layout_marginTop="0dp"
         android:fontFamily="@font/inter_bold"
-        android:text="Favourites"
+        android:text="@string/favourites"
         android:textColor="@android:color/black"
         android:textSize="54sp" />
 
@@ -27,7 +27,7 @@
         android:layout_marginStart="46dp"
         android:layout_below="@id/favouritesHeader"
         android:fontFamily="@font/inter_bold"
-        android:text="You must sign in to view this content"
+        android:text="@string/you_must_sign_in_to_view_this_content"
         android:textColor="@android:color/black"
         android:visibility="gone"
         android:textSize="24sp" />

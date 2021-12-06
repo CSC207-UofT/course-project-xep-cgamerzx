@@ -16,7 +16,7 @@
         android:layout_marginStart="46dp"
         android:layout_marginTop="34dp"
         android:fontFamily="@font/inter_bold"
-        android:text="Register"
+        android:text="@string/register"
         android:textColor="@android:color/black"
         android:textSize="64sp" />
 
@@ -50,7 +50,7 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:fontFamily="@font/inter_regular"
-            android:hint="Username"
+            android:hint="@string/username"
             android:inputType="text"
             android:textAllCaps="false"
             android:textColor="@color/white"
@@ -89,7 +89,7 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:fontFamily="@font/inter_regular"
-            android:hint="Password"
+            android:hint="@string/password"
             android:inputType="textPassword"
             android:textAllCaps="false"
             android:textColor="@color/white"
@@ -128,7 +128,7 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:fontFamily="@font/inter_regular"
-            android:hint="Email"
+            android:hint="@string/email"
             android:inputType="text"
             android:textAllCaps="false"
             android:textColor="@color/white"
@@ -137,11 +137,6 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-    </RelativeLayout>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -164,11 +159,10 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="46dp"
-        android:layout_marginLeft="46dp"
         android:layout_marginTop="40dp"
         android:layout_marginEnd="52dp"
         android:backgroundTint="@color/black"
-        android:text="Register" />
+        android:text="@string/register" />
 
 
 </RelativeLayout>

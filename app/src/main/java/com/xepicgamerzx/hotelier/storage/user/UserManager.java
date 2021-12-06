@@ -115,7 +115,7 @@ public class UserManager implements com.xepicgamerzx.hotelier.storage.hotel_mana
 
     // Storing log in state locally.
     public void logInLocally(boolean val, Context context) {
-        if (val == true) {
+        if (val) {
             fw.writeData("Logged In", "file.dat", context);
         }
     }

@@ -23,14 +23,15 @@
             android:background="?android:selectableItemBackground"
             android:src="@drawable/ic_baseline_arrow_back_24"
             app:tint="@color/black"
-            tools:ignore="SpeakableTextPresentCheck" />
+            tools:ignore="SpeakableTextPresentCheck"
+            android:contentDescription="@string/back_button" />
 
 
         <TextView
             android:id="@+id/userCityText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
             android:layout_toEndOf="@+id/backBtn"
             android:fontFamily="@font/inter_regular"
             android:gravity="center_vertical"
@@ -42,7 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/backBtn"
-            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
             android:layout_marginTop="5dp"
             android:fontFamily="@font/inter_regular"
             android:text=""
@@ -55,10 +56,10 @@
             android:layout_below="@id/backBtn"
             android:layout_alignParentEnd="true"
             android:layout_marginTop="5dp"
-            android:layout_marginRight="5dp"
+            android:layout_marginEnd="5dp"
             android:layout_toEndOf="@+id/userSchedule"
             android:fontFamily="@font/inter_regular"
-            android:gravity="right"
+            android:gravity="end"
             android:text=""
             android:textColor="@color/black" />
 

@@ -92,19 +92,19 @@ public class SearchActivity extends AppCompatActivity implements OnSearchClick {
     public HashMap<String, Object> getUserSearchData() {
         HashMap<String, Object> searchData = new HashMap<>();
         HashMap<String, Double> coords;
-        double lng = 0, lat = 0;
+        Double lng = 0D, lat = 0D;
         String destination = null;
         PlacesAPI placesAPI = new PlacesAPI();
 
         if (destinationItem != null) {
             coords = placesAPI.getLocation(destinationItem.getPlaceId());
-            lat = coords.get("latitude"); // I try doing containsKey, and the nullpointerexception still occurs.
+            lat = coords.get("latitude");
             lng = coords.get("longitude");
             destination = destinationItem.getCityStateCountry();
         }
         String finalDestination = destination;
-        double finalLng = lng;
-        double finalLat = lat;
+        double finalLng = (lng != null) ? lng : 0;
+        double finalLat = (lat != null) ? lat : 0;
 
         searchData.put("guests", numGuests.getText().toString());
         searchData.computeIfAbsent("city", val -> finalDestination);

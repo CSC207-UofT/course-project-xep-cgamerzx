@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layoutHotel"
     android:layout_width="325dp"
     android:layout_height="175dp"
@@ -20,17 +21,18 @@
             android:maxWidth="300dp"
             android:maxHeight="85dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/hotel_img" />
+            android:src="@drawable/hotel_img"
+            android:contentDescription="@string/hotel_image" />
 
         <TextView
             android:id="@+id/hotelRowName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/hotelImg"
-            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="5dp"
             android:fontFamily="@font/inter_bold"
-            android:text="Hotel Name"
+            android:text="@string/hotel_name"
             android:textColor="@color/black" />
 
         <TextView
@@ -38,9 +40,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/hotelRowName"
-            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
             android:fontFamily="@font/inter_regular"
-            android:text="Address"
+            android:text="@string/address"
             android:textColor="@color/black" />
 
         <TextView
@@ -48,9 +50,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/hotelRowAddress"
-            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
             android:fontFamily="@font/inter_regular"
-            android:text="Rooms available:"
+            android:text="@string/rooms_available"
             android:textColor="@color/black" />
 
         <TextView
@@ -58,10 +60,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/hotelRowAddress"
-            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
             android:layout_toEndOf="@+id/hotelRowRoomsLabel"
             android:fontFamily="@font/inter_regular"
-            android:text="0"
+            android:text="@string/_0"
             android:textColor="@color/black" />
 
         <TextView
@@ -69,12 +71,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/hotelImg"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:layout_marginTop="5dp"
-            android:layout_marginRight="5dp"
+            android:layout_marginEnd="5dp"
             android:fontFamily="@font/inter_regular"
-            android:gravity="right"
-            android:text="$0"
+            android:gravity="end"
+            android:text="@string/_0"
             android:textColor="@color/black" />
 
         <TextView
@@ -82,24 +84,26 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/hotelRowPrice"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="5dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="5dp"
             android:fontFamily="@font/inter_regular"
             android:gravity="right"
-            android:text="lowest price"
+            android:text="@string/lowest_price"
             android:textColor="@color/black"
-            android:textSize="10dp" />
+            android:textSize="11sp"
+            tools:ignore="RtlHardcoded" />
 
         <ImageButton
             android:id="@+id/favouritesBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/hotelRowAddress"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:layout_marginTop="-8dp"
-            android:layout_marginRight="3dp"
+            android:layout_marginEnd="3dp"
             android:backgroundTint="@color/hotel_row_background"
-            android:src="@drawable/ic_favorite_border" />
+            android:src="@drawable/ic_favorite_border"
+            android:contentDescription="@string/favorites" />
     </RelativeLayout>
 
 </androidx.cardview.widget.CardView>

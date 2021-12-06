@@ -20,7 +20,8 @@
         android:background="?android:selectableItemBackground"
         android:src="@drawable/ic_baseline_close_24"
         app:tint="@color/black"
-        tools:ignore="SpeakableTextPresentCheck" />
+        tools:ignore="SpeakableTextPresentCheck"
+        android:contentDescription="@string/exit_button" />
 
     <TextView
         android:id="@+id/textRoomsCreate"
@@ -31,7 +32,7 @@
         android:layout_marginStart="46dp"
         android:layout_marginTop="34dp"
         android:fontFamily="@font/inter_bold"
-        android:text="Room"
+        android:text="@string/room"
         android:textColor="@android:color/black"
         android:textSize="48sp" />
 
@@ -45,8 +46,8 @@
         android:layout_marginTop="20dp"
         android:backgroundTint="@color/background_secondary"
         android:fontFamily="@font/inter_regular"
-        android:gravity="left|center_vertical"
-        android:text="Set schedule"
+        android:gravity="start|center_vertical"
+        android:text="@string/set_schedule"
         android:textColorHint="@color/white"
         android:textSize="18sp"
         app:boxCornerRadiusBottomEnd="8dp"
@@ -81,7 +82,7 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:fontFamily="@font/inter_regular"
-            android:hint="Capacity"
+            android:hint="@string/capacity"
             android:inputType="text"
             android:textAllCaps="false"
             android:textColor="@color/white"
@@ -116,7 +117,7 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:fontFamily="@font/inter_regular"
-            android:hint="Price per night"
+            android:hint="@string/price_per_night"
             android:inputType="text"
             android:textAllCaps="false"
             android:textColor="@color/white"
@@ -130,10 +131,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/priceLayout"
-        android:layout_marginLeft="46dp"
+        android:layout_marginStart="46dp"
         android:layout_marginTop="20dp"
         android:fontFamily="@font/inter_bold"
-        android:text="Select a bed type and enter the total"
+        android:text="@string/select_a_bed_type_and_enter_the_total"
         android:textColor="@color/black"
         android:textSize="16sp"
 
@@ -164,7 +165,7 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:fontFamily="@font/inter_regular"
-            android:hint="Total beds"
+            android:hint="@string/total_beds"
             android:inputType="text"
             android:textAllCaps="false"
             android:textColor="@color/white"
@@ -180,7 +181,7 @@
         android:layout_below="@id/bedsLabel"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:layout_toRightOf="@id/numBedsLayout"
+        android:layout_toEndOf="@id/numBedsLayout"
         app:singleSelection="true">
 
         <com.google.android.material.chip.Chip
@@ -188,28 +189,28 @@
             style="@style/Widget.MaterialComponents.Chip.Choice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Twin" />
+            android:text="@string/twin" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip2"
             style="@style/Widget.MaterialComponents.Chip.Choice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="King" />
+            android:text="@string/king" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip3"
             style="@style/Widget.MaterialComponents.Chip.Choice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Queen" />
+            android:text="@string/queen" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip4"
             style="@style/Widget.MaterialComponents.Chip.Choice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Double" />
+            android:text="@string/double_string" />
     </com.google.android.material.chip.ChipGroup>
 
     <com.google.android.material.button.MaterialButton
@@ -221,7 +222,7 @@
         android:layout_marginStart="46dp"
         android:backgroundTint="@color/black"
         android:fontFamily="@font/inter_bold"
-        android:text="Add room"
+        android:text="@string/add_room"
         android:textColorHint="@color/white"
         android:textSize="18sp"
         app:boxCornerRadiusBottomEnd="8dp"

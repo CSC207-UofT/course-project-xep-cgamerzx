@@ -20,7 +20,8 @@
         android:background="?android:selectableItemBackground"
         android:src="@drawable/ic_baseline_close_24"
         app:tint="@color/black"
-        tools:ignore="SpeakableTextPresentCheck" />
+        tools:ignore="SpeakableTextPresentCheck"
+        android:contentDescription="@string/exit_button" />
 
     <TextView
         android:id="@+id/textAmenitiesCreate"
@@ -31,7 +32,7 @@
         android:layout_marginStart="46dp"
         android:layout_marginTop="34dp"
         android:fontFamily="@font/inter_bold"
-        android:text="Amenities"
+        android:text="@string/amenities"
         android:textColor="@android:color/black"
         android:textSize="48sp" />
 
