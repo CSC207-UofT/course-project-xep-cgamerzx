@@ -50,7 +50,6 @@ public class HotelCreateAddressFragment extends Fragment {
         province = v.findViewById(R.id.provinceInp);
         postalCode = v.findViewById(R.id.postalCode);
         longLat = v.findViewById(R.id.longLatInp);
-
         closeBtn = v.findViewById(R.id.closeBtn);
         saveBtn = v.findViewById(R.id.saveAddressBtn);
 
