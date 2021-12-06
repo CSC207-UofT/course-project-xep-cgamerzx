@@ -7,6 +7,8 @@ Xep!cgamerzX
 - Gradle 7.2
 - Google Play Services
 
+If you have a database error, clear your app storage or cache. Likely has to do with database structure changes.
+
 ### Phase 0 Skeleton Demo Video 
 
 ~~Caution, interface inputs do not like it if you put in wrong data types or fail to fill in inputs.~~
