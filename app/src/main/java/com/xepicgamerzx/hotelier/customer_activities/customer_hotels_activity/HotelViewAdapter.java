@@ -115,7 +115,11 @@ public class HotelViewAdapter extends RecyclerView.Adapter<HotelViewAdapter.Hote
                 public void onClick(View v) {
                     HotelierDatabase hotelierDatabase = HotelierDatabase.getDatabase(v.getContext());
                     UserManager userManager = UserManager.getManager(hotelierDatabase);
-                    userManager.updateUserFavourites(hotel.getHotel().hotelId);
+                    if (userManager.isLoggedIn()){
+                        userManager.updateUserFavourites(hotel.getHotel().hotelId);
+                    } else {
+                        System.out.println("Please Sign In");
+                    }
                 }
             });
 
