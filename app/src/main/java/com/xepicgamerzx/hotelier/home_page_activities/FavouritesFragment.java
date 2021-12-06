@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.xepicgamerzx.hotelier.R;
 import com.xepicgamerzx.hotelier.customer_activities.customer_hotels_activity.HotelViewAdapter;
 import com.xepicgamerzx.hotelier.customer_activities.customer_hotels_activity.HotelViewModel;
+import com.xepicgamerzx.hotelier.objects.hotel_objects.Hotel;
 import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
 import com.xepicgamerzx.hotelier.storage.Manage;
 import com.xepicgamerzx.hotelier.storage.user.UserManager;
@@ -64,8 +65,9 @@ public class FavouritesFragment extends Fragment implements OnFavouriteClickList
     }
 
     public void setRecyclerView() {
-        hotelsView = manage.hotelManager.generateHotelModel(userManager.getUserFavourites());
-        System.out.println(userManager.getUserFavourites());
+        List<Hotel> hotels = manage.hotelManager.getFavouriteHotels(userManager.getUser());
+        hotelsView = manage.hotelManager.generateHotelModel(hotels);
+        // System.out.println(hotels);
         Collections.reverse(hotelsView); // Reversing for newest favourites at the top
         hotelsAdapter = new HotelViewAdapter(hotelsView, this);
         hotelsRecyclerView.setAdapter(hotelsAdapter);

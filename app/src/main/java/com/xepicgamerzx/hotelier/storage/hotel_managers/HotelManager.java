@@ -227,21 +227,23 @@ public class HotelManager implements Manager {
 
         return hotelsView;
     }
-
     /**
      * Generates a list of HotelViewModel's with specifics
      */
-    public List<HotelViewModel> generateHotelModel(List<String> hotelsIds) {
-        List<HotelViewModel> hotels = new ArrayList<>();
+    public List<HotelViewModel> generateHotelModel(List<Hotel> hotels) {
+        List<HotelViewModel> hotelsView = new ArrayList<>();
 
-        for (String strHotelId : hotelsIds) {
-            long hotelId = Long.parseLong(strHotelId);
-
-            hotels.add(generateHotelModel(db.hotelRoomMapDao().getHotelWithId(hotelId)).get(0));
-
+        for (Hotel hotel : hotels) {
+            hotelsView.add(new HotelViewModel(
+                    hotel.getName(),
+                    hotel.getAddress().getFullStreet(),
+                    roomManager.getPriceRange(hotel).get(0),
+                    roomManager.getNumberOfRooms(hotel),
+                    hotel, null
+            ));
         }
 
-        return hotels;
+        return hotelsView;
     }
 
     /**
