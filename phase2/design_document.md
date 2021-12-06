@@ -1,4 +1,4 @@
-# Phase 1 Design Document - Xep!cgamerzX
+# Phase 2 Design Document - Xep!cgamerzX
 
 ## Updated Specification
 Our original specification involved users being able to create hotels, and customer users being able to view the hotel information, available rooms, location, and a possibility to book the room. 
