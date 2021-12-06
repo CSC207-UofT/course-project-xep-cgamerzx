@@ -39,7 +39,7 @@
 
 ### Size and Space for Approach and Use
 
-* This principle is not very applicable to our app as all its features can be done on the screen of a phone. So, there is no real requirement for space.
+* This principle is not very applicable to our app as all its features can be done on the screen of a phone. So, there is no real requirement for physical space.
 * As long as the user has an area where they can use their device, they should be able to use our app.
 * App interface elements scale with the user's screen size, resolution, and ascpect ratio, ensuring screen space utilization is maximized such that the app is agnostic towards the user's display specifications.
 
