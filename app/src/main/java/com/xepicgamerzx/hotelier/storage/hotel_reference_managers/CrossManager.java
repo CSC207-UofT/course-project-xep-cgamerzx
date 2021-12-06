@@ -14,7 +14,7 @@ import java.util.List;
  * @param <N> NonUniqueEntity type of CrossRef.
  * @param <U> UniqueEntity type of CrossRef.
  */
-public interface CrossManager<T extends CrossRef, N extends NonUniqueEntity, U extends UniqueEntity> extends Manager<T, Void> {
+public interface CrossManager<T extends CrossRef, N extends NonUniqueEntity, U extends UniqueEntity> extends Manager {
     /**
      * Create and insert relationship between <N> and <U> into <T> database.
      *

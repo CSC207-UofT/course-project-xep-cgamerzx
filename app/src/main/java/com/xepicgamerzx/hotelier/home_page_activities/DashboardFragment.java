@@ -95,8 +95,7 @@ public class DashboardFragment extends Fragment {
 
     public void setHomePageHotels() {
         manage = Manage.getManager(requireActivity().getApplication());
-        List<Hotel> hotels = manage.hotelManager.getAllHotels();
-        List<HotelViewModel> hotelsView = manage.hotelManager.generateHotelModel(hotels);
+        List<HotelViewModel> hotelsView = manage.hotelManager.generateHotelModel();
         Collections.reverse(hotelsView); // Reversing for "Newest listings"
         final HotelViewAdapter hotelsAdapter = new HotelViewAdapter(hotelsView);
         hotelsRecyclerView.setAdapter(hotelsAdapter);

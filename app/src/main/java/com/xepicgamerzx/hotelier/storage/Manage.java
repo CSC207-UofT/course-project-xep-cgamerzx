@@ -57,4 +57,17 @@ public final class Manage {
         if (INSTANCE == null) INSTANCE = new Manage(dbInstance);
         return INSTANCE;
     }
+
+    public void close(){
+        INSTANCE = null;
+        bedManager.close();
+        hotelAmenityManager.close();
+        roomManager.close();
+        hotelManager.close();
+        roomManager.close();
+
+        hotelAmenitiesCrossManager.close();
+        roomAmenitiesCrossManager.close();
+        roomBedsCrossManager.close();
+    }
 }
