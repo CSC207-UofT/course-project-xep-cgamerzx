@@ -20,7 +20,7 @@ For many to many relationships such as the relationship between Hotels and Hotel
 
 This whole system was implemented using a data access object (DAO) pattern. See the [design patterns section](#Data-Access-Object-Pattern) for more information.
 
-We explored using Firestore, a cloud hosted NoSQL database but cloud based APIs are usually asynchronous in nature and we found it difficult to adhere to clean architecture due to how async methods are implemented in Java. We identified callbacks as a potential solution, but determined that it would take too much time to explore this avenue though we may [revisit in Phase 2](#Firestore-Implementation), time permitting.
+We explored using Firestore, a cloud hosted NoSQL database but cloud based APIs are usually asynchronous in nature and we found it difficult to adhere to clean architecture due to how async methods are implemented in Java. We identified callbacks as a potential solution, but determined that it would take too much time to explore this avenue.
 
 ### User Interface Update/Explanations & Backend Methods, Along With Ideas For the Future.
 A lot of time was spent updating the UI. 
