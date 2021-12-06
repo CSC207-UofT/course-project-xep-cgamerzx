@@ -6,6 +6,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.xepicgamerzx.hotelier.customer_activities.customer_hotels_activity.HotelViewModel;
+import com.xepicgamerzx.hotelier.customer_activities.customer_hotels_activity.HotelViewModelBuilder;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.Address;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.Hotel;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelAmenity;
@@ -16,10 +17,8 @@ import com.xepicgamerzx.hotelier.storage.user.model.User;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * A class to manage all the hotels in the database.
@@ -215,14 +214,14 @@ public class HotelManager implements Manager {
         List<HotelViewModel> hotelsView = new ArrayList<>();
 
         hotelListMap.forEach((hotel, rooms) ->
-                hotelsView.add(new HotelViewModel(
-                hotel.getName(),
-                hotel.getAddress().getFullStreet(),
-                roomManager.getPriceRange(hotel).get(0),
-                roomManager.getNumberOfRooms(hotel),
-                hotel,rooms
-        )));
-
+                hotelsView.add(new HotelViewModelBuilder()
+                        .setName(hotel.getName())
+                        .setAddress(hotel.getAddress()
+                                .getFullStreet())
+                        .setPriceRange(roomManager.getPriceRange(hotel).get(0))
+                        .setNumberOfRooms(rooms.size())
+                        .setHotel(hotel).setRooms(rooms)
+                        .createHotelViewModel()));
         return hotelsView;
     }
 
