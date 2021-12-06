@@ -6,9 +6,9 @@ import com.xepicgamerzx.hotelier.objects.cross_reference_objects.RoomBedsCrossRe
 import com.xepicgamerzx.hotelier.objects.hotel_objects.Bed;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelRoom;
 import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
-import com.xepicgamerzx.hotelier.storage.dao.BedRoomCrossDao;
-import com.xepicgamerzx.hotelier.storage.hotel_managers.BedManager;
-import com.xepicgamerzx.hotelier.storage.hotel_managers.RoomManager;
+import com.xepicgamerzx.hotelier.storage.dao.BedDao;
+import com.xepicgamerzx.hotelier.storage.dao.RoomBedsCrossDao;
+import com.xepicgamerzx.hotelier.storage.dao.RoomDao;
 
 import java.util.HashMap;
 import java.util.List;
@@ -16,15 +16,14 @@ import java.util.List;
 public class RoomBedsCrossManager implements CrossManager<RoomBedsCrossRef, HotelRoom, Bed> {
     private static volatile RoomBedsCrossManager INSTANCE;
 
-    private final BedRoomCrossDao bedRoomCrossDao;
-    private final BedManager bedManager;
-    private final RoomManager roomManager;
-
+    private final RoomBedsCrossDao roomBedsCrossDao;
+    private final RoomDao roomDao;
+    private final BedDao bedDao;
 
     private RoomBedsCrossManager(HotelierDatabase dbInstance) {
-        bedRoomCrossDao = dbInstance.bedRoomCrossDao();
-        bedManager = BedManager.getManager(dbInstance);
-        roomManager = RoomManager.getManager(dbInstance);
+        roomBedsCrossDao = dbInstance.bedRoomCrossDao();
+        roomDao = dbInstance.roomDao();
+        bedDao = dbInstance.bedDao();
     }
 
     public static RoomBedsCrossManager getManager(Application application) {
@@ -63,7 +62,7 @@ public class RoomBedsCrossManager implements CrossManager<RoomBedsCrossRef, Hote
      */
     public RoomBedsCrossRef createRelationship(HotelRoom hotelRoom, Bed bed, int bedCount) {
         RoomBedsCrossRef crossRef = new RoomBedsCrossRef(hotelRoom, bed, bedCount);
-        insert(crossRef);
+        roomBedsCrossDao.insert(crossRef);
         return crossRef;
     }
 
@@ -75,8 +74,8 @@ public class RoomBedsCrossManager implements CrossManager<RoomBedsCrossRef, Hote
      */
     @Override
     public List<HotelRoom> getRelated(Bed bed) {
-        List<Long> ids = bedRoomCrossDao.getWith(bed.getUniqueId());
-        return roomManager.get(ids.toArray(new Long[0]));
+        List<Long> ids = roomBedsCrossDao.getWith(bed.getUniqueId());
+        return roomDao.getIdMatch(ids.toArray(new Long[0]));
     }
 
     /**
@@ -87,8 +86,8 @@ public class RoomBedsCrossManager implements CrossManager<RoomBedsCrossRef, Hote
      * @return ListHotelRoom associated with UniqueEntity.
      */
     public List<HotelRoom> getRelated(Bed bed, int count) {
-        List<Long> ids = bedRoomCrossDao.getWith(bed.getUniqueId(), count);
-        return roomManager.get(ids.toArray(new Long[0]));
+        List<Long> ids = roomBedsCrossDao.getWith(bed.getUniqueId(), count);
+        return roomDao.getIdMatch(ids.toArray(new Long[0]));
     }
 
     /**
@@ -99,8 +98,8 @@ public class RoomBedsCrossManager implements CrossManager<RoomBedsCrossRef, Hote
      */
     @Override
     public List<Bed> getRelated(HotelRoom hotelRoom) {
-        List<String> ids = bedRoomCrossDao.getWith(hotelRoom.roomId);
-        return bedManager.get(ids.toArray(new String[0]));
+        List<String> ids = roomBedsCrossDao.getWith(hotelRoom.roomId);
+        return bedDao.getIdMatch(ids.toArray(new String[0]));
     }
 
     /**
@@ -111,7 +110,7 @@ public class RoomBedsCrossManager implements CrossManager<RoomBedsCrossRef, Hote
      */
     @Override
     public List<RoomBedsCrossRef> getRelatedCross(Bed bed) {
-        return bedRoomCrossDao.getCrossWith(bed.getUniqueId());
+        return roomBedsCrossDao.getCrossWith(bed.getUniqueId());
     }
 
     /**
@@ -122,27 +121,7 @@ public class RoomBedsCrossManager implements CrossManager<RoomBedsCrossRef, Hote
      */
     @Override
     public List<RoomBedsCrossRef> getRelatedCross(HotelRoom hotelRoom) {
-        return bedRoomCrossDao.getCrossWith(hotelRoom.roomId);
-    }
-
-    /**
-     * Gets all instances of RoomBedsCrossRef in the database.
-     *
-     * @return ListRoomBedsCrossRef saved in the database.
-     */
-    @Override
-    public List<RoomBedsCrossRef> getAll() {
-        return bedRoomCrossDao.getAll();
-    }
-
-    /**
-     * Updates RoomBedsCrossRef roomBedsCrossRefs(s) in the database.
-     *
-     * @param roomBedsCrossRefs RoomBedsCrossRef roomBedsCrossRefs(s) to be updated in the database.
-     */
-    @Override
-    public void update(RoomBedsCrossRef... roomBedsCrossRefs) {
-        bedRoomCrossDao.update(roomBedsCrossRefs);
+        return roomBedsCrossDao.getCrossWith(hotelRoom.roomId);
     }
 
     /**
@@ -151,17 +130,6 @@ public class RoomBedsCrossManager implements CrossManager<RoomBedsCrossRef, Hote
     @Override
     public void close() {
         INSTANCE = null;
-    }
-
-    /**
-     * Inserts RoomBedsCrossRef objects to their database.
-     *
-     * @param roomBedsCrossRefs RoomBedsCrossRef object(s) to be inserted into the database.
-     * @return null
-     */
-    @Override
-    public Void insert(RoomBedsCrossRef... roomBedsCrossRefs) {
-        return bedRoomCrossDao.insert(roomBedsCrossRefs);
     }
 
     /**
@@ -174,7 +142,7 @@ public class RoomBedsCrossManager implements CrossManager<RoomBedsCrossRef, Hote
         List<RoomBedsCrossRef> ids = getRelatedCross(hotelRoom);
         HashMap<Bed, Integer> bedCount = new HashMap<>();
         for (RoomBedsCrossRef crossRef : ids) {
-            bedCount.put(bedManager.get(crossRef.uniqueId).get(0), crossRef.getBedCount());
+            bedCount.put(bedDao.getIdMatch(crossRef.uniqueId).get(0), crossRef.getBedCount());
         }
         return bedCount;
     }

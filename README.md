@@ -7,13 +7,15 @@ Xep!cgamerzX
 - Gradle 7.2
 - Google Play Services
 
-### Phase 0 Skeleton Demo Video 
-
-~~Caution, interface inputs do not like it if you put in wrong data types or fail to fill in inputs.~~
-
+If you have a database error, clear your app storage or cache. Likely has to do with database structure changes.
 
 Needs Bumblebee 2021.1.1 Beta Branch
 https://developer.android.com/studio/preview
+
+
+### Phase 0 Skeleton Demo Video 
+
+~~Caution, interface inputs do not like it if you put in wrong data types or fail to fill in inputs.~~
 
 ### Phase 1
 * Sync the project with gradle files (this should be automatic).

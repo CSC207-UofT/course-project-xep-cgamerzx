@@ -17,24 +17,23 @@ import org.junit.runner.RunWith;
 
 @RunWith(AndroidJUnit4.class)
 public class DatabaseTest {
-    private HotelDao hotelDao;
     private HotelierDatabase db;
 
     @Before
     public void createDb() {
         Context context = ApplicationProvider.getApplicationContext();
         db = Room.inMemoryDatabaseBuilder(context, HotelierDatabase.class).build();
-        hotelDao = db.hotelDao();
+        HotelDao hotelDao = db.hotelDao();
     }
 
     @Test
     public void testDummy() {
-        assert(true);
+        assert (true);
     }
 
 
     @After
-    public void closeDb(){
+    public void closeDb() {
         db.close();
     }
 }

@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/dashboardFrag"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".home_page_activities.DashboardFragment"
-    android:id="@+id/dashboardFrag">
+    tools:context=".home_page_activities.DashboardFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/textLogo"
@@ -18,9 +18,9 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_marginStart="46dp"
-            android:layout_marginTop="34dp"
+            android:layout_marginTop="0dp"
             android:fontFamily="@font/inter_bold"
-            android:text="Hotelier"
+            android:text="@string/hotelier"
             android:textColor="@android:color/black"
             android:textSize="64sp" />
 
@@ -29,14 +29,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
             android:layout_marginStart="46dp"
-            android:layout_marginTop="240dp"
-            android:fontFamily="@font/inter_regular"
+            android:layout_below="@id/homeSearch"
             android:layout_marginEnd="46dp"
+            android:fontFamily="@font/inter_regular"
             android:text=""
+            android:layout_marginTop="10dp"
             android:textColor="@android:color/black"
-            android:textSize="34sp" />
+            android:textSize="28sp" />
+
+        <!--    add some searches recycler view ... -->
 
         <TextView
             android:id="@+id/recentSearches"
@@ -46,22 +48,31 @@
             android:layout_marginStart="46dp"
             android:layout_marginTop="10dp"
             android:fontFamily="@font/inter_light"
-            android:text="Recent searches"
+            android:text="@string/recent_searches"
             android:textColor="@android:color/black"
             android:textSize="28sp" />
-
-        <!--    add some searches recycler view ... -->
+        <TextView
+            android:id="@+id/recentSearchesTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/recentSearches"
+            android:layout_marginStart="46dp"
+            android:layout_marginTop="12dp"
+            android:fontFamily="@font/inter_light"
+            android:text=""
+            android:textColor="@android:color/black"
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/newListings"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="46dp"
-            android:layout_below="@id/recentSearches"
-            android:fontFamily="@font/inter_light"
-            android:layout_marginTop="50dp"
-            android:text="Check out new listings"
+            android:layout_below="@id/recentSearchesTxt"
             android:layout_alignParentStart="true"
+            android:layout_marginStart="46dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/inter_light"
+            android:text="@string/check_out_new_listings"
             android:textColor="@android:color/black"
             android:textSize="28sp" />
 
@@ -85,7 +96,7 @@
             android:layout_marginStart="46dp"
             android:layout_marginEnd="86dp"
             android:fontFamily="@font/inter_regular"
-            android:text="Find a hotel by location."
+            android:text="@string/find_a_hotel_by_location"
             android:textColor="@color/black"
             android:textSize="14sp" />
 
@@ -111,16 +122,16 @@
             app:startIconTint="@color/white">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/searchToFragment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/searchToFragment"
-                android:editable="false"
-                android:focusableInTouchMode="false"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
+                android:editable="false"
+                android:focusableInTouchMode="false"
                 android:fontFamily="@font/inter_regular"
-                android:hint="Search"
+                android:hint="@string/search"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white"

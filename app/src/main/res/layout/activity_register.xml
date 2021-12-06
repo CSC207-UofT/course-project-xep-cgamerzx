@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".user_activities.RegisterActivity"
-    android:background="@color/white">
+    android:background="@color/white"
+    tools:context=".user_activities.RegisterActivity">
 
     <TextView
         android:id="@+id/signInTxt"
@@ -16,7 +16,7 @@
         android:layout_marginStart="46dp"
         android:layout_marginTop="34dp"
         android:fontFamily="@font/inter_bold"
-        android:text="Register"
+        android:text="@string/register"
         android:textColor="@android:color/black"
         android:textSize="64sp" />
 
@@ -37,10 +37,10 @@
         app:boxCornerRadiusBottomStart="8dp"
         app:boxCornerRadiusTopEnd="8dp"
         app:boxCornerRadiusTopStart="8dp"
-        app:hintEnabled="false"
-        app:endIconMode="custom"
         app:endIconDrawable="@drawable/ic_user"
-        app:endIconTint="@color/white">
+        app:endIconMode="custom"
+        app:endIconTint="@color/white"
+        app:hintEnabled="false">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/usernameInput"
@@ -50,12 +50,12 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:fontFamily="@font/inter_regular"
-            android:hint="Username"
+            android:hint="@string/username"
+            android:inputType="text"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
-            android:textSize="18sp"
-            android:inputType="text"/>
+            android:textSize="18sp" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -89,12 +89,12 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:fontFamily="@font/inter_regular"
-            android:hint="Password"
+            android:hint="@string/password"
+            android:inputType="textPassword"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
-            android:textSize="18sp"
-            android:inputType="text"/>
+            android:textSize="18sp" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -115,10 +115,10 @@
         app:boxCornerRadiusBottomStart="8dp"
         app:boxCornerRadiusTopEnd="8dp"
         app:boxCornerRadiusTopStart="8dp"
-        app:hintEnabled="false"
-        app:endIconMode="custom"
         app:endIconDrawable="@drawable/ic_baseline_email_24"
-        app:endIconTint="@color/white">
+        app:endIconMode="custom"
+        app:endIconTint="@color/white"
+        app:hintEnabled="false">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/emailInput"
@@ -128,33 +128,41 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:fontFamily="@font/inter_regular"
-            android:hint="Email"
+            android:hint="@string/email"
+            android:inputType="text"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
-            android:textSize="18sp"
-            android:inputType="text"/>
+            android:textSize="18sp" />
 
     </com.google.android.material.textfield.TextInputLayout>
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
 
-    </RelativeLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:id="@+id/errorRegistrationText"
+        android:textSize="14sp"
+        android:layout_below="@id/emailLayout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="46dp"
+        android:layout_marginEnd="52dp"
+        android:textColor="@color/black"
+        android:fontFamily="@font/inter_light"
+        />
 
     <Button
         android:id="@+id/registerBtn"
         android:layout_width="313dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/emailLayout"
+        android:layout_below="@id/errorRegistrationText"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="46dp"
-        android:layout_marginLeft="46dp"
         android:layout_marginTop="40dp"
         android:layout_marginEnd="52dp"
         android:backgroundTint="@color/black"
-        android:text="Register" />
+        android:text="@string/register" />
 
 
 </RelativeLayout>

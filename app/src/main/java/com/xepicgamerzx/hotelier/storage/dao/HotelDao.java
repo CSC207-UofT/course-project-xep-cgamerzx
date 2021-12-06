@@ -24,6 +24,14 @@ public abstract class HotelDao implements BaseDao<List<Long>, Hotel> {
     public abstract List<Hotel> getAll();
 
     /**
+     * Get all HotelIds in Hotel table.
+     *
+     * @return List<Long> list of all Hotel Ids in Hotel table.
+     */
+    @Query("SELECT hotelId FROM Hotel")
+    public abstract List<Long> getAllIds();
+
+    /**
      * Get Hotel with matching IDs in Hotel table.
      *
      * @param hotelID long ID of hotel amenity.
@@ -62,4 +70,24 @@ public abstract class HotelDao implements BaseDao<List<Long>, Hotel> {
      */
     @Query("SELECT * FROM Hotel WHERE :centerLatSin * latSin + :centerLatCos * latCos * (lonCos* :centerLonCos + lonSin * :centerLonSin) > :distanceCos")
     public abstract List<Hotel> getHotelsInArea(double centerLonCos, double centerLonSin, double centerLatCos, double centerLatSin, double distanceCos);
+
+    /**
+
+     * Get all hotel Ids within a defined latitude and longitude area
+     *
+     * @param centerLonCos double latitude boundary
+     * @param centerLonSin double latitude boundary
+     * @param centerLatCos double longitude boundary
+     * @param centerLatSin double longitude boundary
+     * @param distanceCos  double cosine radius search area
+     * @return List<Long> list of all hotel ids within the defined latitude and longitude areas
+     */
+    @Query("SELECT hotelId FROM Hotel WHERE :centerLatSin * latSin + :centerLatCos * latCos * (lonCos* :centerLonCos + lonSin * :centerLonSin) > :distanceCos")
+    public abstract List<Long> getHotelIdsInArea(double centerLonCos, double centerLonSin, double centerLatCos, double centerLatSin, double distanceCos);
+
+    /**
+     * Delete all Hotels from a Hotel table.
+     */
+    @Query("DELETE FROM Hotel")
+    public abstract void deleteAll();
 }

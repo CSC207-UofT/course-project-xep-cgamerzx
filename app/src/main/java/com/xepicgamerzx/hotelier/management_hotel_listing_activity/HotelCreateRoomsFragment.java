@@ -14,7 +14,6 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.datepicker.MaterialDatePicker;
-import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.google.android.material.textfield.TextInputEditText;
 import com.xepicgamerzx.hotelier.R;
 import com.xepicgamerzx.hotelier.objects.UnixEpochDateConverter;
@@ -23,6 +22,7 @@ import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelRoom;
 
 import java.math.BigDecimal;
 import java.time.ZoneId;
+import java.util.Objects;
 
 public class HotelCreateRoomsFragment extends Fragment {
     Long startDate;
@@ -53,7 +53,74 @@ public class HotelCreateRoomsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_hotel_create_rooms, container, false);
+        setRoomFields(v);
+        buildDateSelection();
+        saveRoomListener();
+        bedSizeChipsListener(v);
+        closeBtn.setOnClickListener(v1 -> requireActivity().onBackPressed());
 
+        return v;
+    }
+
+    public void bedSizeChipsListener(View v) {
+        chipGroup.setOnCheckedChangeListener((group, checkedId) -> {
+            Chip chip = v.findViewById(checkedId);
+
+            if (chip != null) {
+                bedType = chip.getText().toString();
+                isBedTypeSelected = true;
+            } else {
+                isBedTypeSelected = false;
+            }
+        });
+    }
+
+    public void saveRoomListener() {
+        saveRoom.setOnClickListener(v12 -> {
+            HotelCreatorActivity activity = (HotelCreatorActivity) getActivity();
+            String stringErrorMess = validateRoomInputs();
+
+            if (!stringErrorMess.equals("")) {
+                Toast.makeText(getContext(), stringErrorMess, Toast.LENGTH_SHORT).show();
+            } else {
+                HotelRoom room = Objects.requireNonNull(activity).manage.roomManager.createRoom(
+                        zoneId, startDate, endDate,
+                        Integer.parseInt(Objects.requireNonNull(capacity.getText()).toString()),
+                        BigDecimal.valueOf(Long.parseLong(Objects.requireNonNull(pricePerNight.getText()).toString()))
+                );
+                // The parent activity is HotelCreator (where these variables can be found)
+                activity.hotelRooms.add(room);
+                Bed bed = activity.manage.bedManager.create(bedType);
+                activity.manage.roomBedsCrossManager.createRelationship(room, bed, Integer.parseInt(Objects.requireNonNull(totalBeds.getText()).toString()));
+
+                activity.text += "\n" + room;
+                activity.isRoomsMade = true;
+                activity.addRoomsBtn.setText("Add another room");
+
+                requireActivity().onBackPressed();
+            }
+        });
+    }
+
+    public void buildDateSelection() {
+        MaterialDatePicker.Builder<Pair<Long, Long>> builder = MaterialDatePicker.Builder.dateRangePicker();
+        builder.setTitleText("SELECT A CHECK IN AND CHECKOUT DATE");
+        final MaterialDatePicker<Pair<Long, Long>> materialDatePicker = builder.build();
+
+        schedule.setOnClickListener(v13 -> materialDatePicker.show(getParentFragmentManager(), "DATE_RANGE_PICKER"));
+
+        materialDatePicker.addOnPositiveButtonClickListener(selection -> {
+            startDate = selection.first;
+            endDate = selection.second;
+
+            // Converts to normal date
+            UnixEpochDateConverter epoch = new UnixEpochDateConverter();
+            String dates = UnixEpochDateConverter.epochToReadable(startDate, endDate);
+            schedule.setText(dates);
+        });
+    }
+
+    public void setRoomFields(View v) {
         zoneId = ZoneId.systemDefault();
         schedule = v.findViewById(R.id.setScheduleBtn);
         capacity = v.findViewById(R.id.roomCapacity);
@@ -62,89 +129,12 @@ public class HotelCreateRoomsFragment extends Fragment {
         saveRoom = v.findViewById(R.id.saveRoomBtn);
         chipGroup = v.findViewById(R.id.chip_group_choice);
         closeBtn = v.findViewById(R.id.closeBtn);
-
-        MaterialDatePicker.Builder<Pair<Long, Long>> builder = MaterialDatePicker.Builder.dateRangePicker();
-        builder.setTitleText("SELECT A CHECK IN AND CHECKOUT DATE");
-        final MaterialDatePicker<Pair<Long, Long>> materialDatePicker = builder.build();
-
-        saveRoom.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                HotelCreatorActivity activity = (HotelCreatorActivity) getActivity();
-
-                String stringErrorMess = validateRoomInputs();
-                if (!stringErrorMess.equals("")) {
-                    Toast.makeText(getContext(), stringErrorMess, Toast.LENGTH_SHORT).show();
-                } else {
-                    HotelRoom room = activity.manage.roomManager.createRoom(
-                            zoneId, startDate, endDate,
-                            Integer.parseInt(capacity.getText().toString()),
-                            BigDecimal.valueOf(Long.parseLong(pricePerNight.getText().toString()))
-                    );
-
-                    // The parent activity is HotelCreator (where these variables can be found)
-                    activity.hotelRooms.add(room);
-                    Bed bed = activity.manage.bedManager.create(bedType);
-                    activity.manage.roomBedsCrossManager.createRelationship(room, bed, Integer.parseInt(totalBeds.getText().toString()));
-
-                    activity.text += "\n" + room;
-                    activity.isRoomsMade = true;
-                    activity.addRoomsBtn.setText("Add another room");
-
-                    getActivity().onBackPressed();
-                }
-            }
-        });
-
-        chipGroup.setOnCheckedChangeListener(new ChipGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(ChipGroup group, int checkedId) {
-                Chip chip = v.findViewById(checkedId);
-
-                if (chip != null) {
-                    bedType = chip.getText().toString();
-                    isBedTypeSelected = true;
-                } else {
-                    isBedTypeSelected = false;
-                }
-            }
-        });
-
-        schedule.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                materialDatePicker.show(getParentFragmentManager(), "DATE_RANGE_PICKER");
-            }
-        });
-
-        materialDatePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener<Pair<Long, Long>>() {
-            @Override
-            public void onPositiveButtonClick(Pair<Long, Long> selection) {
-                startDate = selection.first;
-                endDate = selection.second;
-
-                // Converts to normal date
-                UnixEpochDateConverter epoch = new UnixEpochDateConverter();
-                String dates = UnixEpochDateConverter.epochToReadable(startDate, endDate);
-                schedule.setText(dates);
-            }
-        });
-
-        closeBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getActivity().onBackPressed();
-            }
-        });
-
-        return v;
     }
-
     public String validateRoomInputs() {
         String s = "";
-        if (!(capacity.getText().toString().matches("\\d+") &&
-                totalBeds.getText().toString().matches("\\d+") &&
-                pricePerNight.getText().toString().matches("\\d+"))) {
+        if (!(Objects.requireNonNull(capacity.getText()).toString().matches("\\d+") &&
+                Objects.requireNonNull(totalBeds.getText()).toString().matches("\\d+") &&
+                Objects.requireNonNull(pricePerNight.getText()).toString().matches("\\d+"))) {
             s = "Input invalid, enter an integer";
         }
         if (startDate == null || endDate == null || !(isBedTypeSelected)) {

@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:elevation="999dp"
     android:clickable="true"
+    android:elevation="999dp"
     tools:context=".management_hotel_listing_activity.HotelCreateRoomsFragment">
 
     <ImageButton
@@ -22,7 +22,8 @@
         android:minHeight="48dp"
         android:src="@drawable/ic_baseline_close_24"
         app:tint="@color/black"
-        tools:ignore="SpeakableTextPresentCheck" />
+        tools:ignore="SpeakableTextPresentCheck"
+        android:contentDescription="@string/exit_button" />
 
     <TextView
         android:id="@+id/textAddressCreate"
@@ -33,9 +34,9 @@
         android:layout_marginStart="46dp"
         android:layout_marginTop="34dp"
         android:fontFamily="@font/inter_bold"
-        android:text="Address"
+        android:text="@string/address"
         android:textColor="@android:color/black"
-        android:textSize="48sp"/>
+        android:textSize="48sp" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/streetNumLay"
@@ -58,19 +59,19 @@
         app:startIconTint="@color/white">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/streetNumInp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/streetNumInp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:fontFamily="@font/inter_regular"
-            android:hint="Street number"
+            android:hint="@string/street_number"
+            android:inputType="text"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
-            android:textSize="18sp"
-            android:inputType="text"/>
+            android:textSize="18sp" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -95,19 +96,19 @@
         app:startIconTint="@color/white">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/streetNameInp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/streetNameInp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:fontFamily="@font/inter_regular"
-            android:hint="Street name "
+            android:hint="@string/street_name"
+            android:inputType="text"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
-            android:textSize="18sp"
-            android:inputType="text"/>
+            android:textSize="18sp" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -132,19 +133,19 @@
         app:startIconTint="@color/white">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/cityInp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/cityInp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:fontFamily="@font/inter_regular"
-            android:hint="City"
+            android:hint="@string/city"
+            android:inputType="text"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
-            android:textSize="18sp"
-            android:inputType="text"/>
+            android:textSize="18sp" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -169,19 +170,19 @@
         app:startIconTint="@color/white">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/provinceInp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/provinceInp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:fontFamily="@font/inter_regular"
-            android:hint="Province"
+            android:hint="@string/province"
+            android:inputType="text"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
-            android:textSize="18sp"
-            android:inputType="text"/>
+            android:textSize="18sp" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -206,19 +207,19 @@
         app:startIconTint="@color/white">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/postalCode"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/postalCode"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:fontFamily="@font/inter_regular"
-            android:hint="Postal code"
+            android:hint="@string/postal_code"
+            android:inputType="text"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
-            android:textSize="18sp"
-            android:inputType="text"/>
+            android:textSize="18sp" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -243,19 +244,19 @@
         app:startIconTint="@color/white">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/longLatInp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/longLatInp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:fontFamily="@font/inter_regular"
-            android:hint="Latitude, Longitude"
+            android:hint="@string/latitude_longitude"
+            android:inputType="text"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
-            android:textSize="18sp"
-            android:inputType="text"/>
+            android:textSize="18sp" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -270,13 +271,13 @@
         android:layout_marginEnd="52dp"
         android:backgroundTint="@color/black"
         android:fontFamily="@font/inter_bold"
-        android:text="Save"
+        android:text="@string/save"
         android:textColorHint="@color/white"
         android:textSize="18sp"
         app:boxCornerRadiusBottomEnd="8dp"
         app:boxCornerRadiusBottomStart="8dp"
         app:boxCornerRadiusTopEnd="8dp"
         app:boxCornerRadiusTopStart="8dp"
-        app:boxStrokeColor="@color/white"></com.google.android.material.button.MaterialButton>
+        app:boxStrokeColor="@color/white" />
 
 </RelativeLayout>

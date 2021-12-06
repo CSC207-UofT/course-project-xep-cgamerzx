@@ -2,7 +2,7 @@ package com.xepicgamerzx.hotelier.customer_activities.customer_hotels_activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
+import android.util.Log;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -12,25 +12,31 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.xepicgamerzx.hotelier.R;
 import com.xepicgamerzx.hotelier.customer_activities.customer_search_activity.SearchActivity;
 import com.xepicgamerzx.hotelier.objects.UnixEpochDateConverter;
-import com.xepicgamerzx.hotelier.objects.hotel_objects.Hotel;
+import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
 import com.xepicgamerzx.hotelier.storage.Manage;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 public class HotelViewActivity extends AppCompatActivity {
 
     ImageButton backBtn;
     Manage manage;
+    HotelierDatabase hotelierDatabase;
 
+    /**
+     * The method that is run when the page loads.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hotel_view);
-        getSupportActionBar().hide();
+        Objects.requireNonNull(getSupportActionBar()).hide();
 
         manage = Manage.getManager(getApplication());
+        hotelierDatabase = HotelierDatabase.getDatabase(getApplication());
 
         RecyclerView hotelsRecyclerView = findViewById(R.id.hotelsRecyclerView);
         backBtn = findViewById(R.id.backBtn);
@@ -40,78 +46,63 @@ public class HotelViewActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        // BELOW IS SOME MESSY CODE, WILL CLEAN LATER BUT WHATS IMPORTANT IS THAT IT WORKS FOR NOW.
         if (intent.getExtras() != null) {
             HashMap<String, Object> map = (HashMap<String, Object>) intent.getSerializableExtra("SearchData");
+            List<HotelViewModel> hotelsView;
+            HotelViewAdapter hotelsAdapter;
+
+            Double latitude = (map.containsKey("lat")) ? (Double) map.get("lat") : null;
+            Double longitude = (map.containsKey("long")) ? (Double) map.get("long") : null;
+
+            Long startDate = (map.containsKey("startDate")) ? (Long) map.get("startDate") : null;
+            Long endDate = (map.containsKey("endDate")) ? (Long) map.get("endDate") : null;
+
             String guests = (String) map.get("guests");
-            long userStartDate = 0;
-            long userEndDate = 0;
-            List<Hotel> hotels = manage.hotelManager.getAll();
-            List<HotelViewModel> hotelsView = manage.hotelManager.generateHotelModel(hotels);
-            userGuests.setText(guests + " Guests");
+            String str = guests + R.string._guests;
+            userGuests.setText(str);
+            int minCapacity = (guests != null) ? Integer.parseInt(guests) : 1;
 
-            if (map.size() == 1) {
-                final HotelViewAdapter hotelsAdapter = new HotelViewAdapter(hotelsView);
-                hotelsRecyclerView.setAdapter(hotelsAdapter);
-            } else if (map.size() == 3) {
-                if (map.containsKey("startDate") && map.containsKey("endDate")) {
-                    userStartDate = (long) map.get("startDate");
-                    userEndDate = (long) map.get("endDate");
-                    UnixEpochDateConverter date = new UnixEpochDateConverter();
-                    userSchedule.setText(UnixEpochDateConverter.epochToReadable(userStartDate, userEndDate));
-
-                    List<HotelViewModel> filterHotelsByUserSchedule = new ArrayList<>();
-                    for (HotelViewModel hotelModel : hotelsView) {
-                        if (manage.roomManager.isUserScheduleInHotel(hotelModel.getHotel(), userStartDate, userEndDate)) {
-                            filterHotelsByUserSchedule.add(hotelModel);
-                        }
-                    }
-                    final HotelViewAdapter hotelsAdapter = new HotelViewAdapter(filterHotelsByUserSchedule, userStartDate, userEndDate);
-                    hotelsRecyclerView.setAdapter(hotelsAdapter);
-                }
+            if (map.size() == 1) {// Capacity only
+                hotelsView = manage.hotelManager.generateHotelModel(minCapacity);
+                hotelsAdapter = new HotelViewAdapter(hotelsView);
             } else {
-                String city = (String) map.get("city");
-                userCity.setText(city);
-                double longitude;
-                double latitude;
-                latitude = (double) map.get("lat");
-                longitude = (double) map.get("long");
+                if (endDate != null && startDate != null) {
+                    // Schedule
+                    userSchedule.setText(UnixEpochDateConverter.epochToReadable(startDate, endDate));
+                    if (latitude != null && longitude != null) {
+                        // Schedule and Location
+                        String city = (String) map.get("city");
+                        userCity.setText(city);
 
-                if (map.containsKey("startDate") && map.containsKey("endDate")) {
-                    // Send to adapter
-                    userStartDate = (long) map.get("startDate");
-                    userEndDate = (long) map.get("endDate");
-                    userSchedule.setText(UnixEpochDateConverter.epochToReadable(userStartDate, userEndDate));
-                }
-
-                List<Hotel> filterHotels = manage.hotelManager.getHotelsByLatLong(latitude, longitude);
-                List<HotelViewModel> filteredHotelsByCity = manage.hotelManager.generateHotelModel(filterHotels);
-
-                // Giving recycler view only hotels in user destination, and if the user entered a schedule, sending the schedule to adapter.
-                if (userStartDate != 0 && userEndDate != 0) {
-                    List<HotelViewModel> filterHotelsByScheduleAndCity = new ArrayList<>();
-                    for (HotelViewModel hotelViewModel : filteredHotelsByCity) {
-                        if (manage.roomManager.isUserScheduleInHotel(hotelViewModel.getHotel(), userStartDate, userEndDate)) {
-                            filterHotelsByScheduleAndCity.add(hotelViewModel);
-                        }
+                        hotelsView = manage.hotelManager.generateHotelModel(minCapacity, startDate, endDate, latitude, longitude);
+                    } else {
+                        // Schedule Only
+                        hotelsView = manage.hotelManager.generateHotelModel(minCapacity, startDate, endDate);
                     }
-                    final HotelViewAdapter hotelsAdapter = new HotelViewAdapter(filterHotelsByScheduleAndCity, userStartDate, userEndDate);
-                    hotelsRecyclerView.setAdapter(hotelsAdapter);
+                    hotelsAdapter = new HotelViewAdapter(hotelsView, startDate, endDate);
+                } else if (latitude != null && longitude != null) {
+                    // Location Only
+                    String city = (String) map.get("city");
+                    userCity.setText(city);
+
+                    hotelsView = manage.hotelManager.generateHotelModel(minCapacity, latitude, longitude);
+                    hotelsAdapter = new HotelViewAdapter(hotelsView);
                 } else {
-                    final HotelViewAdapter hotelsAdapter = new HotelViewAdapter(filteredHotelsByCity);
-                    hotelsRecyclerView.setAdapter(hotelsAdapter);
+                    // Fallback
+                    Log.e("Hotel View Activity", "Unexpected type of parameters for search. Defaulting to all.");
+                    hotelsView = manage.hotelManager.generateHotelModel();
+                    hotelsAdapter = new HotelViewAdapter(hotelsView);
                 }
             }
+            hotelsRecyclerView.setAdapter(hotelsAdapter);
         }
-
-        backBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), SearchActivity.class));
-            }
-        });
+        backBtn.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(), SearchActivity.class)));
     }
 
+
+    /**
+     * Logic for when a user clicks the back button on their android phone.
+     */
     @Override
     public void onBackPressed() {
         startActivity(new Intent(getApplicationContext(), SearchActivity.class));

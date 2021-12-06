@@ -12,16 +12,19 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.xepicgamerzx.hotelier.R;
 import com.xepicgamerzx.hotelier.databinding.ActivityMainBinding;
 import com.xepicgamerzx.hotelier.read_dummy_data.ReadDummyData;
-import com.xepicgamerzx.hotelier.storage.hotel_managers.HotelManager;
+import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
+import com.xepicgamerzx.hotelier.storage.user.UserManager;
 
 import org.json.JSONException;
+
+import java.util.Objects;
 
 
 public class MainActivity extends AppCompatActivity {
 
+    HotelierDatabase hotelierDatabase;
     private ActivityMainBinding binding;
     private BottomNavigationView navView;
-
     private TextView username;
 
     @Override
@@ -29,10 +32,31 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        hotelierDatabase = HotelierDatabase.getDatabase(getApplicationContext());
+        loadData(); // Loading data on the first app launch.
+        setRecentLogin();
 
-        HotelManager hotelManager = HotelManager.getManager(getApplication());
+        // Setting up navigation view.
+        navView = findViewById(R.id.bottomNavigationView);
+        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentContainer);
+        NavController navController = Objects.requireNonNull(navHostFragment).getNavController();
+        NavigationUI.setupWithNavController(navView, navController);
+
+
+    }
+
+    /**
+     * If the user has not signed out previously, sets the user to the previously logged in user.
+     */
+    public void setRecentLogin() {
+        hotelierDatabase = HotelierDatabase.getDatabase(getApplication());
+        UserManager um = UserManager.getManager(hotelierDatabase);
+        um.setLastLoggedInUser(getApplicationContext());
+    }
+
+    public void loadData() {
         // LOADING DUMMY DATA ON FIRST TIME LOADING APP, CAN PROBABLY USE AN API LATER
-        if (hotelManager.getAll().isEmpty()) {
+        if (hotelierDatabase.hotelDao().getAll().isEmpty()) {
             ReadDummyData readDummyData = new ReadDummyData(getApplication());
             try {
                 readDummyData.readData(getApplicationContext());
@@ -41,11 +65,5 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
-
-        navView = findViewById(R.id.bottomNavigationView);
-        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentContainer);
-        NavController navController = navHostFragment.getNavController();
-        NavigationUI.setupWithNavController(navView, navController);
-
     }
 }

@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import com.xepicgamerzx.hotelier.customer_activities.customer_search_activity.DestinationItem;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.Hotel;
 
 import java.io.Serializable;
@@ -21,13 +22,24 @@ public class User implements Serializable {
     private String password;
     @ColumnInfo(name = "email")
     private String email;
+    @ColumnInfo(name="userType")
+    private String userType;
 
-    private ArrayList<Long> favHotelIds = new ArrayList<>();
+    private ArrayList<String> favHotelIds = new ArrayList<>();
+    private ArrayList<String> recentSearches = new ArrayList<>();
 
     public User(String userName, String password, String email) {
         this.userName = userName;
         this.password = password;
         this.email = email;
+    }
+
+    public String getUserType() {
+        return userType;
+    }
+
+    public void setUserType(String userType) {
+        this.userType = userType;
     }
 
     public int getId() {
@@ -62,25 +74,51 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    public ArrayList<Long> getFavHotelIds() {
+    public ArrayList<String> getFavHotelIds() {
         return favHotelIds;
     }
 
-    public void setFavHotelIds(ArrayList<Long> favHotelIds) {
+    public void setFavHotelIds(ArrayList<String> favHotelIds) {
         this.favHotelIds = favHotelIds;
     }
 
-    public void addFavHotel(Long hotelId){
-        favHotelIds.add(hotelId);
+    public void addFavHotel(String hotelId) {
+        // Need to compare strings for some reason, look into this, but low prio for now.
+        if (!favHotelIds.contains(hotelId)) {
+            favHotelIds.add(hotelId);
+        }
     }
 
-    public void addFavHotel(Hotel hotel){
-        addFavHotel(hotel.hotelId);
+    public void addFavHotel(Hotel hotel) {
+        addFavHotel(String.valueOf(hotel.hotelId));
     }
 
-    public void removeFavHotel(Long hotelId) {favHotelIds.remove(hotelId);}
+    public void removeFavHotel(String hotelId) {
+        favHotelIds.remove(hotelId);
+    }
 
-    public void removeFavHotel(Hotel hotel) {removeFavHotel(hotel.hotelId);}
+    public void removeFavHotel(Hotel hotel) {
+        removeFavHotel(String.valueOf(hotel.hotelId));
+    }
+
+    public ArrayList<String> getRecentSearches() {
+        return recentSearches;
+    }
+
+    public void setRecentSearches(ArrayList<String> recentSearches) {
+        this.recentSearches = recentSearches;
+    }
+
+    public void addRecentSearches(String destinationItem) {
+        if (recentSearches.contains(destinationItem)) {
+            recentSearches.remove(destinationItem);
+        }
+        recentSearches.add(destinationItem);
+    }
+
+    public void removeRecentSearches(String destinationItem) {
+        recentSearches.remove(destinationItem);
+    }
 
 
     @Override

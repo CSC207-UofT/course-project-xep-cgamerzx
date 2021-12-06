@@ -3,7 +3,7 @@ package com.xepicgamerzx.hotelier.storage.hotel_managers;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.LabeledEnum;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.UniqueEntity;
 
-public interface UniqueManager<T extends UniqueEntity, E extends LabeledEnum> extends DiscreteManager<T, String, Void> {
+public interface UniqueManager<T extends UniqueEntity, E extends LabeledEnum> extends Manager {
     /**
      * Create unique object and insert it into database.
      *

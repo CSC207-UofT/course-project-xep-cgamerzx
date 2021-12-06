@@ -4,62 +4,79 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.xepicgamerzx.hotelier.R;
+import com.xepicgamerzx.hotelier.customer_activities.customer_hotels_activity.HotelViewAdapter;
+import com.xepicgamerzx.hotelier.customer_activities.customer_hotels_activity.HotelViewModel;
+import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
+import com.xepicgamerzx.hotelier.storage.Manage;
+import com.xepicgamerzx.hotelier.storage.user.UserManager;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link FavouritesFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class FavouritesFragment extends Fragment {
+import java.util.Collections;
+import java.util.List;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+public class FavouritesFragment extends Fragment implements OnFavouriteClickListener {
+    List<HotelViewModel> hotelsView;
+    HotelViewAdapter hotelsAdapter;
+    Manage manage;
+    UserManager userManager;
+    HotelierDatabase hotelierDatabase;
+    RecyclerView hotelsRecyclerView;
+    TextView signedOutTxt;
 
     public FavouritesFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment FavouritesFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static FavouritesFragment newInstance(String param1, String param2) {
-        FavouritesFragment fragment = new FavouritesFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_favourites, container, false);
+        View v = inflater.inflate(R.layout.fragment_favourites, container, false);
+
+        setAllFields(v);
+        setProfileVisibility();
+
+        return v;
+    }
+
+    public void setAllFields(View v) {
+        hotelsRecyclerView = v.findViewById(R.id.favouritesView);
+        manage = Manage.getManager(requireActivity().getApplication());
+        hotelierDatabase = HotelierDatabase.getDatabase(v.getContext());
+        userManager = UserManager.getManager(hotelierDatabase);
+        userManager.setLastLoggedInUser(v.getContext());
+        signedOutTxt = v.findViewById(R.id.isSignedIn);
+    }
+
+    public void setProfileVisibility() {
+        if (userManager.isLoggedIn()){
+            System.out.println("Logged in");
+            setRecyclerView();
+        } else {
+            System.out.println("Not logged in.");
+            signedOutTxt.setVisibility(View.VISIBLE);
+        }
+    }
+
+    public void setRecyclerView() {
+        hotelsView = manage.hotelManager.generateHotelModel();
+        Collections.reverse(hotelsView); // Reversing for newest favourites at the top
+        hotelsAdapter = new HotelViewAdapter(hotelsView, this);
+        hotelsRecyclerView.setAdapter(hotelsAdapter);
+    }
+
+    /**
+     * Clicking favourite on the users favourites removes it from their favourites list.
+     * @param position
+     */
+    @Override
+    public void onFavouriteClick(int position) {
+        hotelsView.remove(position);
+        hotelsAdapter.notifyItemRemoved(position);
     }
 }

@@ -6,10 +6,9 @@
     tools:context=".customer_activities.maps_fragment.MapsFragment">
 
     <androidx.fragment.app.FragmentContainerView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:id="@+id/googleMaps"
         class="com.google.android.gms.maps.SupportMapFragment"
-        />
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </RelativeLayout>

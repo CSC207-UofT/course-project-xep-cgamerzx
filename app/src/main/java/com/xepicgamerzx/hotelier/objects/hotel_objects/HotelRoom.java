@@ -6,6 +6,7 @@ import androidx.room.PrimaryKey;
 
 import com.xepicgamerzx.hotelier.objects.UnixEpochDateConverter;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.ZoneId;
@@ -13,7 +14,7 @@ import java.util.Locale;
 import java.util.Objects;
 
 @Entity
-public class HotelRoom extends NonUniqueEntity {
+public class HotelRoom extends NonUniqueEntity implements Serializable {
     @PrimaryKey(autoGenerate = true)
     public long roomId;
 
@@ -30,11 +31,11 @@ public class HotelRoom extends NonUniqueEntity {
     /**
      * Crates a new HotelRoom with given schedule, capacity, beds
      *
-     * @param zoneId ZoneId of the hotel room
+     * @param zoneId            ZoneId of the hotel room
      * @param startAvailability The first day where a hotelRoom is available
      * @param endAvailability   The last day of when a hotelRoom is available
      * @param capacity          The maximum number of people that can sleep in this HotelRoom
-     * @param price BigDecimal price of the hotel.
+     * @param price             BigDecimal price of the hotel.
      */
     public HotelRoom(ZoneId zoneId, long startAvailability, long endAvailability, int capacity, BigDecimal price) {
         this.zoneId = zoneId;

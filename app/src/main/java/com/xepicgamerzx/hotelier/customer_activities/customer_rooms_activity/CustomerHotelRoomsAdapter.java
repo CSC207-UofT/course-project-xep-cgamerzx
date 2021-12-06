@@ -1,6 +1,7 @@
 package com.xepicgamerzx.hotelier.customer_activities.customer_rooms_activity;
 
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,7 +43,7 @@ public class CustomerHotelRoomsAdapter extends RecyclerView.Adapter<CustomerHote
         return hotelRoomsModel.size();
     }
 
-    class CustomerHotelRoomsHolder extends RecyclerView.ViewHolder {
+    static class CustomerHotelRoomsHolder extends RecyclerView.ViewHolder {
 
         CardView hotelRoomsLayout;
         TextView bedsInRoom;
@@ -61,9 +62,9 @@ public class CustomerHotelRoomsAdapter extends RecyclerView.Adapter<CustomerHote
             roomSchedule = itemView.findViewById(R.id.roomSchedule);
         }
 
+        @SuppressLint("SetTextI18n")
         public void bindRoom(CustomerHotelRoomsModel hotelRoomModel) {
-            //bedsInRoom.setText(hotelRoom.getBedsInRoomCount());
-            //bedSizeInRoom.setText(hotelRoom.getRelated().toString());
+
 
             bedsInRoom.setText("Beds: " + hotelRoomModel.getBedsCount());
             bedSizesInRoom.setText("Sizes: " + hotelRoomModel.getBedTypes());
@@ -71,12 +72,10 @@ public class CustomerHotelRoomsAdapter extends RecyclerView.Adapter<CustomerHote
             hotelRoomPrice.setText("$" + hotelRoomModel.getPrice());
             roomSchedule.setText("Schedule: " + hotelRoomModel.getRoomAvailability());
 
-            hotelRoomsLayout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    System.out.println("hi");
-                    //v.getContext().startActivity(new Intent(v.getContext(), CustomerHotelRoomsActivity.class).putExtra("Hotel Room", hotelRoom));
-                }
+            hotelRoomsLayout.setOnClickListener(v -> {
+                System.out.println("hi");
+                // can add logic for booking here
+                //v.getContext().startActivity(new Intent(v.getContext(), CustomerHotelRoomsActivity.class).putExtra("Hotel Room", hotelRoom));
             });
 
         }
