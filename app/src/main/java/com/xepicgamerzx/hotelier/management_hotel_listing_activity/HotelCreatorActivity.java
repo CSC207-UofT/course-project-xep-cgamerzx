@@ -15,6 +15,7 @@ import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.xepicgamerzx.hotelier.R;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.Address;
+import com.xepicgamerzx.hotelier.objects.hotel_objects.Amenity;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelAmenity;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelRoom;
 import com.xepicgamerzx.hotelier.storage.Manage;
@@ -30,6 +31,8 @@ public class HotelCreatorActivity extends AppCompatActivity {
 
     Address address;
     List<HotelRoom> hotelRooms = new ArrayList<>();
+    List<HotelAmenity> hotelAmenities = new ArrayList<>();
+
     boolean[] selectedAmenity;
     ArrayList<Integer> amenitiesList = new ArrayList<>();
     String[] amenitiesArray = {"Indoor Pool", "Outdoor Pool", "Gym", "Laundry",
@@ -40,7 +43,7 @@ public class HotelCreatorActivity extends AppCompatActivity {
     TextInputEditText hotelName;
     MaterialButton addAddressBtn;
     MaterialButton addRoomsBtn;
-    TextView amenitiesMenu;
+    MaterialButton amenitiesMenu;
     MaterialButton submitBtn;
     MaterialButton hotelDetails;
     ImageButton backBtn;
@@ -63,6 +66,7 @@ public class HotelCreatorActivity extends AppCompatActivity {
         hotelName = findViewById(R.id.hotelNameInput);
         addAddressBtn = findViewById(R.id.addAddressBtn);
         addRoomsBtn = findViewById(R.id.addRoomsBtn);
+        amenitiesMenu = findViewById(R.id.hotelAmenities);
         submitBtn = findViewById(R.id.saveHotelBtn);
         backBtn = findViewById(R.id.backBtn);
         hotelDetails = findViewById(R.id.hotelDetails);
@@ -75,9 +79,9 @@ public class HotelCreatorActivity extends AppCompatActivity {
                 // add star input later
                 int starClass = 5;
                 String name = hotelName.getText().toString();
-                // Do amentities later.
                 if (validateHotel()) {
-                    manage.hotelManager.createHotel(name, address, starClass, hotelRooms);
+                    hotelAmenities = createAmenities(amenitiesArray, amenitiesList);
+                    manage.hotelManager.createHotel(name, address, starClass, hotelRooms, hotelAmenities);
                     onBackPressed();
                 } else {
                     Toast.makeText(getApplicationContext(), "Missing inputs, try again", Toast.LENGTH_SHORT).show();
@@ -114,9 +118,6 @@ public class HotelCreatorActivity extends AppCompatActivity {
         });
 
         //Create a dropdown menu to select amenities
-        //Assign variable
-        amenitiesMenu = findViewById(R.id.amenitiesMenu);
-
         //Initialize selected amenity array
         selectedAmenity = new boolean[amenitiesArray.length];
 
@@ -140,8 +141,8 @@ public class HotelCreatorActivity extends AppCompatActivity {
                             amenitiesList.add(which);
                             Collections.sort(amenitiesList);
                         } else {
-                            //When checkbox is unchecked, remover from list
-                            amenitiesList.remove(which);
+                            //When checkbox is unchecked, remove from list
+                            amenitiesList.remove((Integer) which);
                         }
                     }
                 });
@@ -151,12 +152,16 @@ public class HotelCreatorActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         StringBuilder stringBuilder = new StringBuilder();
 
-                        for (int i = 0; i < amenitiesList.size(); i++) {
-                            //Concatenate value
-                            stringBuilder.append(Arrays.toString(amenitiesArray));
-                            //Check condition
-                            if (i != amenitiesList.size() - 1) {
-                                stringBuilder.append(",");
+                        if (amenitiesList.isEmpty()){
+                            stringBuilder.append("Add amenities");
+                        } else {
+                            for (int i = 0; i < amenitiesList.size(); i++) {
+                                //Concatenate value
+                                stringBuilder.append(amenitiesArray[amenitiesList.get(i)]);
+                                //Check condition
+                                if (i != amenitiesList.size() - 1) {
+                                    stringBuilder.append(", ");
+                                }
                             }
                         }
                         //Set text on text view
@@ -179,7 +184,7 @@ public class HotelCreatorActivity extends AppCompatActivity {
                             //Remove all selection
                             selectedAmenity[i] = false;
                             amenitiesList.clear();
-                            amenitiesMenu.setText("");
+                            amenitiesMenu.setText("Add amenities");
                         }
                     }
                 });
@@ -215,5 +220,16 @@ public class HotelCreatorActivity extends AppCompatActivity {
         dialog.show();
     }
 
+    public ArrayList<HotelAmenity> createAmenities(String[] amenities, ArrayList<Integer> indices) {
+        ArrayList<HotelAmenity> hotelAmenities = new ArrayList<>();
+
+        for (int i = 0; i < amenitiesList.size(); i++) {
+            //Concatenate value
+            HotelAmenity amenity = manage.hotelAmenityManager.create(amenities[indices.get(i)]);
+            hotelAmenities.add(amenity);
+        }
+
+        return hotelAmenities;
+    }
 }
 
