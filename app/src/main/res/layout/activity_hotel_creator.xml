@@ -119,7 +119,7 @@
         android:backgroundTint="@color/background_secondary"
         android:fontFamily="@font/inter_regular"
         android:gravity="left|center_vertical"
-        android:text="Add amenities"
+        android:text="Add amenities (ignore, unfinished)"
         android:textColorHint="@color/white"
         android:textSize="18sp"
         app:boxCornerRadiusBottomEnd="8dp"

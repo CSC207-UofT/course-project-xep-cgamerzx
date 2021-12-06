@@ -53,24 +53,33 @@ public class HotelCreateRoomsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_hotel_create_rooms, container, false);
+        setRoomFields(v);
+        buildDateSelection();
+        saveRoomListener();
+        bedSizeChipsListener(v);
+        closeBtn.setOnClickListener(v1 -> requireActivity().onBackPressed());
 
-        zoneId = ZoneId.systemDefault();
-        schedule = v.findViewById(R.id.setScheduleBtn);
-        capacity = v.findViewById(R.id.roomCapacity);
-        pricePerNight = v.findViewById(R.id.pricePerNight);
-        totalBeds = v.findViewById(R.id.totalBeds);
-        saveRoom = v.findViewById(R.id.saveRoomBtn);
-        chipGroup = v.findViewById(R.id.chip_group_choice);
-        closeBtn = v.findViewById(R.id.closeBtn);
+        return v;
+    }
 
-        MaterialDatePicker.Builder<Pair<Long, Long>> builder = MaterialDatePicker.Builder.dateRangePicker();
-        builder.setTitleText("SELECT A CHECK IN AND CHECKOUT DATE");
-        final MaterialDatePicker<Pair<Long, Long>> materialDatePicker = builder.build();
+    public void bedSizeChipsListener(View v) {
+        chipGroup.setOnCheckedChangeListener((group, checkedId) -> {
+            Chip chip = v.findViewById(checkedId);
 
+            if (chip != null) {
+                bedType = chip.getText().toString();
+                isBedTypeSelected = true;
+            } else {
+                isBedTypeSelected = false;
+            }
+        });
+    }
+
+    public void saveRoomListener() {
         saveRoom.setOnClickListener(v12 -> {
             HotelCreatorActivity activity = (HotelCreatorActivity) getActivity();
-
             String stringErrorMess = validateRoomInputs();
+
             if (!stringErrorMess.equals("")) {
                 Toast.makeText(getContext(), stringErrorMess, Toast.LENGTH_SHORT).show();
             } else {
@@ -79,7 +88,6 @@ public class HotelCreateRoomsFragment extends Fragment {
                         Integer.parseInt(Objects.requireNonNull(capacity.getText()).toString()),
                         BigDecimal.valueOf(Long.parseLong(Objects.requireNonNull(pricePerNight.getText()).toString()))
                 );
-
                 // The parent activity is HotelCreator (where these variables can be found)
                 activity.hotelRooms.add(room);
                 Bed bed = activity.manage.bedManager.create(bedType);
@@ -92,17 +100,12 @@ public class HotelCreateRoomsFragment extends Fragment {
                 requireActivity().onBackPressed();
             }
         });
+    }
 
-        chipGroup.setOnCheckedChangeListener((group, checkedId) -> {
-            Chip chip = v.findViewById(checkedId);
-
-            if (chip != null) {
-                bedType = chip.getText().toString();
-                isBedTypeSelected = true;
-            } else {
-                isBedTypeSelected = false;
-            }
-        });
+    public void buildDateSelection() {
+        MaterialDatePicker.Builder<Pair<Long, Long>> builder = MaterialDatePicker.Builder.dateRangePicker();
+        builder.setTitleText("SELECT A CHECK IN AND CHECKOUT DATE");
+        final MaterialDatePicker<Pair<Long, Long>> materialDatePicker = builder.build();
 
         schedule.setOnClickListener(v13 -> materialDatePicker.show(getParentFragmentManager(), "DATE_RANGE_PICKER"));
 
@@ -115,12 +118,18 @@ public class HotelCreateRoomsFragment extends Fragment {
             String dates = UnixEpochDateConverter.epochToReadable(startDate, endDate);
             schedule.setText(dates);
         });
-
-        closeBtn.setOnClickListener(v1 -> requireActivity().onBackPressed());
-
-        return v;
     }
 
+    public void setRoomFields(View v) {
+        zoneId = ZoneId.systemDefault();
+        schedule = v.findViewById(R.id.setScheduleBtn);
+        capacity = v.findViewById(R.id.roomCapacity);
+        pricePerNight = v.findViewById(R.id.pricePerNight);
+        totalBeds = v.findViewById(R.id.totalBeds);
+        saveRoom = v.findViewById(R.id.saveRoomBtn);
+        chipGroup = v.findViewById(R.id.chip_group_choice);
+        closeBtn = v.findViewById(R.id.closeBtn);
+    }
     public String validateRoomInputs() {
         String s = "";
         if (!(Objects.requireNonNull(capacity.getText()).toString().matches("\\d+") &&

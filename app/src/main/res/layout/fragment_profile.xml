@@ -18,6 +18,18 @@
         android:textColor="@android:color/black"
         android:textSize="64sp" />
 
+    <TextView
+        android:id="@+id/isSignedIn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="46dp"
+        android:layout_below="@id/profileTxt"
+        android:fontFamily="@font/inter_bold"
+        android:text="You must sign in to view this content"
+        android:textColor="@android:color/black"
+        android:visibility="gone"
+        android:textSize="24sp" />
 
     <Button
         android:id="@+id/toRegisterActivBtn"

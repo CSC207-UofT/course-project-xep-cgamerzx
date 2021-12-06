@@ -31,10 +31,11 @@ import java.util.Objects;
 public class DashboardFragment extends Fragment {
 
     HotelierDatabase hotelierDatabase;
-    TextView nameField, recentSearches;
+    TextView nameField, recentSearches, recentSearchesTxt;
     TextInputEditText search;
     Manage manage;
     RecyclerView hotelsRecyclerView;
+    UserManager userManager;
 
     public DashboardFragment() {
         // Required empty public constructor
@@ -43,35 +44,53 @@ public class DashboardFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_dashboard, container, false);
-        hotelierDatabase = HotelierDatabase.getDatabase(requireActivity().getApplication());
-        recentSearches = v.findViewById(R.id.recentSearches);
-        search = v.findViewById(R.id.searchToFragment);
-        nameField = v.findViewById(R.id.welcomeField);
-        hotelsRecyclerView = v.findViewById(R.id.newListingsView);
-        search.setOnClickListener(v1 -> startActivity(new Intent(getActivity(), SearchActivity.class)));
 
+        setAllFields(v);
         checkForUser();
         setHomePageHotels();
 
         return v;
     }
 
+    public void setAllFields(View v) {
+        hotelierDatabase = HotelierDatabase.getDatabase(requireActivity().getApplication());
+        userManager = UserManager.getManager(hotelierDatabase);
+        recentSearches = v.findViewById(R.id.recentSearches);
+        search = v.findViewById(R.id.searchToFragment);
+        nameField = v.findViewById(R.id.welcomeField);
+        hotelsRecyclerView = v.findViewById(R.id.newListingsView);
+        recentSearchesTxt = v.findViewById(R.id.recentSearchesTxt);
+        search.setOnClickListener(v1 -> startActivity(new Intent(getActivity(), SearchActivity.class)));
+    }
+
 
     @SuppressLint("SetTextI18n")
     public void checkForUser() {
-        UserManager userManager = UserManager.getManager(hotelierDatabase);
         User user = userManager.getUser();
-
         // Add if empty, no user, go sign in.
         if (user != null) {
             nameField.setText("Welcome back " + user.getUserName());
             recentSearches.setVisibility(View.VISIBLE);
+            recentSearchesTxt.setVisibility(View.VISIBLE);
+            setRecentSearches();
         } else {
             recentSearches.setVisibility(View.GONE);
+            recentSearchesTxt.setVisibility(View.GONE);
             nameField.setText("Register today.");
         }
+    }
+
+    public void setRecentSearches() {
+        List<String> searchesList = userManager.getRecentSearches();
+        Collections.reverse(searchesList);
+        String searches;
+        if (searchesList.size() >= 5) {
+            searches = String.join("\n", searchesList.subList(0, 5));
+        } else {
+            searches = String.join("\n", searchesList);
+        }
+        recentSearchesTxt.setText(searches);
     }
 
     public void setHomePageHotels() {

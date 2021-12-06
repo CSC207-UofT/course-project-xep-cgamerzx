@@ -24,7 +24,7 @@ public class ProfileFragment extends Fragment {
     Button login;
     Button signOut;
     RelativeLayout signedInContent;
-    TextView userNameTxt;
+    TextView userNameTxt, signedOutTxt;
     Button listHotel;
     UserManager um = UserManager.getManager(HotelierDatabase.getDatabase(getContext()));
 
@@ -42,6 +42,13 @@ public class ProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_profile, container, false);
+        setAllFields(v);
+        callAllListeners();
+
+        return v;
+    }
+
+    public void setAllFields(View v) {
         registerBtn = v.findViewById(R.id.toRegisterActivBtn);
         login = v.findViewById(R.id.toLoginActivBtn);
         signOut = v.findViewById(R.id.signOutBtn);
@@ -49,11 +56,7 @@ public class ProfileFragment extends Fragment {
         signedInContent = v.findViewById(R.id.signedInContent);
         userNameTxt = v.findViewById(R.id.userIdTxt);
         listHotel = v.findViewById(R.id.listHotelBtn);
-        listHotel.setOnClickListener(v1 -> startActivity(new Intent(getActivity(), HotelCreatorActivity.class)));
-
-        callAllListeners();
-
-        return v;
+        signedOutTxt = v.findViewById(R.id.isSignedIn);
     }
 
     public void callAllListeners() {
@@ -61,6 +64,7 @@ public class ProfileFragment extends Fragment {
         registerClickListener();
         signOutClickListener();
         setProfileVisibility();
+        listHotel.setOnClickListener(v1 -> startActivity(new Intent(getActivity(), HotelCreatorActivity.class)));
     }
 
     public void loginListener () {
@@ -85,7 +89,7 @@ public class ProfileFragment extends Fragment {
         signOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                um.signOut();
+                um.signOut(getContext());
                 setProfileVisibility();
             }
         });
@@ -104,6 +108,8 @@ public class ProfileFragment extends Fragment {
             login.setVisibility(View.VISIBLE);
             signOut.setVisibility(View.INVISIBLE);
             signedInContent.setVisibility(View.GONE);
+            signedOutTxt.setVisibility(View.VISIBLE);
+
         }
     }
 }

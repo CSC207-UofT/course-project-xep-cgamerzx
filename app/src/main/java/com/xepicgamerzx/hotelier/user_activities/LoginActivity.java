@@ -43,7 +43,7 @@ public class LoginActivity extends AppCompatActivity {
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
-                            userManager.login(userIdText, passwordText);
+                            userManager.login(userIdText, passwordText, getApplicationContext());
 
                             if (userManager.user == null) {
                                 runOnUiThread(new Runnable() {
@@ -53,7 +53,7 @@ public class LoginActivity extends AppCompatActivity {
                                     }
                                 });
                             } else {
-                                userManager.saveUser(userManager.user, getApplicationContext());
+                                userManager.logInLocally(true, getApplicationContext());
                                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
                             }
                         }

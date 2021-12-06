@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.xepicgamerzx.hotelier.R;
+import com.xepicgamerzx.hotelier.customer_activities.customer_search_activity.api.PlacesAPI;
 
 import java.util.ArrayList;
 import java.util.List;

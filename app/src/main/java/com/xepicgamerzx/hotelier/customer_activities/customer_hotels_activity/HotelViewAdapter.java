@@ -96,16 +96,15 @@ public class HotelViewAdapter extends RecyclerView.Adapter<HotelViewAdapter.Hote
             hotelPrice.setText(hotel.getPriceRange().toString());
             totalRooms.setText(String.valueOf(hotel.getNumberOfRooms()));
 
-            hotelLayout.setOnClickListener(v -> {
-                HashMap<String, Object> data = new HashMap<>();
-                if (userStartDate != 0 && userEndDate != 0) {
-                    data.put("userStartDate", userStartDate);
-                    data.put("userEndDate", userEndDate);
-                }
-                data.put("Hotel", hotel);
-                v.getContext().startActivity(new Intent(v.getContext(), CustomerHotelRoomsActivity.class).putExtra("HotelData", data));
-            });
+            favouritesButtonListener(hotel);
+            hotelLayoutListener(hotel);
+        }
 
+        /**
+         * Clicking once adds the hotel to your favourites.
+         * Clicking again removes it.
+         */
+        public void favouritesButtonListener(HotelViewModel hotel) {
             favouritesBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -123,6 +122,22 @@ public class HotelViewAdapter extends RecyclerView.Adapter<HotelViewAdapter.Hote
                         System.out.println("Please Sign In");
                     }
                 }
+            });
+        }
+
+        /**
+         * Clicking on the hotel layout sends the user to the detailed hotel rooms activity.
+         * @param hotel HotelViewModel.
+         */
+        public void hotelLayoutListener(HotelViewModel hotel) {
+            hotelLayout.setOnClickListener(v -> {
+                HashMap<String, Object> data = new HashMap<>();
+                if (userStartDate != 0 && userEndDate != 0) {
+                    data.put("userStartDate", userStartDate);
+                    data.put("userEndDate", userEndDate);
+                }
+                data.put("Hotel", hotel);
+                v.getContext().startActivity(new Intent(v.getContext(), CustomerHotelRoomsActivity.class).putExtra("HotelData", data));
             });
         }
     }

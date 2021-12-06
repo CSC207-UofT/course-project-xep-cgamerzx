@@ -1,4 +1,6 @@
-package com.xepicgamerzx.hotelier.customer_activities.customer_search_activity;
+package com.xepicgamerzx.hotelier.customer_activities.customer_search_activity.api;
+
+import com.xepicgamerzx.hotelier.customer_activities.customer_search_activity.DestinationItem;
 
 import org.json.JSONArray;
 import org.json.JSONException;

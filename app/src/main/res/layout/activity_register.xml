@@ -90,7 +90,7 @@
             android:layout_centerHorizontal="true"
             android:fontFamily="@font/inter_regular"
             android:hint="Password"
-            android:inputType="text"
+            android:inputType="textPassword"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textColorHint="@color/white"

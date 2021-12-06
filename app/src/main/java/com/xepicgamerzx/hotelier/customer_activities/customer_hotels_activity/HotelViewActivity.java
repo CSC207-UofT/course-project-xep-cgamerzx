@@ -28,6 +28,10 @@ public class HotelViewActivity extends AppCompatActivity {
     Manage manage;
     HotelierDatabase hotelierDatabase;
 
+    /**
+     * The method that is run when the page loads.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,6 +88,12 @@ public class HotelViewActivity extends AppCompatActivity {
         backBtn.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(), SearchActivity.class)));
     }
 
+    /**
+     * Filter by the location that a user entered.
+     * @param userCity The city a user entered
+     * @param map The hashmap containing the various data that a user entered.
+     * @return List<Hotel>
+     */
     private List<Hotel> filterByLocation(TextView userCity, HashMap<String, Object> map) {
         if (map.containsKey("city") && map.containsKey("lat") && map.containsKey("long")) {
             String city = (String) map.get("city");
@@ -97,6 +107,14 @@ public class HotelViewActivity extends AppCompatActivity {
         return hotelierDatabase.hotelDao().getAll();
     }
 
+    /**
+     * Filter by the user's schedule, given that they entered one. Return the adapter with the filtered hotels.
+     * @param userSchedule The schedule a user entered
+     * @param map The hashmap containing the data.
+     * @param minCapacity The minimum capacity a user entered
+     * @param hotels The hotels being filtered.
+     * @return HotelViewAdapter
+     */
     @NonNull
     private HotelViewAdapter filterBySchedule(TextView userSchedule, HashMap<String, Object> map, int minCapacity, List<Hotel> hotels) {
         long[] arr = new long[hotels.size()];
@@ -121,6 +139,11 @@ public class HotelViewActivity extends AppCompatActivity {
         return new HotelViewAdapter(hotelsView);
     }
 
+    /***
+     * Filter hotel id's.
+     * @param hotelIds The hotel id's attached to each hotel.
+     * @return A list of hotels matching the id's.
+     */
     private List<Hotel> hotelIdsToHotel(List<Long> hotelIds) {
         Long[] filteredHotelIds = new Long[hotelIds.size()];
         Arrays.setAll(filteredHotelIds, hotelIds::get);
@@ -128,6 +151,9 @@ public class HotelViewActivity extends AppCompatActivity {
         return hotelierDatabase.hotelDao().getIdMatch(filteredHotelIds);
     }
 
+    /**
+     * Logic for when a user clicks the back button on their android phone.
+     */
     @Override
     public void onBackPressed() {
         startActivity(new Intent(getApplicationContext(), SearchActivity.class));

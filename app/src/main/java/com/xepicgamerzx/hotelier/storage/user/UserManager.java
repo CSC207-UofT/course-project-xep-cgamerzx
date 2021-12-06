@@ -3,6 +3,7 @@ package com.xepicgamerzx.hotelier.storage.user;
 import android.app.Application;
 import android.content.Context;
 
+import com.xepicgamerzx.hotelier.customer_activities.customer_search_activity.DestinationItem;
 import com.xepicgamerzx.hotelier.storage.FileReadWrite;
 import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
 import com.xepicgamerzx.hotelier.storage.dao.UserDao;
@@ -17,7 +18,7 @@ public class UserManager implements com.xepicgamerzx.hotelier.storage.hotel_mana
     private final UserDao userDao;
     public User user;
 
-    FileReadWrite<User> fw = new FileReadWrite<>();
+    FileReadWrite<String> fw = new FileReadWrite<>();
 
     private UserManager(Application application) {
         db = HotelierDatabase.getDatabase(application);
@@ -53,8 +54,9 @@ public class UserManager implements com.xepicgamerzx.hotelier.storage.hotel_mana
         userDao.insert(user);
     }
 
-    public void login(String userIdText, String passwordText) {
+    public void login(String userIdText, String passwordText, Context context) {
         User user = userDao.login(userIdText, passwordText);
+        logInLocally(true, context);
         this.setUser(user);
     }
 
@@ -68,15 +70,16 @@ public class UserManager implements com.xepicgamerzx.hotelier.storage.hotel_mana
         return users.get(users.size() - 1);
     }
 
-    public void setLastLoggedInUser() {
+    public void setLastLoggedInUser(Context context) {
         List<User> users = userDao.getAll();
-        if (users.size() != 0) {
+        if (users.size() != 0 && isSignedIn(context)) {
             user = users.get(users.size() - 1);
         }
     }
 
-    public void signOut() {
+    public void signOut(Context context) {
         this.user = null;
+        signOutLocally(context);
     }
 
     public void setUser(User user) {
@@ -100,25 +103,36 @@ public class UserManager implements com.xepicgamerzx.hotelier.storage.hotel_mana
         userDao.update(user);
     }
 
-    @Deprecated
-    public void saveUser(User user, Context context) {
-        fw.writeData(user, "file.dat", context);
+    public void addRecentSearches(String destination) {
+
+        user.addRecentSearches(destination);
+        userDao.update(user);
     }
 
-    @Deprecated
-    public User getUser(Context context) {
-        // error when no file.dat, how to fix?
+    public List<String> getRecentSearches() {
+        return user.getRecentSearches();
+    }
+
+
+    // Storing log in state locally.
+    public void logInLocally(boolean val, Context context) {
+        if (val == true) {
+            fw.writeData("Logged In", "file.dat", context);
+        }
+    }
+
+    public boolean isSignedIn(Context context) {
+        // error when no file.dat, how to fi?x
         try {
             if (fw.readData("file.dat", context) != null) {
-                return fw.readData("file.dat", context);
+                return true;
             }
         } catch (java.lang.ClassCastException e) {
-            return null;
+            return false;
         }
-        return null;
+        return false;
     }
 
-    @Deprecated
     public void signOutLocally(Context context) {
         fw.writeData(null, "file.dat", context);
     }

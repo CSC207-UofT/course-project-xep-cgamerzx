@@ -46,10 +46,13 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * If the user has not signed out previously, sets the user to the previously logged in user.
+     */
     public void setRecentLogin() {
         hotelierDatabase = HotelierDatabase.getDatabase(getApplication());
         UserManager um = UserManager.getManager(hotelierDatabase);
-        um.setLastLoggedInUser();
+        um.setLastLoggedInUser(getApplicationContext());
     }
 
     public void loadData() {
