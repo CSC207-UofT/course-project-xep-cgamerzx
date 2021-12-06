@@ -87,11 +87,11 @@ public class UserManager implements com.xepicgamerzx.hotelier.storage.hotel_mana
         return user != null;
     }
 
-    public ArrayList<Long> getUserFavourites() {
+    public ArrayList<String> getUserFavourites() {
         return user.getFavHotelIds();
     }
 
-    public void updateUserFavourites(Long hotelID) {
+    public void updateUserFavourites(String hotelID) {
         if (user.getFavHotelIds().contains(hotelID)) {
             user.removeFavHotel(hotelID);
         } else {
