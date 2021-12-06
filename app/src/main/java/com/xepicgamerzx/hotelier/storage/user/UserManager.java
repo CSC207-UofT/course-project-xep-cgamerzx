@@ -11,7 +11,7 @@ import com.xepicgamerzx.hotelier.storage.user.model.User;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserManager implements com.xepicgamerzx.hotelier.storage.hotel_managers.Manager<User, Long[]> {
+public class UserManager implements com.xepicgamerzx.hotelier.storage.hotel_managers.Manager {
     private static volatile UserManager INSTANCE;
     private final HotelierDatabase db;
     private final UserDao userDao;

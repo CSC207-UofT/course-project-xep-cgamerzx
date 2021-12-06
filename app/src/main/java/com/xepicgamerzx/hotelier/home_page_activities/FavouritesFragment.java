@@ -50,7 +50,7 @@ public class FavouritesFragment extends Fragment implements OnFavouriteClickList
             System.out.println("Logged in");
             List<Hotel> hotels = manage.hotelManager.getFavouriteHotels(user);
             System.out.println(hotels);
-            hotelsView = manage.hotelManager.generateHotelModel(hotels);
+            //hotelsView = manage.hotelManager.generateHotelModel(hotels);
             Collections.reverse(hotelsView); // Reversing for newest favourites at the top
             hotelsAdapter = new HotelViewAdapter(hotelsView, this);
 
