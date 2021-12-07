@@ -25,24 +25,24 @@ We explored using Firestore, a cloud hosted NoSQL database but cloud based APIs 
 ### User Interface Update/Explanations & Backend Methods, Along With Ideas For the Future.
 A lot of time was spent updating the UI. 
 
-There are two parts to the UI at the moment, the customer searching, and the management hotel creation. When a user registers, and signs in, in the profile fragment a new view will show up with an option to list a hotel. 
+There are two parts to the UI at the moment, the customer searching, and the management hotel creation. When a user registers and signs in, a new view will show up in the profile fragment with an option to list a hotel. 
 
-Listing a hotel consists of 3 types of inputs, the hotel name, the hotel address, and the rooms in the hotel. With an update on the UI, we also focused on handling input errors. If the user ever clicks save with no inputs or if the input is the wrong type, a message will pop up at the bottom of their screen telling them their error.
+Listing a hotel consists of 3 types of inputs: the hotel name, the hotel address, and the rooms in the hotel. With an update on the UI, we also focused on handling input errors. If the user ever clicks save with no inputs or if the input is the wrong type, a message will pop up at the bottom of their screen telling them their error.
 
 **Note about hotel creation:**
-One downside to this, is that there are a lot of inputs, so the user has to be careful that they are typing in the right stuff. For example, it is important they give the right longitude and latitude. However, in the future, this input won't be necessary because using the PlacesAPI class, we can get longitude and latitude of a destination they submit.
+One downside to this is that there are a lot of inputs, so the user has to be careful to type in the correct information. For example, it is important that they give the right longitude and latitude. However, in the future, this input won't be necessary because we can get a submitted destination's longitude and latitude using the PlacesAPI class.
 Because creating these hotels might take a while, we created some dummy data in a json file under the assets folder. The json file contains some hotels in different cities, and also has dummy room data. In the ReadDummyData class, we parse this json file, create hotels along with their relationships within the database. The JSON file structure, and the reader, may also be good for loading Hotel API data in the future.
 
-When hotels are listed, users can go back to the main page, and click search. With the new search feature, using google places api, typing in any location autogenerates suggestions for the users destination. When the user clicks on the location, in the backend, the longitude and latitude is saved. In addition, the user can set a schedule and increase their number of guests. The location, schedule, and number of guests are sent to the HotelViewActivity, where the respective hotels are displayed given the user inputs. One example of how we did this is getting hotels within a 50km radius of the users destination. This method is within HotelManager's getHotelsByLatLong().
+When hotels are listed, users can go back to the main page, and click search. With the new search feature, using Google Places API, typing in any location automatically generates suggestions for the user's destination. When the user clicks on the location, in the backend, the longitude and latitude are saved. In addition, the user can set a schedule and increase their number of guests. The location, schedule, and number of guests are sent to the HotelViewActivity, where the respective hotels are displayed given the user inputs. One example of how we did this is getting hotels within a 50km radius of the users destination. This method is within HotelManager's getHotelsByLatLong().
 
 **Note about searching:**
 If a user does not input a schedule or destination, this is taken care of as all the hotels will show up instead. If a user enters a schedule, but not a destination, only hotels with rooms given their schedule show up. If a user enters a destination, but no schedule, all hotels within 50km of the destination show up.
 
 After searching for a hotel, a recycler view shows up, with the hotels in the database that are within a 50km radius of the user's destination, filtered by their schedule. As of now, each hotel has a default picture attached to them, but in the future, we can let hotels upload an image instead. Upon viewing the new page with hotels, a user can click on a hotel and a new page will show up, with a detailed view.
 
-This detailed view is the CustomerRoomsActivity class. In this page, we used google maps api to display a google map in a fragment of the hotels longitude and latitude. We also display the hotel name, address, and the respective rooms based on the users schedule. Each room displays their respective number of beds, bed size, capacity, price per night, and schedule that it is available. In the future, we plan to make this page nicer, add hotel amenities, and possibly add a "Book" feature to each hotel room.
+This detailed view is the CustomerRoomsActivity class. In this page, we used Google Maps API to display a google map in a fragment of the hotels longitude and latitude. We also display the hotel name, address, and the respective rooms based on the users schedule. Each room displays their respective number of beds, bed size, capacity, price per night, and availability schedule. In the future, we plan to make this page more aesthetically appealing, add hotel amenities, and possibly add a "Book" feature to each hotel room.
 
-We also made a sign in and register page, which uses the rooms library to save a user locally. At the moment, the system has no security, and user's can make their passwords and usernames anything they want. In the future, we probably want to make this more secure.
+We also made a sign-in and registration page, which uses the rooms library to save a user locally. At the moment, the system has no security, and user's can make their passwords and usernames anything they want. In the future, we probably want to make this more secure.
 
 ## SOLID
 Overall, the project adheres to SOLID design principles.
@@ -58,7 +58,7 @@ All of our interfaces are small and specific. In situations where some parts of 
 We adhere to the dependency inversion principle by ensuring that all modules depend on abstractions. For example, unique entities are expected to have string identifiers that are non-autogenerated and this is enforced using an interface. Our managers all have abstractions in the form of interfaces which define the basic methods that all managers should have.
 
 ## Clean Architecture
-We followed clean archictecture by using the same SOLID design principle structure from phase 0. We have entities for hotel objects, use case managers for to manage things like rooms, hotels, beds, amentities, and more. Within our activities, we use several usecase classes to fetch and output data. In phase 1, we also implemented a new database structure that used android rooms library to save data and query with SQLite. We followed clean architecture here by using a database access object interfaces, which required certain methods the use case managers. This structure allowed us to use the database methods within the usecase classes by and not break SOLID structure because we used interfaces instead of calling the database directly.
+We followed clean architecture by using the same SOLID design principle structure from phase 0. We have entities for hotel objects, use case managers for to manage things like rooms, hotels, beds, amenities, and more. Within our activities, we use several use case classes to fetch and output data. In phase 1, we also implemented a new database structure that used android rooms library to save data and query with SQLite. We followed clean architecture here by using a database access object interfaces, which required certain methods the use case managers. This structure allowed us to use the database methods within the use case classes by and not break SOLID structure because we used interfaces instead of calling the database directly.
 
 ## Packaging Strategies/Code Organization
 We packaged our code using the "by component method". We packaged by what made sense to us, and structured it in a way that controllers (activities) have their own packages, and within them, adapters and models. We also have a storage package, that holds data and also saves and creates data. For example, we have our managers here, data access objects, and file read write classes in their own respective packages. 
@@ -89,15 +89,15 @@ When a user clicks search, a list of hotels is displayed to this. Similarly, whe
 
 ### Singleton
 
-The signleton design pattern restricts a class such that only one instance of the class may exist at a time. Singletons are used rather extensively due to how our persistent data system works. In our DAO pattern, the database class is a singleton. This is required because the database should be acting as a single point of access for the persisted data. Multiple instances of the database class can result in duplicate tables and SQL databases, cascading to bugs where one part of the app saves an entity, but the other part of the app trying to load said data has a different database instance, such that it can't find the data that was just saved. Similarly, because managers utilize the databases directly, each manager acts as a singleton to ensure they are always accessing the same database and data access objects.
+The singleton design pattern restricts a class such that only one instance of the class may exist at a time. Singletons are used rather extensively due to how our persistent data system works. In our DAO pattern, the database class is a singleton. This is required because the database should be acting as a single point of access for the persisted data. Multiple instances of the database class can result in duplicate tables and SQL databases, cascading to bugs where one part of the app saves an entity, but the other part of the app trying to load said data has a different database instance, such that it can't find the data that was just saved. Similarly, because managers utilize the databases directly, each manager acts as a singleton to ensure they are always accessing the same database and data access objects.
 
 The implementation of singleton for all managers is the same where each manager has a private constructor and the class has saves a private volatile instance of itself. To access the instance, one must use the public method getManager which either returns the instance already created, or creates a new instance using a passed app context or database instance. The database class works similarly, except it is an abstract class and thus has no constructor. It uses a database builder in order to create a database instance if one does not exist.
 
-Futhermore, in order to reduce the amount of managers that are juggled around in our controllers and presenters, we implemented a centralized singleton that handles the instances for all of the managers in one place.
+Furthermore, in order to reduce the amount of managers that are juggled around in our controllers and presenters, we implemented a centralized singleton that handles the instances for all of the managers in one place.
 
 ### Builder
 
-We implemented the builder design pattern specifically for our Address entity, in order to solve the issue of it having a large number of constructors. It did not make sense to break the address object down into further subobjects, so to make creation of Address objects easier it was appropriate to use the builder design pattern.
+We implemented the builder design pattern specifically for our Address entity in order to solve the issue of it having a large number of constructors. It did not make sense to break the address object down into further sub-objects, so to make creation of Address objects easier it was appropriate to use the builder design pattern.
 
 ## Progress Report
 ### Open Questions
@@ -119,11 +119,15 @@ In order to check if a commit had any issues, we utilized Github actions by crea
 We used unit tests extensively throughout our project, including for portions that require an application instance such as for database related methods. Using unit tests and test-driven development in general was great for helping with identifying if changes resulted in something breaking. If something did break, this often indicated potential violations of SOLID design. Other times, tests not acting as expected acted as indication that we needed to implement equals and hashcode functions manually. In conjunction with Github actions, they were also a good indicator of the status of a branch in terms of what needs to be worked on and whenever or not it would be safe to merge the branch.
 
 ### Group Member Significant Contributions/Pull Requests
-Howard: {[#17](https://github.com/CSC207-UofT/course-project-xep-cgamerzx/pull/17)} {[#61](https://github.com/CSC207-UofT/course-project-xep-cgamerzx/pull/61)} Migration of our presistence library to Android Room as well as general work on the backend. Android Room handles all if not all of our data persistence, and plays a major role in data filtering as well.
+Howard: {[#17](https://github.com/CSC207-UofT/course-project-xep-cgamerzx/pull/17)} {[#61](https://github.com/CSC207-UofT/course-project-xep-cgamerzx/pull/61)} Migration of our persistence library to Android Room as well as general work on the backend. Android Room handles all if not all of our data persistence, and plays a major role in data filtering as well.
 
 Rafee:
-Megan: 
+
+Megan: {[#39](https://github.com/CSC207-UofT/course-project-xep-cgamerzx/pull/39)} **NOTE: this isn't actually my pull request because for a while I was pushing code to a branch without making any pull requests (oops!), but this pull request contains my commits**. Here I implemented our CrossManager classes which are essential to cross referencing our different entities. Indeed, we need to be able to create relationships between objects in order to store data and filter data correctly. 
+
 Veronica: 
+
 Wei: 
+
 Thomas:
 
