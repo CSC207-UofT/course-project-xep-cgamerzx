@@ -105,11 +105,11 @@ public class HotelViewAdapter extends RecyclerView.Adapter<HotelViewAdapter.Hote
             favouritesBtn.setOnClickListener(v -> {
                 HotelierDatabase hotelierDatabase = HotelierDatabase.getDatabase(v.getContext());
                 UserManager userManager = UserManager.getManager(hotelierDatabase);
-                if (userManager.isLoggedIn()){
+                if (userManager.isLoggedIn()) {
                     userManager.updateUserFavourites(String.valueOf(hotel.getHotel().hotelId));
                     if (onFavouriteClickListener != null) {
                         int pos = getAbsoluteAdapterPosition();
-                        if(pos != RecyclerView.NO_POSITION) {
+                        if (pos != RecyclerView.NO_POSITION) {
                             onFavouriteClickListener.onFavouriteClick(pos);
                         }
                     }
@@ -121,6 +121,7 @@ public class HotelViewAdapter extends RecyclerView.Adapter<HotelViewAdapter.Hote
 
         /**
          * Clicking on the hotel layout sends the user to the detailed hotel rooms activity.
+         *
          * @param hotel HotelViewModel.
          */
         public void hotelLayoutListener(HotelViewModel hotel) {

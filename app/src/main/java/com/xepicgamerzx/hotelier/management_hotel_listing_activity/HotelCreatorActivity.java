@@ -88,6 +88,7 @@ public class HotelCreatorActivity extends AppCompatActivity {
                 .addToBackStack(null)
                 .commit());
     }
+
     public void setCreationFields() {
         hotelName = findViewById(R.id.hotelNameInput);
         addAddressBtn = findViewById(R.id.addAddressBtn);

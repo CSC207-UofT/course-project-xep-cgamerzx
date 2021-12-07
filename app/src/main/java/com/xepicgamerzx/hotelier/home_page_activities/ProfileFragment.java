@@ -14,10 +14,10 @@ import androidx.fragment.app.Fragment;
 import com.xepicgamerzx.hotelier.R;
 import com.xepicgamerzx.hotelier.management_hotel_listing_activity.HotelCreatorActivity;
 import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
+import com.xepicgamerzx.hotelier.storage.user.UserManager;
 import com.xepicgamerzx.hotelier.storage.user.model.User;
 import com.xepicgamerzx.hotelier.user_activities.LoginActivity;
 import com.xepicgamerzx.hotelier.user_activities.RegisterActivity;
-import com.xepicgamerzx.hotelier.storage.user.UserManager;
 
 public class ProfileFragment extends Fragment {
     Button registerBtn;
@@ -67,7 +67,7 @@ public class ProfileFragment extends Fragment {
         listHotel.setOnClickListener(v1 -> startActivity(new Intent(getActivity(), HotelCreatorActivity.class)));
     }
 
-    public void loginListener () {
+    public void loginListener() {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -30,8 +30,8 @@ public class SearchActivity extends AppCompatActivity implements OnSearchClick {
     Button dateSelection, searchBtn;
     AutoCompleteTextView editText;
     AutoDestinationAdapter adapter;
-    private java.util.Locale Locale;
     UserManager userManager = UserManager.getManager(getApplication());
+    private java.util.Locale Locale;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,8 +108,18 @@ public class SearchActivity extends AppCompatActivity implements OnSearchClick {
 
         searchData.put("guests", numGuests.getText().toString());
         searchData.computeIfAbsent("city", val -> finalDestination);
-        searchData.computeIfAbsent("long", val -> {if(finalLng != 0) { return finalLng; } return null;});
-        searchData.computeIfAbsent("lat", val -> {if(finalLat != 0) { return finalLat; } return null;});
+        searchData.computeIfAbsent("long", val -> {
+            if (finalLng != 0) {
+                return finalLng;
+            }
+            return null;
+        });
+        searchData.computeIfAbsent("lat", val -> {
+            if (finalLat != 0) {
+                return finalLat;
+            }
+            return null;
+        });
         searchData.computeIfAbsent("startDate", val -> startDate);
         searchData.computeIfAbsent("endDate", val -> endDate);
 
