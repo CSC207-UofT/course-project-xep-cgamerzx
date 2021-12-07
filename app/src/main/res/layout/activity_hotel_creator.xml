@@ -109,25 +109,27 @@
         app:boxCornerRadiusTopStart="8dp"
         app:boxStrokeColor="@color/white" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/hotelAmenitiesBtn"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="313dp"
-        android:layout_height="65dp"
-        android:layout_below="@+id/addRoomsBtn"
-        android:layout_marginStart="46dp"
-        android:layout_marginTop="20dp"
-        android:backgroundTint="@color/background_secondary"
-        android:fontFamily="@font/inter_regular"
-        android:gravity="start|center_vertical"
-        android:text="@string/add_amenities_ignore_unfinished"
-        android:textColorHint="@color/white"
-        android:textSize="18sp"
-        app:boxCornerRadiusBottomEnd="8dp"
-        app:boxCornerRadiusBottomStart="8dp"
-        app:boxCornerRadiusTopEnd="8dp"
-        app:boxCornerRadiusTopStart="8dp"
-        app:boxStrokeColor="@color/white" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/hotelAmenitiesBtn"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="313dp"
+            android:layout_height="65dp"
+            android:layout_marginStart="46dp"
+            android:textColorHint="@color/white"
+            android:text="Add Amenities"
+            android:layout_below="@+id/addRoomsBtn"
+            android:backgroundTint="@color/background_secondary"
+            app:boxStrokeColor="@color/white"
+            app:boxCornerRadiusBottomEnd="8dp"
+            app:boxCornerRadiusBottomStart="8dp"
+            app:boxCornerRadiusTopEnd="8dp"
+            app:boxCornerRadiusTopStart="8dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/inter_regular"
+            android:textSize="18sp"
+            android:gravity="left|center_vertical"
+            android:drawableEnd="@android:drawable/arrow_down_float">
+        </com.google.android.material.button.MaterialButton>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/hotelDetails"
