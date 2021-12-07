@@ -16,10 +16,8 @@ import com.xepicgamerzx.hotelier.R;
 import com.xepicgamerzx.hotelier.customer_activities.customer_hotels_activity.HotelViewAdapter;
 import com.xepicgamerzx.hotelier.customer_activities.customer_hotels_activity.HotelViewModel;
 import com.xepicgamerzx.hotelier.customer_activities.customer_search_activity.SearchActivity;
-import com.xepicgamerzx.hotelier.objects.hotel_objects.Hotel;
 import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
 import com.xepicgamerzx.hotelier.storage.Manage;
-import com.xepicgamerzx.hotelier.storage.hotel_managers.HotelManager;
 import com.xepicgamerzx.hotelier.storage.user.model.User;
 import com.xepicgamerzx.hotelier.storage.user.UserManager;
 
