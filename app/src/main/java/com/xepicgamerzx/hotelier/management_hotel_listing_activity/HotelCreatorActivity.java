@@ -12,10 +12,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.xepicgamerzx.hotelier.R;
-import com.xepicgamerzx.hotelier.objects.hotel_objects.Address;
-import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelAmenity;
-import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelRoom;
 import com.xepicgamerzx.hotelier.storage.Manage;
+import com.xepicgamerzx.hotelier.storage.hotel_managers.HotelIdBuilder;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -25,12 +23,11 @@ import java.util.Objects;
 public class HotelCreatorActivity extends AppCompatActivity {
     String text = "Hotel Details:";
     Manage manage;
-    Address address;
-    List<HotelRoom> hotelRooms = new ArrayList<>();
-    List<HotelAmenity> hotelAmenities = new ArrayList<>();
+    List<String> hotelAmenities = new ArrayList<>();
     TextInputEditText hotelName;
     MaterialButton addAddressBtn, addRoomsBtn, addAmenitiesBtn, submitBtn, hotelDetails;
     ImageButton backBtn;
+    HotelCreateModel viewModel;
     boolean isRoomsMade = false, isAddressMade = false, isHotelNameMade = false;
 
     boolean[] selectedAmenity;
@@ -47,6 +44,7 @@ public class HotelCreatorActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hotel_creator);
         Objects.requireNonNull(getSupportActionBar()).hide();
+        viewModel = new HotelCreateModel();
 
         // Initializing db
         initializeDb();
@@ -72,7 +70,19 @@ public class HotelCreatorActivity extends AppCompatActivity {
             String name = Objects.requireNonNull(hotelName.getText()).toString();
             if (validateHotel()) {
                 hotelAmenities = createAmenities(amenitiesArray, amenitiesList);
-                manage.hotelManager.createHotel(name, address, starClass, hotelRooms, hotelAmenities);
+                new HotelIdBuilder()
+                        .setAmenityIds((ArrayList<String>) hotelAmenities)
+                        .setCity(viewModel.getCity())
+                        .setLatitude(viewModel.getLatitude())
+                        .setLongitude(viewModel.getLongitude())
+                        .setName(name)
+                        .setPostalCode(viewModel.getPostalCode())
+                        .setProvince(viewModel.getProvince())
+                        .setStarClass(starClass)
+                        .setRoomIds(viewModel.getRoomIds())
+                        .setStreetNumber(viewModel.getStreetNumber())
+                        .setStreetName(viewModel.getStreetName())
+                        .buildHotelId(getApplication());
                 onBackPressed();
             } else {
                 Toast.makeText(getApplicationContext(), "Missing inputs, try again", Toast.LENGTH_SHORT).show();
@@ -194,13 +204,13 @@ public class HotelCreatorActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    public ArrayList<HotelAmenity> createAmenities(String[] amenities, ArrayList<Integer> indices) {
-        ArrayList<HotelAmenity> hotelAmenities = new ArrayList<>();
+    public ArrayList<String> createAmenities(String[] amenities, ArrayList<Integer> indices) {
+        ArrayList<String> hotelAmenities = new ArrayList<>();
 
         for (int i = 0; i < amenitiesList.size(); i++) {
             //Concatenate value
-            HotelAmenity amenity = manage.hotelAmenityManager.create(amenities[indices.get(i)]);
-            hotelAmenities.add(amenity);
+            String amenityId = manage.hotelAmenityManager.createId(amenities[indices.get(i)]);
+            hotelAmenities.add(amenityId);
         }
 
         return hotelAmenities;

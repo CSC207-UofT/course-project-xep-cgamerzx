@@ -103,10 +103,10 @@ public class HotelManager implements Manager {
      * @return Hotel object created.
      */
     @NonNull
-    public Hotel createHotel(String name, Address address, int starClass, List<HotelRoom> hotelRooms, List<HotelAmenity> hotelAmenities) {
+    public Hotel createHotel(String name, Address address, int starClass, List<Long> hotelRooms, List<String> hotelAmenities) {
         Hotel hotel = createHotel(name, address, starClass);
 
-        for (HotelRoom hotelRoom : hotelRooms) {
+        for (long hotelRoom : hotelRooms) {
             roomManager.setHotelID(hotel, hotelRoom);
         }
 

@@ -67,6 +67,28 @@ public class BedManager implements UniqueManager<Bed, BedSizeEnum> {
     }
 
     /**
+     * Create unique object and insert it into database.
+     *
+     * @param id String unique ID of object.
+     * @return String Id of unique object created
+     */
+    @Override
+    public String createId(String id) {
+        return create(id).getUniqueId();
+    }
+
+    /**
+     * Create unique object and insert it into database.
+     *
+     * @param id <E> LabeledEnum of unique object to be created.
+     * @return String Id of unique object created
+     */
+    @Override
+    public String createId(BedSizeEnum id) {
+        return createId(id.toString());
+    }
+
+    /**
      * Closes the manager if already open.
      */
     @Override

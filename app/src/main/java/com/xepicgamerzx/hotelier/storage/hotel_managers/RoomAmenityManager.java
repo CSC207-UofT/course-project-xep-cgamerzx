@@ -81,6 +81,28 @@ public class RoomAmenityManager implements UniqueManager<RoomAmenity, RoomAmenit
     }
 
     /**
+     * Create unique object and insert it into database.
+     *
+     * @param id String unique ID of object.
+     * @return String Id of unique object created
+     */
+    @Override
+    public String createId(String id) {
+        return create(id).getUniqueId();
+    }
+
+    /**
+     * Create unique object and insert it into database.
+     *
+     * @param id <E> LabeledEnum of unique object to be created.
+     * @return String Id of unique object created
+     */
+    @Override
+    public String createId(RoomAmenitiesEnum id) {
+        return createId(id.toString());
+    }
+
+    /**
      * Gets all the amenities in the given room.
      *
      * @param hotelRoom HotelRoom associated with amenities.

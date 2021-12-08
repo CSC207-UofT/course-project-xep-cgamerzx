@@ -26,7 +26,7 @@ public class HotelViewActivity extends AppCompatActivity {
     /**
      * The method that is run when the page loads.
      *
-     * @param savedInstanceState
+     * @param savedInstanceState saved instance state
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {

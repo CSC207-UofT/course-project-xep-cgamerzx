@@ -17,8 +17,6 @@ import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.textfield.TextInputEditText;
 import com.xepicgamerzx.hotelier.R;
 import com.xepicgamerzx.hotelier.objects.UnixEpochDateConverter;
-import com.xepicgamerzx.hotelier.objects.hotel_objects.Bed;
-import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelRoom;
 
 import java.math.BigDecimal;
 import java.time.ZoneId;
@@ -83,17 +81,17 @@ public class HotelCreateRoomsFragment extends Fragment {
             if (!stringErrorMess.equals("")) {
                 Toast.makeText(getContext(), stringErrorMess, Toast.LENGTH_SHORT).show();
             } else {
-                HotelRoom room = Objects.requireNonNull(activity).manage.roomManager.createRoom(
+                long roomId = Objects.requireNonNull(activity).manage.roomManager.createRoomId(
                         zoneId, startDate, endDate,
                         Integer.parseInt(Objects.requireNonNull(capacity.getText()).toString()),
                         BigDecimal.valueOf(Long.parseLong(Objects.requireNonNull(pricePerNight.getText()).toString()))
                 );
                 // The parent activity is HotelCreator (where these variables can be found)
-                activity.hotelRooms.add(room);
-                Bed bed = activity.manage.bedManager.create(bedType);
-                activity.manage.roomBedsCrossManager.createRelationship(room, bed, Integer.parseInt(Objects.requireNonNull(totalBeds.getText()).toString()));
+                activity.viewModel.addRoomId(roomId);
+                String bedId = activity.manage.bedManager.createId(bedType);
+                activity.manage.roomBedsCrossManager.createRelationship(roomId, bedId, Integer.parseInt(Objects.requireNonNull(totalBeds.getText()).toString()));
 
-                activity.text += "\n" + room;
+                activity.text += "\n" + roomId;
                 activity.isRoomsMade = true;
                 activity.addRoomsBtn.setText("Add another room");
 
@@ -114,7 +112,6 @@ public class HotelCreateRoomsFragment extends Fragment {
             endDate = selection.second;
 
             // Converts to normal date
-            UnixEpochDateConverter epoch = new UnixEpochDateConverter();
             String dates = UnixEpochDateConverter.epochToReadable(startDate, endDate);
             schedule.setText(dates);
         });
