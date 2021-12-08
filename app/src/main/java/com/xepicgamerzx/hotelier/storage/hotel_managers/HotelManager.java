@@ -233,6 +233,7 @@ public class HotelManager implements Manager {
     public List<HotelViewModel> generateHotelModel(List<Hotel> hotels) {
         List<HotelViewModel> hotelsView = new ArrayList<>();
 
+
         for (Hotel hotel : hotels) {
             hotelsView.add(new HotelViewModel(
                     hotel.getName(),
