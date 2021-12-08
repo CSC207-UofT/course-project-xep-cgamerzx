@@ -23,9 +23,9 @@ public class HotelRoomModelManager {
      * Generate CustomerHotelRoomsAdapter
      *
      * @param hotelViewModel HotelViewModel used to generate adapter
-     * @param application Application context
-     * @param userStartDate Long start date of the schedule (nullable)
-     * @param userEndDate Long end date of the schedule (nullable)
+     * @param application    Application context
+     * @param userStartDate  Long start date of the schedule (nullable)
+     * @param userEndDate    Long end date of the schedule (nullable)
      * @return CustomerHotelRoomsAdapter
      */
     public static CustomerHotelRoomsAdapter getAdapterRooms(HotelViewModel hotelViewModel, Application application, @Nullable Long userStartDate, @Nullable Long userEndDate) {
@@ -44,7 +44,7 @@ public class HotelRoomModelManager {
     /**
      * Get a list of customer hotel room view models based on parameters
      *
-     * @param hotelRooms List<HotelRoom> hotel rooms used to generate view model
+     * @param hotelRooms  List<HotelRoom> hotel rooms used to generate view model
      * @param application Application context
      * @return List<CustomerHotelRoomsModel>
      */
