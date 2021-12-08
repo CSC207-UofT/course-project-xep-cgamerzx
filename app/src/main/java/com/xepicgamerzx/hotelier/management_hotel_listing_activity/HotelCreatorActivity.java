@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.xepicgamerzx.hotelier.R;
+import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
 import com.xepicgamerzx.hotelier.storage.Manage;
 import com.xepicgamerzx.hotelier.storage.hotel_managers.HotelIdBuilder;
 
@@ -23,6 +24,7 @@ import java.util.Objects;
 public class HotelCreatorActivity extends AppCompatActivity {
     String text = "Hotel Details:";
     Manage manage;
+    HotelierDatabase db;
     List<String> hotelAmenities = new ArrayList<>();
     TextInputEditText hotelName;
     MaterialButton addAddressBtn, addRoomsBtn, addAmenitiesBtn, submitBtn, hotelDetails;
@@ -32,10 +34,7 @@ public class HotelCreatorActivity extends AppCompatActivity {
 
     boolean[] selectedAmenity;
     ArrayList<Integer> amenitiesList = new ArrayList<>();
-    String[] amenitiesArray = {"Indoor Pool", "Outdoor Pool", "Gym", "Laundry",
-            "Business Services", "Wedding Services", "Conference Space", "Smoke Free Property",
-            "Bar", "Complementary Breakfast", "24/7 Front Desk", "Parking Included", "Restaurant",
-            "Spa", "Elevator", "ATM/Banking Services", "Front Desk Safe"};
+    String[] amenitiesArray;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +43,11 @@ public class HotelCreatorActivity extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).hide();
         viewModel = new HotelCreateModel();
 
-        // Initializing db
-        initializeDb();
+        db = HotelierDatabase.getDatabase(getApplication());
+        manage = Manage.getManager(db);
+
+        amenitiesArray = manage.hotelAmenityManager.getAllStrArray();
+
         setCreationFields();
         callAllListeners();
     }
@@ -176,11 +178,6 @@ public class HotelCreatorActivity extends AppCompatActivity {
         hotelDetails = findViewById(R.id.hotelDetails);
     }
 
-    public void initializeDb() {
-        //pretty sure something is causing an error
-        manage = Manage.getManager(getApplication());
-    }
-
     public boolean validateHotel() {
         if (!Objects.requireNonNull(hotelName.getText()).toString().equals("")) {
             isHotelNameMade = true;
@@ -195,7 +192,6 @@ public class HotelCreatorActivity extends AppCompatActivity {
 
         TextView hotelDetails = hotelInfo.findViewById(R.id.hotelDetailsTxt);
         hotelDetails.append(text);
-
 
         dialogBuilder.setView(hotelInfo);
         AlertDialog dialog = dialogBuilder.create();

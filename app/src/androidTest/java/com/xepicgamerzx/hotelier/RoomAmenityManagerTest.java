@@ -8,7 +8,7 @@ import androidx.room.Room;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
-import com.xepicgamerzx.hotelier.objects.cross_reference_objects.RoomAmenitiesEnum;
+import com.xepicgamerzx.hotelier.objects.hotel_objects.RoomAmenitiesEnum;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.Address;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.AddressBuilder;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelRoom;
