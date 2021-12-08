@@ -13,7 +13,6 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.xepicgamerzx.hotelier.R;
 import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
 import com.xepicgamerzx.hotelier.storage.user.UserManager;
-import com.xepicgamerzx.hotelier.storage.user.model.User;
 
 import java.util.Objects;
 
@@ -36,24 +35,24 @@ public class RegisterActivity extends AppCompatActivity {
 
 
         registerBtn.setOnClickListener(v -> {
-            User user = new User(Objects.requireNonNull(userId.getText()).toString(),
-                    Objects.requireNonNull(password.getText()).toString(),
-                    Objects.requireNonNull(email.getText()).toString());
+            String usernameStr = Objects.requireNonNull(userId.getText()).toString();
+            String emailStr = Objects.requireNonNull(email.getText()).toString();
+            String passwordStr = Objects.requireNonNull(email.getText()).toString();
 
-            if (validateInput(user) && validatePassword(user)) {
+            if (validateInput(usernameStr, emailStr, passwordStr) && validatePassword(passwordStr)) {
                 // Insert to db
                 HotelierDatabase hotelierDatabase = HotelierDatabase.getDatabase(getApplicationContext());
                 UserManager userManager = UserManager.getManager(hotelierDatabase);
                 new Thread(() -> {
-                    userManager.registerUser(user);
+                    userManager.registerUser(usernameStr, passwordStr, emailStr);
                     runOnUiThread(() -> Toast.makeText(getApplicationContext(), "Successfully registered.", Toast.LENGTH_SHORT).show());
                 }).start();
 
                 startActivity(new Intent(getApplicationContext(), LoginActivity.class));
 
-            } else if (!validateInput(user)) {
+            } else if (!validateInput(usernameStr, emailStr, passwordStr)) {
                 Toast.makeText(getApplicationContext(), "Fill all fields", Toast.LENGTH_SHORT).show();
-            } else if (!validatePassword(user)) {
+            } else if (!validatePassword(passwordStr)) {
                 String errorMsg = "Please make a stronger password" +
                         " (at least 6 characters long with at least 1 of each: uppercase, lowercase, number, special character (!@#$%^&*()_+.))";
                 errorText.setText(errorMsg);
@@ -66,9 +65,9 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
-    private Boolean validateInput(User user) {
-        return !user.getUserName().isEmpty() &&
-                !user.getEmail().isEmpty() && !user.getPassword().isEmpty();
+    private Boolean validateInput(String userName, String email, String password) {
+        return !userName.isEmpty() &&
+                !email.isEmpty() && !password.isEmpty();
     }
 
     /**
@@ -76,11 +75,11 @@ public class RegisterActivity extends AppCompatActivity {
      * (at least 6 characters in length with at least 1 lowercase letter, 1 uppercase letter,
      * 1 number, and 1 special character)
      *
-     * @param user User being validated
+     * @param password String password being validated
      * @return Whether the password matches the regex
      */
-    private Boolean validatePassword(User user) {
-        return user.getPassword().matches("^(?=(.*[a-z]))(?=(.*[A-Z]))(?=(.*[0-9]))(?=(.*[!@#$%^&*()_+.])).{6,}$");
+    private Boolean validatePassword(String password) {
+        return password.matches("^(?=(.*[a-z]))(?=(.*[A-Z]))(?=(.*[0-9]))(?=(.*[!@#$%^&*()_+.])).{6,}$");
     }
 
 }

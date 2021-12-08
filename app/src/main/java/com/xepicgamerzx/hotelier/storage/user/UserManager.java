@@ -60,6 +60,11 @@ public class UserManager implements com.xepicgamerzx.hotelier.storage.hotel_mana
         userDao.insert(user);
     }
 
+    public void registerUser(String userId, String password, String email) {
+        User user = new User(userId, password, email);
+        userDao.insert(user);
+    }
+
     public void login(String userIdText, String passwordText, Context context) {
         User user = userDao.login(userIdText, passwordText);
         logInLocally(true, context);
