@@ -171,6 +171,9 @@ public class HotelViewAdapterBuilder {
         return hotelsView;
     }
 
+    /**
+     * Generates a HotelViewAdapter with specifics
+     */
     private HotelViewAdapter generateHotelViewAdapter(List<HotelViewModel> hotelViewModels) {
         if (onFavouriteClickListener != null) {
             return new HotelViewAdapter(hotelViewModels, onFavouriteClickListener);

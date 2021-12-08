@@ -35,7 +35,9 @@ import java.util.concurrent.Executors;
         RoomAmenity.class, RoomBedsCrossRef.class, HotelAmenitiesCrossRef.class,
         RoomAmenitiesCrossRef.class, User.class},
         version = 1)
+
 public abstract class HotelierDatabase extends RoomDatabase {
+
     private static final int NUMBER_OF_THREADS = 2;
     static final ExecutorService databaseWriteExecutor =
             Executors.newFixedThreadPool(NUMBER_OF_THREADS);

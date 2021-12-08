@@ -11,16 +11,24 @@ import com.xepicgamerzx.hotelier.storage.dao.BedDao;
  * A class to manage all the Beds in the database.
  */
 public class BedManager implements UniqueManager<Bed, BedSizeEnum> {
-    private static volatile BedManager INSTANCE;
 
+    private static volatile BedManager INSTANCE;
     private final HotelierDatabase db;
     private final BedDao bedDao;
 
+    /**
+     * Create new BedManager.
+     * @param application the application
+     */
     private BedManager(Application application) {
         db = HotelierDatabase.getDatabase(application);
         bedDao = db.bedDao();
     }
 
+    /**
+     * Create new BedManager.
+     * @param dbInstance an instance of the database
+     */
     private BedManager(HotelierDatabase dbInstance) {
         db = dbInstance;
         bedDao = db.bedDao();

@@ -29,6 +29,12 @@ public class User implements Serializable {
     private ArrayList<String> favHotelIds = new ArrayList<>();
     private ArrayList<String> recentSearches = new ArrayList<>();
 
+    /**
+     * Create a new User.
+     * @param userName  this user's username
+     * @param password  this user's password
+     * @param email     this user's email address
+     */
     public User(String userName, String password, String email) {
         this.userName = userName;
         this.password = password;
@@ -83,25 +89,44 @@ public class User implements Serializable {
         this.favHotelIds = favHotelIds;
     }
 
+    /**
+     * Get a list of the ids of this user's favourite hotels.
+     * @return a list of the user's favourite hotels' ids
+     */
     public List<Long> getFavHotelIdsL() {
         return favHotelIds.stream().map(Long::parseLong).collect(Collectors.toList());
     }
 
+    /**
+     * Adds a hotel to a user's favourites.
+     * @param hotelId   the id of the hotel to add to favourites.
+     */
     public void addFavHotel(String hotelId) {
-        // Need to compare strings for some reason, look into this, but low prio for now.
+        // Need to compare strings for some reason, look into this, but low priority for now.
         if (!favHotelIds.contains(hotelId)) {
             favHotelIds.add(hotelId);
         }
     }
-
+    /**
+     * Adds a hotel to a user's favourites.
+     * @param hotel   the hotel to add to favourites.
+     */
     public void addFavHotel(Hotel hotel) {
         addFavHotel(String.valueOf(hotel.hotelId));
     }
 
+    /**
+     * Removes a hotel from a user's favourites.
+     * @param hotelId   the id of the hotel to remove from favourites.
+     */
     public void removeFavHotel(String hotelId) {
         favHotelIds.remove(String.valueOf(hotelId));
     }
 
+    /**
+     * Removes a hotel from a user's favourites.
+     * @param hotel  the hotel to remove from favourites.
+     */
     public void removeFavHotel(Hotel hotel) {
         removeFavHotel(String.valueOf(hotel.hotelId));
     }
