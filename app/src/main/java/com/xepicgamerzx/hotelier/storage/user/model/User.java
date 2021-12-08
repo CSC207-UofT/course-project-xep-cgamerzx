@@ -4,7 +4,6 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import com.xepicgamerzx.hotelier.customer_activities.customer_search_activity.DestinationItem;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.Hotel;
 
 import java.io.Serializable;
@@ -22,7 +21,7 @@ public class User implements Serializable {
     private String password;
     @ColumnInfo(name = "email")
     private String email;
-    @ColumnInfo(name="userType")
+    @ColumnInfo(name = "userType")
     private String userType;
 
     private ArrayList<String> favHotelIds = new ArrayList<>();
@@ -110,9 +109,7 @@ public class User implements Serializable {
     }
 
     public void addRecentSearches(String destinationItem) {
-        if (recentSearches.contains(destinationItem)) {
-            recentSearches.remove(destinationItem);
-        }
+        recentSearches.remove(destinationItem);
         recentSearches.add(destinationItem);
     }
 

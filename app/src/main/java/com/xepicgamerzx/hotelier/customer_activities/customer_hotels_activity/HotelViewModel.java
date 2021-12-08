@@ -16,10 +16,10 @@ public class HotelViewModel implements Serializable {
     private final String address;
     private final BigDecimal priceRange;
     private final int numberOfRooms;
-    boolean isSelected = false;
-    private Hotel hotel;
     @Nullable
     private final List<HotelRoom> rooms;
+    boolean isSelected = false;
+    private Hotel hotel;
 
     public HotelViewModel(@NonNull String name, String address, BigDecimal priceRange, int numberOfRooms, Hotel hotel, @Nullable List<HotelRoom> rooms) {
         this.name = name;
@@ -52,18 +52,26 @@ public class HotelViewModel implements Serializable {
         return hotel;
     }
 
-    public String getHotelName() {return hotel.getName();}
-
-    public String getHotelFullStreet() {return hotel.getAddress().getFullStreet();}
-
-    public int getHotelStar() {return hotel.getStarClass();}
-
     public void setHotel(Hotel hotel) {
         this.hotel = hotel;
     }
 
+    public String getHotelName() {
+        return hotel.getName();
+    }
+
+    public String getHotelFullStreet() {
+        return hotel.getAddress().getFullStreet();
+    }
+
+    public int getHotelStar() {
+        return hotel.getStarClass();
+    }
+
     @Nullable
-    public List<HotelRoom> getRooms() {return rooms;}
+    public List<HotelRoom> getRooms() {
+        return rooms;
+    }
 
     @Override
     public boolean equals(Object o) {

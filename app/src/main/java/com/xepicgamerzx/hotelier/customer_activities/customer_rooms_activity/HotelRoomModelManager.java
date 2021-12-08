@@ -45,14 +45,14 @@ public class HotelRoomModelManager {
         return hotelRoomsView;
     }
 
-    public static CustomerHotelRoomsAdapter getAdapterRooms(HotelViewModel hotelViewModel, Application application, @Nullable Long userStartDate, @Nullable Long userEndDate){
+    public static CustomerHotelRoomsAdapter getAdapterRooms(HotelViewModel hotelViewModel, Application application, @Nullable Long userStartDate, @Nullable Long userEndDate) {
         List<HotelRoom> rooms;
 
-        if (hotelViewModel.getRooms() != null){
+        if (hotelViewModel.getRooms() != null) {
             rooms = hotelViewModel.getRooms();
-        } else if (userStartDate != null && userEndDate != null){
+        } else if (userStartDate != null && userEndDate != null) {
             rooms = Manage.getManager(application).roomManager.getAvailableRooms(userStartDate, userEndDate, hotelViewModel.getHotel());
-        } else{
+        } else {
             rooms = Manage.getManager(application).roomManager.getHotelRoomsInHotel(hotelViewModel.getHotel().hotelId);
         }
         return new CustomerHotelRoomsAdapter(getHotelViewModelList(rooms, application));

@@ -48,7 +48,7 @@ public class CustomerHotelRoomsActivity extends AppCompatActivity {
             setRoomViewText(hotelModel);
 
             Long userStartDate = (hotelData.containsKey("userStartDate")) ? (Long) hotelData.get("userStartDate") : null;
-            Long userEndDate = (hotelData.containsKey("userEndDate")) ? (Long) hotelData.get("userEndDate"): null;
+            Long userEndDate = (hotelData.containsKey("userEndDate")) ? (Long) hotelData.get("userEndDate") : null;
 
             roomsRecyclerView.setAdapter(HotelRoomModelManager.getAdapterRooms(hotelModel, getApplication(), userStartDate, userEndDate));
             sendCoordToMapFragment(hotel.getAddress().getLatitude(), hotel.getAddress().getLongitude());

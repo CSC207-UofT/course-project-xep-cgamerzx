@@ -2,7 +2,6 @@ package com.xepicgamerzx.hotelier.customer_activities.customer_hotels_activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -16,7 +15,6 @@ import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
 import com.xepicgamerzx.hotelier.storage.Manage;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Objects;
 
 public class HotelViewActivity extends AppCompatActivity {
@@ -27,6 +25,7 @@ public class HotelViewActivity extends AppCompatActivity {
 
     /**
      * The method that is run when the page loads.
+     *
      * @param savedInstanceState
      */
     @Override
@@ -48,8 +47,6 @@ public class HotelViewActivity extends AppCompatActivity {
 
         if (intent.getExtras() != null) {
             HashMap<String, Object> map = (HashMap<String, Object>) intent.getSerializableExtra("SearchData");
-            List<HotelViewModel> hotelsView;
-            HotelViewAdapter hotelsAdapter;
 
             Double latitude = (map.containsKey("lat")) ? (Double) map.get("lat") : null;
             Double longitude = (map.containsKey("long")) ? (Double) map.get("long") : null;
@@ -62,43 +59,27 @@ public class HotelViewActivity extends AppCompatActivity {
             userGuests.setText(str);
             int minCapacity = (guests != null) ? Integer.parseInt(guests) : 1;
 
-            if (map.size() == 1) {// Capacity only
-                hotelsView = manage.hotelManager.generateHotelModel(minCapacity);
-                hotelsAdapter = new HotelViewAdapter(hotelsView);
-            } else {
-                if (endDate != null && startDate != null) {
-                    // Schedule
-                    userSchedule.setText(UnixEpochDateConverter.epochToReadable(startDate, endDate));
-                    if (latitude != null && longitude != null) {
-                        // Schedule and Location
-                        String city = (String) map.get("city");
-                        userCity.setText(city);
-
-                        hotelsView = manage.hotelManager.generateHotelModel(minCapacity, startDate, endDate, latitude, longitude);
-                    } else {
-                        // Schedule Only
-                        hotelsView = manage.hotelManager.generateHotelModel(minCapacity, startDate, endDate);
-                    }
-                    hotelsAdapter = new HotelViewAdapter(hotelsView, startDate, endDate);
-                } else if (latitude != null && longitude != null) {
-                    // Location Only
+            if (endDate != null && startDate != null) {
+                // Schedule
+                userSchedule.setText(UnixEpochDateConverter.epochToReadable(startDate, endDate));
+                if (latitude != null && longitude != null) {
+                    // Schedule and Location
                     String city = (String) map.get("city");
                     userCity.setText(city);
-
-                    hotelsView = manage.hotelManager.generateHotelModel(minCapacity, latitude, longitude);
-                    hotelsAdapter = new HotelViewAdapter(hotelsView);
-                } else {
-                    // Fallback
-                    Log.e("Hotel View Activity", "Unexpected type of parameters for search. Defaulting to all.");
-                    hotelsView = manage.hotelManager.generateHotelModel();
-                    hotelsAdapter = new HotelViewAdapter(hotelsView);
                 }
+            } else if (latitude != null && longitude != null) {
+                // Location Only
+                String city = (String) map.get("city");
+                userCity.setText(city);
             }
+            HotelViewAdapter hotelsAdapter = new HotelViewAdapterBuilder(getApplication())
+                    .setLatLong(latitude, longitude)
+                    .setSchedule(startDate, endDate)
+                    .setMinCapacity(minCapacity).build();
             hotelsRecyclerView.setAdapter(hotelsAdapter);
         }
         backBtn.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(), SearchActivity.class)));
     }
-
 
     /**
      * Logic for when a user clicks the back button on their android phone.

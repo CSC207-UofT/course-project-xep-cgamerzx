@@ -14,12 +14,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.xepicgamerzx.hotelier.R;
 import com.xepicgamerzx.hotelier.customer_activities.customer_hotels_activity.HotelViewAdapter;
-import com.xepicgamerzx.hotelier.customer_activities.customer_hotels_activity.HotelViewModel;
+import com.xepicgamerzx.hotelier.customer_activities.customer_hotels_activity.HotelViewAdapterBuilder;
 import com.xepicgamerzx.hotelier.customer_activities.customer_search_activity.SearchActivity;
 import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
 import com.xepicgamerzx.hotelier.storage.Manage;
-import com.xepicgamerzx.hotelier.storage.user.model.User;
 import com.xepicgamerzx.hotelier.storage.user.UserManager;
+import com.xepicgamerzx.hotelier.storage.user.model.User;
 
 import java.util.Collections;
 import java.util.List;
@@ -93,9 +93,9 @@ public class DashboardFragment extends Fragment {
 
     public void setHomePageHotels() {
         manage = Manage.getManager(requireActivity().getApplication());
-        List<HotelViewModel> hotelsView = manage.hotelManager.generateHotelModel();
-        Collections.reverse(hotelsView); // Reversing for "Newest listings"
-        final HotelViewAdapter hotelsAdapter = new HotelViewAdapter(hotelsView);
+        final HotelViewAdapter hotelsAdapter = new HotelViewAdapterBuilder(
+                requireActivity().getApplication())
+                .setReverse(true).build();
         hotelsRecyclerView.setAdapter(hotelsAdapter);
     }
 
