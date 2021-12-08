@@ -5,11 +5,11 @@ import java.util.ArrayList;
 public class HotelCreateModel {
     private String postalCode;
     private String streetName;
-    private  String streetNumber;
-    private  String city;
-    private  String province;
-    private  double latitude;
-    private  double longitude;
+    private String streetNumber;
+    private String city;
+    private String province;
+    private double latitude;
+    private double longitude;
 
     private ArrayList<Long> roomIds = new ArrayList<>();
 
@@ -77,11 +77,11 @@ public class HotelCreateModel {
         this.roomIds = roomIds;
     }
 
-    public void addRoomId(long roomId){
+    public void addRoomId(long roomId) {
         this.roomIds.add(roomId);
     }
 
-    public String addressToString(){
+    public String addressToString() {
         return ("Street Number: " + this.streetNumber +
                 "\nStreet Name: " + this.streetName +
                 "\nCity: " + this.city +

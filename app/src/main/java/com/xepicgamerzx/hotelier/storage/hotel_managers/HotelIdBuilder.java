@@ -58,12 +58,12 @@ public class HotelIdBuilder {
         return this;
     }
 
-    public HotelIdBuilder setName(String name){
+    public HotelIdBuilder setName(String name) {
         this.name = name;
         return this;
     }
 
-    public HotelIdBuilder setStarClass(int starClass){
+    public HotelIdBuilder setStarClass(int starClass) {
         this.starClass = starClass;
         return this;
     }
@@ -78,7 +78,7 @@ public class HotelIdBuilder {
         return this;
     }
 
-    public long buildHotelId(Application application){
+    public long buildHotelId(Application application) {
         Manage manage = Manage.getManager(application);
 
         Address address = new AddressBuilder()

@@ -49,17 +49,17 @@ public class HotelViewModelBuilder {
         return this;
     }
 
-    public HotelViewModelBuilder setLatitude (double latitude){
+    public HotelViewModelBuilder setLatitude(double latitude) {
         this.latitude = latitude;
         return this;
     }
 
-    public HotelViewModelBuilder setLongitude (double longitude){
+    public HotelViewModelBuilder setLongitude(double longitude) {
         this.longitude = longitude;
         return this;
     }
 
-    public HotelViewModelBuilder setHotelStar (int hotelStar){
+    public HotelViewModelBuilder setHotelStar(int hotelStar) {
         this.hotelStar = hotelStar;
         return this;
     }

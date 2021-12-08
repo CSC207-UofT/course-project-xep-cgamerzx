@@ -69,7 +69,7 @@ public class HotelCreateAddressFragment extends Fragment {
 
             // Deactivate button
             activity.addAddressBtn.setOnClickListener(null);
-            activity.addAddressBtn.setText("Success");
+            activity.addAddressBtn.setText(R.string.success);
 
             requireActivity().onBackPressed();
         }

@@ -76,7 +76,7 @@ public class RegisterActivity extends AppCompatActivity {
      * (at least 6 characters in length with at least 1 lowercase letter, 1 uppercase letter,
      * 1 number, and 1 special character)
      *
-     * @param user
+     * @param user User being validated
      * @return Whether the password matches the regex
      */
     private Boolean validatePassword(User user) {

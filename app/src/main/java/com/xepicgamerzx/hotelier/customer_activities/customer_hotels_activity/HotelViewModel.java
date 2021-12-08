@@ -22,9 +22,9 @@ public class HotelViewModel implements Serializable {
     private final double longitude;
     @Nullable
     private final List<HotelRoom> rooms;
-    boolean isSelected = false;
     private final long hotelId;
     private final int hotelStar;
+    boolean isSelected = false;
 
     public HotelViewModel(@NonNull String name, String address, BigDecimal priceRange, int numberOfRooms, long hotelId, double latitude, double longitude, int hotelStar, @Nullable List<HotelRoom> rooms) {
         this.name = name;

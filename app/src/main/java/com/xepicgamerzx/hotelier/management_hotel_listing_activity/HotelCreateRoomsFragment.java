@@ -93,7 +93,7 @@ public class HotelCreateRoomsFragment extends Fragment {
 
                 activity.text += "\n" + roomId;
                 activity.isRoomsMade = true;
-                activity.addRoomsBtn.setText("Add another room");
+                activity.addRoomsBtn.setText(R.string.add_another_room);
 
                 requireActivity().onBackPressed();
             }

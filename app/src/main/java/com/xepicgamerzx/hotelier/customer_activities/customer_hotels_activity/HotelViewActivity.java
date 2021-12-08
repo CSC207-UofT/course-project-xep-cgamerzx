@@ -46,6 +46,7 @@ public class HotelViewActivity extends AppCompatActivity {
         Intent intent = getIntent();
 
         if (intent.getExtras() != null) {
+            @SuppressWarnings("unchecked")
             HashMap<String, Object> map = (HashMap<String, Object>) intent.getSerializableExtra("SearchData");
 
             Double latitude = (map.containsKey("lat")) ? (Double) map.get("lat") : null;

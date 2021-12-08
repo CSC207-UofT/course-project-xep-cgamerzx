@@ -36,8 +36,6 @@ public class HotelCreatorActivity extends AppCompatActivity {
             "Business Services", "Wedding Services", "Conference Space", "Smoke Free Property",
             "Bar", "Complementary Breakfast", "24/7 Front Desk", "Parking Included", "Restaurant",
             "Spa", "Elevator", "ATM/Banking Services", "Front Desk Safe"};
-    private AlertDialog.Builder dialogBuilder;
-    private AlertDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,7 +118,7 @@ public class HotelCreatorActivity extends AppCompatActivity {
             builder.setPositiveButton("Confirm", (dialog, which) -> {
                 StringBuilder stringBuilder = new StringBuilder();
 
-                if (amenitiesList.isEmpty()){
+                if (amenitiesList.isEmpty()) {
                     stringBuilder.append("Add amenities");
                 } else {
                     for (int i = 0; i < amenitiesList.size(); i++) {
@@ -146,7 +144,7 @@ public class HotelCreatorActivity extends AppCompatActivity {
                     //Remove all selection
                     selectedAmenity[i] = false;
                     amenitiesList.clear();
-                    addAmenitiesBtn.setText("Add amenities");
+                    addAmenitiesBtn.setText(R.string.add_amenities);
                 }
             });
 
@@ -192,7 +190,7 @@ public class HotelCreatorActivity extends AppCompatActivity {
     }
 
     public void createHotelInfoDialog() {
-        dialogBuilder = new AlertDialog.Builder(this);
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         final View hotelInfo = getLayoutInflater().inflate(R.layout.hotel_details_dialog, null);
 
         TextView hotelDetails = hotelInfo.findViewById(R.id.hotelDetailsTxt);
@@ -200,7 +198,7 @@ public class HotelCreatorActivity extends AppCompatActivity {
 
 
         dialogBuilder.setView(hotelInfo);
-        dialog = dialogBuilder.create();
+        AlertDialog dialog = dialogBuilder.create();
         dialog.show();
     }
 

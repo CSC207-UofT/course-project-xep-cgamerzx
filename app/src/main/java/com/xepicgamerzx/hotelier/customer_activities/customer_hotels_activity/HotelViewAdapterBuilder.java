@@ -7,7 +7,6 @@ import androidx.annotation.Nullable;
 import com.xepicgamerzx.hotelier.home_page_activities.OnFavouriteClickListener;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.Hotel;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelRoom;
-import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
 import com.xepicgamerzx.hotelier.storage.Manage;
 
 import java.util.ArrayList;
@@ -19,7 +18,6 @@ import java.util.Map;
  * Builder for HotelView adapters.
  */
 public class HotelViewAdapterBuilder {
-    private final HotelierDatabase db;
     private final Manage manage;
 
     @Nullable
@@ -43,7 +41,6 @@ public class HotelViewAdapterBuilder {
      * @param application Current application
      */
     public HotelViewAdapterBuilder(Application application) {
-        db = HotelierDatabase.getDatabase(application);
         manage = Manage.getManager(application);
     }
 
@@ -101,7 +98,7 @@ public class HotelViewAdapterBuilder {
      * @param useFavourites Boolean
      * @return HotelViewAdapterBuilder
      */
-    public HotelViewAdapterBuilder useFavourites(boolean useFavourites){
+    public HotelViewAdapterBuilder useFavourites(boolean useFavourites) {
         this.useFavourites = useFavourites;
         return this;
     }
@@ -126,7 +123,7 @@ public class HotelViewAdapterBuilder {
         List<HotelViewModel> hotelViewModels;
         Map<Hotel, List<HotelRoom>> hotelListMap;
 
-        if (useFavourites){
+        if (useFavourites) {
             hotelListMap = manage.hotelRoomMapManager.getFavourites();
         } else if (minCapacity != null && startDate != null && endDate != null && latitude != null && longitude != null) {
             // Capacity, schedule, location
