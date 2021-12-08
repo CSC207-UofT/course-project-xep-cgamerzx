@@ -127,7 +127,7 @@ Howard: {[#17](https://github.com/CSC207-UofT/course-project-xep-cgamerzx/pull/1
 
 Rafee:
 
-Megan: {[#39](https://github.com/CSC207-UofT/course-project-xep-cgamerzx/pull/39)} **NOTE: this isn't actually my pull request because for a while I was pushing code to a branch without making any pull requests (oops!), but this pull request contains my commits**. Here I implemented our CrossManager classes which are essential to cross referencing our different entities. Indeed, we need to be able to create relationships between objects in order to store data and filter data correctly. 
+Megan: {[#39](https://github.com/CSC207-UofT/course-project-xep-cgamerzx/pull/39)} **NOTE: this isn't actually my pull request because for a while I was pushing code to a branch without making any pull requests (oops!), but this pull request contains my commits**. Here I implemented our CrossManager classes which are essential to cross referencing our different entities. Indeed, we need to be able to create relationships between objects in order to store data and filter data correctly. In addition to this I was responsible for a huge part of our unit testing and documentation, which are essential elements to having clean and readable code.
 
 Veronica: 
 
