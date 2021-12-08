@@ -72,7 +72,6 @@ public abstract class HotelDao implements BaseDao<List<Long>, Hotel> {
     public abstract List<Hotel> getHotelsInArea(double centerLonCos, double centerLonSin, double centerLatCos, double centerLatSin, double distanceCos);
 
     /**
-
      * Get all hotel Ids within a defined latitude and longitude area
      *
      * @param centerLonCos double latitude boundary

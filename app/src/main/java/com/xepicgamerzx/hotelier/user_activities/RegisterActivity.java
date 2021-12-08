@@ -13,8 +13,12 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.xepicgamerzx.hotelier.R;
 import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
 import com.xepicgamerzx.hotelier.storage.user.UserManager;
-import com.xepicgamerzx.hotelier.storage.user.model.User;
 
+import java.util.Objects;
+
+/**
+ * Activity for user registration
+ */
 public class RegisterActivity extends AppCompatActivity {
     TextInputEditText userId, password, email;
     TextView errorText;
@@ -24,7 +28,7 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        getSupportActionBar().hide();
+        Objects.requireNonNull(getSupportActionBar()).hide();
 
         userId = findViewById(R.id.usernameInput);
         password = findViewById(R.id.passwordInput);
@@ -33,52 +37,40 @@ public class RegisterActivity extends AppCompatActivity {
         errorText = findViewById(R.id.errorRegistrationText);
 
 
-        registerBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                User user = new User(userId.getText().toString(),
-                        password.getText().toString(),
-                        email.getText().toString());
+        registerBtn.setOnClickListener(v -> {
+            String usernameStr = Objects.requireNonNull(userId.getText()).toString();
+            String emailStr = Objects.requireNonNull(email.getText()).toString();
+            String passwordStr = Objects.requireNonNull(password.getText()).toString();
 
-                if (validateInput(user) && validatePassword(user)) {
-                    // Insert to db
-                    HotelierDatabase hotelierDatabase = HotelierDatabase.getDatabase(getApplicationContext());
-                    UserManager userManager = UserManager.getManager(hotelierDatabase);
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            userManager.registerUser(user);
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Toast.makeText(getApplicationContext(), "Successfully registered.", Toast.LENGTH_SHORT).show();
-                                }
-                            });
-                        }
-                    }).start();
+            if (validateInput(usernameStr, emailStr, passwordStr) && validatePassword(passwordStr)) {
+                // Insert to db
+                HotelierDatabase hotelierDatabase = HotelierDatabase.getDatabase(getApplicationContext());
+                UserManager userManager = UserManager.getManager(hotelierDatabase);
+                new Thread(() -> {
+                    userManager.registerUser(usernameStr, passwordStr, emailStr);
+                    runOnUiThread(() -> Toast.makeText(getApplicationContext(), "Successfully registered.", Toast.LENGTH_SHORT).show());
+                }).start();
 
-                    startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
 
-                } else if (!validateInput(user)) {
-                    Toast.makeText(getApplicationContext(), "Fill all fields", Toast.LENGTH_SHORT).show();
-                } else if (!validatePassword(user)) {
-                    String errorMsg = "Please make a stronger password" +
-                            " (at least 6 characters long with at least 1 of each: uppercase, lowercase, number, special character (!@#$%^&*()_+.))";
-                    errorText.setText(errorMsg);
-                    errorText.setVisibility(View.VISIBLE);
-                    Toast.makeText(getApplicationContext(), "Please make a stronger password" +
-                            " (at least 6 characters long with at least 1 of each: uppercase, lowercase, number, special character (!@#$%^&*()_+.))", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getApplicationContext(), "Fill all fields", Toast.LENGTH_SHORT).show();
-                }
+            } else if (!validateInput(usernameStr, emailStr, passwordStr)) {
+                Toast.makeText(getApplicationContext(), "Fill all fields", Toast.LENGTH_SHORT).show();
+            } else if (!validatePassword(passwordStr)) {
+                String errorMsg = "Please make a stronger password" +
+                        " (at least 6 characters long with at least 1 of each: uppercase, lowercase, number, special character (!@#$%^&*()_+.))";
+                errorText.setText(errorMsg);
+                errorText.setVisibility(View.VISIBLE);
+                Toast.makeText(getApplicationContext(), "Please make a stronger password" +
+                        " (at least 6 characters long with at least 1 of each: uppercase, lowercase, number, special character (!@#$%^&*()_+.))", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getApplicationContext(), "Fill all fields", Toast.LENGTH_SHORT).show();
             }
-
         });
     }
 
-    private Boolean validateInput(User user) {
-        return !user.getUserName().isEmpty() &&
-                !user.getEmail().isEmpty() && !user.getPassword().isEmpty();
+    private Boolean validateInput(String userName, String email, String password) {
+        return !userName.isEmpty() &&
+                !email.isEmpty() && !password.isEmpty();
     }
 
     /**
@@ -86,11 +78,11 @@ public class RegisterActivity extends AppCompatActivity {
      * (at least 6 characters in length with at least 1 lowercase letter, 1 uppercase letter,
      * 1 number, and 1 special character)
      *
-     * @param user
+     * @param password String password being validated
      * @return Whether the password matches the regex
      */
-    private Boolean validatePassword(User user) {
-        return user.getPassword().matches("^(?=(.*[a-z]))(?=(.*[A-Z]))(?=(.*[0-9]))(?=(.*[!@#$%^&*()_+.])).{6,}$");
+    private Boolean validatePassword(String password) {
+        return password.matches("^(?=(.*[a-z]))(?=(.*[A-Z]))(?=(.*[0-9]))(?=(.*[!@#$%^&*()_+.])).{6,}$");
     }
 
 }

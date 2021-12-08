@@ -30,12 +30,16 @@ import com.xepicgamerzx.hotelier.storage.user.model.User;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+/**
+ * Database class acting as central singleton for DAOs
+ */
 @TypeConverters({Converters.class})
 @Database(entities = {Hotel.class, HotelRoom.class, Bed.class, HotelAmenity.class,
         RoomAmenity.class, RoomBedsCrossRef.class, HotelAmenitiesCrossRef.class,
         RoomAmenitiesCrossRef.class, User.class},
         version = 1)
 public abstract class HotelierDatabase extends RoomDatabase {
+
     private static final int NUMBER_OF_THREADS = 2;
     static final ExecutorService databaseWriteExecutor =
             Executors.newFixedThreadPool(NUMBER_OF_THREADS);

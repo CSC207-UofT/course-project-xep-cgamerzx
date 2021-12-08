@@ -9,11 +9,13 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * Places autocompletion API usage
+ */
 public class PlacesAPI {
 
     public ArrayList<DestinationItem> autoComplete(String input) {
@@ -35,11 +37,9 @@ public class PlacesAPI {
                 jsonResult.append(buff, 0, read);
             }
 
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-
         } catch (IOException e) {
             e.printStackTrace();
+
         } finally {
             if (connection != null) {
                 connection.disconnect();
@@ -81,11 +81,9 @@ public class PlacesAPI {
                 jsonResult.append(buff, 0, read);
             }
 
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-
         } catch (IOException e) {
             e.printStackTrace();
+
         } finally {
             if (connection != null) {
                 connection.disconnect();

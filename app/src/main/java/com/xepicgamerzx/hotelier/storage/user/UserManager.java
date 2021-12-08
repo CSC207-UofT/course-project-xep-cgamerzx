@@ -15,9 +15,8 @@ public class UserManager implements com.xepicgamerzx.hotelier.storage.hotel_mana
     private static volatile UserManager INSTANCE;
     private final HotelierDatabase db;
     private final UserDao userDao;
-    public User user;
-
     FileReadWrite<String> fw = new FileReadWrite<>();
+    private User user;
 
     private UserManager(Application application) {
         db = HotelierDatabase.getDatabase(application);
@@ -49,21 +48,63 @@ public class UserManager implements com.xepicgamerzx.hotelier.storage.hotel_mana
         return user;
     }
 
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public String getUserName() {
+        return (user == null) ? null : user.getUserName();
+    }
+
+    /**
+     * Register a new manager user.
+     *
+     * @param user the user to be registered
+     */
     public void registerUser(User user) {
         userDao.insert(user);
     }
 
+    /**
+     * Register a new manager user.
+     *
+     * @param userId   the id of the user to be registered
+     * @param password the password of the user to be registered
+     * @param email    the email address of the user to be registered
+     */
+    public void registerUser(String userId, String password, String email) {
+        User user = new User(userId, password, email);
+        userDao.insert(user);
+    }
+
+    /**
+     * Logs in a manager user.
+     *
+     * @param userIdText   the inputted username
+     * @param passwordText the inputted password
+     * @param context      the context for the database
+     */
     public void login(String userIdText, String passwordText, Context context) {
         User user = userDao.login(userIdText, passwordText);
         logInLocally(true, context);
         this.setUser(user);
     }
 
+    /**
+     * Gets all the users of the app.
+     *
+     * @return list of users
+     */
     public List<User> getAllUsers() {
         System.out.println(userDao.getAll());
         return userDao.getAll();
     }
 
+    /**
+     * Gets the user that was last logged in
+     *
+     * @return the last user that was logged in
+     */
     public User getLastLoggedInUser() {
         List<User> users = userDao.getAll();
         return users.get(users.size() - 1);
@@ -81,10 +122,6 @@ public class UserManager implements com.xepicgamerzx.hotelier.storage.hotel_mana
         signOutLocally(context);
     }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
-
     public boolean isLoggedIn() {
         return user != null;
     }
@@ -94,16 +131,17 @@ public class UserManager implements com.xepicgamerzx.hotelier.storage.hotel_mana
     }
 
     public void updateUserFavourites(String hotelID) {
+        System.out.println(hotelID);
         if (user.getFavHotelIds().contains(hotelID)) {
             user.removeFavHotel(hotelID);
         } else {
             user.addFavHotel(hotelID);
         }
+
         userDao.update(user);
     }
 
     public void addRecentSearches(String destination) {
-
         user.addRecentSearches(destination);
         userDao.update(user);
     }
@@ -121,7 +159,6 @@ public class UserManager implements com.xepicgamerzx.hotelier.storage.hotel_mana
     }
 
     public boolean isSignedIn(Context context) {
-        // error when no file.dat, how to fi?x
         try {
             if (fw.readData("file.dat", context) != null) {
                 return true;

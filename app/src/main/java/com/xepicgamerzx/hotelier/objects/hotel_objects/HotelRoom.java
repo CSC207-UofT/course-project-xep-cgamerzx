@@ -13,6 +13,9 @@ import java.time.ZoneId;
 import java.util.Locale;
 import java.util.Objects;
 
+/**
+ * Hotel room entity
+ */
 @Entity
 public class HotelRoom extends NonUniqueEntity implements Serializable {
     @PrimaryKey(autoGenerate = true)
@@ -94,11 +97,16 @@ public class HotelRoom extends NonUniqueEntity implements Serializable {
         this.endAvailability = endAvailability;
     }
 
+    /**
+     * toString method
+     *
+     * @return a string for a hotel room
+     */
     @Override
     @NonNull
     public String toString() {
         String roomId = String.format(Locale.CANADA, "RoomID: %d", this.roomId);
-        String schedule = String.format(Locale.CANADA, "\nSchedule: " + UnixEpochDateConverter.epochToReadable(this.getStartAvailability(), this.getEndAvailability()));
+        String schedule = "\nSchedule: " + UnixEpochDateConverter.epochToReadable(this.getStartAvailability(), this.getEndAvailability());
         String capacity = String.format(Locale.CANADA, "\nCapacity: %d", this.capacity);
         String price = String.format(Locale.CANADA, "\nPrice: %.2f", this.price);
 

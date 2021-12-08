@@ -11,16 +11,26 @@ import com.xepicgamerzx.hotelier.storage.dao.BedDao;
  * A class to manage all the Beds in the database.
  */
 public class BedManager implements UniqueManager<Bed, BedSizeEnum> {
-    private static volatile BedManager INSTANCE;
 
+    private static volatile BedManager INSTANCE;
     private final HotelierDatabase db;
     private final BedDao bedDao;
 
+    /**
+     * Create new BedManager.
+     *
+     * @param application the application
+     */
     private BedManager(Application application) {
         db = HotelierDatabase.getDatabase(application);
         bedDao = db.bedDao();
     }
 
+    /**
+     * Create new BedManager.
+     *
+     * @param dbInstance an instance of the database
+     */
     private BedManager(HotelierDatabase dbInstance) {
         db = dbInstance;
         bedDao = db.bedDao();
@@ -64,6 +74,28 @@ public class BedManager implements UniqueManager<Bed, BedSizeEnum> {
         Bed bed = new Bed(bedSizeEnum.toString());
         bedDao.insert(bed);
         return bed;
+    }
+
+    /**
+     * Create unique object and insert it into database.
+     *
+     * @param id String unique ID of object.
+     * @return String Id of unique object created
+     */
+    @Override
+    public String createId(String id) {
+        return create(id).getUniqueId();
+    }
+
+    /**
+     * Create unique object and insert it into database.
+     *
+     * @param id <E> LabeledEnum of unique object to be created.
+     * @return String Id of unique object created
+     */
+    @Override
+    public String createId(BedSizeEnum id) {
+        return createId(id.toString());
     }
 
     /**

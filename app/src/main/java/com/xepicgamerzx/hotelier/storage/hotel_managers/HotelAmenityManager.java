@@ -7,6 +7,9 @@ import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelAmenity;
 import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
 import com.xepicgamerzx.hotelier.storage.dao.HotelAmenityDao;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * A class to manage all the HotelAmenities in the database.
  */
@@ -64,6 +67,41 @@ public class HotelAmenityManager implements UniqueManager<HotelAmenity, HotelAme
         HotelAmenity hotelAmenity = new HotelAmenity(amenity.toString());
         hotelAmenityDao.insert(hotelAmenity);
         return hotelAmenity;
+    }
+
+    /**
+     * Create unique object and insert it into database.
+     *
+     * @param id String unique ID of object.
+     * @return String Id of unique object created
+     */
+    @Override
+    public String createId(String id) {
+        return create(id).getUniqueId();
+    }
+
+    /**
+     * Create unique object and insert it into database.
+     *
+     * @param id <E> LabeledEnum of unique object to be created.
+     * @return String Id of unique object created
+     */
+    @Override
+    public String createId(HotelAmenitiesEnum id) {
+        return createId(id.toString());
+    }
+
+    /**
+     * Get all hotel amenities in the database as a string array
+     *
+     * @return String array of all of the hotel amenities in the database.
+     */
+    public String[] getAllStrArray() {
+        List<String> amenitiesList = new ArrayList<>();
+        for (HotelAmenity amenity : db.hotelAmenityDao().getAll()) {
+            amenitiesList.add(amenity.getUniqueId());
+        }
+        return amenitiesList.toArray(new String[0]);
     }
 
     /**

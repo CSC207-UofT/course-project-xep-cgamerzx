@@ -7,8 +7,8 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import com.xepicgamerzx.hotelier.objects.hotel_objects.Address;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.AddressBuilder;
-import com.xepicgamerzx.hotelier.storage.user.model.User;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.Hotel;
+import com.xepicgamerzx.hotelier.storage.user.model.User;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -68,6 +68,7 @@ public class UserTest {
         hotel_list.add(hotel1.hotelId);
         hotel_list.add(hotel2.hotelId);
 
+        //noinspection AssertBetweenInconvertibleTypes
         assertEquals(user.getFavHotelIds(), hotel_list);
     }
 

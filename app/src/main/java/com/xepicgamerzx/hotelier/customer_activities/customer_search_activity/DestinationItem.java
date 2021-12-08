@@ -1,5 +1,8 @@
 package com.xepicgamerzx.hotelier.customer_activities.customer_search_activity;
 
+/**
+ * View model for destination
+ */
 public class DestinationItem {
     private final String cityStateCountry;
     private String placeId;

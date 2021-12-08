@@ -11,15 +11,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.xepicgamerzx.hotelier.R;
 import com.xepicgamerzx.hotelier.customer_activities.customer_hotels_activity.HotelViewAdapter;
+import com.xepicgamerzx.hotelier.customer_activities.customer_hotels_activity.HotelViewAdapterBuilder;
 import com.xepicgamerzx.hotelier.customer_activities.customer_hotels_activity.HotelViewModel;
 import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
 import com.xepicgamerzx.hotelier.storage.Manage;
 import com.xepicgamerzx.hotelier.storage.user.UserManager;
 
-import java.util.Collections;
 import java.util.List;
 
-
+/**
+ * Favourites fragment
+ */
 public class FavouritesFragment extends Fragment implements OnFavouriteClickListener {
     List<HotelViewModel> hotelsView;
     HotelViewAdapter hotelsAdapter;
@@ -44,7 +46,7 @@ public class FavouritesFragment extends Fragment implements OnFavouriteClickList
         return v;
     }
 
-    public void setAllFields(View v) {
+    private void setAllFields(View v) {
         hotelsRecyclerView = v.findViewById(R.id.favouritesView);
         manage = Manage.getManager(requireActivity().getApplication());
         hotelierDatabase = HotelierDatabase.getDatabase(v.getContext());
@@ -53,8 +55,8 @@ public class FavouritesFragment extends Fragment implements OnFavouriteClickList
         signedOutTxt = v.findViewById(R.id.isSignedIn);
     }
 
-    public void setProfileVisibility() {
-        if (userManager.isLoggedIn()){
+    private void setProfileVisibility() {
+        if (userManager.isLoggedIn()) {
             System.out.println("Logged in");
             setRecyclerView();
         } else {
@@ -63,16 +65,20 @@ public class FavouritesFragment extends Fragment implements OnFavouriteClickList
         }
     }
 
-    public void setRecyclerView() {
-        hotelsView = manage.hotelManager.generateHotelModel();
-        Collections.reverse(hotelsView); // Reversing for newest favourites at the top
-        hotelsAdapter = new HotelViewAdapter(hotelsView, this);
+    private void setRecyclerView() {
+        hotelsAdapter = new HotelViewAdapterBuilder(requireActivity().getApplication())
+                .useFavourites(true)
+                .setReverse(true)
+                .setOnFavouriteClickListener(this)
+                .build();
+        hotelsView = hotelsAdapter.hotels;
         hotelsRecyclerView.setAdapter(hotelsAdapter);
     }
 
     /**
-     * Clicking favourite on the users favourites removes it from their favourites list.
-     * @param position
+     * Clicking favourite on the user's favourites removes it from their favourites list.
+     *
+     * @param position position of the item in the user's favourites
      */
     @Override
     public void onFavouriteClick(int position) {

@@ -23,6 +23,9 @@ import com.xepicgamerzx.hotelier.storage.user.UserManager;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * Adapter for hotel view
+ */
 public class HotelViewAdapter extends RecyclerView.Adapter<HotelViewAdapter.HotelViewHolder> {
 
     public List<HotelViewModel> hotels;
@@ -30,17 +33,37 @@ public class HotelViewAdapter extends RecyclerView.Adapter<HotelViewAdapter.Hote
     long userEndDate;
     OnFavouriteClickListener onFavouriteClickListener;
 
+    /**
+     * Create a new HotelViewAdapter with 1 parameter.
+     *
+     * @param hotels a list of hotels to view
+     */
+
     public HotelViewAdapter(List<HotelViewModel> hotels) {
         this.hotels = hotels;
     }
 
+    /**
+     * Create a new HotelViewAdapter with 3 parameters.
+     *
+     * @param hotels        a list of hotels to view
+     * @param userStartDate the start date of the user
+     * @param userEndDate   the end date of the user
+     */
     public HotelViewAdapter(List<HotelViewModel> hotels, long userStartDate, long userEndDate) {
         this.hotels = hotels;
         this.userStartDate = userStartDate;
         this.userEndDate = userEndDate;
     }
 
-    public HotelViewAdapter(List<HotelViewModel> hotels, OnFavouriteClickListener onFavouriteClickListener) {
+    /**
+     * Create a new HotelViewAdapter with 2 parameters.
+     *
+     * @param hotels                   a list of hotels to view
+     * @param onFavouriteClickListener OnFavouriteClickListener
+     */
+    public HotelViewAdapter(List<HotelViewModel> hotels, OnFavouriteClickListener
+            onFavouriteClickListener) {
         this.hotels = hotels;
         this.onFavouriteClickListener = onFavouriteClickListener;
     }
@@ -51,8 +74,7 @@ public class HotelViewAdapter extends RecyclerView.Adapter<HotelViewAdapter.Hote
         return new HotelViewHolder(
                 LayoutInflater.from(parent.getContext()).inflate(
                         R.layout.hotel_item_row, parent, false
-                ), onFavouriteClickListener
-        );
+                ));
     }
 
     @Override
@@ -75,7 +97,7 @@ public class HotelViewAdapter extends RecyclerView.Adapter<HotelViewAdapter.Hote
         TextView hotelPrice;
         ImageButton favouritesBtn;
 
-        public HotelViewHolder(@NonNull View itemView, OnFavouriteClickListener onFavouriteClickListener) {
+        public HotelViewHolder(@NonNull View itemView) {
             super(itemView);
             hotelLayout = itemView.findViewById(R.id.layoutHotel);
             hotelImg = itemView.findViewById(R.id.hotelImg);
@@ -100,16 +122,18 @@ public class HotelViewAdapter extends RecyclerView.Adapter<HotelViewAdapter.Hote
         /**
          * Clicking once adds the hotel to your favourites.
          * Clicking again removes it.
+         *
+         * @param hotel the hotel you are viewing
          */
         public void favouritesButtonListener(HotelViewModel hotel) {
             favouritesBtn.setOnClickListener(v -> {
                 HotelierDatabase hotelierDatabase = HotelierDatabase.getDatabase(v.getContext());
                 UserManager userManager = UserManager.getManager(hotelierDatabase);
-                if (userManager.isLoggedIn()){
-                    userManager.updateUserFavourites(String.valueOf(hotel.getHotel().hotelId));
+                if (userManager.isLoggedIn()) {
+                    userManager.updateUserFavourites(String.valueOf(hotel.getHotelId()));
                     if (onFavouriteClickListener != null) {
                         int pos = getAbsoluteAdapterPosition();
-                        if(pos != RecyclerView.NO_POSITION) {
+                        if (pos != RecyclerView.NO_POSITION) {
                             onFavouriteClickListener.onFavouriteClick(pos);
                         }
                     }
@@ -121,6 +145,7 @@ public class HotelViewAdapter extends RecyclerView.Adapter<HotelViewAdapter.Hote
 
         /**
          * Clicking on the hotel layout sends the user to the detailed hotel rooms activity.
+         *
          * @param hotel HotelViewModel.
          */
         public void hotelLayoutListener(HotelViewModel hotel) {

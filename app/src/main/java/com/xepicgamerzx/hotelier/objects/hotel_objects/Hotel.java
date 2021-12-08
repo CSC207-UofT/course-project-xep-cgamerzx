@@ -8,7 +8,9 @@ import androidx.room.PrimaryKey;
 import java.io.Serializable;
 import java.util.Objects;
 
-
+/**
+ * Hotel entity
+ */
 @Entity()
 public class Hotel extends NonUniqueEntity implements Serializable {
     @PrimaryKey(autoGenerate = true)

@@ -18,6 +18,9 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Singleton manager for Hotel Room related functions
+ */
 public class RoomManager implements Manager {
     private static volatile RoomManager INSTANCE;
 
@@ -74,6 +77,29 @@ public class RoomManager implements Manager {
     }
 
     /**
+     * Creates HotelRoom object and inserts it to the HotelRoom database.
+     *
+     * @param zoneId    TimeZone of HotelRoom.
+     * @param startDate Start date of availability period for the room.
+     * @param endDate   End date of availability period for the room.
+     * @param capacity  Occupancy capacity of the hotel room.
+     * @param price     Price of the HotelRoom created.
+     * @return Id of HotelRoom object created.
+     */
+    @NonNull
+    public long createRoomId(ZoneId zoneId, long startDate, long endDate, int capacity, BigDecimal price) {
+        HotelRoom hotelRoom = new HotelRoom(
+                zoneId, startDate, endDate,
+                capacity,
+                price);
+
+        Long[] ids = roomDao.insert(hotelRoom).toArray(new Long[0]);
+        hotelRoom = roomDao.getIdMatch(ids).get(0);
+
+        return hotelRoom.roomId;
+    }
+
+    /**
      * Sets the hotelRoom's hotel association ID to the ID of hotel.
      *
      * @param hotel     Hotel the hotel room is to be associated with.
@@ -82,6 +108,16 @@ public class RoomManager implements Manager {
     public void setHotelID(Hotel hotel, HotelRoom hotelRoom) {
         hotelRoom.setHotelId(hotel.hotelId);
         roomDao.update(hotelRoom);
+    }
+
+    /**
+     * Sets the hotelRoom's hotel association ID to the ID of hotel.
+     *
+     * @param hotel     Hotel the hotel room is to be associated with.
+     * @param hotelRoom HotelRoom to change the hotelID of.
+     */
+    public void setHotelID(Hotel hotel, long hotelRoom) {
+        setHotelID(hotel, db.roomDao().getIdMatch(hotelRoom).get(0));
     }
 
     @Deprecated // Use getAvailableRoomsInHotel

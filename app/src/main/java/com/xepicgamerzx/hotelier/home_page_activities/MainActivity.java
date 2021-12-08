@@ -1,7 +1,6 @@
 package com.xepicgamerzx.hotelier.home_page_activities;
 
 import android.os.Bundle;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -19,25 +18,24 @@ import org.json.JSONException;
 
 import java.util.Objects;
 
-
+/**
+ * Main activity
+ */
 public class MainActivity extends AppCompatActivity {
 
     HotelierDatabase hotelierDatabase;
-    private ActivityMainBinding binding;
-    private BottomNavigationView navView;
-    private TextView username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        com.xepicgamerzx.hotelier.databinding.ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         hotelierDatabase = HotelierDatabase.getDatabase(getApplicationContext());
         loadData(); // Loading data on the first app launch.
         setRecentLogin();
 
         // Setting up navigation view.
-        navView = findViewById(R.id.bottomNavigationView);
+        BottomNavigationView navView = findViewById(R.id.bottomNavigationView);
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentContainer);
         NavController navController = Objects.requireNonNull(navHostFragment).getNavController();
         NavigationUI.setupWithNavController(navView, navController);
@@ -48,13 +46,13 @@ public class MainActivity extends AppCompatActivity {
     /**
      * If the user has not signed out previously, sets the user to the previously logged in user.
      */
-    public void setRecentLogin() {
+    private void setRecentLogin() {
         hotelierDatabase = HotelierDatabase.getDatabase(getApplication());
         UserManager um = UserManager.getManager(hotelierDatabase);
         um.setLastLoggedInUser(getApplicationContext());
     }
 
-    public void loadData() {
+    private void loadData() {
         // LOADING DUMMY DATA ON FIRST TIME LOADING APP, CAN PROBABLY USE AN API LATER
         if (hotelierDatabase.hotelDao().getAll().isEmpty()) {
             ReadDummyData readDummyData = new ReadDummyData(getApplication());

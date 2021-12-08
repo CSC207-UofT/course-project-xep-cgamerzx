@@ -2,8 +2,8 @@ package com.xepicgamerzx.hotelier.storage.hotel_managers;
 
 import android.app.Application;
 
-import com.xepicgamerzx.hotelier.objects.cross_reference_objects.RoomAmenitiesEnum;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelRoom;
+import com.xepicgamerzx.hotelier.objects.hotel_objects.RoomAmenitiesEnum;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.RoomAmenity;
 import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
 import com.xepicgamerzx.hotelier.storage.dao.RoomAmenitiesCrossDao;
@@ -78,6 +78,28 @@ public class RoomAmenityManager implements UniqueManager<RoomAmenity, RoomAmenit
     @Override
     public RoomAmenity create(RoomAmenitiesEnum amenity) {
         return create(amenity.toString());
+    }
+
+    /**
+     * Create unique object and insert it into database.
+     *
+     * @param id String unique ID of object.
+     * @return String Id of unique object created
+     */
+    @Override
+    public String createId(String id) {
+        return create(id).getUniqueId();
+    }
+
+    /**
+     * Create unique object and insert it into database.
+     *
+     * @param id <E> LabeledEnum of unique object to be created.
+     * @return String Id of unique object created
+     */
+    @Override
+    public String createId(RoomAmenitiesEnum id) {
+        return createId(id.toString());
     }
 
     /**

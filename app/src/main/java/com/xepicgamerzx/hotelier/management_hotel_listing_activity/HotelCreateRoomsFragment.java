@@ -17,13 +17,14 @@ import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.textfield.TextInputEditText;
 import com.xepicgamerzx.hotelier.R;
 import com.xepicgamerzx.hotelier.objects.UnixEpochDateConverter;
-import com.xepicgamerzx.hotelier.objects.hotel_objects.Bed;
-import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelRoom;
 
 import java.math.BigDecimal;
 import java.time.ZoneId;
 import java.util.Objects;
 
+/**
+ * Fragment for hotel room creation
+ */
 public class HotelCreateRoomsFragment extends Fragment {
     Long startDate;
     Long endDate;
@@ -62,7 +63,7 @@ public class HotelCreateRoomsFragment extends Fragment {
         return v;
     }
 
-    public void bedSizeChipsListener(View v) {
+    private void bedSizeChipsListener(View v) {
         chipGroup.setOnCheckedChangeListener((group, checkedId) -> {
             Chip chip = v.findViewById(checkedId);
 
@@ -75,7 +76,7 @@ public class HotelCreateRoomsFragment extends Fragment {
         });
     }
 
-    public void saveRoomListener() {
+    private void saveRoomListener() {
         saveRoom.setOnClickListener(v12 -> {
             HotelCreatorActivity activity = (HotelCreatorActivity) getActivity();
             String stringErrorMess = validateRoomInputs();
@@ -83,26 +84,26 @@ public class HotelCreateRoomsFragment extends Fragment {
             if (!stringErrorMess.equals("")) {
                 Toast.makeText(getContext(), stringErrorMess, Toast.LENGTH_SHORT).show();
             } else {
-                HotelRoom room = Objects.requireNonNull(activity).manage.roomManager.createRoom(
+                long roomId = Objects.requireNonNull(activity).manage.roomManager.createRoomId(
                         zoneId, startDate, endDate,
                         Integer.parseInt(Objects.requireNonNull(capacity.getText()).toString()),
                         BigDecimal.valueOf(Long.parseLong(Objects.requireNonNull(pricePerNight.getText()).toString()))
                 );
                 // The parent activity is HotelCreator (where these variables can be found)
-                activity.hotelRooms.add(room);
-                Bed bed = activity.manage.bedManager.create(bedType);
-                activity.manage.roomBedsCrossManager.createRelationship(room, bed, Integer.parseInt(Objects.requireNonNull(totalBeds.getText()).toString()));
+                activity.viewModel.addRoomId(roomId);
+                String bedId = activity.manage.bedManager.createId(bedType);
+                activity.manage.roomBedsCrossManager.createRelationship(roomId, bedId, Integer.parseInt(Objects.requireNonNull(totalBeds.getText()).toString()));
 
-                activity.text += "\n" + room;
+                activity.text += "\n" + roomId;
                 activity.isRoomsMade = true;
-                activity.addRoomsBtn.setText("Add another room");
+                activity.addRoomsBtn.setText(R.string.add_another_room);
 
                 requireActivity().onBackPressed();
             }
         });
     }
 
-    public void buildDateSelection() {
+    private void buildDateSelection() {
         MaterialDatePicker.Builder<Pair<Long, Long>> builder = MaterialDatePicker.Builder.dateRangePicker();
         builder.setTitleText("SELECT A CHECK IN AND CHECKOUT DATE");
         final MaterialDatePicker<Pair<Long, Long>> materialDatePicker = builder.build();
@@ -114,13 +115,12 @@ public class HotelCreateRoomsFragment extends Fragment {
             endDate = selection.second;
 
             // Converts to normal date
-            UnixEpochDateConverter epoch = new UnixEpochDateConverter();
             String dates = UnixEpochDateConverter.epochToReadable(startDate, endDate);
             schedule.setText(dates);
         });
     }
 
-    public void setRoomFields(View v) {
+    private void setRoomFields(View v) {
         zoneId = ZoneId.systemDefault();
         schedule = v.findViewById(R.id.setScheduleBtn);
         capacity = v.findViewById(R.id.roomCapacity);
@@ -130,7 +130,8 @@ public class HotelCreateRoomsFragment extends Fragment {
         chipGroup = v.findViewById(R.id.chip_group_choice);
         closeBtn = v.findViewById(R.id.closeBtn);
     }
-    public String validateRoomInputs() {
+
+    private String validateRoomInputs() {
         String s = "";
         if (!(Objects.requireNonNull(capacity.getText()).toString().matches("\\d+") &&
                 Objects.requireNonNull(totalBeds.getText()).toString().matches("\\d+") &&

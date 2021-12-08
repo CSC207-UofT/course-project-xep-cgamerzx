@@ -8,9 +8,14 @@ import com.xepicgamerzx.hotelier.storage.hotel_managers.HotelManager;
 import com.xepicgamerzx.hotelier.storage.hotel_managers.RoomAmenityManager;
 import com.xepicgamerzx.hotelier.storage.hotel_managers.RoomManager;
 import com.xepicgamerzx.hotelier.storage.hotel_reference_managers.HotelAmenitiesCrossManager;
+import com.xepicgamerzx.hotelier.storage.hotel_reference_managers.HotelRoomMapManager;
 import com.xepicgamerzx.hotelier.storage.hotel_reference_managers.RoomAmenitiesCrossManager;
 import com.xepicgamerzx.hotelier.storage.hotel_reference_managers.RoomBedsCrossManager;
+import com.xepicgamerzx.hotelier.storage.user.UserManager;
 
+/**
+ * Central singleton for all the manager classes
+ */
 public final class Manage {
     private static volatile Manage INSTANCE;
 
@@ -23,6 +28,9 @@ public final class Manage {
     public volatile HotelAmenitiesCrossManager hotelAmenitiesCrossManager;
     public volatile RoomAmenitiesCrossManager roomAmenitiesCrossManager;
     public volatile RoomBedsCrossManager roomBedsCrossManager;
+    public volatile HotelRoomMapManager hotelRoomMapManager;
+
+    public volatile UserManager userManager;
 
     private Manage(Application application) {
         bedManager = BedManager.getManager(application);
@@ -34,6 +42,9 @@ public final class Manage {
         hotelAmenitiesCrossManager = HotelAmenitiesCrossManager.getManager(application);
         roomAmenitiesCrossManager = RoomAmenitiesCrossManager.getManager(application);
         roomBedsCrossManager = RoomBedsCrossManager.getManager(application);
+        hotelRoomMapManager = HotelRoomMapManager.getManager(application);
+
+        userManager = UserManager.getManager(application);
     }
 
     private Manage(HotelierDatabase dbInstance) {
@@ -46,19 +57,37 @@ public final class Manage {
         hotelAmenitiesCrossManager = HotelAmenitiesCrossManager.getManager(dbInstance);
         roomAmenitiesCrossManager = RoomAmenitiesCrossManager.getManager(dbInstance);
         roomBedsCrossManager = RoomBedsCrossManager.getManager(dbInstance);
+        hotelRoomMapManager = HotelRoomMapManager.getManager(dbInstance);
+
+        userManager = UserManager.getManager(dbInstance);
     }
 
+    /**
+     * Get the manage instance
+     *
+     * @param application current application
+     * @return Manage instance
+     */
     public static Manage getManager(Application application) {
         if (INSTANCE == null) INSTANCE = new Manage(application);
         return INSTANCE;
     }
 
+    /**
+     * Get the manage instance
+     *
+     * @param dbInstance Hotelier database instance
+     * @return Manage instance
+     */
     public static Manage getManager(HotelierDatabase dbInstance) {
         if (INSTANCE == null) INSTANCE = new Manage(dbInstance);
         return INSTANCE;
     }
 
-    public void close(){
+    /**
+     * Close all of the managers
+     */
+    public void close() {
         INSTANCE = null;
         bedManager.close();
         hotelAmenityManager.close();
@@ -69,5 +98,8 @@ public final class Manage {
         hotelAmenitiesCrossManager.close();
         roomAmenitiesCrossManager.close();
         roomBedsCrossManager.close();
+        hotelRoomMapManager.close();
+
+        userManager.close();
     }
 }
