@@ -20,11 +20,35 @@ import java.util.Locale;
  */
 public class HotelRoomModelManager {
     /**
-     * @param hotelRooms
-     * @param application
-     * @return
+     * Generate CustomerHotelRoomsAdapter
+     *
+     * @param hotelViewModel HotelViewModel used to generate adapter
+     * @param application Application context
+     * @param userStartDate Long start date of the schedule (nullable)
+     * @param userEndDate Long end date of the schedule (nullable)
+     * @return CustomerHotelRoomsAdapter
      */
-    public static List<CustomerHotelRoomsModel> getHotelViewModelList(List<HotelRoom> hotelRooms, Application application) {
+    public static CustomerHotelRoomsAdapter getAdapterRooms(HotelViewModel hotelViewModel, Application application, @Nullable Long userStartDate, @Nullable Long userEndDate) {
+        List<HotelRoom> rooms;
+
+        if (hotelViewModel.getRooms() != null) {
+            rooms = hotelViewModel.getRooms();
+        } else if (userStartDate != null && userEndDate != null) {
+            rooms = Manage.getManager(application).roomManager.getAvailableRooms(userStartDate, userEndDate, hotelViewModel.getHotelId());
+        } else {
+            rooms = Manage.getManager(application).roomManager.getHotelRoomsInHotel(hotelViewModel.getHotelId());
+        }
+        return new CustomerHotelRoomsAdapter(getHotelViewModelList(rooms, application));
+    }
+
+    /**
+     * Get a list of customer hotel room view models based on parameters
+     *
+     * @param hotelRooms List<HotelRoom> hotel rooms used to generate view model
+     * @param application Application context
+     * @return List<CustomerHotelRoomsModel>
+     */
+    private static List<CustomerHotelRoomsModel> getHotelViewModelList(List<HotelRoom> hotelRooms, Application application) {
         List<CustomerHotelRoomsModel> hotelRoomsView = new ArrayList<>();
         RoomBedsCrossManager roomBedsCrossManager = RoomBedsCrossManager.getManager(application);
 
@@ -51,26 +75,6 @@ public class HotelRoomModelManager {
         }
 
         return hotelRoomsView;
-    }
-
-    /**
-     * @param hotelViewModel
-     * @param application
-     * @param userStartDate
-     * @param userEndDate
-     * @return
-     */
-    public static CustomerHotelRoomsAdapter getAdapterRooms(HotelViewModel hotelViewModel, Application application, @Nullable Long userStartDate, @Nullable Long userEndDate) {
-        List<HotelRoom> rooms;
-
-        if (hotelViewModel.getRooms() != null) {
-            rooms = hotelViewModel.getRooms();
-        } else if (userStartDate != null && userEndDate != null) {
-            rooms = Manage.getManager(application).roomManager.getAvailableRooms(userStartDate, userEndDate, hotelViewModel.getHotelId());
-        } else {
-            rooms = Manage.getManager(application).roomManager.getHotelRoomsInHotel(hotelViewModel.getHotelId());
-        }
-        return new CustomerHotelRoomsAdapter(getHotelViewModelList(rooms, application));
     }
 
 }
