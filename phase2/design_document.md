@@ -133,5 +133,5 @@ Veronica:
 
 Wei: 
 
-Thomas:
+Thomas: {[#71](https://github.com/CSC207-UofT/course-project-xep-cgamerzx/pull/71)} I added a feature to add amenities to the hotel making sure that my code was free of code smells. I implemented a checker for a strong password in accordance to accessibility principles.
 
