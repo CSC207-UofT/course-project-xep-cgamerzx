@@ -21,6 +21,7 @@
 * All instructions when accessing app features, such as registering as a user, use simple vocabulary and are as straightforward as possible.
 * All users should be able to use our app despite their skill level. 
 * Related functions are grouped together within the user interface creating an intuitive workflow.
+* Where possible, we limit inputs through the keyboard to the specific type that would be accepted, making it more intutive as to what the app expects from the user.
 
 ### Perceptible Information
 
