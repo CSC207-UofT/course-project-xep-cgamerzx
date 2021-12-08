@@ -19,7 +19,6 @@ import com.xepicgamerzx.hotelier.customer_activities.customer_search_activity.Se
 import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
 import com.xepicgamerzx.hotelier.storage.Manage;
 import com.xepicgamerzx.hotelier.storage.user.UserManager;
-import com.xepicgamerzx.hotelier.storage.user.model.User;
 
 import java.util.Collections;
 import java.util.List;
@@ -65,10 +64,10 @@ public class DashboardFragment extends Fragment {
 
     @SuppressLint("SetTextI18n")
     public void checkForUser() {
-        User user = userManager.getUser();
+        String username = userManager.getUserName();
         // Add if empty, no user, go sign in.
-        if (user != null) {
-            nameField.setText("Welcome back " + user.getUserName());
+        if (username != null) {
+            nameField.setText("Welcome back " + username);
             recentSearches.setVisibility(View.VISIBLE);
             recentSearchesTxt.setVisibility(View.VISIBLE);
             setRecentSearches();

@@ -6,7 +6,9 @@ import android.util.Log;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.Hotel;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelRoom;
 import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
+import com.xepicgamerzx.hotelier.storage.Manage;
 import com.xepicgamerzx.hotelier.storage.hotel_managers.Manager;
+import com.xepicgamerzx.hotelier.storage.user.model.User;
 
 import java.util.HashMap;
 import java.util.List;
@@ -16,13 +18,16 @@ public class HotelRoomMapManager implements Manager {
     private static volatile HotelRoomMapManager INSTANCE;
 
     private final HotelierDatabase db;
+    private final Manage manage;
 
     private HotelRoomMapManager(Application application) {
         db = HotelierDatabase.getDatabase(application);
+        manage = Manage.getManager(application);
     }
 
     private HotelRoomMapManager(HotelierDatabase dbInstance) {
         db = dbInstance;
+        manage = Manage.getManager(dbInstance);
     }
 
     public static HotelRoomMapManager getManager(Application application) {
@@ -42,23 +47,23 @@ public class HotelRoomMapManager implements Manager {
     }
 
     /**
-     * Generates a list of HotelViewModel's with specifics
+     * Generates Map<Hotel, List<HotelRoom>> with specifics
      */
-    public Map<Hotel, List<HotelRoom>> generateHotelModel() {
+    public Map<Hotel, List<HotelRoom>> getAvailableRooms() {
         return db.hotelRoomMapDao().getAll();
     }
 
     /**
-     * Generate list of HotelView models based on min capacity, location, and schedule
+     * Generate Map<Hotel, List<HotelRoom>> based on min capacity, location, and schedule
      *
      * @param capacity  int min capacity
      * @param startTime long start time of schedule
      * @param endTime   long end time of schedule
      * @param centerLat double location latitude
      * @param centerLon double location longitude
-     * @return List<HotelViewModel> generated list of hotel view models
+     * @return Map<Hotel, List<HotelRoom>> generated list of hotel view models
      */
-    public Map<Hotel, List<HotelRoom>> generateHotelModel(int capacity, long startTime, long endTime, double centerLat, double centerLon) {
+    public Map<Hotel, List<HotelRoom>> getAvailableRooms(int capacity, long startTime, long endTime, double centerLat, double centerLon) {
         Map<String, Double> locationMap = convertLatLon(centerLat, centerLon, 50);
         Map<Hotel, List<HotelRoom>> hotelListMap;
 
@@ -82,20 +87,20 @@ public class HotelRoomMapManager implements Manager {
             return hotelListMap;
         } else {
             Log.e("Hotel Room Map Manager", "Failed to generate location data");
-            return generateHotelModel(capacity, startTime, endTime);
+            return getAvailableRooms(capacity, startTime, endTime);
         }
 
     }
 
     /**
-     * Generate list of HotelView models based on min capacity and location
+     * Generate Map<Hotel, List<HotelRoom>> based on min capacity and location
      *
      * @param capacity  int min capacity
      * @param centerLat double location latitude
      * @param centerLon double location longitude
-     * @return List<HotelViewModel> generated list of hotel view models
+     * @return Map<Hotel, List<HotelRoom>> generated list of hotel view models
      */
-    public Map<Hotel, List<HotelRoom>> generateHotelModel(int capacity, double centerLat, double centerLon) {
+    public Map<Hotel, List<HotelRoom>> getAvailableRooms(int capacity, double centerLat, double centerLon) {
         Map<String, Double> locationMap = convertLatLon(centerLat, centerLon, 50);
         Map<Hotel, List<HotelRoom>> hotelListMap;
 
@@ -118,30 +123,40 @@ public class HotelRoomMapManager implements Manager {
             return hotelListMap;
         } else {
             Log.e("Hotel Room Map Manager", "Failed to generate location data");
-            return generateHotelModel(capacity);
+            return getAvailableRooms(capacity);
         }
     }
 
     /**
-     * Generate list of HotelView models based on min capacity and schedule
+     * Generate Map<Hotel, List<HotelRoom>> based on min capacity and schedule
      *
      * @param capacity  int min capacity
      * @param startTime long start time of schedule
      * @param endTime   long end time of schedule
-     * @return List<HotelViewModel> generated list of hotel view models
+     * @return Map<Hotel, List<HotelRoom>> generated list of hotel view models
      */
-    public Map<Hotel, List<HotelRoom>> generateHotelModel(int capacity, long startTime, long endTime) {
+    public Map<Hotel, List<HotelRoom>> getAvailableRooms(int capacity, long startTime, long endTime) {
         return db.hotelRoomMapDao().getAvailableRooms(startTime, endTime, capacity);
     }
 
     /**
-     * Generate list of HotelView models based on min capacity
+     * Generate Map<Hotel, List<HotelRoom>> based on min capacity
      *
      * @param capacity Min capacity of rooms
-     * @return List<HotelViewModel> generated list of hotel view models
+     * @return Map<Hotel, List<HotelRoom>> generated list of hotel view models
      */
-    public Map<Hotel, List<HotelRoom>> generateHotelModel(int capacity) {
+    public Map<Hotel, List<HotelRoom>> getAvailableRooms(int capacity) {
         return db.hotelRoomMapDao().getAvailableRooms(capacity);
+    }
+
+    public Map<Hotel, List<HotelRoom>> getFavourites(User user){
+        Long[] hotelIds = user.getFavHotelIdsL().toArray(new Long[0]);
+        return db.hotelRoomMapDao().getHotelWithId(hotelIds);
+    }
+
+    public Map<Hotel, List<HotelRoom>> getFavourites(){
+        Long[] hotelIds = manage.userManager.getUser().getFavHotelIdsL().toArray(new Long[0]);
+        return db.hotelRoomMapDao().getHotelWithId(hotelIds);
     }
 
     /**

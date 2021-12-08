@@ -8,6 +8,8 @@ import com.xepicgamerzx.hotelier.objects.hotel_objects.Hotel;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity(tableName = "users")
 public class User implements Serializable {
@@ -75,6 +77,10 @@ public class User implements Serializable {
 
     public ArrayList<String> getFavHotelIds() {
         return favHotelIds;
+    }
+
+    public List<Long> getFavHotelIdsL(){
+        return favHotelIds.stream().map(Long::parseLong).collect(Collectors.toList());
     }
 
     public void setFavHotelIds(ArrayList<String> favHotelIds) {
