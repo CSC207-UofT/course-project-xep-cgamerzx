@@ -68,6 +68,7 @@ public class UserTest {
         hotel_list.add(hotel1.hotelId);
         hotel_list.add(hotel2.hotelId);
 
+        //noinspection AssertBetweenInconvertibleTypes
         assertEquals(user.getFavHotelIds(), hotel_list);
     }
 
