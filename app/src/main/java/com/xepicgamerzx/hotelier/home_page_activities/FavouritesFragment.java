@@ -74,9 +74,9 @@ public class FavouritesFragment extends Fragment implements OnFavouriteClickList
     }
 
     /**
-     * Clicking favourite on the users favourites removes it from their favourites list.
+     * Clicking favourite on the user's favourites removes it from their favourites list.
      *
-     * @param position
+     * @param position  position of the item in the user's favourites
      */
     @Override
     public void onFavouriteClick(int position) {

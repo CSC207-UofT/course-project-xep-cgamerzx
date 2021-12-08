@@ -26,7 +26,22 @@ public class HotelViewModel implements Serializable {
     private final int hotelStar;
     boolean isSelected = false;
 
-    public HotelViewModel(@NonNull String name, String address, BigDecimal priceRange, int numberOfRooms, long hotelId, double latitude, double longitude, int hotelStar, @Nullable List<HotelRoom> rooms) {
+    /**
+     * Create a new HotelViewModel
+     * @param name          name of the hotel
+     * @param address       address of the hotel
+     * @param priceRange    price range
+     * @param numberOfRooms number of rooms in the hotel
+     * @param hotelId       id of the hotel
+     * @param latitude      latitude of the hotel
+     * @param longitude     longitude of the hotel
+     * @param hotelStar     star class of the hotel
+     * @param rooms         list of hotel rooms
+     */
+
+    public HotelViewModel(@NonNull String name, String address, BigDecimal priceRange,
+                          int numberOfRooms, long hotelId, double latitude, double longitude,
+                          int hotelStar, @Nullable List<HotelRoom> rooms) {
         this.name = name;
         this.address = address;
         this.priceRange = priceRange;

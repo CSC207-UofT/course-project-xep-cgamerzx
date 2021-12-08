@@ -10,11 +10,21 @@ import com.xepicgamerzx.hotelier.objects.hotel_objects.RoomAmenity;
 public class RoomAmenitiesCrossRef extends CrossRef {
     public long roomId;
 
+    /**
+     * Create a new RoomAmenitiesCrossRef.
+     * @param roomId    the id of the room we are cross-referencing
+     * @param uniqueId  the unique id of the amenity we are cross-referencing
+     */
     public RoomAmenitiesCrossRef(long roomId, @NonNull String uniqueId) {
         this.roomId = roomId;
         this.uniqueId = uniqueId;
     }
 
+    /**
+     * Create a new RoomAmenitiesCrossRef
+     * @param hotelRoom     the hotel room we are cross referencing
+     * @param roomAmenity   the room amenity we are cross-referencing
+     */
     public RoomAmenitiesCrossRef(HotelRoom hotelRoom, RoomAmenity roomAmenity) {
         this(hotelRoom.roomId, roomAmenity.getUniqueId());
     }

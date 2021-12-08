@@ -94,6 +94,10 @@ public class HotelRoom extends NonUniqueEntity implements Serializable {
         this.endAvailability = endAvailability;
     }
 
+    /**
+     * toString method
+     * @return a string for a hotel room
+     */
     @Override
     @NonNull
     public String toString() {

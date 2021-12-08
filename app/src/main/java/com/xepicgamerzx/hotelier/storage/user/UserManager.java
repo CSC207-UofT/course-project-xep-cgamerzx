@@ -56,26 +56,50 @@ public class UserManager implements com.xepicgamerzx.hotelier.storage.hotel_mana
         return (user == null) ? null : user.getUserName();
     }
 
+    /**
+     * Register a new manager user.
+     * @param user the user to be registered
+     */
     public void registerUser(User user) {
         userDao.insert(user);
     }
 
+    /**
+     * Register a new manager user.
+     * @param userId    the id of the user to be registered
+     * @param password  the password of the user to be registered
+     * @param email     the email address of the user to be registered
+     */
     public void registerUser(String userId, String password, String email) {
         User user = new User(userId, password, email);
         userDao.insert(user);
     }
 
+    /**
+     * Logs in a manager user.
+     * @param userIdText    the inputted username
+     * @param passwordText  the inputted password
+     * @param context       the context for the database
+     */
     public void login(String userIdText, String passwordText, Context context) {
         User user = userDao.login(userIdText, passwordText);
         logInLocally(true, context);
         this.setUser(user);
     }
 
+    /**
+     * Gets all the users of the app.
+     * @return list of users
+     */
     public List<User> getAllUsers() {
         System.out.println(userDao.getAll());
         return userDao.getAll();
     }
 
+    /**
+     * Gets the user that was last logged in
+     * @return  the last user that was logged in
+     */
     public User getLastLoggedInUser() {
         List<User> users = userDao.getAll();
         return users.get(users.size() - 1);
