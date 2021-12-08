@@ -69,6 +69,7 @@ public class FavouritesFragment extends Fragment implements OnFavouriteClickList
                 .setReverse(true)
                 .setOnFavouriteClickListener(this)
                 .build();
+        hotelsView = hotelsAdapter.hotels;
         hotelsRecyclerView.setAdapter(hotelsAdapter);
     }
 

@@ -26,7 +26,7 @@ public class HotelViewActivity extends AppCompatActivity {
     /**
      * The method that is run when the page loads.
      *
-     * @param savedInstanceState
+     * @param savedInstanceState saved instance state
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +46,7 @@ public class HotelViewActivity extends AppCompatActivity {
         Intent intent = getIntent();
 
         if (intent.getExtras() != null) {
+            @SuppressWarnings("unchecked")
             HashMap<String, Object> map = (HashMap<String, Object>) intent.getSerializableExtra("SearchData");
 
             Double latitude = (map.containsKey("lat")) ? (Double) map.get("lat") : null;

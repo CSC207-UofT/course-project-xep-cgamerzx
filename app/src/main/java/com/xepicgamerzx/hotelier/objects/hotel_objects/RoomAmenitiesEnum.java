@@ -1,8 +1,6 @@
-package com.xepicgamerzx.hotelier.objects.cross_reference_objects;
+package com.xepicgamerzx.hotelier.objects.hotel_objects;
 
 import androidx.annotation.NonNull;
-
-import com.xepicgamerzx.hotelier.objects.hotel_objects.LabeledEnum;
 
 /**
  * Enum with all the types of hotelRoom amenities. Each also stores a String label describing the use case.

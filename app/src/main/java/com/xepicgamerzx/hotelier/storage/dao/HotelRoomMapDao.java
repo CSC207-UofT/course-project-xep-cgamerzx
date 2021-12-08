@@ -25,10 +25,10 @@ public abstract class HotelRoomMapDao {
      * Get a hotels within a defined min id.
      *
      * @param hotelID long... hotel Ids.
-     * @return Map<Hotel, List<HotelRoom>> map of matching hotels and rooms
+     * @return Map<Hotel, List < HotelRoom>> map of matching hotels and rooms
      */
     @MapInfo(keyColumn = "hotelId")
-    @Query("SELECT * FROM HotelRoom JOIN Hotel WHERE HOTELROOM.hotelId IN (:hotelID)")
+    @Query("SELECT * FROM HotelRoom JOIN  Hotel ON HOTELROOM.hotelId = Hotel.hotelId WHERE HOTELROOM.hotelId IN (:hotelID)")
     public abstract Map<Hotel, List<HotelRoom>> getHotelWithId(Long... hotelID);
 
     /**

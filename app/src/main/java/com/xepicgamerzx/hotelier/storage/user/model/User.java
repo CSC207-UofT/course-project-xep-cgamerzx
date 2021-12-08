@@ -79,12 +79,12 @@ public class User implements Serializable {
         return favHotelIds;
     }
 
-    public List<Long> getFavHotelIdsL(){
-        return favHotelIds.stream().map(Long::parseLong).collect(Collectors.toList());
-    }
-
     public void setFavHotelIds(ArrayList<String> favHotelIds) {
         this.favHotelIds = favHotelIds;
+    }
+
+    public List<Long> getFavHotelIdsL() {
+        return favHotelIds.stream().map(Long::parseLong).collect(Collectors.toList());
     }
 
     public void addFavHotel(String hotelId) {

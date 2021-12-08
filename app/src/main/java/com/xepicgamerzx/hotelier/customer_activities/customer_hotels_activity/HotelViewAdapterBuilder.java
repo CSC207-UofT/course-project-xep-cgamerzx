@@ -7,7 +7,6 @@ import androidx.annotation.Nullable;
 import com.xepicgamerzx.hotelier.home_page_activities.OnFavouriteClickListener;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.Hotel;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelRoom;
-import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
 import com.xepicgamerzx.hotelier.storage.Manage;
 
 import java.util.ArrayList;
@@ -19,7 +18,6 @@ import java.util.Map;
  * Builder for HotelView adapters.
  */
 public class HotelViewAdapterBuilder {
-    private final HotelierDatabase db;
     private final Manage manage;
 
     @Nullable
@@ -43,7 +41,6 @@ public class HotelViewAdapterBuilder {
      * @param application Current application
      */
     public HotelViewAdapterBuilder(Application application) {
-        db = HotelierDatabase.getDatabase(application);
         manage = Manage.getManager(application);
     }
 
@@ -85,20 +82,33 @@ public class HotelViewAdapterBuilder {
     }
 
     /**
+     * Set the list of hotel view models to be reversed
      *
-     * @param reverse
-     * @return
+     * @param reverse Boolean whenever or not to reverse hotel view models
+     * @return HotelViewAdapterBuilder
      */
     public HotelViewAdapterBuilder setReverse(boolean reverse) {
         this.reverse = reverse;
         return this;
     }
 
-    public HotelViewAdapterBuilder useFavourites(boolean useFavourites){
+    /**
+     * Whenever or not to create an adapter using the user's favourites
+     *
+     * @param useFavourites Boolean
+     * @return HotelViewAdapterBuilder
+     */
+    public HotelViewAdapterBuilder useFavourites(boolean useFavourites) {
         this.useFavourites = useFavourites;
         return this;
     }
 
+    /**
+     * Set the on favourite click listener
+     *
+     * @param onFavouriteClickListener OnFavouriteClickListener
+     * @return HotelViewAdapterBuilder
+     */
     public HotelViewAdapterBuilder setOnFavouriteClickListener(OnFavouriteClickListener onFavouriteClickListener) {
         this.onFavouriteClickListener = onFavouriteClickListener;
         return this;
@@ -113,7 +123,7 @@ public class HotelViewAdapterBuilder {
         List<HotelViewModel> hotelViewModels;
         Map<Hotel, List<HotelRoom>> hotelListMap;
 
-        if (useFavourites){
+        if (useFavourites) {
             hotelListMap = manage.hotelRoomMapManager.getFavourites();
         } else if (minCapacity != null && startDate != null && endDate != null && latitude != null && longitude != null) {
             // Capacity, schedule, location
@@ -150,7 +160,11 @@ public class HotelViewAdapterBuilder {
                                 .getFullStreet())
                         .setPriceRange(manage.roomManager.getPriceRange(hotel).get(0))
                         .setNumberOfRooms(rooms.size())
-                        .setHotel(hotel).setRooms(rooms)
+                        .setHotel(hotel.hotelId)
+                        .setRooms(rooms)
+                        .setLatitude(hotel.getAddress().getLatitude())
+                        .setLongitude(hotel.getAddress().getLongitude())
+                        .setHotelStar(hotel.getStarClass())
                         .createHotelViewModel()));
         if (reverse) Collections.reverse(hotelsView);
 

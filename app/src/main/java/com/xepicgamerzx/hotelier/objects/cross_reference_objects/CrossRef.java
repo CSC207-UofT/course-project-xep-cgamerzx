@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 
 public abstract class CrossRef {
-    @NonNull
+    @NonNull // required annotation
     @ColumnInfo(index = true)
     public String uniqueId;
 

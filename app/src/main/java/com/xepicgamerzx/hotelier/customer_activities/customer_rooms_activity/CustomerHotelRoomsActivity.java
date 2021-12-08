@@ -1,6 +1,5 @@
 package com.xepicgamerzx.hotelier.customer_activities.customer_rooms_activity;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
@@ -22,7 +21,6 @@ public class CustomerHotelRoomsActivity extends AppCompatActivity {
     TextView descNameText, hotelAddress, hotelRating;
 
     @SuppressWarnings("unchecked")
-    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,11 +49,13 @@ public class CustomerHotelRoomsActivity extends AppCompatActivity {
         }
     }
 
-    @SuppressLint("SetTextI18n")
     public void setRoomViewText(HotelViewModel hotel) {
+        String hotelAddressStr = getString(R.string.address_) + hotel.getAddress();
+        String hotelRatingStr = getString(R.string.rating_) + hotel.getHotelStar() + " Stars";
+
         descNameText.setText(hotel.getName());
-        hotelAddress.setText("Address: " + hotel.getAddress());
-        hotelRating.setText("Rating: " + hotel.getHotelStar() + " Stars");
+        hotelAddress.setText(hotelAddressStr);
+        hotelRating.setText(hotelRatingStr);
     }
 
     public void sendCoordToMapFragment(HotelViewModel hotel) {
@@ -63,8 +63,8 @@ public class CustomerHotelRoomsActivity extends AppCompatActivity {
                 .beginTransaction();
         MapsFragment fragInfo = new MapsFragment();
         Bundle bundle = new Bundle();
-        bundle.putDouble("longitude", hotel.getHotel().getAddress().getLongitude());
-        bundle.putDouble("latitude", hotel.getHotel().getAddress().getLatitude());
+        bundle.putDouble("longitude", hotel.getLongitude());
+        bundle.putDouble("latitude", hotel.getLatitude());
         fragInfo.setArguments(bundle);
 
         fragmentTransaction.replace(R.id.frameMapsLay, fragInfo).commit();

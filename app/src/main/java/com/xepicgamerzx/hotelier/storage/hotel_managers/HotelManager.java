@@ -7,7 +7,6 @@ import androidx.annotation.NonNull;
 
 import com.xepicgamerzx.hotelier.objects.hotel_objects.Address;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.Hotel;
-import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelAmenity;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelRoom;
 import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
 import com.xepicgamerzx.hotelier.storage.dao.HotelDao;
@@ -103,10 +102,10 @@ public class HotelManager implements Manager {
      * @return Hotel object created.
      */
     @NonNull
-    public Hotel createHotel(String name, Address address, int starClass, List<HotelRoom> hotelRooms, List<HotelAmenity> hotelAmenities) {
+    public Hotel createHotel(String name, Address address, int starClass, List<Long> hotelRooms, List<String> hotelAmenities) {
         Hotel hotel = createHotel(name, address, starClass);
 
-        for (HotelRoom hotelRoom : hotelRooms) {
+        for (long hotelRoom : hotelRooms) {
             roomManager.setHotelID(hotel, hotelRoom);
         }
 
@@ -201,14 +200,14 @@ public class HotelManager implements Manager {
         return null;
     }
 
-        /**
-         * Generate spherical coordinate locations based on cartesian coordinates
-         *
-         * @param centerLat  double cartesian latitude
-         * @param centerLon  double cartesian longitude
-         * @param distanceKM double distance in kilometers
-         * @return Map<String, Double> with centerLonCos, centerLonSin, centerLatCos, centerLatSin, cosDistance
-         */
+    /**
+     * Generate spherical coordinate locations based on cartesian coordinates
+     *
+     * @param centerLat  double cartesian latitude
+     * @param centerLon  double cartesian longitude
+     * @param distanceKM double distance in kilometers
+     * @return Map<String, Double> with centerLonCos, centerLonSin, centerLatCos, centerLatSin, cosDistance
+     */
     private Map<String, Double> convertLatLon(double centerLat, double centerLon, double distanceKM) {
         Map<String, Double> map = new HashMap<>();
 
