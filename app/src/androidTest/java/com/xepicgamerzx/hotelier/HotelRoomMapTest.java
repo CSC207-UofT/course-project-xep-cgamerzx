@@ -36,7 +36,6 @@ public class HotelRoomMapTest {
     private final long startDate = System.currentTimeMillis();
     private final long endDate = startDate * 2;
     private final int capacity = 5;
-    private final int numHotels = 10;
     private HotelierDatabase db;
     private HotelManager hotelManager;
     private RoomManager roomManager;
@@ -64,6 +63,7 @@ public class HotelRoomMapTest {
 
         ArrayList<HotelRoom> rooms = new ArrayList<>();
 
+        int numHotels = 10;
         for (int i = 1; i <= numHotels; i++) {
             rooms.add(roomManager.createRoom(zoneId, startDate, endDate, capacity, price.multiply(BigDecimal.valueOf(i))));
         }

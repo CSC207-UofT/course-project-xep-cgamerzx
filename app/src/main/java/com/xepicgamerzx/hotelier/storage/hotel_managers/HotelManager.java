@@ -5,7 +5,6 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.xepicgamerzx.hotelier.customer_activities.customer_hotels_activity.HotelViewModel;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.Address;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.Hotel;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelAmenity;
@@ -17,11 +16,12 @@ import com.xepicgamerzx.hotelier.storage.user.model.User;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+
 import java.util.Set;
 import java.util.stream.Collectors;
+
 
 /**
  * A class to manage all the hotels in the database.
@@ -145,13 +145,24 @@ public class HotelManager implements Manager {
      * @return List<Hotel> all hotels in the approximately in the search area.
      */
     public List<Hotel> getHotelsInArea(double centerLat, double centerLon, double distanceKM) {
-        double centerLonCos = Math.cos(centerLon * Math.PI / 180);
-        double centerLonSin = Math.sin(centerLon * Math.PI / 180);
-        double centerLatCos = Math.cos(centerLat * Math.PI / 180);
-        double centerLatSin = Math.sin(centerLat * Math.PI / 180);
-        double cosDistance = Math.cos(distanceKM / 6371);
+        Map<String, Double> locationMap = convertLatLon(centerLat, centerLon, distanceKM);
 
-        return hotelDao.getHotelsInArea(centerLonCos, centerLonSin, centerLatCos, centerLatSin, cosDistance);
+        Double centerLonCos = locationMap.get("centerLonCos");
+        Double centerLonSin = locationMap.get("centerLonSin");
+        Double centerLatCos = locationMap.get("centerLatCos");
+        Double centerLatSin = locationMap.get("centerLatSin");
+        Double cosDistance = locationMap.get("cosDistance");
+
+        if (centerLonCos != null &&
+                centerLonSin != null &&
+                centerLatCos != null &&
+                centerLatSin != null &&
+                cosDistance != null) {
+
+            return hotelDao.getHotelsInArea(centerLonCos, centerLonSin, centerLatCos, centerLatSin, cosDistance);
+        }
+        Log.e("Hotel Manager", "Failed to generate location data");
+        return null;
     }
 
     /**
@@ -164,6 +175,7 @@ public class HotelManager implements Manager {
     public List<Long> getHotelIdsInArea(double centerLat, double centerLon) {
         return getHotelIdsInArea(centerLat, centerLon, 50.0);
     }
+
 
     /**
      * Get all hotels approximately in the radius around a given location.
@@ -186,7 +198,7 @@ public class HotelManager implements Manager {
                 centerLonSin != null &&
                 centerLatCos != null &&
                 centerLatSin != null &&
-                cosDistance != null){
+                cosDistance != null) {
 
             return hotelDao.getHotelIdsInArea(centerLonCos, centerLonSin,
                     centerLatCos, centerLatSin,
@@ -210,6 +222,7 @@ public class HotelManager implements Manager {
         }
         return favourites;
     }
+
     /**
      * Generates a list of HotelViewModel's with specifics
      */
@@ -353,11 +366,12 @@ public class HotelManager implements Manager {
         return generateHotelModel(hotelListMap);
     }
 
+
     /**
      * Generate spherical coordinate locations based on cartesian coordinates
      *
-     * @param centerLat double cartesian latitude
-     * @param centerLon double cartesian longitude
+     * @param centerLat  double cartesian latitude
+     * @param centerLon  double cartesian longitude
      * @param distanceKM double distance in kilometers
      * @return Map<String, Double> with centerLonCos, centerLonSin, centerLatCos, centerLatSin, cosDistance
      */
@@ -379,10 +393,5 @@ public class HotelManager implements Manager {
     @Override
     public void close() {
         INSTANCE = null;
-    }
-
-    public List<Hotel> getAllHotels() {
-        return hotelDao.getAll();
-
     }
 }

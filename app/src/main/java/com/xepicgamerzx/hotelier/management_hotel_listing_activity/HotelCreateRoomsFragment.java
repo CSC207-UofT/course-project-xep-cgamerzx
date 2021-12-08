@@ -130,6 +130,7 @@ public class HotelCreateRoomsFragment extends Fragment {
         chipGroup = v.findViewById(R.id.chip_group_choice);
         closeBtn = v.findViewById(R.id.closeBtn);
     }
+
     public String validateRoomInputs() {
         String s = "";
         if (!(Objects.requireNonNull(capacity.getText()).toString().matches("\\d+") &&

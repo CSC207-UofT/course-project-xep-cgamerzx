@@ -8,6 +8,7 @@ import com.xepicgamerzx.hotelier.storage.hotel_managers.HotelManager;
 import com.xepicgamerzx.hotelier.storage.hotel_managers.RoomAmenityManager;
 import com.xepicgamerzx.hotelier.storage.hotel_managers.RoomManager;
 import com.xepicgamerzx.hotelier.storage.hotel_reference_managers.HotelAmenitiesCrossManager;
+import com.xepicgamerzx.hotelier.storage.hotel_reference_managers.HotelRoomMapManager;
 import com.xepicgamerzx.hotelier.storage.hotel_reference_managers.RoomAmenitiesCrossManager;
 import com.xepicgamerzx.hotelier.storage.hotel_reference_managers.RoomBedsCrossManager;
 
@@ -23,6 +24,7 @@ public final class Manage {
     public volatile HotelAmenitiesCrossManager hotelAmenitiesCrossManager;
     public volatile RoomAmenitiesCrossManager roomAmenitiesCrossManager;
     public volatile RoomBedsCrossManager roomBedsCrossManager;
+    public volatile HotelRoomMapManager hotelRoomMapManager;
 
     private Manage(Application application) {
         bedManager = BedManager.getManager(application);
@@ -34,6 +36,7 @@ public final class Manage {
         hotelAmenitiesCrossManager = HotelAmenitiesCrossManager.getManager(application);
         roomAmenitiesCrossManager = RoomAmenitiesCrossManager.getManager(application);
         roomBedsCrossManager = RoomBedsCrossManager.getManager(application);
+        hotelRoomMapManager = HotelRoomMapManager.getManager(application);
     }
 
     private Manage(HotelierDatabase dbInstance) {
@@ -46,6 +49,7 @@ public final class Manage {
         hotelAmenitiesCrossManager = HotelAmenitiesCrossManager.getManager(dbInstance);
         roomAmenitiesCrossManager = RoomAmenitiesCrossManager.getManager(dbInstance);
         roomBedsCrossManager = RoomBedsCrossManager.getManager(dbInstance);
+        hotelRoomMapManager = HotelRoomMapManager.getManager(dbInstance);
     }
 
     public static Manage getManager(Application application) {
@@ -58,7 +62,7 @@ public final class Manage {
         return INSTANCE;
     }
 
-    public void close(){
+    public void close() {
         INSTANCE = null;
         bedManager.close();
         hotelAmenityManager.close();
@@ -69,5 +73,6 @@ public final class Manage {
         hotelAmenitiesCrossManager.close();
         roomAmenitiesCrossManager.close();
         roomBedsCrossManager.close();
+        hotelRoomMapManager.close();
     }
 }

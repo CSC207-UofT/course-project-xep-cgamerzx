@@ -11,13 +11,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.xepicgamerzx.hotelier.R;
 import com.xepicgamerzx.hotelier.customer_activities.customer_hotels_activity.HotelViewAdapter;
+import com.xepicgamerzx.hotelier.customer_activities.customer_hotels_activity.HotelViewAdapterBuilder;
 import com.xepicgamerzx.hotelier.customer_activities.customer_hotels_activity.HotelViewModel;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.Hotel;
 import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
 import com.xepicgamerzx.hotelier.storage.Manage;
 import com.xepicgamerzx.hotelier.storage.user.UserManager;
 
-import java.util.Collections;
 import java.util.List;
 
 
@@ -55,7 +55,7 @@ public class FavouritesFragment extends Fragment implements OnFavouriteClickList
     }
 
     public void setProfileVisibility() {
-        if (userManager.isLoggedIn()){
+        if (userManager.isLoggedIn()) {
             System.out.println("Logged in");
             setRecyclerView();
         } else {
@@ -70,11 +70,13 @@ public class FavouritesFragment extends Fragment implements OnFavouriteClickList
         // System.out.println(hotels);
         Collections.reverse(hotelsView); // Reversing for newest favourites at the top
         hotelsAdapter = new HotelViewAdapter(hotelsView, this);
+
         hotelsRecyclerView.setAdapter(hotelsAdapter);
     }
 
     /**
      * Clicking favourite on the users favourites removes it from their favourites list.
+     *
      * @param position
      */
     @Override

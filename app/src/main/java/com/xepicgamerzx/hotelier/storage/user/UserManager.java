@@ -49,6 +49,10 @@ public class UserManager implements com.xepicgamerzx.hotelier.storage.hotel_mana
         return user;
     }
 
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     public void registerUser(User user) {
         userDao.insert(user);
     }
@@ -79,10 +83,6 @@ public class UserManager implements com.xepicgamerzx.hotelier.storage.hotel_mana
     public void signOut(Context context) {
         this.user = null;
         signOutLocally(context);
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 
     public boolean isLoggedIn() {
