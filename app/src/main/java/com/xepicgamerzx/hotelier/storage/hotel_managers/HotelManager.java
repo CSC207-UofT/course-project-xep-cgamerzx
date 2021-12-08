@@ -10,7 +10,6 @@ import com.xepicgamerzx.hotelier.objects.hotel_objects.Hotel;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelAmenity;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelRoom;
 import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
-import com.xepicgamerzx.hotelier.storage.Manage;
 import com.xepicgamerzx.hotelier.storage.dao.HotelDao;
 
 import java.util.HashMap;
@@ -26,18 +25,18 @@ public class HotelManager implements Manager {
 
     private final HotelierDatabase db;
     private final HotelDao hotelDao;
-    private final Manage manage;
+    private final RoomManager roomManager;
 
     private HotelManager(Application application) {
         db = HotelierDatabase.getDatabase(application);
         hotelDao = db.hotelDao();
-        manage = Manage.getManager(application);
+        roomManager = RoomManager.getManager(application);
     }
 
     private HotelManager(HotelierDatabase dbInstance) {
         db = dbInstance;
         hotelDao = db.hotelDao();
-        manage = Manage.getManager(dbInstance);
+        roomManager = RoomManager.getManager(dbInstance);
     }
 
     public static HotelManager getManager(Application application) {
@@ -86,7 +85,7 @@ public class HotelManager implements Manager {
         Hotel hotel = createHotel(name, address, starClass);
 
         for (HotelRoom hotelRoom : hotelRooms) {
-            manage.roomManager.setHotelID(hotel, hotelRoom);
+            roomManager.setHotelID(hotel, hotelRoom);
         }
         return hotel;
     }
@@ -108,7 +107,7 @@ public class HotelManager implements Manager {
         Hotel hotel = createHotel(name, address, starClass);
 
         for (HotelRoom hotelRoom : hotelRooms) {
-            manage.roomManager.setHotelID(hotel, hotelRoom);
+            roomManager.setHotelID(hotel, hotelRoom);
         }
 
         /*for (HotelAmenity hotelAmenity : hotelAmenities) {

@@ -49,7 +49,7 @@ public class UserManager implements com.xepicgamerzx.hotelier.storage.hotel_mana
         return user;
     }
 
-    public String getUserName() { return user.getUserName();}
+    public String getUserName() { return (user == null) ? null: user.getUserName();}
 
     public void setUser(User user) {
         this.user = user;

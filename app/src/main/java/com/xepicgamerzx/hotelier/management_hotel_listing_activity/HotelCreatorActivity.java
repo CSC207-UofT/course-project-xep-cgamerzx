@@ -1,7 +1,6 @@
 package com.xepicgamerzx.hotelier.management_hotel_listing_activity;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
@@ -37,7 +36,7 @@ public class HotelCreatorActivity extends AppCompatActivity {
     boolean[] selectedAmenity;
     ArrayList<Integer> amenitiesList = new ArrayList<>();
     String[] amenitiesArray = {"Indoor Pool", "Outdoor Pool", "Gym", "Laundry",
-            "Business Services", "Wedding Services", "Coneference Space", "Smoke Free Property",
+            "Business Services", "Wedding Services", "Conference Space", "Smoke Free Property",
             "Bar", "Complementary Breakfast", "24/7 Front Desk", "Parking Included", "Restaurant",
             "Spa", "Elevator", "ATM/Banking Services", "Front Desk Safe"};
     private AlertDialog.Builder dialogBuilder;
@@ -47,7 +46,7 @@ public class HotelCreatorActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hotel_creator);
-        getSupportActionBar().hide();
+        Objects.requireNonNull(getSupportActionBar()).hide();
 
         // Initializing db
         initializeDb();
@@ -67,21 +66,18 @@ public class HotelCreatorActivity extends AppCompatActivity {
     public void submitListener() {
         hotelDetails.setOnClickListener(v -> createHotelInfoDialog());
 
-        submitBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // add star input later
-                int starClass = 5;
-                String name = hotelName.getText().toString();
-                if (validateHotel()) {
-                    hotelAmenities = createAmenities(amenitiesArray, amenitiesList);
-                    manage.hotelManager.createHotel(name, address, starClass, hotelRooms, hotelAmenities);
-                    onBackPressed();
-                } else {
-                    Toast.makeText(getApplicationContext(), "Missing inputs, try again", Toast.LENGTH_SHORT).show();
-                }
-
+        submitBtn.setOnClickListener(v -> {
+            // add star input later
+            int starClass = 5;
+            String name = Objects.requireNonNull(hotelName.getText()).toString();
+            if (validateHotel()) {
+                hotelAmenities = createAmenities(amenitiesArray, amenitiesList);
+                manage.hotelManager.createHotel(name, address, starClass, hotelRooms, hotelAmenities);
+                onBackPressed();
+            } else {
+                Toast.makeText(getApplicationContext(), "Missing inputs, try again", Toast.LENGTH_SHORT).show();
             }
+
         });
     }
 
@@ -90,101 +86,76 @@ public class HotelCreatorActivity extends AppCompatActivity {
         //Initialize selected amenity array
         selectedAmenity = new boolean[amenitiesArray.length];
 
-        addAmenitiesBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Initialize alert dialog
-                AlertDialog.Builder builder = new AlertDialog.Builder(
-                        HotelCreatorActivity.this
-                );
-                //Set title
-                builder.setTitle("Select Amenities");
-                //Set dialog non cancelable
-                builder.setCancelable(false);
+        addAmenitiesBtn.setOnClickListener(v -> {
+            //Initialize alert dialog
+            AlertDialog.Builder builder = new AlertDialog.Builder(
+                    HotelCreatorActivity.this
+            );
+            //Set title
+            builder.setTitle("Select Amenities");
+            //Set dialog non cancelable
+            builder.setCancelable(false);
 
-                builder.setMultiChoiceItems(amenitiesArray, selectedAmenity, new DialogInterface.OnMultiChoiceClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+            builder.setMultiChoiceItems(amenitiesArray, selectedAmenity, (dialog, which, isChecked) -> {
+                //Check condition
+                if (isChecked) {
+                    amenitiesList.add(which);
+                    Collections.sort(amenitiesList);
+                } else {
+                    //When checkbox is unchecked, remove from list
+                    amenitiesList.remove((Integer) which);
+                }
+            });
+
+            builder.setPositiveButton("Confirm", (dialog, which) -> {
+                StringBuilder stringBuilder = new StringBuilder();
+
+                if (amenitiesList.isEmpty()){
+                    stringBuilder.append("Add amenities");
+                } else {
+                    for (int i = 0; i < amenitiesList.size(); i++) {
+                        //Concatenate value
+                        stringBuilder.append(amenitiesArray[amenitiesList.get(i)]);
                         //Check condition
-                        if (isChecked) {
-                            amenitiesList.add(which);
-                            Collections.sort(amenitiesList);
-                        } else {
-                            //When checkbox is unchecked, remove from list
-                            amenitiesList.remove((Integer) which);
+                        if (i != amenitiesList.size() - 1) {
+                            stringBuilder.append(", ");
                         }
                     }
-                });
+                }
+                //Set text on text view
+                addAmenitiesBtn.setText(stringBuilder.toString());
+            });
 
-                builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        StringBuilder stringBuilder = new StringBuilder();
+            builder.setNegativeButton("Cancel", (dialog, which) -> {
+                //Dismiss dialog
+                dialog.dismiss();
+            });
 
-                        if (amenitiesList.isEmpty()){
-                            stringBuilder.append("Add amenities");
-                        } else {
-                            for (int i = 0; i < amenitiesList.size(); i++) {
-                                //Concatenate value
-                                stringBuilder.append(amenitiesArray[amenitiesList.get(i)]);
-                                //Check condition
-                                if (i != amenitiesList.size() - 1) {
-                                    stringBuilder.append(", ");
-                                }
-                            }
-                        }
-                        //Set text on text view
-                        addAmenitiesBtn.setText(stringBuilder.toString());
-                    }
-                });
+            builder.setNeutralButton("Clear All", (dialog, which) -> {
+                for (int i = 0; i < selectedAmenity.length; i++) {
+                    //Remove all selection
+                    selectedAmenity[i] = false;
+                    amenitiesList.clear();
+                    addAmenitiesBtn.setText("Add amenities");
+                }
+            });
 
-                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        //Dismiss dialog
-                        dialog.dismiss();
-                    }
-                });
-
-                builder.setNeutralButton("Clear All", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        for (int i = 0; i < selectedAmenity.length; i++) {
-                            //Remove all selection
-                            selectedAmenity[i] = false;
-                            amenitiesList.clear();
-                            addAmenitiesBtn.setText("Add amenities");
-                        }
-                    }
-                });
-
-                builder.show();
-            }
+            builder.show();
         });
     }
 
     public void addressClickListener() {
-        addAddressBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getSupportFragmentManager().beginTransaction()
-                        .add(R.id.hotelCreator, HotelCreateAddressFragment.class, null)
-                        .addToBackStack(null)
-                        .commit();
-            }
-        });
+        addAddressBtn.setOnClickListener(v -> getSupportFragmentManager().beginTransaction()
+                .add(R.id.hotelCreator, HotelCreateAddressFragment.class, null)
+                .addToBackStack(null)
+                .commit());
     }
 
     public void roomsClickListener() {
-        addRoomsBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getSupportFragmentManager().beginTransaction()
-                        .add(R.id.hotelCreator, HotelCreateRoomsFragment.class, null)
-                        .addToBackStack(null)
-                        .commit();
-            }
-        });
+        addRoomsBtn.setOnClickListener(v -> getSupportFragmentManager().beginTransaction()
+                .add(R.id.hotelCreator, HotelCreateRoomsFragment.class, null)
+                .addToBackStack(null)
+                .commit());
     }
 
     public void setCreationFields() {
@@ -203,7 +174,7 @@ public class HotelCreatorActivity extends AppCompatActivity {
     }
 
     public boolean validateHotel() {
-        if (!hotelName.getText().toString().equals("")) {
+        if (!Objects.requireNonNull(hotelName.getText()).toString().equals("")) {
             isHotelNameMade = true;
         }
 
