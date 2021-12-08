@@ -85,20 +85,33 @@ public class HotelViewAdapterBuilder {
     }
 
     /**
+     * Set the list of hotel view models to be reversed
      *
-     * @param reverse
-     * @return
+     * @param reverse Boolean whenever or not to reverse hotel view models
+     * @return HotelViewAdapterBuilder
      */
     public HotelViewAdapterBuilder setReverse(boolean reverse) {
         this.reverse = reverse;
         return this;
     }
 
+    /**
+     * Whenever or not to create an adapter using the user's favourites
+     *
+     * @param useFavourites Boolean
+     * @return HotelViewAdapterBuilder
+     */
     public HotelViewAdapterBuilder useFavourites(boolean useFavourites){
         this.useFavourites = useFavourites;
         return this;
     }
 
+    /**
+     * Set the on favourite click listener
+     *
+     * @param onFavouriteClickListener OnFavouriteClickListener
+     * @return HotelViewAdapterBuilder
+     */
     public HotelViewAdapterBuilder setOnFavouriteClickListener(OnFavouriteClickListener onFavouriteClickListener) {
         this.onFavouriteClickListener = onFavouriteClickListener;
         return this;
