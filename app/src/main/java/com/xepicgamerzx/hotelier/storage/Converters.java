@@ -8,7 +8,6 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.sql.Date;
 import java.time.ZoneId;
 import java.util.ArrayList;
 
@@ -16,6 +15,7 @@ public class Converters {
 
     /**
      * Convert a String to a ZoneId.
+     *
      * @param strZoneID the id of the zone in string format
      * @return the id of the zone in ZoneId format
      */
@@ -26,6 +26,7 @@ public class Converters {
 
     /**
      * Convert a ZoneId to a String.
+     *
      * @param zoneId the id of the zone in ZoneId format
      * @return the id of the zone in string format
      */
@@ -36,6 +37,7 @@ public class Converters {
 
     /**
      * Convert a String to an ArrayList.
+     *
      * @param value the value in string format
      * @return the value in an arraylist
      */
@@ -48,6 +50,7 @@ public class Converters {
 
     /**
      * Convert an ArrayList to a String.
+     *
      * @param list a list of values
      * @return the values in string format
      */
@@ -59,6 +62,7 @@ public class Converters {
 
     /**
      * Convert a Long value to a BigDecimal
+     *
      * @param value the value in long format
      * @return the value in big decimal format
      */
@@ -70,6 +74,7 @@ public class Converters {
 
     /**
      * Convert a BigDecimal to a Long.
+     *
      * @param bigDecimal the value in big decimal format
      * @return the value in long format
      */

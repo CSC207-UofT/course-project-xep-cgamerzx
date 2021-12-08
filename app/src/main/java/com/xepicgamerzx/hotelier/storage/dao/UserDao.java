@@ -15,7 +15,7 @@ public abstract class UserDao implements BaseDao<Void, User> {
     /**
      * Get user with the matching userid and password
      *
-     * @param userId user id of the user
+     * @param userId   user id of the user
      * @param password password of the user
      * @return User with matching credentials
      */

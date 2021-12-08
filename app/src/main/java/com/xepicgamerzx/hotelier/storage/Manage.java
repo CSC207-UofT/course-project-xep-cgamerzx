@@ -13,6 +13,9 @@ import com.xepicgamerzx.hotelier.storage.hotel_reference_managers.RoomAmenitiesC
 import com.xepicgamerzx.hotelier.storage.hotel_reference_managers.RoomBedsCrossManager;
 import com.xepicgamerzx.hotelier.storage.user.UserManager;
 
+/**
+ * Central singleton for all the manager classes
+ */
 public final class Manage {
     private static volatile Manage INSTANCE;
 
@@ -59,16 +62,31 @@ public final class Manage {
         userManager = UserManager.getManager(dbInstance);
     }
 
+    /**
+     * Get the manage instance
+     *
+     * @param application current application
+     * @return Manage instance
+     */
     public static Manage getManager(Application application) {
         if (INSTANCE == null) INSTANCE = new Manage(application);
         return INSTANCE;
     }
 
+    /**
+     * Get the manage instance
+     *
+     * @param dbInstance Hotelier database instance
+     * @return Manage instance
+     */
     public static Manage getManager(HotelierDatabase dbInstance) {
         if (INSTANCE == null) INSTANCE = new Manage(dbInstance);
         return INSTANCE;
     }
 
+    /**
+     * Close all of the managers
+     */
     public void close() {
         INSTANCE = null;
         bedManager.close();

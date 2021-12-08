@@ -9,6 +9,9 @@ import com.xepicgamerzx.hotelier.storage.Manage;
 
 import java.util.ArrayList;
 
+/**
+ * Builder for to get a hotel Id
+ */
 public class HotelIdBuilder {
     private String streetName;
     private String postalCode;

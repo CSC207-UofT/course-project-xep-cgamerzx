@@ -16,6 +16,9 @@ import com.xepicgamerzx.hotelier.storage.user.UserManager;
 
 import java.util.Objects;
 
+/**
+ * Activity for user registration
+ */
 public class RegisterActivity extends AppCompatActivity {
     TextInputEditText userId, password, email;
     TextView errorText;

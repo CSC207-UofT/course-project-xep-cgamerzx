@@ -18,6 +18,9 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Singleton manager for Hotel Room related functions
+ */
 public class RoomManager implements Manager {
     private static volatile RoomManager INSTANCE;
 

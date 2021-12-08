@@ -7,9 +7,10 @@ public class CustomerUser {
 
     /**
      * Create a new CustomerUser.
-     * @param selectedDestination   the destination the user wants to search for
-     * @param selectedDates         the dates the user wants to search for
-     * @param numberOfGuests        the number of guests the user is travelling with
+     *
+     * @param selectedDestination the destination the user wants to search for
+     * @param selectedDates       the dates the user wants to search for
+     * @param numberOfGuests      the number of guests the user is travelling with
      */
     public CustomerUser(String selectedDestination, String selectedDates, String numberOfGuests) {
         this.selectedDestination = selectedDestination;

@@ -3,6 +3,9 @@ package com.xepicgamerzx.hotelier.objects.cross_reference_objects;
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 
+/**
+ * Base cross ref object
+ */
 public abstract class CrossRef {
     @NonNull // required annotation
     @ColumnInfo(index = true)

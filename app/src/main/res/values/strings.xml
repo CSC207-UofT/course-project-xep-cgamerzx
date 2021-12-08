@@ -196,4 +196,7 @@
     <string name="rating_">\"Rating: \"</string>
     <string name="success">Success</string>
     <string name="add_another_room">Add another room</string>
+    <string name="register_today">Register today.</string>
+    <string name="welcome_back">\"Welcome back \"</string>
+    <string name="add_amenities_">Add Amenities</string>
 </resources>

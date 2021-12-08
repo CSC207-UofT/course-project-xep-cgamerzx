@@ -18,7 +18,9 @@ import org.json.JSONException;
 
 import java.util.Objects;
 
-
+/**
+ * Main activity
+ */
 public class MainActivity extends AppCompatActivity {
 
     HotelierDatabase hotelierDatabase;
@@ -44,13 +46,13 @@ public class MainActivity extends AppCompatActivity {
     /**
      * If the user has not signed out previously, sets the user to the previously logged in user.
      */
-    public void setRecentLogin() {
+    private void setRecentLogin() {
         hotelierDatabase = HotelierDatabase.getDatabase(getApplication());
         UserManager um = UserManager.getManager(hotelierDatabase);
         um.setLastLoggedInUser(getApplicationContext());
     }
 
-    public void loadData() {
+    private void loadData() {
         // LOADING DUMMY DATA ON FIRST TIME LOADING APP, CAN PROBABLY USE AN API LATER
         if (hotelierDatabase.hotelDao().getAll().isEmpty()) {
             ReadDummyData readDummyData = new ReadDummyData(getApplication());

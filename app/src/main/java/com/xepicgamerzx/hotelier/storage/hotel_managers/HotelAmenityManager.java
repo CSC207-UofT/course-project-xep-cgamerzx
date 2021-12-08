@@ -96,9 +96,9 @@ public class HotelAmenityManager implements UniqueManager<HotelAmenity, HotelAme
      *
      * @return String array of all of the hotel amenities in the database.
      */
-    public String[] getAllStrArray(){
+    public String[] getAllStrArray() {
         List<String> amenitiesList = new ArrayList<>();
-        for (HotelAmenity amenity : db.hotelAmenityDao().getAll()){
+        for (HotelAmenity amenity : db.hotelAmenityDao().getAll()) {
             amenitiesList.add(amenity.getUniqueId());
         }
         return amenitiesList.toArray(new String[0]);

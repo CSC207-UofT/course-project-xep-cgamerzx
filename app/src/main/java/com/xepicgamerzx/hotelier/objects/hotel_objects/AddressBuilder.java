@@ -14,6 +14,7 @@ public class AddressBuilder {
 
     /**
      * Set the street name of the address.
+     *
      * @param streetName the street name
      * @return current instance of AddressBuilder
      */
@@ -24,6 +25,7 @@ public class AddressBuilder {
 
     /**
      * Set the postal code of the address.
+     *
      * @param postalCode the postal code
      * @return current instance of AddressBuilder
      */
@@ -34,6 +36,7 @@ public class AddressBuilder {
 
     /**
      * Set the street number of the address
+     *
      * @param streetNumber street number
      * @return current instance of AddressBuilder
      */
@@ -44,6 +47,7 @@ public class AddressBuilder {
 
     /**
      * Set the city of the address.
+     *
      * @param city the city
      * @return current instance of AddressBuilder
      */
@@ -54,6 +58,7 @@ public class AddressBuilder {
 
     /**
      * Set the province of the address.
+     *
      * @param province the province
      * @return current instance of AddressBuilder
      */
@@ -64,6 +69,7 @@ public class AddressBuilder {
 
     /**
      * Set the latitude of the address.
+     *
      * @param latitude the latitude
      * @return current instance of AddressBuilder
      */
@@ -74,6 +80,7 @@ public class AddressBuilder {
 
     /**
      * Set the longitude of the address.
+     *
      * @param longitude the longitude
      * @return current instance of AddressBuilder
      */
@@ -84,6 +91,7 @@ public class AddressBuilder {
 
     /**
      * Build this Address.
+     *
      * @return the address
      */
     public Address build() {

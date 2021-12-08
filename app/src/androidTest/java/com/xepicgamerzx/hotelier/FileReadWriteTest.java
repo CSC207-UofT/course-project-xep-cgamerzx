@@ -43,10 +43,4 @@ public class FileReadWriteTest {
         frw.writeData(testData, "file.dat", appContext);
         assertEquals(testData, frw.readData("file.dat", appContext));
     }
-
-    //    @Test
-    //    public void test() throws IOException {
-    //        FileReadWrite fw = new FileReadWrite();
-    //        System.out.println((fw.readFile()));
-    //    }
 }

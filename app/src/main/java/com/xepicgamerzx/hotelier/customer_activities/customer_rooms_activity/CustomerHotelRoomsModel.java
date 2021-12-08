@@ -5,6 +5,9 @@ import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelRoom;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+/**
+ * Customer hotel room view model
+ */
 public class CustomerHotelRoomsModel implements Serializable {
     //private int bedsInRoomCount;
     private final int bedsCount;

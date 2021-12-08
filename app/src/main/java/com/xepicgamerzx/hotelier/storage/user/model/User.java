@@ -11,6 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * User entity
+ */
 @Entity(tableName = "users")
 public class User implements Serializable {
 
@@ -31,9 +34,10 @@ public class User implements Serializable {
 
     /**
      * Create a new User.
-     * @param userName  this user's username
-     * @param password  this user's password
-     * @param email     this user's email address
+     *
+     * @param userName this user's username
+     * @param password this user's password
+     * @param email    this user's email address
      */
     public User(String userName, String password, String email) {
         this.userName = userName;
@@ -91,6 +95,7 @@ public class User implements Serializable {
 
     /**
      * Get a list of the ids of this user's favourite hotels.
+     *
      * @return a list of the user's favourite hotels' ids
      */
     public List<Long> getFavHotelIdsL() {
@@ -99,7 +104,8 @@ public class User implements Serializable {
 
     /**
      * Adds a hotel to a user's favourites.
-     * @param hotelId   the id of the hotel to add to favourites.
+     *
+     * @param hotelId the id of the hotel to add to favourites.
      */
     public void addFavHotel(String hotelId) {
         // Need to compare strings for some reason, look into this, but low priority for now.
@@ -107,9 +113,11 @@ public class User implements Serializable {
             favHotelIds.add(hotelId);
         }
     }
+
     /**
      * Adds a hotel to a user's favourites.
-     * @param hotel   the hotel to add to favourites.
+     *
+     * @param hotel the hotel to add to favourites.
      */
     public void addFavHotel(Hotel hotel) {
         addFavHotel(String.valueOf(hotel.hotelId));
@@ -117,7 +125,8 @@ public class User implements Serializable {
 
     /**
      * Removes a hotel from a user's favourites.
-     * @param hotelId   the id of the hotel to remove from favourites.
+     *
+     * @param hotelId the id of the hotel to remove from favourites.
      */
     public void removeFavHotel(String hotelId) {
         favHotelIds.remove(String.valueOf(hotelId));
@@ -125,7 +134,8 @@ public class User implements Serializable {
 
     /**
      * Removes a hotel from a user's favourites.
-     * @param hotel  the hotel to remove from favourites.
+     *
+     * @param hotel the hotel to remove from favourites.
      */
     public void removeFavHotel(Hotel hotel) {
         removeFavHotel(String.valueOf(hotel.hotelId));

@@ -3,6 +3,9 @@ package com.xepicgamerzx.hotelier.objects.hotel_objects;
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 
+/**
+ * Bed entity
+ */
 @Entity()
 public class Bed extends UniqueEntity {
     public Bed(@NonNull String uniqueId) {

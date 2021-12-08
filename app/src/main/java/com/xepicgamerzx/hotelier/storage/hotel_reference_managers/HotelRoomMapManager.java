@@ -56,11 +56,11 @@ public class HotelRoomMapManager implements Manager {
     /**
      * Generate Map<Hotel, List<HotelRoom>> based on min capacity, location, and schedule
      *
-     * @param capacity  int min capacity
-     * @param startTime long start time of schedule
-     * @param endTime   long end time of schedule
-     * @param centerLat double location latitude
-     * @param centerLon double location longitude
+     * @param capacity   int min capacity
+     * @param startTime  long start time of schedule
+     * @param endTime    long end time of schedule
+     * @param centerLat  double location latitude
+     * @param centerLon  double location longitude
      * @param distanceKm double distance in KM search radius
      * @return Map<Hotel, List < HotelRoom>> generated list of hotel view models
      */
@@ -110,9 +110,9 @@ public class HotelRoomMapManager implements Manager {
     /**
      * Generate Map<Hotel, List<HotelRoom>> based on min capacity and location
      *
-     * @param capacity  int min capacity
-     * @param centerLat double location latitude
-     * @param centerLon double location longitude
+     * @param capacity   int min capacity
+     * @param centerLat  double location latitude
+     * @param centerLon  double location longitude
      * @param distanceKm double distance in KM search radius
      * @return Map<Hotel, List < HotelRoom>> generated list of hotel view models
      */
@@ -152,7 +152,7 @@ public class HotelRoomMapManager implements Manager {
      * @return Map<Hotel, List < HotelRoom>> generated list of hotel view models
      */
     public Map<Hotel, List<HotelRoom>> getAvailableRooms(int capacity, double centerLat, double centerLon) {
-    return getAvailableRooms(capacity, centerLat, centerLon, 50);
+        return getAvailableRooms(capacity, centerLat, centerLon, 50);
     }
 
 
@@ -182,7 +182,7 @@ public class HotelRoomMapManager implements Manager {
      * Get favourites of the user
      *
      * @param user User to get the favourites of
-     * @return Map<Hotel, List<HotelRoom>> hotels and their corresponding room of the user's favourites
+     * @return Map<Hotel, List < HotelRoom>> hotels and their corresponding room of the user's favourites
      */
     public Map<Hotel, List<HotelRoom>> getFavourites(User user) {
         Long[] hotelIds = user.getFavHotelIdsL().toArray(new Long[0]);
@@ -192,7 +192,7 @@ public class HotelRoomMapManager implements Manager {
     /**
      * Get favourites of the currently logged in user.
      *
-     * @return Map<Hotel, List<HotelRoom>> hotels and their corresponding room of the user's favourites
+     * @return Map<Hotel, List < HotelRoom>> hotels and their corresponding room of the user's favourites
      */
     public Map<Hotel, List<HotelRoom>> getFavourites() {
         Long[] hotelIds = userManager.getUser().getFavHotelIdsL().toArray(new Long[0]);

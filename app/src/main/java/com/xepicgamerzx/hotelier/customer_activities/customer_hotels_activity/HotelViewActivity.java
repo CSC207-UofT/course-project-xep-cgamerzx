@@ -17,6 +17,9 @@ import com.xepicgamerzx.hotelier.storage.Manage;
 import java.util.HashMap;
 import java.util.Objects;
 
+/**
+ * Hotel view activity
+ */
 public class HotelViewActivity extends AppCompatActivity {
 
     ImageButton backBtn;
