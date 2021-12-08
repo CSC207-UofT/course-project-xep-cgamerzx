@@ -18,6 +18,9 @@ import com.xepicgamerzx.hotelier.customer_activities.customer_search_activity.ap
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Adapter for destination auto complete
+ */
 public class AutoDestinationAdapter extends ArrayAdapter<DestinationItem> implements Filterable {
     private final OnSearchClick searchCallback;
     PlacesAPI placeApi = new PlacesAPI();

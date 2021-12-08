@@ -18,6 +18,7 @@ public class BedManager implements UniqueManager<Bed, BedSizeEnum> {
 
     /**
      * Create new BedManager.
+     *
      * @param application the application
      */
     private BedManager(Application application) {
@@ -27,6 +28,7 @@ public class BedManager implements UniqueManager<Bed, BedSizeEnum> {
 
     /**
      * Create new BedManager.
+     *
      * @param dbInstance an instance of the database
      */
     private BedManager(HotelierDatabase dbInstance) {

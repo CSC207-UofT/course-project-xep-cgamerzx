@@ -58,6 +58,7 @@ public class UserManager implements com.xepicgamerzx.hotelier.storage.hotel_mana
 
     /**
      * Register a new manager user.
+     *
      * @param user the user to be registered
      */
     public void registerUser(User user) {
@@ -66,9 +67,10 @@ public class UserManager implements com.xepicgamerzx.hotelier.storage.hotel_mana
 
     /**
      * Register a new manager user.
-     * @param userId    the id of the user to be registered
-     * @param password  the password of the user to be registered
-     * @param email     the email address of the user to be registered
+     *
+     * @param userId   the id of the user to be registered
+     * @param password the password of the user to be registered
+     * @param email    the email address of the user to be registered
      */
     public void registerUser(String userId, String password, String email) {
         User user = new User(userId, password, email);
@@ -77,9 +79,10 @@ public class UserManager implements com.xepicgamerzx.hotelier.storage.hotel_mana
 
     /**
      * Logs in a manager user.
-     * @param userIdText    the inputted username
-     * @param passwordText  the inputted password
-     * @param context       the context for the database
+     *
+     * @param userIdText   the inputted username
+     * @param passwordText the inputted password
+     * @param context      the context for the database
      */
     public void login(String userIdText, String passwordText, Context context) {
         User user = userDao.login(userIdText, passwordText);
@@ -89,6 +92,7 @@ public class UserManager implements com.xepicgamerzx.hotelier.storage.hotel_mana
 
     /**
      * Gets all the users of the app.
+     *
      * @return list of users
      */
     public List<User> getAllUsers() {
@@ -98,7 +102,8 @@ public class UserManager implements com.xepicgamerzx.hotelier.storage.hotel_mana
 
     /**
      * Gets the user that was last logged in
-     * @return  the last user that was logged in
+     *
+     * @return the last user that was logged in
      */
     public User getLastLoggedInUser() {
         List<User> users = userDao.getAll();

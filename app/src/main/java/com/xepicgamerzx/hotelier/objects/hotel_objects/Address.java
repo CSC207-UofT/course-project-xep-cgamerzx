@@ -4,6 +4,9 @@ import androidx.annotation.NonNull;
 
 import java.io.Serializable;
 
+/**
+ * Address sub object
+ */
 public class Address implements Serializable {
 
     private final String postalCode;

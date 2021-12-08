@@ -1,6 +1,5 @@
 package com.xepicgamerzx.hotelier.home_page_activities;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -24,7 +23,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-
+/**
+ * Main dashboard fragment
+ */
 public class DashboardFragment extends Fragment {
 
     HotelierDatabase hotelierDatabase;
@@ -50,7 +51,7 @@ public class DashboardFragment extends Fragment {
         return v;
     }
 
-    public void setAllFields(View v) {
+    private void setAllFields(View v) {
         hotelierDatabase = HotelierDatabase.getDatabase(requireActivity().getApplication());
         userManager = UserManager.getManager(hotelierDatabase);
         recentSearches = v.findViewById(R.id.recentSearches);
@@ -62,23 +63,22 @@ public class DashboardFragment extends Fragment {
     }
 
 
-    @SuppressLint("SetTextI18n")
-    public void checkForUser() {
+    private void checkForUser() {
         String username = userManager.getUserName();
         // Add if empty, no user, go sign in.
         if (username != null) {
-            nameField.setText("Welcome back " + username);
+            nameField.setText(getString(R.string.welcome_back) + username);
             recentSearches.setVisibility(View.VISIBLE);
             recentSearchesTxt.setVisibility(View.VISIBLE);
             setRecentSearches();
         } else {
             recentSearches.setVisibility(View.GONE);
             recentSearchesTxt.setVisibility(View.GONE);
-            nameField.setText("Register today.");
+            nameField.setText(R.string.register_today);
         }
     }
 
-    public void setRecentSearches() {
+    private void setRecentSearches() {
         List<String> searchesList = userManager.getRecentSearches();
         Collections.reverse(searchesList);
         String searches;
@@ -90,7 +90,7 @@ public class DashboardFragment extends Fragment {
         recentSearchesTxt.setText(searches);
     }
 
-    public void setHomePageHotels() {
+    private void setHomePageHotels() {
         manage = Manage.getManager(requireActivity().getApplication());
         final HotelViewAdapter hotelsAdapter = new HotelViewAdapterBuilder(
                 requireActivity().getApplication())
@@ -98,7 +98,7 @@ public class DashboardFragment extends Fragment {
         hotelsRecyclerView.setAdapter(hotelsAdapter);
     }
 
-    public TextView getNameField() {
+    private TextView getNameField() {
         View v = getView();
         return Objects.requireNonNull(v).findViewById(R.id.welcomeField);
     }

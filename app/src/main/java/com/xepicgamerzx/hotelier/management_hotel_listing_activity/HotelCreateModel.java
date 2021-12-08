@@ -2,6 +2,9 @@ package com.xepicgamerzx.hotelier.management_hotel_listing_activity;
 
 import java.util.ArrayList;
 
+/**
+ * View model for Hotel Create
+ */
 public class HotelCreateModel {
     private String postalCode;
     private String streetName;

@@ -23,6 +23,9 @@ import com.xepicgamerzx.hotelier.storage.user.UserManager;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * Adapter for hotel view
+ */
 public class HotelViewAdapter extends RecyclerView.Adapter<HotelViewAdapter.HotelViewHolder> {
 
     public List<HotelViewModel> hotels;
@@ -32,7 +35,8 @@ public class HotelViewAdapter extends RecyclerView.Adapter<HotelViewAdapter.Hote
 
     /**
      * Create a new HotelViewAdapter with 1 parameter.
-     * @param hotels    a list of hotels to view
+     *
+     * @param hotels a list of hotels to view
      */
 
     public HotelViewAdapter(List<HotelViewModel> hotels) {
@@ -54,8 +58,9 @@ public class HotelViewAdapter extends RecyclerView.Adapter<HotelViewAdapter.Hote
 
     /**
      * Create a new HotelViewAdapter with 2 parameters.
-     * @param hotels    a list of hotels to view
-     * @param onFavouriteClickListener  OnFavouriteClickListener
+     *
+     * @param hotels                   a list of hotels to view
+     * @param onFavouriteClickListener OnFavouriteClickListener
      */
     public HotelViewAdapter(List<HotelViewModel> hotels, OnFavouriteClickListener
             onFavouriteClickListener) {
@@ -118,7 +123,7 @@ public class HotelViewAdapter extends RecyclerView.Adapter<HotelViewAdapter.Hote
          * Clicking once adds the hotel to your favourites.
          * Clicking again removes it.
          *
-         * @param hotel     the hotel you are viewing
+         * @param hotel the hotel you are viewing
          */
         public void favouritesButtonListener(HotelViewModel hotel) {
             favouritesBtn.setOnClickListener(v -> {

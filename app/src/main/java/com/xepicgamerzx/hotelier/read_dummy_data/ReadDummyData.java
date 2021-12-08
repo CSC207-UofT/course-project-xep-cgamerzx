@@ -26,7 +26,9 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * Class to read and populate the database with dummy data
+ */
 public class ReadDummyData {
 
     Application application;
@@ -79,7 +81,7 @@ public class ReadDummyData {
         }
     }
 
-    public List<HotelRoom> createRoomsInHotel(JSONArray rooms) throws JSONException {
+    private List<HotelRoom> createRoomsInHotel(JSONArray rooms) throws JSONException {
         RoomManager roomManager = RoomManager.getManager(application);
         List<HotelRoom> hotelRooms = new ArrayList<>();
 
@@ -100,7 +102,7 @@ public class ReadDummyData {
         return hotelRooms;
     }
 
-    public void bedsToRoomReference(JSONArray beds, HotelRoom room) throws JSONException {
+    private void bedsToRoomReference(JSONArray beds, HotelRoom room) throws JSONException {
         BedManager bedManager = BedManager.getManager(application);
         RoomBedsCrossManager roomBedsCrossManager = RoomBedsCrossManager.getManager(application);
 
@@ -114,7 +116,7 @@ public class ReadDummyData {
         }
     }
 
-    public Address getAddressFromJsonArray(JSONArray address) throws JSONException {
+    private Address getAddressFromJsonArray(JSONArray address) throws JSONException {
         // There should only be one address so this will iterate once.
         JSONObject address_i = address.getJSONObject(0);
         int streetNum = address_i.getInt("streetNum");
@@ -128,11 +130,11 @@ public class ReadDummyData {
         return new AddressBuilder().setStreetName(streetName).setPostalCode(postalCode).setStreetNumber(String.valueOf(streetNum)).setCity(city).setProvince(province).setLatitude(latitude).setLongitude(longitude).build();
     }
 
-    private void prePopulateHotelAmenities(){
+    private void prePopulateHotelAmenities() {
         HotelAmenitiesEnum[] hotelAmenities = HotelAmenitiesEnum.values();
 
         Manage manage = Manage.getManager(application);
-        for (HotelAmenitiesEnum hotelAmenitiesEnum: hotelAmenities){
+        for (HotelAmenitiesEnum hotelAmenitiesEnum : hotelAmenities) {
             manage.hotelAmenityManager.create(hotelAmenitiesEnum);
         }
     }

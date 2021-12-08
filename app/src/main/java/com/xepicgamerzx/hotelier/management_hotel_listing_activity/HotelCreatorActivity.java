@@ -21,6 +21,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Activity for hotel creation
+ */
 public class HotelCreatorActivity extends AppCompatActivity {
     String text = "Hotel Details:";
     Manage manage;
@@ -52,7 +55,7 @@ public class HotelCreatorActivity extends AppCompatActivity {
         callAllListeners();
     }
 
-    public void callAllListeners() {
+    private void callAllListeners() {
         hotelDetails.setOnClickListener(v -> createHotelInfoDialog());
         backBtn.setOnClickListener(v -> HotelCreatorActivity.super.onBackPressed());
         submitListener();
@@ -61,7 +64,7 @@ public class HotelCreatorActivity extends AppCompatActivity {
         amenitiesClickListener();
     }
 
-    public void submitListener() {
+    private void submitListener() {
         hotelDetails.setOnClickListener(v -> createHotelInfoDialog());
 
         submitBtn.setOnClickListener(v -> {
@@ -91,7 +94,7 @@ public class HotelCreatorActivity extends AppCompatActivity {
         });
     }
 
-    public void amenitiesClickListener() {
+    private void amenitiesClickListener() {
         //Create a dropdown menu to select amenities
         //Initialize selected amenity array
         selectedAmenity = new boolean[amenitiesArray.length];
@@ -154,21 +157,21 @@ public class HotelCreatorActivity extends AppCompatActivity {
         });
     }
 
-    public void addressClickListener() {
+    private void addressClickListener() {
         addAddressBtn.setOnClickListener(v -> getSupportFragmentManager().beginTransaction()
                 .add(R.id.hotelCreator, HotelCreateAddressFragment.class, null)
                 .addToBackStack(null)
                 .commit());
     }
 
-    public void roomsClickListener() {
+    private void roomsClickListener() {
         addRoomsBtn.setOnClickListener(v -> getSupportFragmentManager().beginTransaction()
                 .add(R.id.hotelCreator, HotelCreateRoomsFragment.class, null)
                 .addToBackStack(null)
                 .commit());
     }
 
-    public void setCreationFields() {
+    private void setCreationFields() {
         hotelName = findViewById(R.id.hotelNameInput);
         addAddressBtn = findViewById(R.id.addAddressBtn);
         addRoomsBtn = findViewById(R.id.addRoomsBtn);
@@ -178,15 +181,14 @@ public class HotelCreatorActivity extends AppCompatActivity {
         hotelDetails = findViewById(R.id.hotelDetails);
     }
 
-    public boolean validateHotel() {
+    private boolean validateHotel() {
         if (!Objects.requireNonNull(hotelName.getText()).toString().equals("")) {
             isHotelNameMade = true;
         }
-
         return isAddressMade && isHotelNameMade && isRoomsMade;
     }
 
-    public void createHotelInfoDialog() {
+    private void createHotelInfoDialog() {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         final View hotelInfo = getLayoutInflater().inflate(R.layout.hotel_details_dialog, null);
 
@@ -198,7 +200,7 @@ public class HotelCreatorActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    public ArrayList<String> createAmenities(String[] amenities, ArrayList<Integer> indices) {
+    private ArrayList<String> createAmenities(String[] amenities, ArrayList<Integer> indices) {
         ArrayList<String> hotelAmenities = new ArrayList<>();
 
         for (int i = 0; i < amenitiesList.size(); i++) {

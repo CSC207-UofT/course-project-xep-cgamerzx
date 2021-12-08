@@ -15,7 +15,9 @@ import com.xepicgamerzx.hotelier.R;
 
 import java.util.Objects;
 
-
+/**
+ * Fragment for displaying maps
+ */
 public class MapsFragment extends Fragment {
     double latitude;
     double longitude;
@@ -39,7 +41,7 @@ public class MapsFragment extends Fragment {
         return v;
     }
 
-    public void setMap(SupportMapFragment supportMapFragment, double latitude, double longitude) {
+    private void setMap(SupportMapFragment supportMapFragment, double latitude, double longitude) {
         // Async map
         Objects.requireNonNull(supportMapFragment).getMapAsync(googleMap -> {
             if (latitude != 0 && longitude != 0) {

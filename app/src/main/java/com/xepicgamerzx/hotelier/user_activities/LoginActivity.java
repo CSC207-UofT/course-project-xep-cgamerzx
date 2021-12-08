@@ -14,6 +14,9 @@ import com.xepicgamerzx.hotelier.storage.Manage;
 
 import java.util.Objects;
 
+/**
+ * Activity for user login
+ */
 public class LoginActivity extends AppCompatActivity {
     TextInputEditText userId, password;
     Button loginBtn;

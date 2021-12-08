@@ -2,8 +2,8 @@ package com.xepicgamerzx.hotelier.storage.hotel_managers;
 
 import android.app.Application;
 
-import com.xepicgamerzx.hotelier.objects.hotel_objects.RoomAmenitiesEnum;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelRoom;
+import com.xepicgamerzx.hotelier.objects.hotel_objects.RoomAmenitiesEnum;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.RoomAmenity;
 import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
 import com.xepicgamerzx.hotelier.storage.dao.RoomAmenitiesCrossDao;

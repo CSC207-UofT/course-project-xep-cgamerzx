@@ -28,6 +28,7 @@ public class HotelViewModel implements Serializable {
 
     /**
      * Create a new HotelViewModel
+     *
      * @param name          name of the hotel
      * @param address       address of the hotel
      * @param priceRange    price range

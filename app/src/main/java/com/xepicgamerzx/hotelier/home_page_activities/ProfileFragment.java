@@ -18,6 +18,9 @@ import com.xepicgamerzx.hotelier.storage.user.UserManager;
 import com.xepicgamerzx.hotelier.user_activities.LoginActivity;
 import com.xepicgamerzx.hotelier.user_activities.RegisterActivity;
 
+/**
+ * Fragment for user profile
+ */
 public class ProfileFragment extends Fragment {
     Button registerBtn;
     Button login;
@@ -47,7 +50,7 @@ public class ProfileFragment extends Fragment {
         return v;
     }
 
-    public void setAllFields(View v) {
+    private void setAllFields(View v) {
         registerBtn = v.findViewById(R.id.toRegisterActivBtn);
         login = v.findViewById(R.id.toLoginActivBtn);
         signOut = v.findViewById(R.id.signOutBtn);
@@ -58,7 +61,7 @@ public class ProfileFragment extends Fragment {
         signedOutTxt = v.findViewById(R.id.isSignedIn);
     }
 
-    public void callAllListeners() {
+    private void callAllListeners() {
         loginListener();
         registerClickListener();
         signOutClickListener();
@@ -66,22 +69,22 @@ public class ProfileFragment extends Fragment {
         listHotel.setOnClickListener(v1 -> startActivity(new Intent(getActivity(), HotelCreatorActivity.class)));
     }
 
-    public void loginListener() {
+    private void loginListener() {
         login.setOnClickListener(v -> startActivity(new Intent(getActivity(), LoginActivity.class)));
     }
 
-    public void registerClickListener() {
+    private void registerClickListener() {
         registerBtn.setOnClickListener(v -> startActivity(new Intent(getActivity(), RegisterActivity.class)));
     }
 
-    public void signOutClickListener() {
+    private void signOutClickListener() {
         signOut.setOnClickListener(v -> {
             um.signOut(getContext());
             setProfileVisibility();
         });
     }
 
-    public void setProfileVisibility() {
+    private void setProfileVisibility() {
         String username = um.getUserName();
 
         // If a user is signed in ...

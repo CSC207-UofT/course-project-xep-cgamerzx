@@ -13,6 +13,9 @@ import java.time.ZoneId;
 import java.util.Locale;
 import java.util.Objects;
 
+/**
+ * Hotel room entity
+ */
 @Entity
 public class HotelRoom extends NonUniqueEntity implements Serializable {
     @PrimaryKey(autoGenerate = true)
@@ -96,6 +99,7 @@ public class HotelRoom extends NonUniqueEntity implements Serializable {
 
     /**
      * toString method
+     *
      * @return a string for a hotel room
      */
     @Override

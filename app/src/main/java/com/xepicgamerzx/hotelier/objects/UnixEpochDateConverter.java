@@ -8,8 +8,10 @@ import java.time.ZonedDateTime;
 import java.time.format.TextStyle;
 import java.util.Locale;
 
+/**
+ * Converter for unix epoch time
+ */
 public class UnixEpochDateConverter {
-    // Epoch to local date
 
     public static String epochToReadable(long date1, long date2) {
 

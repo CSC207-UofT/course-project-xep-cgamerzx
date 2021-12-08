@@ -6,6 +6,9 @@ import androidx.room.Entity;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.Bed;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelRoom;
 
+/**
+ * Cross-reference entity for Hotel Room and Beds
+ */
 @Entity(primaryKeys = {"roomId", "uniqueId"}, inheritSuperIndices = true)
 public class RoomBedsCrossRef extends CrossRef {
     public long roomId;
@@ -13,9 +16,10 @@ public class RoomBedsCrossRef extends CrossRef {
 
     /**
      * Create a new RoomBedsCrossRef.
-     * @param roomId    the id of the room we are cross-referencing
-     * @param uniqueId  the unique id of the bed we are cross-referencing
-     * @param bedCount  the number of beds
+     *
+     * @param roomId   the id of the room we are cross-referencing
+     * @param uniqueId the unique id of the bed we are cross-referencing
+     * @param bedCount the number of beds
      */
     public RoomBedsCrossRef(long roomId, @NonNull String uniqueId, int bedCount) {
         this.roomId = roomId;
@@ -25,6 +29,7 @@ public class RoomBedsCrossRef extends CrossRef {
 
     /**
      * Create a new RoomBedsCrossRef.
+     *
      * @param hotelRoom the hotel room we are cross-referencing
      * @param bed       the bed we are cross-referencing
      * @param bedCount  the number of beds

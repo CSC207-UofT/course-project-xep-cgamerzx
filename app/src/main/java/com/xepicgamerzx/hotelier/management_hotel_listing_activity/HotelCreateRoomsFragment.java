@@ -22,6 +22,9 @@ import java.math.BigDecimal;
 import java.time.ZoneId;
 import java.util.Objects;
 
+/**
+ * Fragment for hotel room creation
+ */
 public class HotelCreateRoomsFragment extends Fragment {
     Long startDate;
     Long endDate;
@@ -60,7 +63,7 @@ public class HotelCreateRoomsFragment extends Fragment {
         return v;
     }
 
-    public void bedSizeChipsListener(View v) {
+    private void bedSizeChipsListener(View v) {
         chipGroup.setOnCheckedChangeListener((group, checkedId) -> {
             Chip chip = v.findViewById(checkedId);
 
@@ -73,7 +76,7 @@ public class HotelCreateRoomsFragment extends Fragment {
         });
     }
 
-    public void saveRoomListener() {
+    private void saveRoomListener() {
         saveRoom.setOnClickListener(v12 -> {
             HotelCreatorActivity activity = (HotelCreatorActivity) getActivity();
             String stringErrorMess = validateRoomInputs();
@@ -100,7 +103,7 @@ public class HotelCreateRoomsFragment extends Fragment {
         });
     }
 
-    public void buildDateSelection() {
+    private void buildDateSelection() {
         MaterialDatePicker.Builder<Pair<Long, Long>> builder = MaterialDatePicker.Builder.dateRangePicker();
         builder.setTitleText("SELECT A CHECK IN AND CHECKOUT DATE");
         final MaterialDatePicker<Pair<Long, Long>> materialDatePicker = builder.build();
@@ -117,7 +120,7 @@ public class HotelCreateRoomsFragment extends Fragment {
         });
     }
 
-    public void setRoomFields(View v) {
+    private void setRoomFields(View v) {
         zoneId = ZoneId.systemDefault();
         schedule = v.findViewById(R.id.setScheduleBtn);
         capacity = v.findViewById(R.id.roomCapacity);
@@ -128,7 +131,7 @@ public class HotelCreateRoomsFragment extends Fragment {
         closeBtn = v.findViewById(R.id.closeBtn);
     }
 
-    public String validateRoomInputs() {
+    private String validateRoomInputs() {
         String s = "";
         if (!(Objects.requireNonNull(capacity.getText()).toString().matches("\\d+") &&
                 Objects.requireNonNull(totalBeds.getText()).toString().matches("\\d+") &&

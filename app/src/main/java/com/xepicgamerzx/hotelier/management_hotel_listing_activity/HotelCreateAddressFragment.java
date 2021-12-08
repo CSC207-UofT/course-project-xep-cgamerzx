@@ -15,6 +15,9 @@ import com.xepicgamerzx.hotelier.R;
 
 import java.util.Objects;
 
+/**
+ * Fragment for address submission
+ */
 public class HotelCreateAddressFragment extends Fragment {
 
     TextInputEditText streetNum, streetName, city, province, postalCode, longLat;
@@ -48,7 +51,7 @@ public class HotelCreateAddressFragment extends Fragment {
         return v;
     }
 
-    public void validAddressBuilder(String validatedMessage) {
+    private void validAddressBuilder(String validatedMessage) {
         HotelCreatorActivity activity = (HotelCreatorActivity) getActivity();
 
         if (!validatedMessage.equals("")) {
@@ -75,7 +78,7 @@ public class HotelCreateAddressFragment extends Fragment {
         }
     }
 
-    public void setAddressFields(View v) {
+    private void setAddressFields(View v) {
         streetNum = v.findViewById(R.id.streetNumInp);
         streetName = v.findViewById(R.id.streetNameInp);
         city = v.findViewById(R.id.cityInp);
@@ -86,7 +89,7 @@ public class HotelCreateAddressFragment extends Fragment {
         saveBtn = v.findViewById(R.id.saveAddressBtn);
     }
 
-    public String validateInput() {
+    private String validateInput() {
         String s = "";
         if (!Objects.requireNonNull(streetNum.getText()).toString().matches("\\d+") ||
                 Objects.requireNonNull(postalCode.getText()).toString().equals("") ||

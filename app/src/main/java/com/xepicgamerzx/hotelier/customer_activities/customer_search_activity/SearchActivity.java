@@ -21,6 +21,9 @@ import com.xepicgamerzx.hotelier.storage.user.UserManager;
 import java.util.HashMap;
 import java.util.Objects;
 
+/**
+ * Activity for hotel searching
+ */
 public class SearchActivity extends AppCompatActivity implements OnSearchClick {
     int numberOfGuests = 1;
     DestinationItem destinationItem;
@@ -43,7 +46,7 @@ public class SearchActivity extends AppCompatActivity implements OnSearchClick {
         callAllListeners();
     }
 
-    public void callAllListeners() {
+    private void callAllListeners() {
         dateSelectorListeners();
         editGuestsListeners();
         searchListeners();
@@ -51,7 +54,7 @@ public class SearchActivity extends AppCompatActivity implements OnSearchClick {
     }
 
 
-    public void setAllFields() {
+    private void setAllFields() {
         editText = findViewById(R.id.selectDestination);
         adapter = new AutoDestinationAdapter(getApplicationContext(), this);
         backBtn = findViewById(R.id.backBtn);
@@ -63,11 +66,11 @@ public class SearchActivity extends AppCompatActivity implements OnSearchClick {
         editText.setAdapter(adapter);
     }
 
-    public void backOnClickListener() {
+    private void backOnClickListener() {
         backBtn.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(), MainActivity.class)));
     }
 
-    public void searchListeners() {
+    private void searchListeners() {
         searchBtn.setOnClickListener(v -> {
             Thread thread = new Thread(() -> {
                 HashMap<String, Object> searchData = getUserSearchData();
@@ -79,7 +82,7 @@ public class SearchActivity extends AppCompatActivity implements OnSearchClick {
         });
     }
 
-    public void addRecentSearches(HashMap<String, Object> searchData) {
+    private void addRecentSearches(HashMap<String, Object> searchData) {
         if (searchData.containsKey("city")) {
             userManager.setLastLoggedInUser(getApplicationContext());
             if (userManager.isLoggedIn()) {
@@ -89,7 +92,7 @@ public class SearchActivity extends AppCompatActivity implements OnSearchClick {
         }
     }
 
-    public HashMap<String, Object> getUserSearchData() {
+    private HashMap<String, Object> getUserSearchData() {
         HashMap<String, Object> searchData = new HashMap<>();
         HashMap<String, Double> coords;
         Double lng = 0D, lat = 0D;
@@ -126,7 +129,7 @@ public class SearchActivity extends AppCompatActivity implements OnSearchClick {
         return searchData;
     }
 
-    public void dateSelectorListeners() {
+    private void dateSelectorListeners() {
         MaterialDatePicker.Builder<Pair<Long, Long>> builder = MaterialDatePicker.Builder.dateRangePicker();
         builder.setTitleText("SELECT A CHECK IN AND CHECKOUT DATE");
         final MaterialDatePicker<Pair<Long, Long>> materialDatePicker = builder.build();
@@ -142,7 +145,7 @@ public class SearchActivity extends AppCompatActivity implements OnSearchClick {
         });
     }
 
-    public void editGuestsListeners() {
+    private void editGuestsListeners() {
         addGuestBtn.setOnClickListener(v -> {
             addGuests();
             numGuests.setText(String.format(Locale, "%d", numberOfGuests));
@@ -154,11 +157,11 @@ public class SearchActivity extends AppCompatActivity implements OnSearchClick {
         });
     }
 
-    public void addGuests() {
+    private void addGuests() {
         this.numberOfGuests += 1;
     }
 
-    public void minusGuests() {
+    private void minusGuests() {
         if (this.numberOfGuests != 1) {
             this.numberOfGuests -= 1;
         }

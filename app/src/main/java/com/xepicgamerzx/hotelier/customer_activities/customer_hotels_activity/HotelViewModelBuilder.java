@@ -21,6 +21,7 @@ public class HotelViewModelBuilder {
 
     /**
      * Set the name of the hotel view model.
+     *
      * @param name the hotel's name
      * @return current instance of HotelViewModelBuilder
      */
@@ -31,6 +32,7 @@ public class HotelViewModelBuilder {
 
     /**
      * Set the address of the hotel view model.
+     *
      * @param address the hotel's address
      * @return current instance of HotelViewModelBuilder
      */
@@ -41,6 +43,7 @@ public class HotelViewModelBuilder {
 
     /**
      * Set the price range of the hotel view model.
+     *
      * @param priceRange the hotel's price range
      * @return current instance of HotelViewModelBuilder
      */
@@ -51,6 +54,7 @@ public class HotelViewModelBuilder {
 
     /**
      * Set the number of rooms of the hotel view model.
+     *
      * @param numberOfRooms the number of rooms in the hotel
      * @return current instance of HotelViewModelBuilder
      */
@@ -61,6 +65,7 @@ public class HotelViewModelBuilder {
 
     /**
      * Set the hotel of the hotel view model.
+     *
      * @param hotelId the hotel's id
      * @return current instance of HotelViewModelBuilder
      */
@@ -71,6 +76,7 @@ public class HotelViewModelBuilder {
 
     /**
      * Set the rooms in the hotel view model.
+     *
      * @param rooms the rooms in the hotel
      * @return current instance of HotelViewModelBuilder
      */
@@ -81,6 +87,7 @@ public class HotelViewModelBuilder {
 
     /**
      * Set the latitude of the hotel view model.
+     *
      * @param latitude the hotel's latitude
      * @return current instance of HotelViewModelBuilder
      */
@@ -91,6 +98,7 @@ public class HotelViewModelBuilder {
 
     /**
      * Set the longitude of the hotel view model.
+     *
      * @param longitude the hotel's longitude
      * @return current instance of HotelViewModelBuilder
      */
@@ -101,6 +109,7 @@ public class HotelViewModelBuilder {
 
     /**
      * Set the star class of the hotel view model.
+     *
      * @param hotelStar number of stars the hotel has
      * @return current instance of HotelViewModelBuilder
      */
@@ -111,6 +120,7 @@ public class HotelViewModelBuilder {
 
     /**
      * Create a hotel view model.
+     *
      * @return the hotel view model.
      */
     public HotelViewModel createHotelViewModel() {

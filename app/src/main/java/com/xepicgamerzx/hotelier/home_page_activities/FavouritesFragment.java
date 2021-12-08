@@ -19,7 +19,9 @@ import com.xepicgamerzx.hotelier.storage.user.UserManager;
 
 import java.util.List;
 
-
+/**
+ * Favourites fragment
+ */
 public class FavouritesFragment extends Fragment implements OnFavouriteClickListener {
     List<HotelViewModel> hotelsView;
     HotelViewAdapter hotelsAdapter;
@@ -44,7 +46,7 @@ public class FavouritesFragment extends Fragment implements OnFavouriteClickList
         return v;
     }
 
-    public void setAllFields(View v) {
+    private void setAllFields(View v) {
         hotelsRecyclerView = v.findViewById(R.id.favouritesView);
         manage = Manage.getManager(requireActivity().getApplication());
         hotelierDatabase = HotelierDatabase.getDatabase(v.getContext());
@@ -53,7 +55,7 @@ public class FavouritesFragment extends Fragment implements OnFavouriteClickList
         signedOutTxt = v.findViewById(R.id.isSignedIn);
     }
 
-    public void setProfileVisibility() {
+    private void setProfileVisibility() {
         if (userManager.isLoggedIn()) {
             System.out.println("Logged in");
             setRecyclerView();
@@ -63,7 +65,7 @@ public class FavouritesFragment extends Fragment implements OnFavouriteClickList
         }
     }
 
-    public void setRecyclerView() {
+    private void setRecyclerView() {
         hotelsAdapter = new HotelViewAdapterBuilder(requireActivity().getApplication())
                 .useFavourites(true)
                 .setReverse(true)
@@ -76,7 +78,7 @@ public class FavouritesFragment extends Fragment implements OnFavouriteClickList
     /**
      * Clicking favourite on the user's favourites removes it from their favourites list.
      *
-     * @param position  position of the item in the user's favourites
+     * @param position position of the item in the user's favourites
      */
     @Override
     public void onFavouriteClick(int position) {

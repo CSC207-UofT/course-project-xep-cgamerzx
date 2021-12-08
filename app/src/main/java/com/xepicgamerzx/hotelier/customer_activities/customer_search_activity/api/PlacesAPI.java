@@ -13,6 +13,9 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * Places autocompletion API usage
+ */
 public class PlacesAPI {
 
     public ArrayList<DestinationItem> autoComplete(String input) {

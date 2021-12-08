@@ -15,7 +15,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+/**
+ * Manager for hotel room view model
+ */
 public class HotelRoomModelManager {
+    /**
+     * @param hotelRooms
+     * @param application
+     * @return
+     */
     public static List<CustomerHotelRoomsModel> getHotelViewModelList(List<HotelRoom> hotelRooms, Application application) {
         List<CustomerHotelRoomsModel> hotelRoomsView = new ArrayList<>();
         RoomBedsCrossManager roomBedsCrossManager = RoomBedsCrossManager.getManager(application);
@@ -45,6 +53,13 @@ public class HotelRoomModelManager {
         return hotelRoomsView;
     }
 
+    /**
+     * @param hotelViewModel
+     * @param application
+     * @param userStartDate
+     * @param userEndDate
+     * @return
+     */
     public static CustomerHotelRoomsAdapter getAdapterRooms(HotelViewModel hotelViewModel, Application application, @Nullable Long userStartDate, @Nullable Long userEndDate) {
         List<HotelRoom> rooms;
 

@@ -64,8 +64,6 @@ public class CustomerHotelRoomsAdapter extends RecyclerView.Adapter<CustomerHote
 
         @SuppressLint("SetTextI18n")
         public void bindRoom(CustomerHotelRoomsModel hotelRoomModel) {
-
-
             bedsInRoom.setText("Beds: " + hotelRoomModel.getBedsCount());
             bedSizesInRoom.setText("Sizes: " + hotelRoomModel.getBedTypes());
             hotelRoomCapacity.setText("Capacity: " + hotelRoomModel.getCapacity());
@@ -73,9 +71,7 @@ public class CustomerHotelRoomsAdapter extends RecyclerView.Adapter<CustomerHote
             roomSchedule.setText("Schedule: " + hotelRoomModel.getRoomAvailability());
 
             hotelRoomsLayout.setOnClickListener(v -> {
-                System.out.println("hi");
                 // can add logic for booking here
-                //v.getContext().startActivity(new Intent(v.getContext(), CustomerHotelRoomsActivity.class).putExtra("Hotel Room", hotelRoom));
             });
 
         }

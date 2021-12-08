@@ -10,6 +10,9 @@ import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelRoom;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Data access object for mappings between Hotel and HotelRoom
+ */
 @Dao
 public abstract class HotelRoomMapDao {
     /**

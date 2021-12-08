@@ -15,6 +15,9 @@ import com.xepicgamerzx.hotelier.customer_activities.maps_fragment.MapsFragment;
 import java.util.HashMap;
 import java.util.Objects;
 
+/**
+ * Activity for customer hotel rooms
+ */
 public class CustomerHotelRoomsActivity extends AppCompatActivity {
 
     HashMap<String, Object> hotelData = new HashMap<>();
@@ -49,7 +52,7 @@ public class CustomerHotelRoomsActivity extends AppCompatActivity {
         }
     }
 
-    public void setRoomViewText(HotelViewModel hotel) {
+    private void setRoomViewText(HotelViewModel hotel) {
         String hotelAddressStr = "Address: " + hotel.getAddress();
         String hotelRatingStr = "Rating: " + hotel.getHotelStar() + " Stars";
 
@@ -58,7 +61,7 @@ public class CustomerHotelRoomsActivity extends AppCompatActivity {
         hotelRating.setText(hotelRatingStr);
     }
 
-    public void sendCoordToMapFragment(HotelViewModel hotel) {
+    private void sendCoordToMapFragment(HotelViewModel hotel) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager()
                 .beginTransaction();
         MapsFragment fragInfo = new MapsFragment();
