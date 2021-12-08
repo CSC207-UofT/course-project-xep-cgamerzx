@@ -93,7 +93,7 @@ public class User implements Serializable {
     }
 
     public void removeFavHotel(String hotelId) {
-        favHotelIds.remove(hotelId);
+        favHotelIds.remove(String.valueOf(hotelId));
     }
 
     public void removeFavHotel(Hotel hotel) {
