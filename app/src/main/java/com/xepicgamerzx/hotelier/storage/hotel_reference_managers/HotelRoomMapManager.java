@@ -6,8 +6,8 @@ import android.util.Log;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.Hotel;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelRoom;
 import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
-import com.xepicgamerzx.hotelier.storage.Manage;
 import com.xepicgamerzx.hotelier.storage.hotel_managers.Manager;
+import com.xepicgamerzx.hotelier.storage.user.UserManager;
 import com.xepicgamerzx.hotelier.storage.user.model.User;
 
 import java.util.HashMap;
@@ -18,16 +18,16 @@ public class HotelRoomMapManager implements Manager {
     private static volatile HotelRoomMapManager INSTANCE;
 
     private final HotelierDatabase db;
-    private final Manage manage;
+    private final UserManager userManager;
 
     private HotelRoomMapManager(Application application) {
         db = HotelierDatabase.getDatabase(application);
-        manage = Manage.getManager(application);
+        userManager = UserManager.getManager(application);
     }
 
     private HotelRoomMapManager(HotelierDatabase dbInstance) {
         db = dbInstance;
-        manage = Manage.getManager(dbInstance);
+        userManager = UserManager.getManager(dbInstance);
     }
 
     public static HotelRoomMapManager getManager(Application application) {
@@ -155,7 +155,7 @@ public class HotelRoomMapManager implements Manager {
     }
 
     public Map<Hotel, List<HotelRoom>> getFavourites(){
-        Long[] hotelIds = manage.userManager.getUser().getFavHotelIdsL().toArray(new Long[0]);
+        Long[] hotelIds = userManager.getUser().getFavHotelIdsL().toArray(new Long[0]);
         return db.hotelRoomMapDao().getHotelWithId(hotelIds);
     }
 
