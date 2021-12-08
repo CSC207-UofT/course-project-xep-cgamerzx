@@ -21,7 +21,6 @@ import java.util.List;
 public class AutoDestinationAdapter extends ArrayAdapter<DestinationItem> implements Filterable {
     private final OnSearchClick searchCallback;
     PlacesAPI placeApi = new PlacesAPI();
-    Context context;
     // Search filter logic
     private final Filter destinationFilter = new Filter() {
         /**
@@ -59,9 +58,10 @@ public class AutoDestinationAdapter extends ArrayAdapter<DestinationItem> implem
         }
 
         /**
+         * Convert resulting destination to character sequence
          *
          * @param resultValue the string that is placed in the search bar when selected.
-         * @return
+         * @return CharSequence of destination
          */
         @Override
         public CharSequence convertResultToString(Object resultValue) {
@@ -72,6 +72,7 @@ public class AutoDestinationAdapter extends ArrayAdapter<DestinationItem> implem
             return ((DestinationItem) resultValue).getCityStateCountry();
         }
     };
+    Context context;
 
     public AutoDestinationAdapter(@NonNull Context context, OnSearchClick listener) {
         super(context, 0);
