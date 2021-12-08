@@ -116,7 +116,7 @@
             android:layout_height="65dp"
             android:layout_marginStart="46dp"
             android:textColorHint="@color/white"
-            android:text="Add Amenities"
+            android:text="@string/add_amenities_"
             android:layout_below="@+id/addRoomsBtn"
             android:backgroundTint="@color/background_secondary"
             app:boxStrokeColor="@color/white"
@@ -127,7 +127,7 @@
             android:layout_marginTop="20dp"
             android:fontFamily="@font/inter_regular"
             android:textSize="18sp"
-            android:gravity="left|center_vertical"
+            android:gravity="start|center_vertical"
             android:drawableEnd="@android:drawable/arrow_down_float">
         </com.google.android.material.button.MaterialButton>
 
