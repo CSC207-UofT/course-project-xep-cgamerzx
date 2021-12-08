@@ -131,7 +131,7 @@ Megan: {[#39](https://github.com/CSC207-UofT/course-project-xep-cgamerzx/pull/39
 
 Veronica: 
 
-Wei: 
+Wei: {[#68](https://github.com/CSC207-UofT/course-project-xep-cgamerzx/pull/68)} This pull request contains my commits. I helped implement the favourites feature. This includes code in FavouritesFragment for the display of the favourites as well as saving to favourites on the click of the favourites icon.
 
 Thomas: {[#71](https://github.com/CSC207-UofT/course-project-xep-cgamerzx/pull/71)} I added a feature to add amenities to the hotel making sure that my code was free of code smells. I implemented a checker for a strong password in accordance to accessibility principles.
 
