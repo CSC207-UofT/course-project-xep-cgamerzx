@@ -56,8 +56,9 @@ public class HotelViewActivity extends AppCompatActivity {
             Long endDate = (map.containsKey("endDate")) ? (Long) map.get("endDate") : null;
 
             String guests = (String) map.get("guests");
-            String str = guests + R.string._guests;
+            String str = guests + " Guests";
             userGuests.setText(str);
+
             int minCapacity = (guests != null) ? Integer.parseInt(guests) : 1;
 
             if (endDate != null && startDate != null) {

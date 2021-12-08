@@ -50,8 +50,8 @@ public class CustomerHotelRoomsActivity extends AppCompatActivity {
     }
 
     public void setRoomViewText(HotelViewModel hotel) {
-        String hotelAddressStr = getString(R.string.address_) + hotel.getAddress();
-        String hotelRatingStr = getString(R.string.rating_) + hotel.getHotelStar() + " Stars";
+        String hotelAddressStr = "Address: " + hotel.getAddress();
+        String hotelRatingStr = "Rating: " + hotel.getHotelStar() + " Stars";
 
         descNameText.setText(hotel.getName());
         hotelAddress.setText(hotelAddressStr);
