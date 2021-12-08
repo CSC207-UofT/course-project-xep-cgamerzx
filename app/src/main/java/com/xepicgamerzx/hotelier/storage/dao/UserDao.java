@@ -13,11 +13,11 @@ import java.util.List;
 @Dao
 public abstract class UserDao implements BaseDao<Void, User> {
     /**
-     * TODO
+     * Get user with the matching userid and password
      *
-     * @param userId
-     * @param password
-     * @return
+     * @param userId user id of the user
+     * @param password password of the user
+     * @return User with matching credentials
      */
     @Query("SELECT * from users where userId=(:userId) and password=(:password)")
     public abstract User login(String userId, String password);

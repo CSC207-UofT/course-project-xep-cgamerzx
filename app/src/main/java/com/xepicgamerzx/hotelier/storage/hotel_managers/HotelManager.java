@@ -7,16 +7,14 @@ import androidx.annotation.NonNull;
 
 import com.xepicgamerzx.hotelier.objects.hotel_objects.Address;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.Hotel;
-import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelAmenity;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelRoom;
 import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
 import com.xepicgamerzx.hotelier.storage.dao.HotelDao;
-import com.xepicgamerzx.hotelier.storage.user.model.User;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 
 /**
  * A class to manage all the hotels in the database.
@@ -27,7 +25,6 @@ public class HotelManager implements Manager {
     private final HotelierDatabase db;
     private final HotelDao hotelDao;
     private final RoomManager roomManager;
-    //private final HotelAmenityManager amenityManager;
 
     private HotelManager(Application application) {
         db = HotelierDatabase.getDatabase(application);
@@ -105,10 +102,10 @@ public class HotelManager implements Manager {
      * @return Hotel object created.
      */
     @NonNull
-    public Hotel createHotel(String name, Address address, int starClass, List<HotelRoom> hotelRooms, List<HotelAmenity> hotelAmenities) {
+    public Hotel createHotel(String name, Address address, int starClass, List<Long> hotelRooms, List<String> hotelAmenities) {
         Hotel hotel = createHotel(name, address, starClass);
 
-        for (HotelRoom hotelRoom : hotelRooms) {
+        for (long hotelRoom : hotelRooms) {
             roomManager.setHotelID(hotel, hotelRoom);
         }
 
@@ -201,21 +198,6 @@ public class HotelManager implements Manager {
         }
         Log.e("Hotel Manager", "Failed to generate location data");
         return null;
-    }
-
-    public List<Hotel> getFavouriteHotels(User user) {
-        ArrayList<Hotel> favourites = new ArrayList<>();
-        List<Hotel> hotels = hotelDao.getAll();
-
-        List<String> favHotelIds = user.getFavHotelIds();
-        System.out.println(favHotelIds);
-
-        for (Hotel hotel : hotels) {
-            if (favHotelIds.contains(String.valueOf(hotel.hotelId))) {
-                favourites.add(hotel);
-            }
-        }
-        return favourites;
     }
 
     /**

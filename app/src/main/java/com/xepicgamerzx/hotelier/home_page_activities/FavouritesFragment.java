@@ -65,8 +65,11 @@ public class FavouritesFragment extends Fragment implements OnFavouriteClickList
 
     public void setRecyclerView() {
         hotelsAdapter = new HotelViewAdapterBuilder(requireActivity().getApplication())
+                .useFavourites(true)
                 .setReverse(true)
-                .setOnFavouriteClickListener(this).build();
+                .setOnFavouriteClickListener(this)
+                .build();
+        hotelsView = hotelsAdapter.hotels;
         hotelsRecyclerView.setAdapter(hotelsAdapter);
     }
 

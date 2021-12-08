@@ -67,6 +67,20 @@ public class RoomBedsCrossManager implements CrossManager<RoomBedsCrossRef, Hote
     }
 
     /**
+     * Create and insert relationship between HotelRoom and Bed into RoomBedsCrossRef database.
+     *
+     * @param hotelRoom long hotel room Id being assigned to uniqueEntity.
+     * @param bed       String bed id being assigned to nonUniqueEntity.
+     * @param bedCount  int number of beds associated with hotelRoom.
+     * @return RoomBedsCrossRef created.
+     */
+    public RoomBedsCrossRef createRelationship(long hotelRoom, String bed, int bedCount) {
+        RoomBedsCrossRef crossRef = new RoomBedsCrossRef(hotelRoom, bed, bedCount);
+        roomBedsCrossDao.insert(crossRef);
+        return crossRef;
+    }
+
+    /**
      * Get all HotelRoom associated with Bed.
      *
      * @param bed Bed key to search with.

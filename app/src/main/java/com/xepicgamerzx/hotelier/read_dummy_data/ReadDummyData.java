@@ -6,7 +6,9 @@ import android.content.Context;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.Address;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.AddressBuilder;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.Bed;
+import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelAmenitiesEnum;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelRoom;
+import com.xepicgamerzx.hotelier.storage.Manage;
 import com.xepicgamerzx.hotelier.storage.hotel_managers.BedManager;
 import com.xepicgamerzx.hotelier.storage.hotel_managers.HotelManager;
 import com.xepicgamerzx.hotelier.storage.hotel_managers.RoomManager;
@@ -31,10 +33,11 @@ public class ReadDummyData {
 
     public ReadDummyData(Application application) {
         this.application = application;
+        prePopulateHotelAmenities();
     }
 
     public String loadJsonFromAsset(Context context) {
-        String json = null;
+        String json;
         try {
             InputStream is = context.getAssets().open("dummy_data.json");
 
@@ -123,5 +126,14 @@ public class ReadDummyData {
         double latitude = address_i.getDouble("latitude");
 
         return new AddressBuilder().setStreetName(streetName).setPostalCode(postalCode).setStreetNumber(String.valueOf(streetNum)).setCity(city).setProvince(province).setLatitude(latitude).setLongitude(longitude).build();
+    }
+
+    private void prePopulateHotelAmenities(){
+        HotelAmenitiesEnum[] hotelAmenities = HotelAmenitiesEnum.values();
+
+        Manage manage = Manage.getManager(application);
+        for (HotelAmenitiesEnum hotelAmenitiesEnum: hotelAmenities){
+            manage.hotelAmenityManager.create(hotelAmenitiesEnum);
+        }
     }
 }

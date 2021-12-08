@@ -19,4 +19,20 @@ public interface UniqueManager<T extends UniqueEntity, E extends LabeledEnum> ex
      * @return <T> unique object created
      */
     T create(E id);
+
+    /**
+     * Create unique object and insert it into database.
+     *
+     * @param id String unique ID of object.
+     * @return String Id of unique object created
+     */
+    String createId(String id);
+
+    /**
+     * Create unique object and insert it into database.
+     *
+     * @param id <E> LabeledEnum of unique object to be created.
+     * @return String Id of unique object created
+     */
+    String createId(E id);
 }

@@ -51,9 +51,9 @@ public class HotelRoomModelManager {
         if (hotelViewModel.getRooms() != null) {
             rooms = hotelViewModel.getRooms();
         } else if (userStartDate != null && userEndDate != null) {
-            rooms = Manage.getManager(application).roomManager.getAvailableRooms(userStartDate, userEndDate, hotelViewModel.getHotel());
+            rooms = Manage.getManager(application).roomManager.getAvailableRooms(userStartDate, userEndDate, hotelViewModel.getHotelId());
         } else {
-            rooms = Manage.getManager(application).roomManager.getHotelRoomsInHotel(hotelViewModel.getHotel().hotelId);
+            rooms = Manage.getManager(application).roomManager.getHotelRoomsInHotel(hotelViewModel.getHotelId());
         }
         return new CustomerHotelRoomsAdapter(getHotelViewModelList(rooms, application));
     }

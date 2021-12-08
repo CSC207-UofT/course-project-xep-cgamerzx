@@ -15,9 +15,8 @@ public class UserManager implements com.xepicgamerzx.hotelier.storage.hotel_mana
     private static volatile UserManager INSTANCE;
     private final HotelierDatabase db;
     private final UserDao userDao;
-    public User user;
-
     FileReadWrite<String> fw = new FileReadWrite<>();
+    private User user;
 
     private UserManager(Application application) {
         db = HotelierDatabase.getDatabase(application);
@@ -53,7 +52,16 @@ public class UserManager implements com.xepicgamerzx.hotelier.storage.hotel_mana
         this.user = user;
     }
 
+    public String getUserName() {
+        return (user == null) ? null : user.getUserName();
+    }
+
     public void registerUser(User user) {
+        userDao.insert(user);
+    }
+
+    public void registerUser(String userId, String password, String email) {
+        User user = new User(userId, password, email);
         userDao.insert(user);
     }
 
@@ -94,16 +102,17 @@ public class UserManager implements com.xepicgamerzx.hotelier.storage.hotel_mana
     }
 
     public void updateUserFavourites(String hotelID) {
+        System.out.println(hotelID);
         if (user.getFavHotelIds().contains(hotelID)) {
             user.removeFavHotel(hotelID);
         } else {
             user.addFavHotel(hotelID);
         }
+
         userDao.update(user);
     }
 
     public void addRecentSearches(String destination) {
-
         user.addRecentSearches(destination);
         userDao.update(user);
     }
@@ -121,7 +130,6 @@ public class UserManager implements com.xepicgamerzx.hotelier.storage.hotel_mana
     }
 
     public boolean isSignedIn(Context context) {
-        // error when no file.dat, how to fi?x
         try {
             if (fw.readData("file.dat", context) != null) {
                 return true;

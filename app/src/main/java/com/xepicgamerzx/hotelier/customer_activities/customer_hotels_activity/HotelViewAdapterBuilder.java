@@ -7,7 +7,6 @@ import androidx.annotation.Nullable;
 import com.xepicgamerzx.hotelier.home_page_activities.OnFavouriteClickListener;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.Hotel;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelRoom;
-import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
 import com.xepicgamerzx.hotelier.storage.Manage;
 
 import java.util.ArrayList;
@@ -19,7 +18,6 @@ import java.util.Map;
  * Builder for HotelView adapters.
  */
 public class HotelViewAdapterBuilder {
-    private final HotelierDatabase db;
     private final Manage manage;
 
     @Nullable
@@ -33,6 +31,7 @@ public class HotelViewAdapterBuilder {
     @Nullable
     private Long endDate;
     private boolean reverse = false;
+    private boolean useFavourites = false;
     @Nullable
     private OnFavouriteClickListener onFavouriteClickListener;
 
@@ -42,7 +41,6 @@ public class HotelViewAdapterBuilder {
      * @param application Current application
      */
     public HotelViewAdapterBuilder(Application application) {
-        db = HotelierDatabase.getDatabase(application);
         manage = Manage.getManager(application);
     }
 
@@ -83,11 +81,34 @@ public class HotelViewAdapterBuilder {
         return this;
     }
 
+    /**
+     * Set the list of hotel view models to be reversed
+     *
+     * @param reverse Boolean whenever or not to reverse hotel view models
+     * @return HotelViewAdapterBuilder
+     */
     public HotelViewAdapterBuilder setReverse(boolean reverse) {
         this.reverse = reverse;
         return this;
     }
 
+    /**
+     * Whenever or not to create an adapter using the user's favourites
+     *
+     * @param useFavourites Boolean
+     * @return HotelViewAdapterBuilder
+     */
+    public HotelViewAdapterBuilder useFavourites(boolean useFavourites) {
+        this.useFavourites = useFavourites;
+        return this;
+    }
+
+    /**
+     * Set the on favourite click listener
+     *
+     * @param onFavouriteClickListener OnFavouriteClickListener
+     * @return HotelViewAdapterBuilder
+     */
     public HotelViewAdapterBuilder setOnFavouriteClickListener(OnFavouriteClickListener onFavouriteClickListener) {
         this.onFavouriteClickListener = onFavouriteClickListener;
         return this;
@@ -102,21 +123,23 @@ public class HotelViewAdapterBuilder {
         List<HotelViewModel> hotelViewModels;
         Map<Hotel, List<HotelRoom>> hotelListMap;
 
-        if (minCapacity != null && startDate != null && endDate != null && latitude != null && longitude != null) {
+        if (useFavourites) {
+            hotelListMap = manage.hotelRoomMapManager.getFavourites();
+        } else if (minCapacity != null && startDate != null && endDate != null && latitude != null && longitude != null) {
             // Capacity, schedule, location
-            hotelListMap = manage.hotelRoomMapManager.generateHotelModel(minCapacity, startDate, endDate, latitude, longitude);
+            hotelListMap = manage.hotelRoomMapManager.getAvailableRooms(minCapacity, startDate, endDate, latitude, longitude);
         } else if (minCapacity != null && startDate != null && endDate != null) {
             // Capacity, schedule
-            hotelListMap = manage.hotelRoomMapManager.generateHotelModel(minCapacity, startDate, endDate);
+            hotelListMap = manage.hotelRoomMapManager.getAvailableRooms(minCapacity, startDate, endDate);
         } else if (minCapacity != null && latitude != null && longitude != null) {
             // Capacity, location
-            hotelListMap = manage.hotelRoomMapManager.generateHotelModel(minCapacity, latitude, longitude);
+            hotelListMap = manage.hotelRoomMapManager.getAvailableRooms(minCapacity, latitude, longitude);
         } else if (minCapacity != null) {
             // Capacity
-            hotelListMap = manage.hotelRoomMapManager.generateHotelModel(minCapacity);
+            hotelListMap = manage.hotelRoomMapManager.getAvailableRooms(minCapacity);
         } else {
             // No filtering
-            hotelListMap = manage.hotelRoomMapManager.generateHotelModel();
+            hotelListMap = manage.hotelRoomMapManager.getAvailableRooms();
         }
 
         hotelViewModels = generateHotelModel(hotelListMap);
@@ -137,7 +160,11 @@ public class HotelViewAdapterBuilder {
                                 .getFullStreet())
                         .setPriceRange(manage.roomManager.getPriceRange(hotel).get(0))
                         .setNumberOfRooms(rooms.size())
-                        .setHotel(hotel).setRooms(rooms)
+                        .setHotel(hotel.hotelId)
+                        .setRooms(rooms)
+                        .setLatitude(hotel.getAddress().getLatitude())
+                        .setLongitude(hotel.getAddress().getLongitude())
+                        .setHotelStar(hotel.getStarClass())
                         .createHotelViewModel()));
         if (reverse) Collections.reverse(hotelsView);
 

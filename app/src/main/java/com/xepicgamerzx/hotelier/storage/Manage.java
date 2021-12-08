@@ -11,6 +11,7 @@ import com.xepicgamerzx.hotelier.storage.hotel_reference_managers.HotelAmenities
 import com.xepicgamerzx.hotelier.storage.hotel_reference_managers.HotelRoomMapManager;
 import com.xepicgamerzx.hotelier.storage.hotel_reference_managers.RoomAmenitiesCrossManager;
 import com.xepicgamerzx.hotelier.storage.hotel_reference_managers.RoomBedsCrossManager;
+import com.xepicgamerzx.hotelier.storage.user.UserManager;
 
 public final class Manage {
     private static volatile Manage INSTANCE;
@@ -26,6 +27,8 @@ public final class Manage {
     public volatile RoomBedsCrossManager roomBedsCrossManager;
     public volatile HotelRoomMapManager hotelRoomMapManager;
 
+    public volatile UserManager userManager;
+
     private Manage(Application application) {
         bedManager = BedManager.getManager(application);
         hotelAmenityManager = HotelAmenityManager.getManager(application);
@@ -37,6 +40,8 @@ public final class Manage {
         roomAmenitiesCrossManager = RoomAmenitiesCrossManager.getManager(application);
         roomBedsCrossManager = RoomBedsCrossManager.getManager(application);
         hotelRoomMapManager = HotelRoomMapManager.getManager(application);
+
+        userManager = UserManager.getManager(application);
     }
 
     private Manage(HotelierDatabase dbInstance) {
@@ -50,6 +55,8 @@ public final class Manage {
         roomAmenitiesCrossManager = RoomAmenitiesCrossManager.getManager(dbInstance);
         roomBedsCrossManager = RoomBedsCrossManager.getManager(dbInstance);
         hotelRoomMapManager = HotelRoomMapManager.getManager(dbInstance);
+
+        userManager = UserManager.getManager(dbInstance);
     }
 
     public static Manage getManager(Application application) {
@@ -74,5 +81,7 @@ public final class Manage {
         roomAmenitiesCrossManager.close();
         roomBedsCrossManager.close();
         hotelRoomMapManager.close();
+
+        userManager.close();
     }
 }

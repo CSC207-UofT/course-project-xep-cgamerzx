@@ -15,7 +15,6 @@ import com.xepicgamerzx.hotelier.R;
 import com.xepicgamerzx.hotelier.management_hotel_listing_activity.HotelCreatorActivity;
 import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
 import com.xepicgamerzx.hotelier.storage.user.UserManager;
-import com.xepicgamerzx.hotelier.storage.user.model.User;
 import com.xepicgamerzx.hotelier.user_activities.LoginActivity;
 import com.xepicgamerzx.hotelier.user_activities.RegisterActivity;
 
@@ -68,42 +67,29 @@ public class ProfileFragment extends Fragment {
     }
 
     public void loginListener() {
-        login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getActivity(), LoginActivity.class));
-            }
-        });
+        login.setOnClickListener(v -> startActivity(new Intent(getActivity(), LoginActivity.class)));
     }
 
     public void registerClickListener() {
-        registerBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getActivity(), RegisterActivity.class));
-            }
-        });
+        registerBtn.setOnClickListener(v -> startActivity(new Intent(getActivity(), RegisterActivity.class)));
     }
 
     public void signOutClickListener() {
-        signOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                um.signOut(getContext());
-                setProfileVisibility();
-            }
+        signOut.setOnClickListener(v -> {
+            um.signOut(getContext());
+            setProfileVisibility();
         });
     }
 
     public void setProfileVisibility() {
-        User user = um.getUser();
+        String username = um.getUserName();
 
         // If a user is signed in ...
-        if (user != null) {
+        if (username != null) {
             login.setVisibility(View.INVISIBLE);
             signOut.setVisibility(View.VISIBLE);
             signedInContent.setVisibility(View.VISIBLE);
-            userNameTxt.setText(user.getUserName());
+            userNameTxt.setText(username);
         } else {
             login.setVisibility(View.VISIBLE);
             signOut.setVisibility(View.INVISIBLE);

@@ -22,6 +22,16 @@ public abstract class HotelRoomMapDao {
     public abstract Map<Hotel, List<HotelRoom>> getAll();
 
     /**
+     * Get a hotels within a defined min id.
+     *
+     * @param hotelID long... hotel Ids.
+     * @return Map<Hotel, List < HotelRoom>> map of matching hotels and rooms
+     */
+    @MapInfo(keyColumn = "hotelId")
+    @Query("SELECT * FROM HotelRoom JOIN  Hotel ON HOTELROOM.hotelId = Hotel.hotelId WHERE HOTELROOM.hotelId IN (:hotelID)")
+    public abstract Map<Hotel, List<HotelRoom>> getHotelWithId(Long... hotelID);
+
+    /**
      * Get all hotels with their rooms within a schedule, min capacity and given hotel Ids
      *
      * @param startTime   long start time
@@ -34,7 +44,7 @@ public abstract class HotelRoomMapDao {
     @Query("SELECT * FROM HotelRoom JOIN Hotel ON HOTELROOM.hotelId = Hotel.hotelId" +
             " WHERE capacity >= :minCapacity AND " +
             "startAvailability <= :startTime AND endAvailability >= :endTime AND HOTELROOM.hotelId IN (:hotelID)")
-    public abstract Map<Hotel, List<HotelRoom>> getAvailableRooms(long startTime, long endTime, int minCapacity, long... hotelID);
+    public abstract Map<Hotel, List<HotelRoom>> getAvailableRooms(long startTime, long endTime, int minCapacity, Long... hotelID);
 
     /**
      * Get all hotels with their rooms within a schedule and min capacity

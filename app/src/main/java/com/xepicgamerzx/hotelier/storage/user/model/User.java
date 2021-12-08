@@ -8,6 +8,8 @@ import com.xepicgamerzx.hotelier.objects.hotel_objects.Hotel;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity(tableName = "users")
 public class User implements Serializable {
@@ -81,6 +83,10 @@ public class User implements Serializable {
         this.favHotelIds = favHotelIds;
     }
 
+    public List<Long> getFavHotelIdsL() {
+        return favHotelIds.stream().map(Long::parseLong).collect(Collectors.toList());
+    }
+
     public void addFavHotel(String hotelId) {
         // Need to compare strings for some reason, look into this, but low prio for now.
         if (!favHotelIds.contains(hotelId)) {
@@ -93,7 +99,7 @@ public class User implements Serializable {
     }
 
     public void removeFavHotel(String hotelId) {
-        favHotelIds.remove(hotelId);
+        favHotelIds.remove(String.valueOf(hotelId));
     }
 
     public void removeFavHotel(Hotel hotel) {

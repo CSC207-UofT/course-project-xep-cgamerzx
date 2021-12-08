@@ -12,7 +12,6 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.xepicgamerzx.hotelier.R;
-import com.xepicgamerzx.hotelier.objects.hotel_objects.AddressBuilder;
 
 import java.util.Objects;
 
@@ -55,23 +54,22 @@ public class HotelCreateAddressFragment extends Fragment {
         if (!validatedMessage.equals("")) {
             Toast.makeText(getContext(), validatedMessage, Toast.LENGTH_SHORT).show();
         } else {
-            Objects.requireNonNull(activity).address = new AddressBuilder()
-                    .setStreetName(Objects.requireNonNull(streetName.getText()).toString())
-                    .setPostalCode(Objects.requireNonNull(postalCode.getText()).toString())
-                    .setStreetNumber(Objects.requireNonNull(streetNum.getText()).toString())
-                    .setCity(Objects.requireNonNull(city.getText()).toString())
-                    .setProvince(Objects.requireNonNull(province.getText()).toString())
-                    .setLatitude(Double.parseDouble(Objects.requireNonNull(longLat.getText()).toString().split(",")[0]))
-                    .setLongitude(Double.parseDouble(longLat.getText().toString().split(",")[1]))
-                    .build();
-            System.out.println(activity.address);
+            Objects.requireNonNull(activity);
 
-            activity.text += "\n" + activity.address.toString();
+            activity.viewModel.setStreetName(Objects.requireNonNull(streetName.getText()).toString());
+            activity.viewModel.setPostalCode(Objects.requireNonNull(postalCode.getText()).toString());
+            activity.viewModel.setStreetNumber(Objects.requireNonNull(streetNum.getText()).toString());
+            activity.viewModel.setCity(Objects.requireNonNull(city.getText()).toString());
+            activity.viewModel.setProvince(Objects.requireNonNull(province.getText()).toString());
+            activity.viewModel.setLatitude(Double.parseDouble(Objects.requireNonNull(longLat.getText()).toString().split(",")[0]));
+            activity.viewModel.setLongitude(Double.parseDouble(longLat.getText().toString().split(",")[1]));
+
+            activity.text += "\n" + activity.viewModel.addressToString();
             activity.isAddressMade = true;
 
             // Deactivate button
             activity.addAddressBtn.setOnClickListener(null);
-            activity.addAddressBtn.setText("Success");
+            activity.addAddressBtn.setText(R.string.success);
 
             requireActivity().onBackPressed();
         }
@@ -90,17 +88,16 @@ public class HotelCreateAddressFragment extends Fragment {
 
     public String validateInput() {
         String s = "";
-        if (!(Objects.requireNonNull(streetNum.getText()).toString().matches("\\d+")) ||
+        if (!Objects.requireNonNull(streetNum.getText()).toString().matches("\\d+") ||
                 Objects.requireNonNull(postalCode.getText()).toString().equals("") ||
                 Objects.requireNonNull(streetName.getText()).toString().equals("") ||
                 Objects.requireNonNull(city.getText()).toString().equals("") ||
                 Objects.requireNonNull(province.getText()).toString().equals("") ||
-                !(Objects.requireNonNull(longLat.getText()).toString().matches(
+                !Objects.requireNonNull(longLat.getText()).toString().matches(
                         "^[-+]?([1-8]?\\d(\\.\\d+)?|90(\\.0+)?),\\s*[-+]?(180(\\.0+)?|((1[0-7]\\d)|([1-9]?\\d))(\\.\\d+)?)$"
-                ))) {
+                )) {
             s = "Enter all fields in the specified format.";
         }
-
         return s;
     }
 
