@@ -63,8 +63,8 @@ public class CustomerHotelRoomsActivity extends AppCompatActivity {
                 .beginTransaction();
         MapsFragment fragInfo = new MapsFragment();
         Bundle bundle = new Bundle();
-        bundle.putDouble("longitude", hotel.getHotel().getAddress().getLongitude());
-        bundle.putDouble("latitude", hotel.getHotel().getAddress().getLatitude());
+        bundle.putDouble("longitude", hotel.getLongitude());
+        bundle.putDouble("latitude", hotel.getLatitude());
         fragInfo.setArguments(bundle);
 
         fragmentTransaction.replace(R.id.frameMapsLay, fragInfo).commit();

@@ -106,7 +106,7 @@ public class HotelViewAdapter extends RecyclerView.Adapter<HotelViewAdapter.Hote
                 HotelierDatabase hotelierDatabase = HotelierDatabase.getDatabase(v.getContext());
                 UserManager userManager = UserManager.getManager(hotelierDatabase);
                 if (userManager.isLoggedIn()) {
-                    userManager.updateUserFavourites(String.valueOf(hotel.getHotel().hotelId));
+                    userManager.updateUserFavourites(String.valueOf(hotel.getHotelId()));
                     if (onFavouriteClickListener != null) {
                         int pos = getAbsoluteAdapterPosition();
                         if (pos != RecyclerView.NO_POSITION) {

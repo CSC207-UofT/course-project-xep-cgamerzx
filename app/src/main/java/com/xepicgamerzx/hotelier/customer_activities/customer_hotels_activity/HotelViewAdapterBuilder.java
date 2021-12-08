@@ -163,7 +163,11 @@ public class HotelViewAdapterBuilder {
                                 .getFullStreet())
                         .setPriceRange(manage.roomManager.getPriceRange(hotel).get(0))
                         .setNumberOfRooms(rooms.size())
-                        .setHotel(hotel).setRooms(rooms)
+                        .setHotel(hotel.hotelId)
+                        .setRooms(rooms)
+                        .setLatitude(hotel.getAddress().getLatitude())
+                        .setLongitude(hotel.getAddress().getLongitude())
+                        .setHotelStar(hotel.getStarClass())
                         .createHotelViewModel()));
         if (reverse) Collections.reverse(hotelsView);
 
