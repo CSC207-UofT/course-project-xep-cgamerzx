@@ -37,7 +37,7 @@ public class RegisterActivity extends AppCompatActivity {
         registerBtn.setOnClickListener(v -> {
             String usernameStr = Objects.requireNonNull(userId.getText()).toString();
             String emailStr = Objects.requireNonNull(email.getText()).toString();
-            String passwordStr = Objects.requireNonNull(email.getText()).toString();
+            String passwordStr = Objects.requireNonNull(password.getText()).toString();
 
             if (validateInput(usernameStr, emailStr, passwordStr) && validatePassword(passwordStr)) {
                 // Insert to db
