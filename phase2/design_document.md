@@ -97,7 +97,7 @@ Furthermore, in order to reduce the amount of managers that are juggled around i
 
 ### Builder
 
-We implemented the builder design pattern specifically for our Address entity in order to solve the issue of it having a large number of constructors. It did not make sense to break the address object down into further sub-objects, so to make creation of Address objects easier it was appropriate to use the builder design pattern.
+We implemented the builder design pattern for a number of objects, often to solve the issue of it having a large number of constructors. For example, for the Address entity, it did not make sense to break the address object down into further sub-objects, so to make creation of Address objects easier it was appropriate to use the builder design pattern.
 
 ## Progress Report
 ### Open Questions
