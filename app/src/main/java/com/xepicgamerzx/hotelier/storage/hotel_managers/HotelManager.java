@@ -10,17 +10,12 @@ import com.xepicgamerzx.hotelier.objects.hotel_objects.Hotel;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelAmenity;
 import com.xepicgamerzx.hotelier.objects.hotel_objects.HotelRoom;
 import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
+import com.xepicgamerzx.hotelier.storage.Manage;
 import com.xepicgamerzx.hotelier.storage.dao.HotelDao;
-import com.xepicgamerzx.hotelier.storage.user.UserManager;
-import com.xepicgamerzx.hotelier.storage.user.model.User;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import java.util.Set;
-import java.util.stream.Collectors;
 
 
 /**
@@ -31,19 +26,18 @@ public class HotelManager implements Manager {
 
     private final HotelierDatabase db;
     private final HotelDao hotelDao;
-    private final RoomManager roomManager;
-    //private final HotelAmenityManager amenityManager;
+    private final Manage manage;
 
     private HotelManager(Application application) {
         db = HotelierDatabase.getDatabase(application);
         hotelDao = db.hotelDao();
-        roomManager = RoomManager.getManager(application);
+        manage = Manage.getManager(application);
     }
 
     private HotelManager(HotelierDatabase dbInstance) {
         db = dbInstance;
         hotelDao = db.hotelDao();
-        roomManager = RoomManager.getManager(dbInstance);
+        manage = Manage.getManager(dbInstance);
     }
 
     public static HotelManager getManager(Application application) {
@@ -92,7 +86,7 @@ public class HotelManager implements Manager {
         Hotel hotel = createHotel(name, address, starClass);
 
         for (HotelRoom hotelRoom : hotelRooms) {
-            roomManager.setHotelID(hotel, hotelRoom);
+            manage.roomManager.setHotelID(hotel, hotelRoom);
         }
         return hotel;
     }
@@ -114,7 +108,7 @@ public class HotelManager implements Manager {
         Hotel hotel = createHotel(name, address, starClass);
 
         for (HotelRoom hotelRoom : hotelRooms) {
-            roomManager.setHotelID(hotel, hotelRoom);
+            manage.roomManager.setHotelID(hotel, hotelRoom);
         }
 
         /*for (HotelAmenity hotelAmenity : hotelAmenities) {
@@ -208,173 +202,14 @@ public class HotelManager implements Manager {
         return null;
     }
 
-    public List<Hotel> getFavouriteHotels(User user) {
-        ArrayList<Hotel> favourites = new ArrayList<>();
-        List<Hotel> hotels = hotelDao.getAll();
-
-        List<String> favHotelIds = user.getFavHotelIds();
-        System.out.println(favHotelIds);
-
-        for (Hotel hotel : hotels) {
-            if (favHotelIds.contains(String.valueOf(hotel.hotelId))) {
-                favourites.add(hotel);
-            }
-        }
-        return favourites;
-    }
-
-    /**
-     * Generates a list of HotelViewModel's with specifics
-     */
-    public List<HotelViewModel> generateHotelModel(Map<Hotel, List<HotelRoom>> hotelListMap) {
-        List<HotelViewModel> hotelsView = new ArrayList<>();
-
-        hotelListMap.forEach((hotel, rooms) ->
-                hotelsView.add(new HotelViewModel(
-                hotel.getName(),
-                hotel.getAddress().getFullStreet(),
-                roomManager.getPriceRange(hotel).get(0),
-                roomManager.getNumberOfRooms(hotel),
-                hotel,rooms
-        )));
-
-        return hotelsView;
-    }
-    /**
-     * Generates a list of HotelViewModel's with specifics
-     */
-    public List<HotelViewModel> generateHotelModel(List<Hotel> hotels) {
-        List<HotelViewModel> hotelsView = new ArrayList<>();
-
-
-        for (Hotel hotel : hotels) {
-            hotelsView.add(new HotelViewModel(
-                    hotel.getName(),
-                    hotel.getAddress().getFullStreet(),
-                    roomManager.getPriceRange(hotel).get(0),
-                    roomManager.getNumberOfRooms(hotel),
-                    hotel, null
-            ));
-        }
-
-        return hotelsView;
-    }
-
-    /**
-     * Generates a list of HotelViewModel's for all hotels.
-     */
-    public List<HotelViewModel> generateHotelModel() {
-        return generateHotelModel(db.hotelRoomMapDao().getAll());
-    }
-
-
-    /**
-     * Generate list of HotelView models based on min capacity, location, and schedule
-     *
-     * @param capacity int min capacity
-     * @param startTime long start time of schedule
-     * @param endTime long end time of schedule
-     * @param centerLat double location latitude
-     * @param centerLon double location longitude
-     * @return List<HotelViewModel> generated list of hotel view models
-     */
-    public List<HotelViewModel> generateHotelModel(int capacity, long startTime, long endTime, double centerLat, double centerLon) {
-        Map<String, Double> locationMap = convertLatLon(centerLat, centerLon, 50);
-        Map<Hotel, List<HotelRoom>> hotelListMap;
-
-        Double centerLonCos = locationMap.get("centerLonCos");
-        Double centerLonSin = locationMap.get("centerLonSin");
-        Double centerLatCos = locationMap.get("centerLatCos");
-        Double centerLatSin = locationMap.get("centerLatSin");
-        Double cosDistance = locationMap.get("cosDistance");
-
-        if (centerLonCos != null &&
-                centerLonSin != null &&
-                centerLatCos != null &&
-                centerLatSin != null &&
-                cosDistance != null){
-            hotelListMap = db.hotelRoomMapDao().getAvailableRooms(
-                    capacity,
-                    centerLonCos, centerLonSin,
-                    centerLatCos, centerLatSin,
-                    cosDistance,
-                    startTime, endTime);
-            return generateHotelModel(hotelListMap);
-        } else {
-            Log.e("Hotel Manager", "Failed to generate location data");
-            return generateHotelModel(capacity, startTime, endTime);
-        }
-
-    }
-
-    /**
-     * Generate list of HotelView models based on min capacity and location
-     *
-     * @param capacity int min capacity
-     * @param centerLat double location latitude
-     * @param centerLon double location longitude
-     * @return List<HotelViewModel> generated list of hotel view models
-     */
-    public List<HotelViewModel> generateHotelModel(int capacity, double centerLat, double centerLon) {
-        Map<String, Double> locationMap = convertLatLon(centerLat, centerLon, 50);
-        Map<Hotel, List<HotelRoom>> hotelListMap;
-
-        Double centerLonCos = locationMap.get("centerLonCos");
-        Double centerLonSin = locationMap.get("centerLonSin");
-        Double centerLatCos = locationMap.get("centerLatCos");
-        Double centerLatSin = locationMap.get("centerLatSin");
-        Double cosDistance = locationMap.get("cosDistance");
-
-        if (centerLonCos != null &&
-                centerLonSin != null &&
-                centerLatCos != null &&
-                centerLatSin != null &&
-                cosDistance != null){
-            hotelListMap = db.hotelRoomMapDao().getAvailableRooms(
-                    capacity,
-                    centerLonCos, centerLonSin,
-                    centerLatCos, centerLatSin,
-                    cosDistance);
-            return generateHotelModel(hotelListMap);
-        } else {
-            Log.e("Hotel Manager", "Failed to generate location data");
-            return generateHotelModel(capacity);
-        }
-    }
-
-    /**
-     * Generate list of HotelView models based on min capacity and schedule
-     *
-     * @param capacity int min capacity
-     * @param startTime long start time of schedule
-     * @param endTime long end time of schedule
-     * @return List<HotelViewModel> generated list of hotel view models
-     */
-    public List<HotelViewModel> generateHotelModel(int capacity, long startTime, long endTime) {
-        Map<Hotel, List<HotelRoom>> hotelListMap = db.hotelRoomMapDao().getAvailableRooms(startTime, endTime, capacity);
-        return generateHotelModel(hotelListMap);
-    }
-
-    /**
-     * Generate list of HotelView models based on min capacity
-     *
-     * @param capacity Min capacity of rooms
-     * @return List<HotelViewModel> generated list of hotel view models
-     */
-    public List<HotelViewModel> generateHotelModel(int capacity) {
-        Map<Hotel, List<HotelRoom>> hotelListMap = db.hotelRoomMapDao().getAvailableRooms(capacity);
-        return generateHotelModel(hotelListMap);
-    }
-
-
-    /**
-     * Generate spherical coordinate locations based on cartesian coordinates
-     *
-     * @param centerLat  double cartesian latitude
-     * @param centerLon  double cartesian longitude
-     * @param distanceKM double distance in kilometers
-     * @return Map<String, Double> with centerLonCos, centerLonSin, centerLatCos, centerLatSin, cosDistance
-     */
+        /**
+         * Generate spherical coordinate locations based on cartesian coordinates
+         *
+         * @param centerLat  double cartesian latitude
+         * @param centerLon  double cartesian longitude
+         * @param distanceKM double distance in kilometers
+         * @return Map<String, Double> with centerLonCos, centerLonSin, centerLatCos, centerLatSin, cosDistance
+         */
     private Map<String, Double> convertLatLon(double centerLat, double centerLon, double distanceKM) {
         Map<String, Double> map = new HashMap<>();
 

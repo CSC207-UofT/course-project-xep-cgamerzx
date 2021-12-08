@@ -15,7 +15,7 @@ public class UserManager implements com.xepicgamerzx.hotelier.storage.hotel_mana
     private static volatile UserManager INSTANCE;
     private final HotelierDatabase db;
     private final UserDao userDao;
-    public User user;
+    private User user;
 
     FileReadWrite<String> fw = new FileReadWrite<>();
 
@@ -48,6 +48,8 @@ public class UserManager implements com.xepicgamerzx.hotelier.storage.hotel_mana
     public User getUser() {
         return user;
     }
+
+    public String getUserName() { return user.getUserName();}
 
     public void setUser(User user) {
         this.user = user;

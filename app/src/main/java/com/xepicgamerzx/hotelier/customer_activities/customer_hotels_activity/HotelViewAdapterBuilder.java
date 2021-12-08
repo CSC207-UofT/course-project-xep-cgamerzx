@@ -33,6 +33,7 @@ public class HotelViewAdapterBuilder {
     @Nullable
     private Long endDate;
     private boolean reverse = false;
+    private boolean useFavourites = false;
     @Nullable
     private OnFavouriteClickListener onFavouriteClickListener;
 
@@ -83,8 +84,18 @@ public class HotelViewAdapterBuilder {
         return this;
     }
 
+    /**
+     *
+     * @param reverse
+     * @return
+     */
     public HotelViewAdapterBuilder setReverse(boolean reverse) {
         this.reverse = reverse;
+        return this;
+    }
+
+    public HotelViewAdapterBuilder useFavourites(boolean useFavourites){
+        this.useFavourites = useFavourites;
         return this;
     }
 
@@ -102,21 +113,23 @@ public class HotelViewAdapterBuilder {
         List<HotelViewModel> hotelViewModels;
         Map<Hotel, List<HotelRoom>> hotelListMap;
 
-        if (minCapacity != null && startDate != null && endDate != null && latitude != null && longitude != null) {
+        if (useFavourites){
+            hotelListMap = manage.hotelRoomMapManager.getFavourites();
+        } else if (minCapacity != null && startDate != null && endDate != null && latitude != null && longitude != null) {
             // Capacity, schedule, location
-            hotelListMap = manage.hotelRoomMapManager.generateHotelModel(minCapacity, startDate, endDate, latitude, longitude);
+            hotelListMap = manage.hotelRoomMapManager.getAvailableRooms(minCapacity, startDate, endDate, latitude, longitude);
         } else if (minCapacity != null && startDate != null && endDate != null) {
             // Capacity, schedule
-            hotelListMap = manage.hotelRoomMapManager.generateHotelModel(minCapacity, startDate, endDate);
+            hotelListMap = manage.hotelRoomMapManager.getAvailableRooms(minCapacity, startDate, endDate);
         } else if (minCapacity != null && latitude != null && longitude != null) {
             // Capacity, location
-            hotelListMap = manage.hotelRoomMapManager.generateHotelModel(minCapacity, latitude, longitude);
+            hotelListMap = manage.hotelRoomMapManager.getAvailableRooms(minCapacity, latitude, longitude);
         } else if (minCapacity != null) {
             // Capacity
-            hotelListMap = manage.hotelRoomMapManager.generateHotelModel(minCapacity);
+            hotelListMap = manage.hotelRoomMapManager.getAvailableRooms(minCapacity);
         } else {
             // No filtering
-            hotelListMap = manage.hotelRoomMapManager.generateHotelModel();
+            hotelListMap = manage.hotelRoomMapManager.getAvailableRooms();
         }
 
         hotelViewModels = generateHotelModel(hotelListMap);

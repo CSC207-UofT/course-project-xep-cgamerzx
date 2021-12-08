@@ -15,6 +15,8 @@ import com.xepicgamerzx.hotelier.storage.HotelierDatabase;
 import com.xepicgamerzx.hotelier.storage.user.UserManager;
 import com.xepicgamerzx.hotelier.storage.user.model.User;
 
+import java.util.Objects;
+
 public class RegisterActivity extends AppCompatActivity {
     TextInputEditText userId, password, email;
     TextView errorText;
@@ -24,7 +26,7 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        getSupportActionBar().hide();
+        Objects.requireNonNull(getSupportActionBar()).hide();
 
         userId = findViewById(R.id.usernameInput);
         password = findViewById(R.id.passwordInput);
@@ -33,46 +35,34 @@ public class RegisterActivity extends AppCompatActivity {
         errorText = findViewById(R.id.errorRegistrationText);
 
 
-        registerBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                User user = new User(userId.getText().toString(),
-                        password.getText().toString(),
-                        email.getText().toString());
+        registerBtn.setOnClickListener(v -> {
+            User user = new User(Objects.requireNonNull(userId.getText()).toString(),
+                    Objects.requireNonNull(password.getText()).toString(),
+                    Objects.requireNonNull(email.getText()).toString());
 
-                if (validateInput(user) && validatePassword(user)) {
-                    // Insert to db
-                    HotelierDatabase hotelierDatabase = HotelierDatabase.getDatabase(getApplicationContext());
-                    UserManager userManager = UserManager.getManager(hotelierDatabase);
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            userManager.registerUser(user);
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Toast.makeText(getApplicationContext(), "Successfully registered.", Toast.LENGTH_SHORT).show();
-                                }
-                            });
-                        }
-                    }).start();
+            if (validateInput(user) && validatePassword(user)) {
+                // Insert to db
+                HotelierDatabase hotelierDatabase = HotelierDatabase.getDatabase(getApplicationContext());
+                UserManager userManager = UserManager.getManager(hotelierDatabase);
+                new Thread(() -> {
+                    userManager.registerUser(user);
+                    runOnUiThread(() -> Toast.makeText(getApplicationContext(), "Successfully registered.", Toast.LENGTH_SHORT).show());
+                }).start();
 
-                    startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
 
-                } else if (!validateInput(user)) {
-                    Toast.makeText(getApplicationContext(), "Fill all fields", Toast.LENGTH_SHORT).show();
-                } else if (!validatePassword(user)) {
-                    String errorMsg = "Please make a stronger password" +
-                            " (at least 6 characters long with at least 1 of each: uppercase, lowercase, number, special character (!@#$%^&*()_+.))";
-                    errorText.setText(errorMsg);
-                    errorText.setVisibility(View.VISIBLE);
-                    Toast.makeText(getApplicationContext(), "Please make a stronger password" +
-                            " (at least 6 characters long with at least 1 of each: uppercase, lowercase, number, special character (!@#$%^&*()_+.))", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getApplicationContext(), "Fill all fields", Toast.LENGTH_SHORT).show();
-                }
+            } else if (!validateInput(user)) {
+                Toast.makeText(getApplicationContext(), "Fill all fields", Toast.LENGTH_SHORT).show();
+            } else if (!validatePassword(user)) {
+                String errorMsg = "Please make a stronger password" +
+                        " (at least 6 characters long with at least 1 of each: uppercase, lowercase, number, special character (!@#$%^&*()_+.))";
+                errorText.setText(errorMsg);
+                errorText.setVisibility(View.VISIBLE);
+                Toast.makeText(getApplicationContext(), "Please make a stronger password" +
+                        " (at least 6 characters long with at least 1 of each: uppercase, lowercase, number, special character (!@#$%^&*()_+.))", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getApplicationContext(), "Fill all fields", Toast.LENGTH_SHORT).show();
             }
-
         });
     }
 
