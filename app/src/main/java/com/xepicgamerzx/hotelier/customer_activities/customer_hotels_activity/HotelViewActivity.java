@@ -25,6 +25,7 @@ public class HotelViewActivity extends AppCompatActivity {
     ImageButton backBtn;
     Manage manage;
     HotelierDatabase hotelierDatabase;
+    TextView userGuests, userCity, userSchedule;
 
     /**
      * The method that is run when the page loads.
@@ -42,49 +43,56 @@ public class HotelViewActivity extends AppCompatActivity {
 
         RecyclerView hotelsRecyclerView = findViewById(R.id.hotelsRecyclerView);
         backBtn = findViewById(R.id.backBtn);
-        TextView userGuests = findViewById(R.id.userGuests);
-        TextView userCity = findViewById(R.id.userCityText);
-        TextView userSchedule = findViewById(R.id.userSchedule);
+        userGuests = findViewById(R.id.userGuests);
+        userCity = findViewById(R.id.userCityText);
+        userSchedule = findViewById(R.id.userSchedule);
 
         Intent intent = getIntent();
 
         if (intent.getExtras() != null) {
             @SuppressWarnings("unchecked")
             HashMap<String, Object> map = (HashMap<String, Object>) intent.getSerializableExtra("SearchData");
+            HotelViewAdapter hotelsAdapter = getFilteredAdapter(map);
+            hotelsRecyclerView.setAdapter(hotelsAdapter);
+        }
 
-            Double latitude = (map.containsKey("lat")) ? (Double) map.get("lat") : null;
-            Double longitude = (map.containsKey("long")) ? (Double) map.get("long") : null;
+        backBtn.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(), SearchActivity.class)));
+    }
 
-            Long startDate = (map.containsKey("startDate")) ? (Long) map.get("startDate") : null;
-            Long endDate = (map.containsKey("endDate")) ? (Long) map.get("endDate") : null;
+    public HotelViewAdapter getFilteredAdapter(HashMap<String, Object> map) {
+        Double latitude = (map.containsKey("lat")) ? (Double) map.get("lat") : null;
+        Double longitude = (map.containsKey("long")) ? (Double) map.get("long") : null;
 
-            String guests = (String) map.get("guests");
-            String str = guests + " Guests";
-            userGuests.setText(str);
+        Long startDate = (map.containsKey("startDate")) ? (Long) map.get("startDate") : null;
+        Long endDate = (map.containsKey("endDate")) ? (Long) map.get("endDate") : null;
 
-            int minCapacity = (guests != null) ? Integer.parseInt(guests) : 1;
+        String guests = (String) map.get("guests");
+        String str = guests + " Guests";
+        userGuests.setText(str);
 
-            if (endDate != null && startDate != null) {
-                // Schedule
-                userSchedule.setText(UnixEpochDateConverter.epochToReadable(startDate, endDate));
-                if (latitude != null && longitude != null) {
-                    // Schedule and Location
-                    String city = (String) map.get("city");
-                    userCity.setText(city);
-                }
-            } else if (latitude != null && longitude != null) {
-                // Location Only
+        int minCapacity = (guests != null) ? Integer.parseInt(guests) : 1;
+
+        if (endDate != null && startDate != null) {
+            // Schedule
+            userSchedule.setText(UnixEpochDateConverter.epochToReadable(startDate, endDate));
+            if (latitude != null && longitude != null) {
+                // Schedule and Location
                 String city = (String) map.get("city");
                 userCity.setText(city);
             }
-            HotelViewAdapter hotelsAdapter = new HotelViewAdapterBuilder(getApplication())
-                    .setLatLong(latitude, longitude)
-                    .setSchedule(startDate, endDate)
-                    .setMinCapacity(minCapacity).build();
-            hotelsRecyclerView.setAdapter(hotelsAdapter);
+        } else if (latitude != null && longitude != null) {
+            // Location Only
+            String city = (String) map.get("city");
+            userCity.setText(city);
         }
-        backBtn.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(), SearchActivity.class)));
+        HotelViewAdapter hotelsAdapter = new HotelViewAdapterBuilder(getApplication())
+                .setLatLong(latitude, longitude)
+                .setSchedule(startDate, endDate)
+                .setMinCapacity(minCapacity).build();
+
+        return hotelsAdapter;
     }
+
 
     /**
      * Logic for when a user clicks the back button on their android phone.

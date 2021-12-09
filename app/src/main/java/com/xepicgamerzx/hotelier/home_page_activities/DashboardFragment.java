@@ -67,7 +67,8 @@ public class DashboardFragment extends Fragment {
         String username = userManager.getUserName();
         // Add if empty, no user, go sign in.
         if (username != null) {
-            nameField.setText(getString(R.string.welcome_back) + username);
+            String welcomeMsg = "Welcome back " + username;
+            nameField.setText(welcomeMsg);
             recentSearches.setVisibility(View.VISIBLE);
             recentSearchesTxt.setVisibility(View.VISIBLE);
             setRecentSearches();

@@ -67,6 +67,7 @@ public class HotelCreateAddressFragment extends Fragment {
             activity.viewModel.setLatitude(Double.parseDouble(Objects.requireNonNull(longLat.getText()).toString().split(",")[0]));
             activity.viewModel.setLongitude(Double.parseDouble(longLat.getText().toString().split(",")[1]));
 
+            // Text being appended to hotel creator activity's details text.
             activity.text += "\n" + activity.viewModel.addressToString();
             activity.isAddressMade = true;
 
