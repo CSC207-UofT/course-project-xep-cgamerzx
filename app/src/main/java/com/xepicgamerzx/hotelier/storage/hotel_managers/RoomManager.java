@@ -193,10 +193,22 @@ public class RoomManager implements Manager {
         return false;
     }
 
+    /**
+     * Gets a list of hotel rooms in a hotel.
+     *
+     * @param hotelID hotel Id
+     * @return hotel rooms in the hotel
+     */
     public List<HotelRoom> getHotelRoomsInHotel(long hotelID) {
         return roomDao.getInHotel(hotelID);
     }
 
+    /**
+     * Gets the number of rooms in a hotel.
+     *
+     * @param hotelID hotel Id
+     * @return number of hotel rooms in the hotel
+     */
     public int getNumberOfRooms(long hotelID) {
         return getHotelRoomsInHotel(hotelID).size();
     }

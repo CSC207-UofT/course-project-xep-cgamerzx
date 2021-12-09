@@ -149,11 +149,21 @@ public class User implements Serializable {
         this.recentSearches = recentSearches;
     }
 
+    /**
+     * Adds a destination to a user's recent searches.
+     *
+     * @param destinationItem the destination to add to recent searches.
+     */
     public void addRecentSearches(String destinationItem) {
         recentSearches.remove(destinationItem);
         recentSearches.add(destinationItem);
     }
 
+    /**
+     * Removes a destination from a user's recent searches.
+     *
+     * @param destinationItem the destination to remove from recent searches.
+     */
     public void removeRecentSearches(String destinationItem) {
         recentSearches.remove(destinationItem);
     }

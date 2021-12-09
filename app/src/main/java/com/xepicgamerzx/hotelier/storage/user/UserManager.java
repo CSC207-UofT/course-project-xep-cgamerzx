@@ -141,11 +141,21 @@ public class UserManager implements com.xepicgamerzx.hotelier.storage.hotel_mana
         userDao.update(user);
     }
 
+    /**
+     * Adds a destination to a user's recent searches.
+     *
+     * @param destination the destination to add to recent searches
+     */
     public void addRecentSearches(String destination) {
         user.addRecentSearches(destination);
         userDao.update(user);
     }
 
+    /**
+     * Gets a list of a user's recent searches.
+     *
+     * @return the recent searches of a user
+     */
     public List<String> getRecentSearches() {
         return user.getRecentSearches();
     }
@@ -169,6 +179,11 @@ public class UserManager implements com.xepicgamerzx.hotelier.storage.hotel_mana
         return false;
     }
 
+    /**
+     * Logs a user out.
+     *
+     * @param context      the context for the database
+     */
     public void signOutLocally(Context context) {
         fw.writeData(null, "file.dat", context);
     }
