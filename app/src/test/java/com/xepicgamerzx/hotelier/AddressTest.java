@@ -23,4 +23,36 @@ public class AddressTest {
 
     }
 
+    @Test
+    public void testGetPostalCode() {
+        Address e = new AddressBuilder().setStreetName("Testing Lane").setPostalCode("M5T2Y7").setStreetNumber("123").setCity("Toronto").setProvince("ON").setLatitude(43.6532).setLongitude(-79.3832).build();
+        String actual = "M5T2Y7";
+        assertEquals(e.getPostalCode(), actual);
+
+    }
+
+    @Test
+    public void testGetStreetNumber() {
+        Address e = new AddressBuilder().setStreetName("Testing Lane").setPostalCode("M5T2Y7").setStreetNumber("123").setCity("Toronto").setProvince("ON").setLatitude(43.6532).setLongitude(-79.3832).build();
+        String actual = "123";
+        assertEquals(e.getStreetNumber(), actual);
+
+    }
+
+    @Test
+    public void testGetCity() {
+        Address e = new AddressBuilder().setStreetName("Testing Lane").setPostalCode("M5T2Y7").setStreetNumber("123").setCity("Toronto").setProvince("ON").setLatitude(43.6532).setLongitude(-79.3832).build();
+        String actual = "Toronto";
+        assertEquals(e.getCity(), actual);
+
+    }
+
+    @Test
+    public void testGetProvince() {
+        Address e = new AddressBuilder().setStreetName("Testing Lane").setPostalCode("M5T2Y7").setStreetNumber("123").setCity("Toronto").setProvince("ON").setLatitude(43.6532).setLongitude(-79.3832).build();
+        String actual = "ON";
+        assertEquals(e.getProvince(), actual);
+
+    }
+
 }
