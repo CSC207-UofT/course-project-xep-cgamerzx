@@ -136,6 +136,8 @@ public class HotelCreatorActivity extends AppCompatActivity {
                     }
                 }
                 //Set text on text view
+                text += "\nAmentities: " + stringBuilder.toString();
+                System.out.println(stringBuilder);
                 addAmenitiesBtn.setText(stringBuilder.toString());
             });
 
@@ -194,6 +196,7 @@ public class HotelCreatorActivity extends AppCompatActivity {
 
         TextView hotelDetails = hotelInfo.findViewById(R.id.hotelDetailsTxt);
         hotelDetails.append(text);
+
 
         dialogBuilder.setView(hotelInfo);
         AlertDialog dialog = dialogBuilder.create();
