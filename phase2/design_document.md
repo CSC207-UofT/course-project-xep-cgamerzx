@@ -83,13 +83,13 @@ Note that for our specific implementation, I/O functions for communicating with 
 
 Image Credit: https://developer.android.com/training/data-storage/room
 
-### Frontend MVC Design Pattern (Model View Controller)
+### Frontend MVVM Design Pattern (Model View ViewModel)
 
-![](https://miro.medium.com/max/875/1*wumdzeLMAL0xvaIhMyMZPQ.png)
+![image](https://user-images.githubusercontent.com/59676643/145311267-e9df1084-5047-4522-b510-5cf9620d83b5.png)
 
-Image Credit:https://medium.com/@jeyahariprakash/android-design-patterns-3b69e649aad6
+Image Credit:https://stackoverflow.com/questions/47914573/mvvm-design-pattern-relation-between-viewmodel-and-model
 
-When a user clicks search, a list of hotels is displayed to this. Similarly, when the user clicks a hotel, the hotel details are displayed to this. The way we are displaying this data is through the model view controller design pattern. Using data models, we initialize the data that we need for the respective views, and set getters for them. Then, in the controllers (activities, adapters etc), we can create the model objects and get the data we want from them. This makes it easy to set text fields to the data we want, without having to rely on many managers and use case classes. The "View" part of this pattern is the actual UI the user see's, which are the xml files that interact with the Java activity controllers.
+When a user clicks search, a list of hotels is displayed to this. Similarly, when the user clicks a hotel, the hotel details are displayed to this. The way we are displaying this data is through the model view controller design pattern. Using data models, we initialize the data that we need for the respective views, and set getters for them. Then, in the controllers (activities, adapters etc), we can create the view model objects and get the data we want from them. This makes it easy to set text fields to the data we want, without having to rely on many managers and use case classes. The "View" part of this pattern is the actual UI the user see's, which are the xml files that interact with the Java activity controllers.
 
 ### Singleton
 
@@ -125,7 +125,7 @@ We used unit tests extensively throughout our project, including for portions th
 ### Group Member Significant Contributions/Pull Requests
 Howard: {[#17](https://github.com/CSC207-UofT/course-project-xep-cgamerzx/pull/17)} {[#61](https://github.com/CSC207-UofT/course-project-xep-cgamerzx/pull/61)} Migration of our persistence library to Android Room as well as general work on the backend. Android Room handles all if not all of our data persistence, and plays a major role in data filtering as well.
 
-Rafee:
+Rafee: {[#68](https://github.com/CSC207-UofT/course-project-xep-cgamerzx/pull/68)} In this pull request, I worked with Wei to help implement the favorites feature. I also implemented a recent searches feature, and refactored code.
 
 Megan: {[#39](https://github.com/CSC207-UofT/course-project-xep-cgamerzx/pull/39)} **NOTE: this isn't actually my pull request because for a while I was pushing code to a branch without making any pull requests (oops!), but this pull request contains my commits**. Here I implemented our CrossManager classes which are essential to cross referencing our different entities. Indeed, we need to be able to create relationships between objects in order to store data and filter data correctly. In addition to this I was responsible for a huge part of our unit testing and documentation, which are essential elements to having clean and readable code.
 
