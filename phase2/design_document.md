@@ -85,7 +85,7 @@ Image Credit: https://developer.android.com/training/data-storage/room
 
 ### Frontend MVVM Design Pattern (Model View ViewModel)
 
-![](![image](https://user-images.githubusercontent.com/59676643/145311025-7fd88414-86c9-43da-a5ad-cc590402f481.png))
+![image](https://user-images.githubusercontent.com/59676643/145311267-e9df1084-5047-4522-b510-5cf9620d83b5.png)
 
 Image Credit:https://stackoverflow.com/questions/47914573/mvvm-design-pattern-relation-between-viewmodel-and-model
 
